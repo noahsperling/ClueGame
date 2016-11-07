@@ -20,25 +20,62 @@ public class ClueGameState extends GameState {
     private boolean canRoll[] = new boolean[numPlayers];
     //private Card cards[][] = new Card[numPlayers][7];
 
-    private int getTurnId() {
+    //getters
+    public int getTurnId() {
         return turnID;
     }
-    private int getDieValue() {
+    public int getDieValue() {
         return dieValue;
     }
-    int getSpacesMoved() {
+    public int getSpacesMoved() {
         return spacesMoved;
     }
-    int getRoom(int playerID) {
+    public int getRoom(int playerID) {
         //flesh out more
         return 1;
     }
-    String getNotes(int playerID) {
+    public String getNotes(int playerID) {
         return notes[playerID];
     }
+    public String getPlayerName(int playerID) {
+        return playerNames[playerID];
+    }
+    public boolean getCanSuggest(int playerID) {
+        return canSuggest[playerID];
+    }
+    public boolean getCanRoll(int playerID) {
+        return canRoll[playerID];
+    }
+    //public Card[] getCards(int playerID) { return cards[playerID]; }
 
-
-
+    //setters
+    public void setTurnID(int newTurnID) {
+        turnID = newTurnID;
+    }
+    public void setNumPlayers(int newNumPlayers) {
+        numPlayers = newNumPlayers;
+    }
+    public void setPlayerID(int newID, int index) {
+        playerIDs[index] = newID;
+    }
+    public void setDieValue(int newDieValue) {
+        dieValue = newDieValue;
+    }
+    public void setSpacesMoved(int newSpacesMoved) {
+        spacesMoved = newSpacesMoved;
+    }
+    public void setNotes(int index, String newNotes) {
+        notes[index] = newNotes;
+    }
+    public void setPlayerName(int index, String newName) {
+        playerNames[index] = newName;
+    }
+    public void setCanSuggest(int index, boolean newCanSuggest) {
+        canSuggest[index] = newCanSuggest;
+    }
+    public void setCanRoll(int index, boolean newCanRoll) {
+        canRoll[index] = newCanRoll;
+    }
 
 
 
