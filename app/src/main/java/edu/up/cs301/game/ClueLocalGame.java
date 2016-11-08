@@ -6,8 +6,6 @@ package edu.up.cs301.game;
 
 public class ClueLocalGame extends LocalGame {
 
-    public ClueGameState() {
-
-    }
+    ClueGameState state = new ClueGameState();
 
 }
