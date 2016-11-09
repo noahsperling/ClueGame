@@ -1,21 +1,267 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="No GUI player was created on this device."
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="The game is in progress, but play is not visible."
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="732dp"
+            android:layout_height="541dp"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="1022dp"
+                android:layout_height="104dp">
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="537dp"
+            android:layout_width="match_parent">
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="539dp">
+
+                <TextView
+                    android:text="You Are:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/playerTextView" />
+
+                <Button
+                    android:text="Button"
+                    android:layout_width="52dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/notesPopUpButton"
+                    android:layout_row="0"
+                    android:layout_column="2" />
+
+                <TextView
+                    android:text="SUSPECTS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/suspectsTextView"
+                    android:layout_row="1"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/mustardTextView"
+                    android:layout_row="2"
+                    android:layout_column="0"
+                    android:text="Colonel Mustard" />
+
+                <TextView
+                    android:text="Professor Plum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/plumTextVIew"
+                    android:layout_row="3"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:text="Mr. Green"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/greenTextView"
+                    android:layout_row="4"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:text="Mrs. Peacock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView10"
+                    android:layout_row="5"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:text="Miss Scarlet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView9"
+                    android:layout_row="6"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:text="Mrs. White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView14"
+                    android:layout_row="7"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView13"
+                    android:layout_row="8"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:text="WEAPONS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView12"
+                    android:layout_row="9"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:text="Knife"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView15"
+                    android:layout_row="10"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:text="Candlestick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView16"
+                    android:layout_row="11"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:text="Revolver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView18"
+                    android:layout_row="12"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:text="Rope"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView17"
+                    android:layout_row="13"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:text="Lead Pipe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView20"
+                    android:layout_row="14"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:text="Wrench"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView19"
+                    android:layout_row="15"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView21"
+                    android:layout_row="16"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:text="ROOMS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView22"
+                    android:layout_row="17"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:text="Hall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView23"
+                    android:layout_row="18"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:text="Lounge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView24"
+                    android:layout_row="19"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:text="Dining Room"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView26"
+                    android:layout_row="20"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:text="Kitchen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView25"
+                    android:layout_row="21"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:text="Ballroom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView29"
+                    android:layout_row="22"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:text="Conservatory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView28"
+                    android:layout_row="23"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:text="Billiard Room"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView27"
+                    android:layout_row="24"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:text="Library"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView31"
+                    android:layout_row="25"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:text="Study"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView30"
+                    android:layout_row="26"
+                    android:layout_column="0" />
+
+            </GridLayout>
+
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>
