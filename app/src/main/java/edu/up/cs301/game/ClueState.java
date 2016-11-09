@@ -6,7 +6,7 @@ import edu.up.cs301.game.infoMsg.GameState;
  * Created by Noah on 10/25/2016.
  */
 
-public class ClueGameState extends GameState {
+public class ClueState extends GameState {
 
     private int turnID;
     private int numPlayers;
@@ -24,25 +24,32 @@ public class ClueGameState extends GameState {
     public int getTurnId() {
         return turnID;
     }
+
     public int getDieValue() {
         return dieValue;
     }
+
     public int getSpacesMoved() {
         return spacesMoved;
     }
+
     public int getRoom(int playerID) {
         //flesh out more
         return 1;
     }
+
     public String getNotes(int playerID) {
         return notes[playerID];
     }
+
     public String getPlayerName(int playerID) {
         return playerNames[playerID];
     }
+
     public boolean getCanSuggest(int playerID) {
         return canSuggest[playerID];
     }
+
     public boolean getCanRoll(int playerID) {
         return canRoll[playerID];
     }
@@ -52,31 +59,36 @@ public class ClueGameState extends GameState {
     public void setTurnID(int newTurnID) {
         turnID = newTurnID;
     }
+
     public void setNumPlayers(int newNumPlayers) {
         numPlayers = newNumPlayers;
     }
+
     public void setPlayerID(int newID, int index) {
         playerIDs[index] = newID;
     }
+
     public void setDieValue(int newDieValue) {
         dieValue = newDieValue;
     }
+
     public void setSpacesMoved(int newSpacesMoved) {
         spacesMoved = newSpacesMoved;
     }
+
     public void setNotes(int index, String newNotes) {
         notes[index] = newNotes;
     }
+
     public void setPlayerName(int index, String newName) {
         playerNames[index] = newName;
     }
+
     public void setCanSuggest(int index, boolean newCanSuggest) {
         canSuggest[index] = newCanSuggest;
     }
+
     public void setCanRoll(int index, boolean newCanRoll) {
         canRoll[index] = newCanRoll;
     }
-
-
-
 }
