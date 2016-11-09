@@ -8,7 +8,7 @@ import edu.up.cs301.game.actionMsg.GameAction;
 
 public class ClueLocalGame extends LocalGame {
 
-    ClueGameState state = new ClueGameState();
+    ClueState state = new ClueState();
 
     public boolean canMove(int playerID) {
         return true;
