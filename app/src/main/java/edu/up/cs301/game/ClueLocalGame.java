@@ -1,5 +1,7 @@
 package edu.up.cs301.game;
 
+import edu.up.cs301.game.actionMsg.GameAction;
+
 /**
  * Created by Noah on 10/25/2016.
  */
@@ -8,4 +10,19 @@ public class ClueLocalGame extends LocalGame {
 
     ClueGameState state = new ClueGameState();
 
+    public boolean canMove(int playerID) {
+        return true;
+    }
+    public boolean makeMove(GameAction g) {
+        return true;
+    }
+    public boolean makeNonTurnAction() { //arguments and maybe just delete
+        return true;
+    }
+    public void sendUpdatedStateTo(GamePlayer p) {
+
+    }
+    public String checkIfGameOver() {
+        return null;
+    }
 }
