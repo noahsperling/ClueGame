@@ -9,6 +9,6 @@ public class ClueMoveLeftAction extends ClueMoveAction
 {
     public ClueMoveLeftAction(GamePlayer player)
     {
-        super(player);
+        super(player); 
     }
 }
