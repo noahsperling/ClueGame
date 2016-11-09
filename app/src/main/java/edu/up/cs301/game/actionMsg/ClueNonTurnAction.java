@@ -8,4 +8,8 @@ public class ClueNonTurnAction
 {
     public int playerID;
 
+    public ClueNonTurnAction(int playerID){
+        this.playerID = playerID;
+    }
+
 }

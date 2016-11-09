@@ -6,4 +6,8 @@ package edu.up.cs301.game.actionMsg;
 
 public class ClueWrittenNoteAction extends ClueNonTurnAction {
     public String note;
+
+    public ClueWrittenNoteAction(int playerID){
+        super(playerID);
+    }
 }
