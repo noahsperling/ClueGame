@@ -35,6 +35,14 @@ public class ClueHumanPlayer {
 
     }
 
+    public void setAsGui(GameMainActivity g) {
+
+    }
+
+    public void getTopView() {
+
+    }
+
 
 
 }
