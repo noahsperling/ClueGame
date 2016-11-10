@@ -20,8 +20,9 @@ public class ClueLocalGame extends LocalGame {
 
     public boolean makeMove(GameAction a) {
 
-        if(a instanceof ClueMoveAction)
-        return true;
+        if(a instanceof ClueMoveAction) {
+            return true;
+        }
 
     }
 
