@@ -6,6 +6,8 @@ import edu.up.cs301.game.actionMsg.ClueCheckAction;
 import edu.up.cs301.game.actionMsg.ClueShowCardAction;
 import edu.up.cs301.game.actionMsg.ClueSuggestionAction;
 
+import edu.up.cs301.game.actionMsg.ClueMoveUpAction;
+
 import static org.junit.Assert.*;
 
 /**
@@ -53,6 +55,7 @@ public class ClueLocalGameTest {
 
     @Test
     public void testCheckIfGameOver() throws Exception {
-
+        ClueLocalGame cLG = new ClueLocalGame();
+        assertTrue("Game somehow over." , cLG.checkIfGameOver() != null);
     }
 }

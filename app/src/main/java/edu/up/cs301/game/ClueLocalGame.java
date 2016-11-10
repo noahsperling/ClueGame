@@ -36,7 +36,11 @@ public class ClueLocalGame extends LocalGame {
     }
 
     public String checkIfGameOver() {
-        return null;
+        if(!state.getGameOver()) {
+            return null;
+        }else {
+            return "Game over."; //this will be updated in the future with player names
+        }
     }
 
 }
