@@ -107,7 +107,7 @@ public class ClueLocalGameTest {
         ClueLocalGame cLG = new ClueLocalGame();
         CluePlayer p1 = new CluePlayer();
         cLG.sendUpdatedStateTo(p1);
-        assertTrue(p1.getRecentState() == cLG.state);
+        assertTrue("State has not been updated",p1.getRecentState().equals(cLG.state));
 
 
     }
