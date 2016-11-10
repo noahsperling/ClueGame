@@ -28,12 +28,19 @@ public class ClueLocalGameTest {
     }
 
     @Test
-    public void testSendUpdatedStateTo() throws Exception {
+    public void testSendUpdatedStateTo() throws Exception
+    {
+        ClueLocalGame cLG = new ClueLocalGame();
+        CluePlayer p1 = new CluePlayer();
+        cLG.sendUpdatedStateTo(p1);
+        assertTrue(p1.getRecentState() == cLG.state);
 
     }
 
     @Test
-    public void testCheckIfGameOver() throws Exception {
+    public void testCheckIfGameOver() throws Exception
+    {
+
 
     }
 }

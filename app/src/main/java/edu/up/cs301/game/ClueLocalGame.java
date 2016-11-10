@@ -23,14 +23,15 @@ public class ClueLocalGame extends LocalGame {
         if(a instanceof ClueMoveAction) {
             return true;
         }
-
+        return false;
     }
 
     public boolean makeNonTurnAction(ClueNonTurnAction a) { //arguments and maybe just delete
         return true;
     }
 
-    public void sendUpdatedStateTo(GamePlayer p) {
+    public void sendUpdatedStateTo(GamePlayer p)
+    {
 
     }
 
