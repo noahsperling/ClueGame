@@ -53,6 +53,7 @@ public class ClueState extends GameState {
     public boolean getCanRoll(int playerID) {
         return canRoll[playerID];
     }
+
     //public Card[] getCards(int playerID) { return cards[playerID]; }
 
     //setters
