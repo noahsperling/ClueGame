@@ -40,6 +40,6 @@ public class ClueLocalGameTest {
     @Test
     public void testCheckIfGameOver() throws Exception {
         ClueLocalGame cLG = new ClueLocalGame();
-        assertTrue(cLG.canMove(0));
+        assertTrue("Game somehow over." , cLG.checkIfGameOver() != null);
     }
 }
