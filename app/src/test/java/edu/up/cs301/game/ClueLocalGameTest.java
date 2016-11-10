@@ -2,6 +2,10 @@ package edu.up.cs301.game;
 
 import org.junit.Test;
 
+import edu.up.cs301.game.actionMsg.ClueCheckAction;
+import edu.up.cs301.game.actionMsg.ClueShowCardAction;
+import edu.up.cs301.game.actionMsg.ClueSuggestionAction;
+
 import edu.up.cs301.game.actionMsg.ClueMoveUpAction;
 
 import static org.junit.Assert.*;
@@ -26,9 +30,21 @@ public class ClueLocalGameTest {
     @Test
     public void testMakeNonTurnAction() throws Exception {
         ClueLocalGame cLG = new ClueLocalGame();
-        ClueHumanPlayer h = new ClueHumanPlayer("", 0);
+        boolean isTurn = cLG.c.playerID == cLG.state.getTurnId();
+        if(cLG.c instanceof ClueShowCardAction){
+            Card card = ((ClueShowCardAction) cLG.c).card;
+            assertTrue(card != null);
+        }
 
-        ClueMoveUpAction a = new ClueMoveUpAction(h);
+        if(cLG.c instanceof ClueCheckAction){
+            ClueCheckAction cca = ((ClueCheckAction) cLG.c);
+            assertTrue(cca.checkbox != null);
+            assertTrue(cca.checkbox.length == 21);
+            for(boolean b: cca.checkbox){
+                assertTrue((b == true || b == false));
+            }
+        }
+        assertTrue(isTurn);
 
     }
 

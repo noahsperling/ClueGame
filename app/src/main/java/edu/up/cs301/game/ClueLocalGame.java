@@ -19,10 +19,12 @@ public class ClueLocalGame extends LocalGame {
     } //always returns true
 
     public boolean makeMove(GameAction a) {
-        if(!(a instanceof ClueMoveAction)) {
-            return false;
+
+        if(a instanceof ClueMoveAction) {
+            return true;
         }
-        return true;
+        return false;
+
     }
 
     public boolean makeNonTurnAction(ClueNonTurnAction a) { //arguments and maybe just delete
