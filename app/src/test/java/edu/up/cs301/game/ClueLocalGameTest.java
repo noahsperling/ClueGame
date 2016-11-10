@@ -7,6 +7,7 @@ import edu.up.cs301.game.actionMsg.ClueShowCardAction;
 import edu.up.cs301.game.actionMsg.ClueSuggestionAction;
 
 import edu.up.cs301.game.actionMsg.ClueMoveUpAction;
+import edu.up.cs301.game.actionMsg.ClueWrittenNoteAction;
 
 import static org.junit.Assert.*;
 
@@ -31,6 +32,7 @@ public class ClueLocalGameTest {
     public void testMakeNonTurnAction() throws Exception {
         ClueLocalGame cLG = new ClueLocalGame();
         boolean isTurn = cLG.c.playerID == cLG.state.getTurnId();
+        assertTrue(isTurn);
         if(cLG.c instanceof ClueShowCardAction){
             Card card = ((ClueShowCardAction) cLG.c).card;
             assertTrue(card != null);
@@ -44,8 +46,11 @@ public class ClueLocalGameTest {
                 assertTrue((b == true || b == false));
             }
         }
-        assertTrue(isTurn);
 
+        if(cLG.c instanceof ClueWrittenNoteAction){
+            ClueWrittenNoteAction cwna = ((ClueWrittenNoteAction) cLG.c);
+            assertTrue(cwna.note != null);
+        }
     }
 
     @Test
