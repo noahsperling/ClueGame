@@ -5,4 +5,5 @@ package edu.up.cs301.game;
  */
 public abstract class CluePlayer implements GamePlayer{
 
+    //comment
 }
