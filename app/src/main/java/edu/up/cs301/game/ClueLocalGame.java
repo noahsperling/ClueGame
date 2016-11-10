@@ -19,24 +19,26 @@ public class ClueLocalGame extends LocalGame {
     } //always returns true
 
     public boolean makeMove(GameAction a) {
-
-        if(a instanceof ClueMoveAction) {
-            return true;
+        if(!(a instanceof ClueMoveAction)) {
+            return false;
         }
-        return false;
+        return true;
     }
 
     public boolean makeNonTurnAction(ClueNonTurnAction a) { //arguments and maybe just delete
         return true;
     }
 
-    public void sendUpdatedStateTo(GamePlayer p)
-    {
+    public void sendUpdatedStateTo(GamePlayer p) {
 
     }
 
     public String checkIfGameOver() {
-        return null;
+        if(!state.getGameOver()) {
+            return null;
+        }else {
+            return "Game over."; //this will be updated in the future with player names
+        }
     }
 
 }
