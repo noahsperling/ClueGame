@@ -8,6 +8,7 @@ import edu.up.cs301.game.infoMsg.GameInfo;
 public class CluePlayer implements GamePlayer{
 
     private ClueState recentState;
+    private int playerId;
 
     public void gameSetAsGui(GameMainActivity activity)
     {
@@ -49,4 +50,8 @@ public class CluePlayer implements GamePlayer{
         return recentState;
     }
     //comment + another word
+
+    public int getPlayerId(){
+        return  playerId;
+    }
 }

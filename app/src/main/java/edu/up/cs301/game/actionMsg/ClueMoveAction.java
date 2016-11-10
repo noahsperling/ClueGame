@@ -1,5 +1,6 @@
 package edu.up.cs301.game.actionMsg;
 
+import edu.up.cs301.game.CluePlayer;
 import edu.up.cs301.game.GamePlayer;
 
 /**
@@ -12,6 +13,6 @@ public class ClueMoveAction extends GameAction
     public ClueMoveAction(GamePlayer player)
     {
         super(player);
-        playerID = (CluePlayer) player.getId();
+        playerID = ((CluePlayer) player).getPlayerId();
     }
 }

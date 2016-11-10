@@ -26,7 +26,7 @@ public class ClueLocalGameTest {
     @Test
     public void testCanMove() throws Exception {
         ClueLocalGame cLG = new ClueLocalGame();
-        assertFalse(cLG.canMove(0));
+        assertTrue(cLG.canMove(0));
     }
 
     @Test
@@ -115,6 +115,6 @@ public class ClueLocalGameTest {
     @Test
     public void testCheckIfGameOver() throws Exception {
         ClueLocalGame cLG = new ClueLocalGame();
-        assertTrue("Game somehow over." , cLG.checkIfGameOver() != null);
+        assertNull(cLG.checkIfGameOver());
     }
 }
