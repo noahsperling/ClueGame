@@ -35,6 +35,7 @@ public class ClueLocalGameTest {
         cLG.sendUpdatedStateTo(p1);
         assertTrue(p1.getRecentState() == cLG.state);
 
+        
     }
 
     @Test
