@@ -23,6 +23,7 @@ public class ClueLocalGame extends LocalGame {
         if(a instanceof ClueMoveAction) {
             return true;
         }
+        return false;
 
     }
 
