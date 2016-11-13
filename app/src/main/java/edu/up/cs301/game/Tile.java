@@ -27,6 +27,7 @@ public class Tile {
     {
         return room;
     }
+    public void setIsDoor(boolean isDoor){ this.isDoor = isDoor; }
 
     public void onDraw(Canvas c){}
 }
