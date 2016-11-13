@@ -1,5 +1,6 @@
 package edu.up.cs301.game;
 
+import edu.up.cs301.game.actionMsg.ClueMoveUpAction;
 import edu.up.cs301.game.actionMsg.GameAction;
 
 /**
@@ -14,6 +15,9 @@ public class ClueLocalGame extends LocalGame {
         return true;
     }
     public boolean makeMove(GameAction g) {
+        if(g instanceof ClueMoveUpAction) {
+
+        }
         return true;
     }
     public boolean makeNonTurnAction() { //arguments and maybe just delete
@@ -23,6 +27,11 @@ public class ClueLocalGame extends LocalGame {
 
     }
     public String checkIfGameOver() {
-        return null;
+        String winner = "";
+        if(state.getGameOver() == false) {
+            return null;
+        }else {
+            return "Game Over. " + winner +"has won the round.";
+        }
     }
 }
