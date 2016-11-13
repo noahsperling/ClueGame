@@ -1,5 +1,13 @@
 package edu.up.cs301.game;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Handler;
+//import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+
 import edu.up.cs301.game.actionMsg.GameOverAckAction;
 import edu.up.cs301.game.actionMsg.MyNameIsAction;
 import edu.up.cs301.game.actionMsg.ReadyAction;
@@ -11,14 +19,6 @@ import edu.up.cs301.game.infoMsg.TimerInfo;
 import edu.up.cs301.game.util.GameTimer;
 import edu.up.cs301.game.util.MessageBox;
 import edu.up.cs301.game.util.Tickable;
-
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.view.View;
 
 /**
  * class GameHumanPlayer

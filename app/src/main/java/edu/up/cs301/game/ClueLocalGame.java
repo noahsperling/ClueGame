@@ -14,8 +14,8 @@ public class ClueLocalGame extends LocalGame {
     public ClueLocalGame() {
         super();
     }
-
-    ClueState state = new ClueState(); // needs arguments from startup
+    int numPlayers = players.length;
+    ClueState state = new ClueState(numPlayers, playerNames, 0); // needs arguments from startup
 
     ClueNonTurnAction nonTurnAction;
     ClueMoveAction moveAction;
