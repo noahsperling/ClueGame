@@ -36,7 +36,7 @@ public class ClueLocalGame extends LocalGame {
     }
 
     public void sendUpdatedStateTo(GamePlayer p) {
-
+        p.sendInfo(new ClueState(state));
     }
 
     public String checkIfGameOver() {
