@@ -11,27 +11,38 @@ public class ClueLocalGame extends LocalGame {
 
     ClueState state = new ClueState();
 
+    ClueNonTurnAction nonTurnAction;
+    ClueMoveAction moveAction;
+
     public boolean canMove(int playerID) {
         return true;
-    }
-    public boolean makeMove(GameAction g) {
-        if(g instanceof ClueMoveUpAction) {
+    } //always returns true
 
+    public boolean makeMove(GameAction a) {
+
+        if(a instanceof ClueMoveAction) {
+            moveAction = (ClueMoveAction) a;
+            return true;
         }
+        return false;
+
+    }
+
+    public boolean makeNonTurnAction(ClueNonTurnAction a) { //arguments and maybe just delete
+        nonTurnAction = a;
         return true;
     }
-    public boolean makeNonTurnAction() { //arguments and maybe just delete
-        return true;
-    }
+
     public void sendUpdatedStateTo(GamePlayer p) {
 
     }
+
     public String checkIfGameOver() {
-        String winner = "";
-        if(state.getGameOver() == false) {
+        if(!state.getGameOver()) {
             return null;
         }else {
-            return "Game Over. " + winner +"has won the round.";
+            return "Game over."; //this will be updated in the future with player names
         }
     }
+
 }

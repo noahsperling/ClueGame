@@ -34,7 +34,19 @@ public class ClueHumanPlayer {
     public void recieveInfo(GameInfo i) {
 
     }
+     public boolean supportsGui() {
+         return true; //?
+     }
+    public boolean requiresGui() {
+        return true;
+    }
+    public void setAsGui(GameMainActivity g) {
+    }
 
+    public ClueState getRecentState()
+    {
+        return recentState;
+    }
     public void setAsGui(GameMainActivity g) {
 
     }
@@ -44,5 +56,16 @@ public class ClueHumanPlayer {
     }
 
 
+    public void start() {
+
+    }
+
+    public void sendInfo(GameInfo g) {
+
+    }
+
+    public void gameSetAsGui(GameMainActivity g) {
+
+    }
 
 }

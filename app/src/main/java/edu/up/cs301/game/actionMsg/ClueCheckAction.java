@@ -6,4 +6,8 @@ package edu.up.cs301.game.actionMsg;
 
 public class ClueCheckAction extends ClueNonTurnAction {
     public boolean[] checkbox;
+
+    public ClueCheckAction(int playerID){
+        super(playerID);
+    }
 }

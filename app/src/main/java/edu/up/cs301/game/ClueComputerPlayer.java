@@ -3,16 +3,40 @@ package edu.up.cs301.game;
 import edu.up.cs301.game.infoMsg.GameInfo;
 
 /**
- * Created by Noah on 11/8/2016.
+ * Created by sperling19 on 11/9/2016.
  */
+public class ClueComputerPlayer extends CluePlayer {
+    private int playerID;
 
-public class ClueComputerPlayer {
+    public int getID() {
+        return playerID;
+    }
 
-    protected int playerID;
-    protected String name;
+    public void setPlayerID(int newPlayerID) {
+        playerID = newPlayerID;
+    }
 
-    public void recieveInfo(GameInfo g) {
+    public void recieveInfo(GameInfo i) {
+
+    }
+    public boolean supportsGui() {
+        return true; //?
+    }
+    public boolean requiresGui() {
+        return true;
+    }
+    public void setAsGui(GameMainActivity g) {
+    }
+
+    public void start() {
 
     }
 
+    public void sendInfo(GameInfo g) {
+
+    }
+
+    public void gameSetAsGui(GameMainActivity g) {
+
+    }
 }

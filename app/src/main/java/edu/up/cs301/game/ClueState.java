@@ -18,8 +18,8 @@ public class ClueState extends GameState {
     private int boardTiles[][] = new int[22][19];
     private boolean canSuggest[] = new boolean[numPlayers];
     private boolean canRoll[] = new boolean[numPlayers];
-    private boolean gameOver;
     //private Card cards[][] = new Card[numPlayers][7];
+    private boolean gameOver = false;
 
     //getters
     public int getTurnId() {
@@ -54,6 +54,7 @@ public class ClueState extends GameState {
     public boolean getCanRoll(int playerID) {
         return canRoll[playerID];
     }
+
     //public Card[] getCards(int playerID) { return cards[playerID]; }
 
     public boolean getGameOver() {

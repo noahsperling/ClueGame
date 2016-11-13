@@ -8,4 +8,8 @@ import edu.up.cs301.game.Card;
 
 public class ClueShowCardAction extends ClueNonTurnAction{
     public Card card;
+
+    public ClueShowCardAction(int playerID){
+        super(playerID);
+    }
 }
