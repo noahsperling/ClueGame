@@ -11,7 +11,11 @@ import edu.up.cs301.game.actionMsg.GameAction;
 
 public class ClueLocalGame extends LocalGame {
 
-    ClueState state;
+    public ClueLocalGame() {
+        super();
+    }
+    int numPlayers = players.length;
+    ClueState state = new ClueState(numPlayers, playerNames, 0); // needs arguments from startup
 
     ClueNonTurnAction nonTurnAction;
     ClueMoveAction moveAction;
@@ -46,7 +50,5 @@ public class ClueLocalGame extends LocalGame {
             return "Game over."; //this will be updated in the future with player names
         }
     }
-
-
 
 }
