@@ -5,13 +5,18 @@ package edu.up.cs301.game;
  */
 
 public class Tile {
-    private int tileType;
-
-    public Tile(int tileType){
-        tileType = tileType;
+    private int tileType; //0 = hallway, 1 = room, 2 = door
+    private boolean isDoor;
+    private Card room; //A Room from the Card enum in which the tile belongs to.
+    public Tile(int tileType, boolean isDoor, Card room){
+        this.tileType = tileType;
+        this.isDoor = isDoor;
+        this.room = room;
     }
 
     public int getTileType(){
         return tileType;
     }
+    public boolean getIsDoor(){ return isDoor; }
+    public Card getRoom(){ return room; }
 }
