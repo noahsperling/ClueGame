@@ -34,7 +34,7 @@ public class ClueHumanPlayer extends CluePlayer{
     public void recieveInfo(GameInfo i) {
 
     }
-     public boolean supportsGui() {
+    public boolean supportsGui() {
          return true; //?
      }
     public boolean requiresGui() {
