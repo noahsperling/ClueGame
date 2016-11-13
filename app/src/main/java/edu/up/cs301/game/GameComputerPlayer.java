@@ -29,7 +29,7 @@ public abstract class GameComputerPlayer implements GamePlayer, Tickable {
 	 * the current game state
 	 */
 	protected Game game; // the game object
-	protected int playerNum; // which player number I am
+	protected int playerID; // which player number I am
 	protected String name; // my name
 	protected String[] allPlayerNames; // list of all player names, in ID order
 	private Handler myHandler; // the handler for this player's thread
@@ -188,7 +188,7 @@ public abstract class GameComputerPlayer implements GamePlayer, Tickable {
 					if (myInfo instanceof BindGameInfo) {
 						BindGameInfo bgs = (BindGameInfo)myInfo;
 						game = bgs.getGame(); // set our game
-						playerNum = bgs.getPlayerNum(); // set our player ID
+						playerID = bgs.getPlayerNum(); // set our player ID
 						
 						// send a message to the game with our player's name
 						game.sendAction(new MyNameIsAction(GameComputerPlayer.this, name));
