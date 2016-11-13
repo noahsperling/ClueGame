@@ -1,5 +1,6 @@
 package edu.up.cs301.game;
 
+import android.graphics.Canvas;
 import android.graphics.Point;
 
 /**
@@ -26,4 +27,6 @@ public class Tile {
     {
         return room;
     }
+
+    public void onDraw(Canvas c){}
 }
