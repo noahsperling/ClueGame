@@ -12,8 +12,8 @@ public class ClueLocalGame extends LocalGame {
 
     ClueState state = new ClueState();
 
-    ClueNonTurnAction c;
-    ClueMoveAction m;
+    ClueNonTurnAction nonTurnAction;
+    ClueMoveAction moveAction;
 
     public boolean canMove(int playerID) {
         return true;
@@ -22,7 +22,7 @@ public class ClueLocalGame extends LocalGame {
     public boolean makeMove(GameAction a) {
 
         if(a instanceof ClueMoveAction) {
-            m = (ClueMoveAction) a;
+            moveAction = (ClueMoveAction) a;
             return true;
         }
         return false;
@@ -30,7 +30,7 @@ public class ClueLocalGame extends LocalGame {
     }
 
     public boolean makeNonTurnAction(ClueNonTurnAction a) { //arguments and maybe just delete
-        c = a;
+        nonTurnAction = a;
         return true;
     }
 
