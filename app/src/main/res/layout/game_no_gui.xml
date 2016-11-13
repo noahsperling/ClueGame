@@ -14,10 +14,11 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="732dp"
+            android:layout_width="714dp"
             android:layout_height="match_parent"
             android:weightSum="1"
-            android:id="@+id/turnActionLayout">
+            android:id="@+id/turnActionLayout"
+            android:layout_weight="1.01">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -92,7 +93,7 @@
 
                 <LinearLayout
                     android:orientation="vertical"
-                    android:layout_width="390dp"
+                    android:layout_width="517dp"
                     android:layout_height="match_parent"
                     android:paddingLeft="250dp"
                     android:id="@+id/@+id/playersCardLayout">
@@ -105,7 +106,7 @@
                     android:layout_height="match_parent">
 
                     <GridLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="127dp"
                         android:layout_height="match_parent">
 
                         <Button
@@ -140,8 +141,8 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:id="@+id/noteLayout">
+            android:id="@+id/noteLayout"
+            android:layout_width="wrap_content">
 
             <GridLayout
                 android:layout_width="match_parent"
@@ -169,13 +170,6 @@
                     android:layout_column="0"
                     android:text="Colonel Mustard" />
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:id="@+id/colMustardCheckBox"
-                    android:layout_row="2"
-                    android:layout_column="4"
-                    android:layout_height="20dp" />
-
                 <TextView
                     android:text="Professor Plum"
                     android:layout_width="wrap_content"
@@ -183,13 +177,6 @@
                     android:id="@+id/plumTextVIew"
                     android:layout_row="3"
                     android:layout_column="0" />
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:id="@+id/profPlumCheckBox"
-                    android:layout_row="3"
-                    android:layout_column="4"
-                    android:layout_height="20dp" />
 
                 <TextView
                     android:text="Mr. Green"
@@ -199,13 +186,6 @@
                     android:layout_row="4"
                     android:layout_column="0" />
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:id="@+id/mrGreenCheckBox"
-                    android:layout_row="4"
-                    android:layout_column="4" />
-
                 <TextView
                     android:text="Mrs. Peacock"
                     android:layout_width="wrap_content"
@@ -213,13 +193,6 @@
                     android:id="@+id/mrsPeacockTextVIew"
                     android:layout_row="5"
                     android:layout_column="0" />
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:id="@+id/mrsPeacockCheckBox"
-                    android:layout_row="5"
-                    android:layout_column="4" />
 
                 <TextView
                     android:text="Miss Scarlet"
@@ -229,13 +202,6 @@
                     android:layout_row="6"
                     android:layout_column="0" />
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:id="@+id/missScarletCheckBox"
-                    android:layout_row="6"
-                    android:layout_column="4" />
-
                 <TextView
                     android:text="Mrs. White"
                     android:layout_width="wrap_content"
@@ -243,13 +209,6 @@
                     android:id="@+id/mrsWhiteTextView"
                     android:layout_row="7"
                     android:layout_column="0" />
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:id="@+id/mrsWhiteCheckBox"
-                    android:layout_row="7"
-                    android:layout_column="4" />
 
                 <TextView
                     android:text="WEAPONS"
@@ -267,13 +226,6 @@
                     android:layout_row="9"
                     android:layout_column="0" />
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:id="@+id/knifeCheckBox"
-                    android:layout_row="9"
-                    android:layout_column="4"
-                    android:layout_height="20dp" />
-
                 <TextView
                     android:text="Candlestick"
                     android:layout_width="wrap_content"
@@ -281,13 +233,6 @@
                     android:id="@+id/candlestickTextView"
                     android:layout_row="10"
                     android:layout_column="0" />
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:id="@+id/candlestickCheckBox"
-                    android:layout_row="10"
-                    android:layout_column="4" />
 
                 <TextView
                     android:text="Revolver"
@@ -297,13 +242,6 @@
                     android:layout_row="11"
                     android:layout_column="0" />
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:id="@+id/revolverCheckbox"
-                    android:layout_row="11"
-                    android:layout_column="4" />
-
                 <TextView
                     android:text="Rope"
                     android:layout_width="wrap_content"
@@ -311,13 +249,6 @@
                     android:id="@+id/ropeTextView"
                     android:layout_row="12"
                     android:layout_column="0" />
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:id="@+id/ropeCheckBox"
-                    android:layout_row="12"
-                    android:layout_column="4" />
 
                 <TextView
                     android:text="Lead Pipe"
@@ -327,13 +258,6 @@
                     android:layout_row="13"
                     android:layout_column="0" />
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:id="@+id/leadPipeCheckBox"
-                    android:layout_row="13"
-                    android:layout_column="4" />
-
                 <TextView
                     android:text="Wrench"
                     android:layout_width="wrap_content"
@@ -341,13 +265,6 @@
                     android:id="@+id/wrenchTextview"
                     android:layout_row="14"
                     android:layout_column="0" />
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:id="@+id/wrenchCheckBox"
-                    android:layout_row="14"
-                    android:layout_column="4" />
 
                 <TextView
                     android:text="ROOMS"
@@ -365,13 +282,6 @@
                     android:layout_row="16"
                     android:layout_column="0" />
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:id="@+id/hallCheckBox"
-                    android:layout_row="16"
-                    android:layout_column="4" />
-
                 <TextView
                     android:text="Lounge"
                     android:layout_width="wrap_content"
@@ -379,13 +289,6 @@
                     android:id="@+id/loungeTextView"
                     android:layout_row="17"
                     android:layout_column="0" />
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:id="@+id/loungeCheckBox"
-                    android:layout_row="17"
-                    android:layout_column="4" />
 
                 <TextView
                     android:text="Ball Room"
@@ -395,13 +298,6 @@
                     android:layout_row="18"
                     android:layout_column="0" />
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:id="@+id/ballRoomCheckBox"
-                    android:layout_row="18"
-                    android:layout_column="4" />
-
                 <TextView
                     android:text="Kitchen"
                     android:layout_width="wrap_content"
@@ -409,13 +305,6 @@
                     android:id="@+id/kitchenTextView"
                     android:layout_row="19"
                     android:layout_column="0" />
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:id="@+id/kitchenCheckBox"
-                    android:layout_row="19"
-                    android:layout_column="4" />
 
                 <TextView
                     android:text="Conservatory"
@@ -425,13 +314,6 @@
                     android:layout_row="20"
                     android:layout_column="0" />
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:id="@+id/conservatoryCheckBox"
-                    android:layout_row="20"
-                    android:layout_column="4" />
-
                 <TextView
                     android:text="Study"
                     android:layout_width="wrap_content"
@@ -439,13 +321,6 @@
                     android:layout_row="21"
                     android:layout_column="0"
                     android:layout_height="wrap_content" />
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:id="@+id/studyCheckBox"
-                    android:layout_row="21"
-                    android:layout_column="4" />
 
                 <TextView
                     android:text="Billiard Room"
@@ -455,13 +330,6 @@
                     android:layout_row="22"
                     android:layout_column="0" />
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:id="@+id/billiardCheckBox"
-                    android:layout_row="22"
-                    android:layout_column="4" />
-
                 <TextView
                     android:text="Dining Room"
                     android:layout_width="wrap_content"
@@ -469,13 +337,6 @@
                     android:id="@+id/diningRoomTextView"
                     android:layout_row="23"
                     android:layout_column="0" />
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:id="@+id/diningRoomCheckBox"
-                    android:layout_row="23"
-                    android:layout_column="4" />
 
                 <TextView
                     android:text="Library"
@@ -487,18 +348,158 @@
 
                 <CheckBox
                     android:layout_width="wrap_content"
+                    android:id="@+id/colMustardCheckBox"
+                    android:layout_row="2"
+                    android:layout_column="1"
+                    android:layout_height="20dp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:id="@+id/profPlumCheckBox"
+                    android:layout_row="3"
+                    android:layout_column="1"
+                    android:layout_height="20dp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:id="@+id/mrGreenCheckBox"
+                    android:layout_row="4"
+                    android:layout_column="1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:id="@+id/mrsPeacockCheckBox"
+                    android:layout_row="5"
+                    android:layout_column="1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:id="@+id/missScarletCheckBox"
+                    android:layout_row="6"
+                    android:layout_column="1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:id="@+id/mrsWhiteCheckBox"
+                    android:layout_row="7"
+                    android:layout_column="1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:id="@+id/knifeCheckBox"
+                    android:layout_row="9"
+                    android:layout_column="1"
+                    android:layout_height="20dp" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:id="@+id/candlestickCheckBox"
+                    android:layout_row="10"
+                    android:layout_column="1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:id="@+id/revolverCheckbox"
+                    android:layout_row="11"
+                    android:layout_column="1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:id="@+id/ropeCheckBox"
+                    android:layout_row="12"
+                    android:layout_column="1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:id="@+id/leadPipeCheckBox"
+                    android:layout_row="13"
+                    android:layout_column="1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:id="@+id/wrenchCheckBox"
+                    android:layout_row="14"
+                    android:layout_column="1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:id="@+id/hallCheckBox"
+                    android:layout_row="16"
+                    android:layout_column="1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:id="@+id/loungeCheckBox"
+                    android:layout_row="17"
+                    android:layout_column="1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:id="@+id/ballRoomCheckBox"
+                    android:layout_row="18"
+                    android:layout_column="1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:id="@+id/kitchenCheckBox"
+                    android:layout_row="19"
+                    android:layout_column="1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="19dp"
+                    android:id="@+id/conservatoryCheckBox"
+                    android:layout_row="20"
+                    android:layout_column="1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:id="@+id/studyCheckBox"
+                    android:layout_row="21"
+                    android:layout_column="1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:id="@+id/billiardCheckBox"
+                    android:layout_row="22"
+                    android:layout_column="1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:id="@+id/diningRoomCheckBox"
+                    android:layout_row="23"
+                    android:layout_column="1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:id="@+id/libraryCheckBox"
                     android:layout_row="24"
-                    android:layout_column="4" />
+                    android:layout_column="1" />
 
                 <Button
                     android:text="Notes"
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
                     android:id="@+id/notesPopUpButton"
-                    android:layout_row="0"
-                    android:layout_column="3" />
+                    android:layout_row="26"
+                    android:layout_column="0" />
 
             </GridLayout>
 
