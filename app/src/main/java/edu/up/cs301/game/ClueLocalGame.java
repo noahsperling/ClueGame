@@ -1,6 +1,7 @@
 package edu.up.cs301.game;
 
 import edu.up.cs301.game.actionMsg.ClueMoveAction;
+import edu.up.cs301.game.actionMsg.ClueMoveUpAction;
 import edu.up.cs301.game.actionMsg.ClueNonTurnAction;
 import edu.up.cs301.game.actionMsg.GameAction;
 
