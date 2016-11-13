@@ -47,9 +47,6 @@ public class ClueHumanPlayer {
     {
         return recentState;
     }
-    public void setAsGui(GameMainActivity g) {
-
-    }
 
     public void getTopView() {
 
