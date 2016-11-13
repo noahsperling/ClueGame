@@ -43,7 +43,7 @@ public class ClueLocalGameTest {
                     }
                 }
 
-                if (cLG.m instanceof ClueAccuseAction) {
+                if (cLG.moveAction instanceof ClueAccuseAction) {
                     ClueAccuseAction caa = (ClueAccuseAction) cLG.moveAction;
                     if (caa.person != null && caa.room != null && caa.weapon != null) {
                         assertTrue(cLG.makeMove(cLG.moveAction));
@@ -52,7 +52,7 @@ public class ClueLocalGameTest {
                     }
                 }
 
-                if (cLG.m instanceof ClueRollAction) {
+                if (cLG.moveAction instanceof ClueRollAction) {
                     ClueRollAction cra = (ClueRollAction) cLG.moveAction;
                     assertEquals(cLG.state.getCanRoll(cra.playerID), cLG.makeMove(cLG.moveAction));
                 }
@@ -95,7 +95,7 @@ public class ClueLocalGameTest {
             }
         }
 
-        if(cLG.c instanceof ClueWrittenNoteAction){
+        if(cLG.nonTurnAction instanceof ClueWrittenNoteAction){
             ClueWrittenNoteAction cwna = ((ClueWrittenNoteAction) cLG.nonTurnAction);
             assertTrue(cwna.note != null);
         }
