@@ -5,7 +5,7 @@ import edu.up.cs301.game.infoMsg.GameInfo;
 /**
  * Created by sperling19 on 11/9/2016.
  */
-public class ClueComputerPlayer extends CluePlayer {
+public class ClueComputerPlayer extends CluePlayer implements GamePlayer{
     private int playerID;
 
     public int getID() {

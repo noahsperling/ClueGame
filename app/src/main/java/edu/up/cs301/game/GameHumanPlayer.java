@@ -36,7 +36,7 @@ public abstract class GameHumanPlayer implements GamePlayer, Tickable {
 	 * instance variables
 	 */
 	protected Game game; // the game
-	protected int playerNum; // my player ID
+	protected int playerID; // my player ID
 	protected String name; // my player's name
 	protected String[] allPlayerNames; // the names of all the player
 	private Handler myHandler; // my thread's handler
@@ -243,7 +243,7 @@ public abstract class GameHumanPlayer implements GamePlayer, Tickable {
 					Log.i("GameHumanPlayer", "binding game");
 					BindGameInfo bgs = (BindGameInfo)myInfo;
 					game = bgs.getGame(); // set the game
-					playerNum = bgs.getPlayerNum(); // set our player id
+					playerID = bgs.getPlayerNum(); // set our player id
 					
 					// respond to the game, telling it our name
 					game.sendAction(new MyNameIsAction(GameHumanPlayer.this, name));
