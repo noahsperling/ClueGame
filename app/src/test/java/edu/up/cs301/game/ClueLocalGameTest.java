@@ -32,62 +32,62 @@ public class ClueLocalGameTest {
     @Test
     public void testMakeMove() throws Exception {
         ClueLocalGame cLG = new ClueLocalGame();
-        if(cLG.m != null){
-            if(cLG.state.getTurnId() == cLG.m.playerID) {
-                if (cLG.m instanceof ClueSuggestionAction) {
-                    ClueSuggestionAction csa = (ClueSuggestionAction) cLG.m;
+        if(cLG.moveAction != null){
+            if(cLG.state.getTurnId() == cLG.moveAction.playerID) {
+                if (cLG.moveAction instanceof ClueSuggestionAction) {
+                    ClueSuggestionAction csa = (ClueSuggestionAction) cLG.moveAction;
                     if (csa.person != null && csa.room != null && csa.weapon != null) {
-                        assertTrue(cLG.makeMove(cLG.m));
+                        assertTrue(cLG.makeMove(cLG.moveAction));
                     } else {
-                        assertFalse(cLG.makeMove(cLG.m));
+                        assertFalse(cLG.makeMove(cLG.moveAction));
                     }
                 }
 
                 if (cLG.m instanceof ClueAccuseAction) {
-                    ClueAccuseAction caa = (ClueAccuseAction) cLG.m;
+                    ClueAccuseAction caa = (ClueAccuseAction) cLG.moveAction;
                     if (caa.person != null && caa.room != null && caa.weapon != null) {
-                        assertTrue(cLG.makeMove(cLG.m));
+                        assertTrue(cLG.makeMove(cLG.moveAction));
                     } else {
-                        assertFalse(cLG.makeMove(cLG.m));
+                        assertFalse(cLG.makeMove(cLG.moveAction));
                     }
                 }
 
                 if (cLG.m instanceof ClueRollAction) {
-                    ClueRollAction cra = (ClueRollAction) cLG.m;
-                    assertEquals(cLG.state.getCanRoll(cra.playerID), cLG.makeMove(cLG.m));
+                    ClueRollAction cra = (ClueRollAction) cLG.moveAction;
+                    assertEquals(cLG.state.getCanRoll(cra.playerID), cLG.makeMove(cLG.moveAction));
                 }
 
-                if (cLG.m instanceof ClueMoveUpAction || cLG.m instanceof ClueMoveDownAction || cLG.m instanceof ClueMoveLeftAction || cLG.m instanceof ClueMoveRightAction) {
-                    assertEquals((cLG.state.getDieValue() - cLG.state.getSpacesMoved() >= 1), cLG.makeMove(cLG.m));
+                if (cLG.moveAction instanceof ClueMoveUpAction || cLG.moveAction instanceof ClueMoveDownAction || cLG.moveAction instanceof ClueMoveLeftAction || cLG.moveAction instanceof ClueMoveRightAction) {
+                    assertEquals((cLG.state.getDieValue() - cLG.state.getSpacesMoved() >= 1), cLG.makeMove(cLG.moveAction));
                 }
 
-                if (cLG.m instanceof ClueUsePassagewayAction) {
-                    assertEquals((cLG.state.getDieValue() - cLG.state.getSpacesMoved() == 6), cLG.makeMove(cLG.m));
+                if (cLG.moveAction instanceof ClueUsePassagewayAction) {
+                    assertEquals((cLG.state.getDieValue() - cLG.state.getSpacesMoved() == 6), cLG.makeMove(cLG.moveAction));
                 }
 
-                if (cLG.m instanceof ClueEndTurnAction) {
-                    assertTrue(cLG.makeMove(cLG.m));
+                if (cLG.moveAction instanceof ClueEndTurnAction) {
+                    assertTrue(cLG.makeMove(cLG.moveAction));
                 }
             }else{
-                assertFalse(cLG.makeMove(cLG.m));
+                assertFalse(cLG.makeMove(cLG.moveAction));
             }
         }else{
-            assertFalse(cLG.makeMove(cLG.m));
+            assertFalse(cLG.makeMove(cLG.moveAction));
         }
     }
 
     @Test
     public void testMakeNonTurnAction() throws Exception {
         ClueLocalGame cLG = new ClueLocalGame();
-        boolean isTurn = cLG.c.playerID == cLG.state.getTurnId();
+        boolean isTurn = cLG.nonTurnAction.playerID == cLG.state.getTurnId();
         assertTrue(isTurn);
-        if(cLG.c instanceof ClueShowCardAction){
-            Card card = ((ClueShowCardAction) cLG.c).card;
+        if(cLG.nonTurnAction instanceof ClueShowCardAction){
+            Card card = ((ClueShowCardAction) cLG.nonTurnAction).card;
             assertTrue(card != null);
         }
 
-        if(cLG.c instanceof ClueCheckAction){
-            ClueCheckAction cca = ((ClueCheckAction) cLG.c);
+        if(cLG.nonTurnAction instanceof ClueCheckAction){
+            ClueCheckAction cca = ((ClueCheckAction) cLG.nonTurnAction);
             assertTrue(cca.checkbox != null);
             assertTrue(cca.checkbox.length == 21);
             for(boolean b: cca.checkbox){
@@ -96,7 +96,7 @@ public class ClueLocalGameTest {
         }
 
         if(cLG.c instanceof ClueWrittenNoteAction){
-            ClueWrittenNoteAction cwna = ((ClueWrittenNoteAction) cLG.c);
+            ClueWrittenNoteAction cwna = ((ClueWrittenNoteAction) cLG.nonTurnAction);
             assertTrue(cwna.note != null);
         }
     }
