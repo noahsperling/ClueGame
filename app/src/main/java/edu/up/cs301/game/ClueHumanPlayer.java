@@ -32,7 +32,9 @@ public class ClueHumanPlayer {
     }
 
     public void recieveInfo(GameInfo i) {
-
+        if(i instanceof ClueState) {
+            recentState = new ClueState((ClueState)i);
+        }
     }
      public boolean supportsGui() {
          return true; //?

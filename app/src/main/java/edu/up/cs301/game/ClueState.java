@@ -13,13 +13,40 @@ public class ClueState extends GameState {
     private int playerIDs[] = new int[numPlayers]; //0 - 5 max
     private int dieValue;
     private int spacesMoved;
-    private String notes[];
+    private String notes[] = new String[numPlayers];
     private String playerNames[];
     private int boardTiles[][] = new int[22][19];
     private boolean canSuggest[] = new boolean[numPlayers];
     private boolean canRoll[] = new boolean[numPlayers];
     //private Card cards[][] = new Card[numPlayers][7];
     private boolean gameOver = false;
+
+    public ClueState() {
+
+    }
+
+    public ClueState(ClueState s) {
+        turnID = s.turnID;
+        numPlayers = s.getNumPlayers();
+        for(int i = 0; i < numPlayers; i++) {
+            playerIDs[i] = s.getPlayerID(i);
+            playerNames[i] = new String(s.getPlayerName(i));
+            canSuggest[i] = s.getCanSuggest(i);
+            canRoll[i] = s.getCanRoll(i);
+            notes[i] = new String(s.getNotes(i));
+            /*for(int j = 0; j < cards[i].length; j++) {
+                cards[i][j] = s.getCards(i, j);
+            }*/
+        }
+        for(int i = 0; i < boardTiles.length; i++) {
+            for(int j = 0; j < boardTiles[i].length; j++) {
+                boardTiles[i][j] = s.getBoardTile(i, j);
+            }
+        }
+        dieValue = s.getDieValue();
+        spacesMoved = s.getSpacesMoved();
+        gameOver = s.getGameOver();
+    }
 
     //getters
     public int getTurnId() {
@@ -34,9 +61,17 @@ public class ClueState extends GameState {
         return spacesMoved;
     }
 
+    public int getNumPlayers() {
+        return numPlayers;
+    }
+
     public int getRoom(int playerID) {
         //flesh out more
         return 1;
+    }
+
+    public int getPlayerID(int index) {
+        return playerIDs[index];
     }
 
     public String getNotes(int playerID) {
@@ -55,7 +90,11 @@ public class ClueState extends GameState {
         return canRoll[playerID];
     }
 
-    //public Card[] getCards(int playerID) { return cards[playerID]; }
+    public int getBoardTile(int x, int y) {
+        return boardTiles[x][y];
+    }
+
+    //public Card[] getCards(int playerID, int index) { return cards[playerID][index]; }
 
     public boolean getGameOver() {
         return gameOver;
@@ -101,4 +140,8 @@ public class ClueState extends GameState {
     public void setGameOver(boolean newGameOver) {
         gameOver = newGameOver;
     }
+
+    //public void setCards(int index, int index1, Card c) {
+        //cards[index][index1] = c;
+    //}
 }
