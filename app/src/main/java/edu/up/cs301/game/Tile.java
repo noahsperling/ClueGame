@@ -18,5 +18,8 @@ public class Tile {
         return tileType;
     }
     public boolean getIsDoor(){ return isDoor; }
-    public Card getRoom(){ return room; }
+    public Card getRoom()
+    {
+        return room;
+    }
 }
