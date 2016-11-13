@@ -57,7 +57,9 @@ public class ClueState extends GameState {
 
     //public Card[] getCards(int playerID) { return cards[playerID]; }
 
-    public boolean getGameOver() { return gameOver; }
+    public boolean getGameOver() {
+        return gameOver;
+    }
 
     //setters
     public void setTurnID(int newTurnID) {

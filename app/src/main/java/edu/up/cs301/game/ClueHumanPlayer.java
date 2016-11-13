@@ -6,7 +6,7 @@ import edu.up.cs301.game.infoMsg.GameInfo;
  * Created by Noah on 11/8/2016.
  */
 
-public class ClueHumanPlayer extends CluePlayer{
+public class ClueHumanPlayer extends CluePlayer {
 
     int playerID;
     String name; //I don't know if this is important or not, or even needs to be here
@@ -34,7 +34,7 @@ public class ClueHumanPlayer extends CluePlayer{
     public void recieveInfo(GameInfo i) {
 
     }
-     public boolean supportsGui() {
+    public boolean supportsGui() {
          return true; //?
      }
     public boolean requiresGui() {
@@ -47,6 +47,11 @@ public class ClueHumanPlayer extends CluePlayer{
     {
         return recentState;
     }
+
+    public void getTopView() {
+
+    }
+
 
     public void start() {
 
