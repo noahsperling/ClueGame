@@ -8,7 +8,7 @@ import edu.up.cs301.game.infoMsg.GameInfo;
  * Created by Noah on 11/8/2016.
  */
 
-public class ClueHumanPlayer extends GameHumanPlayer {
+public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer{
 
     int playerID;
     String name; //I don't know if this is important or not, or even needs to be here
@@ -41,7 +41,9 @@ public class ClueHumanPlayer extends GameHumanPlayer {
     }
 
     public void recieveInfo(GameInfo i) {
-
+        if(i instanceof ClueState) {
+            recentState = new ClueState((ClueState)i);
+        }
     }
 
     public void setAsGui(GameMainActivity g) {
