@@ -1,37 +1,41 @@
 package edu.up.cs301.game;
 
+import android.graphics.Color;
+
 /**
  * Created by Eric Imperio on 11/8/2016.
  */
 
 public enum Card {
-    HALL("Hall", Type.ROOM),
-    BILLIARD_ROOM("Billiard Room", Type.ROOM),
-    BALLROOM("Ballroom", Type.ROOM),
-    DINING_ROOM("Dining Room", Type.ROOM),
-    STUDY("Study", Type.ROOM),
-    CONSERVATORY("Conversatory", Type.ROOM),
-    LIBRARY("Library", Type.ROOM),
-    LOUNGE("Lounge", Type.ROOM),
-    ROPE("Rope",Type.WEAPON),
-    KNIFE("Knife",Type.WEAPON),
-    WRENCH("Wrench",Type.WEAPON),
-    LEAD_PIPE("Lead Pipe",Type.WEAPON),
-    CANDLESTICK("Candlestick",Type.WEAPON),
-    REVOLVER("Revolver",Type.WEAPON),
-    MR_GREEN("Mr. Green",Type.PERSON),
-    MRS_PEACOCK("Mrs. Peacock",Type.PERSON),
-    MRS_WHTE("Mrs. White",Type.PERSON),
-    COL_MUSTARD("COl. Mustard",Type.PERSON),
-    MISS_SCARLET("Miss Scarlet",Type.PERSON),
-    PROF_PLUM("Professor Plum",Type.PERSON);
+    HALL("Hall", Type.ROOM, Color.rgb(247,220,111)), //yellow
+    BILLIARD_ROOM("Billiard Room", Type.ROOM, Color.rgb(39,174,96)), //green
+    BALLROOM("Ballroom", Type.ROOM, Color.rgb(220,118,51)), //brown
+    DINING_ROOM("Dining Room", Type.ROOM, Color.rgb(11,44,0)),//brown
+    STUDY("Study", Type.ROOM, Color.rgb(231,76,60)), //red
+    CONSERVATORY("Conversatory", Type.ROOM, Color.rgb(39,55,70)), //black
+    LIBRARY("Library", Type.ROOM, Color.rgb(133,146,158)), //grey
+    LOUNGE("Lounge", Type.ROOM, Color.rgb(133,193,233)), //blue
+    ROPE("Rope",Type.WEAPON, Color.WHITE),
+    KNIFE("Knife",Type.WEAPON, Color.GRAY),
+    WRENCH("Wrench",Type.WEAPON, Color.DKGRAY),
+    LEAD_PIPE("Lead Pipe",Type.WEAPON, Color.LTGRAY),
+    CANDLESTICK("Candlestick",Type.WEAPON, Color.rgb(247,220,111)), //golden
+    REVOLVER("Revolver",Type.WEAPON, Color.rgb(160,64,0)), //dark brown
+    MR_GREEN("Mr. Green",Type.PERSON, Color.GREEN),
+    MRS_PEACOCK("Mrs. Peacock",Type.PERSON, Color.BLUE),
+    MRS_WHTE("Mrs. White",Type.PERSON, Color.WHITE),
+    COL_MUSTARD("COl. Mustard",Type.PERSON, Color.YELLOW),
+    MISS_SCARLET("Miss Scarlet",Type.PERSON, Color.RED),
+    PROF_PLUM("Professor Plum",Type.PERSON, Color.rgb(142,68,173)); //purple
 
     private String name;
     private Type cardType;
+    private int color;
 
-    Card(String name, Type cardType){
+    Card(String name, Type cardType, int color){
         this.name = name;
         this.cardType = cardType;
+        this.color = color;
     }
 
     public String getName(){
@@ -41,4 +45,6 @@ public enum Card {
     public Type getType(){
         return cardType;
     }
+
+    public int getColor(){ return color; }
 }
