@@ -1,12 +1,14 @@
 package edu.up.cs301.game;
 
+import android.view.View;
+
 import edu.up.cs301.game.infoMsg.GameInfo;
 
 /**
  * Created by Noah on 11/8/2016.
  */
 
-public class ClueHumanPlayer extends CluePlayer {
+public class ClueHumanPlayer extends GameHumanPlayer {
 
     int playerID;
     String name; //I don't know if this is important or not, or even needs to be here
@@ -19,8 +21,15 @@ public class ClueHumanPlayer extends CluePlayer {
     //playerTurn
     //noteView
 
-    public ClueHumanPlayer(String initName, int initID) {
+    public ClueHumanPlayer(String initName, int initID)
+    {
+        super(initName, initID);
 
+    }
+
+    @Override
+    public View getTopView() {
+        return null;
     }
 
     public int getID() {
@@ -34,22 +43,13 @@ public class ClueHumanPlayer extends CluePlayer {
     public void recieveInfo(GameInfo i) {
 
     }
-    public boolean supportsGui() {
-         return true; //?
-     }
-    public boolean requiresGui() {
-        return true;
-    }
+
     public void setAsGui(GameMainActivity g) {
     }
 
     public ClueState getRecentState()
     {
         return recentState;
-    }
-
-    public void getTopView() {
-
     }
 
 
@@ -61,7 +61,8 @@ public class ClueHumanPlayer extends CluePlayer {
 
     }
 
-    public void gameSetAsGui(GameMainActivity g) {
+    @Override
+    public void receiveInfo(GameInfo info) {
 
     }
 

@@ -5,8 +5,11 @@ import edu.up.cs301.game.infoMsg.GameInfo;
 /**
  * Created by sperling19 on 11/9/2016.
  */
-public class ClueComputerPlayer extends CluePlayer implements GamePlayer{
-    private int playerID;
+public class ClueComputerPlayer extends GameComputerPlayer implements GamePlayer{
+
+    public ClueComputerPlayer(String name){
+        super(name);
+    }
 
     public int getID() {
         return playerID;
@@ -16,27 +19,8 @@ public class ClueComputerPlayer extends CluePlayer implements GamePlayer{
         playerID = newPlayerID;
     }
 
-    public void recieveInfo(GameInfo i) {
-
-    }
-    public boolean supportsGui() {
-        return true; //?
-    }
-    public boolean requiresGui() {
-        return true;
-    }
-    public void setAsGui(GameMainActivity g) {
-    }
-
-    public void start() {
+    protected void receiveInfo(GameInfo info) {
 
     }
 
-    public void sendInfo(GameInfo g) {
-
-    }
-
-    public void gameSetAsGui(GameMainActivity g) {
-
-    }
 }
