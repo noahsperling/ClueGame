@@ -6,4 +6,8 @@ package edu.up.cs301.game;
 
 public class ComputerPlayerSmart extends ClueComputerPlayer {
     //does smart AI stuff
+
+    public ComputerPlayerSmart(String name){
+        super(name);
+    }
 }
