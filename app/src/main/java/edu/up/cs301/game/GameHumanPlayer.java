@@ -49,9 +49,12 @@ public abstract class GameHumanPlayer implements GamePlayer, Tickable {
 	 * 
 	 * @param name the name of the player
 	 */
-	public GameHumanPlayer(String name) {
+	public GameHumanPlayer(String name, int idNum) {
 		// set the name via the argument
 		this.name = name;
+
+		//set the id number
+		this.playerID = idNum;
 		
 		// mark game as not being over
 		this.gameOver = false;
