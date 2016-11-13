@@ -11,6 +11,10 @@ import edu.up.cs301.game.actionMsg.GameAction;
 
 public class ClueLocalGame extends LocalGame {
 
+    public ClueLocalGame() {
+        super();
+    }
+
     ClueState state = new ClueState(); // needs arguments from startup
 
     ClueNonTurnAction nonTurnAction;
