@@ -1,5 +1,7 @@
 package edu.up.cs301.game;
 
+import java.util.ArrayList;
+
 import edu.up.cs301.game.infoMsg.GameState;
 
 /**
@@ -10,16 +12,16 @@ public class ClueState extends GameState {
 
     private int turnID;
     private int numPlayers;
-    private int playerIDs[];// = new int[numPlayers]; //0 - 5 max
+    private int playerIDs[]; //starts at 0, then 1, 2, 3, 4, 5 if there are enough players
     private int dieValue;
     private int spacesMoved;
-    private String notes[];// = new String[numPlayers];
+    private String notes[];
     private String playerNames[];
-    private int boardTiles[][];// = new int[22][19];
-    private boolean canSuggest[];// = new boolean[numPlayers];
-    private boolean canRoll[];// = new boolean[numPlayers];
-    //private Card cards[][];// = new Card[numPlayers][7];
-    private boolean gameOver; // = false;
+    private int boardTiles[][];
+    private boolean canSuggest[];
+    private boolean canRoll[];
+    private ArrayList[] cards;
+    private boolean gameOver;
 
     public ClueState(int initNumPlayers, String initPlayerNames[], int initTurnID) {
         turnID = initTurnID;
@@ -28,7 +30,7 @@ public class ClueState extends GameState {
         playerNames = new String[numPlayers];
         canSuggest = new boolean[numPlayers];
         canRoll = new boolean[numPlayers];
-        //cards[][] = new Card[numPlayers][7];
+
         gameOver = false;
 
         for(int i = 0; i < numPlayers; i++) {
