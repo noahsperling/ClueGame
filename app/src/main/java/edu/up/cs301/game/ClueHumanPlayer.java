@@ -23,9 +23,26 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     //playerTurn
     //noteView
 
+    private ClueSurfaceView clue;
+
     public ClueHumanPlayer(String initName, int initID)
     {
+        //clue = (ClueSurfaceView)findViewById(R.id)
+
         super(initName, initID);
+
+        moveButton[0] = R.id.rightButton;
+        moveButton[1] = R.id.leftButton;
+        moveButton[2] = R.id.downButton;
+        moveButton[3] = R.id.upButton;
+
+        for (int i = 0; i < 4; i++)
+        {
+            //Set the move buttons as on click listeners
+            //Button moveBut = (Button)findViewById(moveButton[i]);
+            //moveBut.setOnClickListener(this);
+        }
+
 
     }
 
@@ -34,10 +51,10 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         //super.onCreate(savedInstanceState);
 
         //Store all the move buttons in an array
-        moveButton[0] = R.id.rightButton;
-        moveButton[1] = R.id.leftButton;
-        moveButton[2] = R.id.downButton;
-        moveButton[3] = R.id.upButton;
+        //moveButton[0] = R.id.rightButton;
+        //moveButton[1] = R.id.leftButton;
+        //moveButton[2] = R.id.downButton;
+        //moveButton[3] = R.id.upButton;
 
         for (int i = 0; i < 4; i++)
         {
