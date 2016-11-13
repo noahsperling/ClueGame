@@ -17,10 +17,11 @@ public class Hand {
         cards.add(c);
     }
 
-    public void getCards() {
+    public Card[] getCards() {
         Card tempCardArray[] = new Card[cards.size()];
         for(int i = 0; i < cards.size(); i++) {
             tempCardArray[i] = cards.get(i);
         }
+        return tempCardArray;
     }
 }
