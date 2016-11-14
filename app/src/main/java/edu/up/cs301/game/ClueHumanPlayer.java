@@ -68,6 +68,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
         super(initName, initID);
 
+        //Set boolean array to false initially!  When they are checked they will be set to true.
+        checkBoxBool = new boolean[21];
+
         upButton = (Button)myActivity.findViewById(R.id.upButton);
         upButton.setOnClickListener(this);
         upButton.setEnabled(false);
@@ -239,7 +242,93 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
     }
 
-    public void onClick(View view) {
+    public void onClick(View view)
+    {
+        //CheckBoxes
+        if (view == colonelMustardCheck)
+        {
+            checkBoxBool[0] = true;
+        }
+        else if (view == professorPlumCheck)
+        {
+            checkBoxBool[1] = true;
+        }
+        else if (view == mrGreenCheck)
+        {
+            checkBoxBool[2] = true;
+        }
+        else if (view == mrsPeacockCheck)
+        {
+            checkBoxBool[3] = true;
+        }
+        else if (view == missScarletCheck)
+        {
+            checkBoxBool[4] = true;
+        }
+        else if (view == mrsWhiteCheck)
+        {
+            checkBoxBool[5] = true;
+        }
+        else if (view == knifeCheck)
+        {
+            checkBoxBool[6] = true;
+        }
+        else if (view == candlestickCheck)
+        {
+            checkBoxBool[7] = true;
+        }
+        else if (view == revolverCheck)
+        {
+            checkBoxBool[8] = true;
+        }
+        else if (view == ropeCheck)
+        {
+            checkBoxBool[9] = true;
+        }
+        else if (view == leadPipeCheck)
+        {
+            checkBoxBool[10] = true;
+        }
+        else if (view == wrenchCheck)
+        {
+            checkBoxBool[11] = true;
+        }
+        else if (view == hallCheck)
+        {
+            checkBoxBool[12] = true;
+        }
+        else if (view == loungeCheck)
+        {
+            checkBoxBool[13] = true;
+        }
+        else if (view == diningRoomCheck)
+        {
+            checkBoxBool[14] = true;
+        }
+        else if (view == kitchenCheck)
+        {
+            checkBoxBool[15] = true;
+        }
+        else if (view == ballroomCheck)
+        {
+            checkBoxBool[16] = true;
+        }
+        else if (view == conservatoryCheck)
+        {
+            checkBoxBool[17] = true;
+        }
+        else if (view == billiardRoomCheck)
+        {
+            checkBoxBool[18] = true;
+        }
+        else if (view == libraryCheck)
+        {
+            checkBoxBool[19] = true;
+        }
+        else if (view == studyCheck)
+        {
+            checkBoxBool[20] = true;
+        }
 
     }
 }
