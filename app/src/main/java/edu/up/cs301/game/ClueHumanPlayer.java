@@ -1,5 +1,6 @@
 package edu.up.cs301.game;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,11 +24,15 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     //playerTurn
     //noteView
 
-    private ClueSurfaceView clue;
+    private ClueSurfaceView surfaceView;
+
+    private Activity myActivity;
+
+    private int layoutID;
 
     public ClueHumanPlayer(String initName, int initID)
     {
-        //clue = (ClueSurfaceView)findViewById(R.id)
+        //surfaceView = (ClueSurfaceView)findViewById(R.id); moved to setAsGui method
 
         super(initName, initID);
 
@@ -45,6 +50,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
 
     }
+
+    //why is this here if everything is in the constructor? -Noah
 
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -65,6 +72,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
 
     }
+
+
     @Override
     public View getTopView() {
         return null;
@@ -86,6 +95,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     }
 
     public void setAsGui(GameMainActivity g) {
+        myActivity = g;
+        g.setContentView(layoutID);
+        //surfaceView = (ClueSurfaceView)myActivity.findViewById(R.id.surfaceView);
     }
 
     public ClueState getRecentState()

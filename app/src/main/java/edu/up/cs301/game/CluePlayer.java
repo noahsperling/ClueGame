@@ -1,5 +1,7 @@
 package edu.up.cs301.game;
 
+import android.app.Activity;
+
 import edu.up.cs301.game.infoMsg.GameInfo;
 
 /**
@@ -8,7 +10,9 @@ import edu.up.cs301.game.infoMsg.GameInfo;
 public class CluePlayer implements GamePlayer{
 
     private ClueState recentState;
+
     private int playerId;
+
 
     public void gameSetAsGui(GameMainActivity activity)
     {
