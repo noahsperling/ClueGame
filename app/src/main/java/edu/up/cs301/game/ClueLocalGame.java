@@ -24,6 +24,7 @@ public class ClueLocalGame extends LocalGame {
         return true;
     } //always returns true
 
+    @Override
     public boolean makeMove(GameAction a) {
 
         if(a instanceof ClueMoveAction) {
@@ -39,6 +40,7 @@ public class ClueLocalGame extends LocalGame {
         return true;
     }
 
+    @Override
     public void sendUpdatedStateTo(GamePlayer p) {
         ClueState sendState = new ClueState(state);
         if(p instanceof ClueHumanPlayer) {
@@ -55,6 +57,7 @@ public class ClueLocalGame extends LocalGame {
         p.sendInfo(new ClueState(state));
     }
 
+    @Override
     public String checkIfGameOver() {
         if(!state.getGameOver()) {
             return null;

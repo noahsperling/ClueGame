@@ -40,6 +40,8 @@ public class ClueMainActivity extends GameMainActivity {
         defaultConfig.addPlayer("Dumb Computer", 1);
         defaultConfig.addPlayer("dumb Computer 2", 1);
 
+        defaultConfig.setRemoteData("Remote Player", "", 0);
+
         return defaultConfig;
     }
 
@@ -48,5 +50,6 @@ public class ClueMainActivity extends GameMainActivity {
     {
         return new ClueLocalGame();
     }
+
 
 }
