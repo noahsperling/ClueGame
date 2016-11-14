@@ -166,32 +166,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
         studyCheck = (CheckBox)myActivity.findViewById(R.id.studyCheckBox);
         studyCheck.setOnClickListener(this);
-//        noteButton = R.id.notesPopUpButton;
-//        moveButton[0] = R.id.rightButton;
-//        moveButton[1] = R.id.leftButton;
-//        moveButton[2] = R.id.downButton;
-//        moveButton[3] = R.id.upButton;
-
     }
 
-    //why is this here if everything is in the constructor? -Noah
-
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        //super.onCreate(savedInstanceState);
-        //Store all the move buttons in an array
-        //moveButton[0] = R.id.rightButton;
-        //moveButton[1] = R.id.leftButton;
-        //moveButton[2] = R.id.downButton;
-        //moveButton[3] = R.id.upButton;
-//        for (int i = 0; i < 4; i++)
-//        {
-            //Set the move buttons as on click listeners
-            //Button moveBut = (Button)findViewById(moveButton[i]);
-            //moveBut.setOnClickListener(this);
-//        }
-
-    }
 
 
     @Override
@@ -248,86 +224,128 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         if (view == colonelMustardCheck)
         {
             checkBoxBool[0] = true;
+            colonelMustardCheck.setChecked(true);
+            sendInfo(getRecentState());
         }
         else if (view == professorPlumCheck)
         {
             checkBoxBool[1] = true;
+            professorPlumCheck.setChecked(true);
+            sendInfo(getRecentState());
         }
         else if (view == mrGreenCheck)
         {
             checkBoxBool[2] = true;
+            mrGreenCheck.setChecked(true);
+            sendInfo(getRecentState());
         }
         else if (view == mrsPeacockCheck)
         {
             checkBoxBool[3] = true;
+            mrsPeacockCheck.setChecked(true);
+            sendInfo(getRecentState());
         }
         else if (view == missScarletCheck)
         {
             checkBoxBool[4] = true;
+            missScarletCheck.setChecked(true);
+            sendInfo(getRecentState());
         }
         else if (view == mrsWhiteCheck)
         {
             checkBoxBool[5] = true;
+            mrsWhiteCheck.setChecked(true);
+            sendInfo(getRecentState());
         }
         else if (view == knifeCheck)
         {
             checkBoxBool[6] = true;
+            knifeCheck.setChecked(true);
+            sendInfo(getRecentState());
         }
         else if (view == candlestickCheck)
         {
             checkBoxBool[7] = true;
+            candlestickCheck.setChecked(true);
+            sendInfo(getRecentState());
         }
         else if (view == revolverCheck)
         {
             checkBoxBool[8] = true;
+            revolverCheck.setChecked(true);
+            sendInfo(getRecentState());
         }
         else if (view == ropeCheck)
         {
             checkBoxBool[9] = true;
+            ropeCheck.setChecked(true);
+            sendInfo(getRecentState());
         }
         else if (view == leadPipeCheck)
         {
             checkBoxBool[10] = true;
+            leadPipeCheck.setChecked(true);
+            sendInfo(getRecentState());
         }
         else if (view == wrenchCheck)
         {
             checkBoxBool[11] = true;
+            wrenchCheck.setChecked(true);
+            sendInfo(getRecentState());
         }
         else if (view == hallCheck)
         {
             checkBoxBool[12] = true;
+            hallCheck.setChecked(true);
+            sendInfo(getRecentState());
         }
         else if (view == loungeCheck)
         {
             checkBoxBool[13] = true;
+            loungeCheck.setChecked(true);
+            sendInfo(getRecentState());
         }
         else if (view == diningRoomCheck)
         {
             checkBoxBool[14] = true;
+            diningRoomCheck.setChecked(true);
+            sendInfo(getRecentState());
         }
         else if (view == kitchenCheck)
         {
             checkBoxBool[15] = true;
+            kitchenCheck.setChecked(true);
+            sendInfo(getRecentState());
         }
         else if (view == ballroomCheck)
         {
             checkBoxBool[16] = true;
+            ballroomCheck.setChecked(true);
+            sendInfo(getRecentState());
         }
         else if (view == conservatoryCheck)
         {
             checkBoxBool[17] = true;
+            conservatoryCheck.setChecked(true);
+            sendInfo(getRecentState());
         }
         else if (view == billiardRoomCheck)
         {
             checkBoxBool[18] = true;
+            billiardRoomCheck.setChecked(true);
+            sendInfo(getRecentState());
         }
         else if (view == libraryCheck)
         {
             checkBoxBool[19] = true;
+            libraryCheck.setChecked(true);
+            sendInfo(getRecentState());
         }
         else if (view == studyCheck)
         {
             checkBoxBool[20] = true;
+            studyCheck.setChecked(true);
+            sendInfo(getRecentState());
         }
 
     }
