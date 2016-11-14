@@ -15,6 +15,7 @@ public enum Card {
     CONSERVATORY("Conversatory", Type.ROOM, Color.rgb(39,55,70)), //black
     LIBRARY("Library", Type.ROOM, Color.rgb(133,146,158)), //grey
     LOUNGE("Lounge", Type.ROOM, Color.rgb(133,193,233)), //blue
+    KITCHEN("Kitchen", Type.ROOM, Color.BLACK),
     ROPE("Rope",Type.WEAPON, Color.WHITE),
     KNIFE("Knife",Type.WEAPON, Color.GRAY),
     WRENCH("Wrench",Type.WEAPON, Color.DKGRAY),

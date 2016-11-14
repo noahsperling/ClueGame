@@ -193,12 +193,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         playerID = newPlayerID;
     }
 
-    public void recieveInfo(GameInfo i) {
-        if(i instanceof ClueState) {
-            recentState = new ClueState((ClueState)i);
-        }
-    }
-
     public void setAsGui(GameMainActivity g) {
         myActivity = g;
         g.setContentView(layoutID);
@@ -224,7 +218,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     @Override
     public void receiveInfo(GameInfo info)
     {
-
+        if(info instanceof ClueState) {
+            recentState = new ClueState((ClueState)info);
+        }
     }
 
     public void onClick(View view)
