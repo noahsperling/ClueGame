@@ -17,9 +17,17 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     String name; //I don't know if this is important or not, or even needs to be here
     private ClueState recentState;
     private boolean checkBoxBool[];
-    private int[] moveButton = new int[4];
+    private Button upButton;
+    private Button downButton;
+    private Button leftButton;
+    private Button rightButton;
+    private Button endTurnButton;
+    private Button suggestButton;
+    private Button accuseButton;
+
     private Button noteButton;
-    //turnButtons
+
+
     //playersHand
     //playerTurn
     //noteView
@@ -36,18 +44,43 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
         super(initName, initID);
 
-        moveButton[0] = R.id.rightButton;
-        moveButton[1] = R.id.leftButton;
-        moveButton[2] = R.id.downButton;
-        moveButton[3] = R.id.upButton;
+        upButton = (Button)myActivity.findViewById(R.id.upButton);
+        upButton.setOnClickListener(this);
+        upButton.setEnabled(false);
 
-        for (int i = 0; i < 4; i++)
-        {
-            //Set the move buttons as on click listeners
-            //Button moveBut = (Button)findViewById(moveButton[i]);
-            //moveBut.setOnClickListener(this);
-        }
+        downButton = (Button)myActivity.findViewById(R.id.downButton);
+        downButton.setOnClickListener(this);
+        downButton.setEnabled(false);
 
+        leftButton = (Button)myActivity.findViewById(R.id.leftButton);
+        leftButton.setOnClickListener(this);
+        leftButton.setEnabled(false);
+
+        rightButton = (Button)myActivity.findViewById(R.id.rightButton);
+        rightButton.setOnClickListener(this);
+        rightButton.setEnabled(false);
+
+        endTurnButton = (Button)myActivity.findViewById(R.id.endTurnButton);
+        endTurnButton.setOnClickListener(this);
+        endTurnButton.setEnabled(false);
+
+        suggestButton = (Button)myActivity.findViewById(R.id.suggestButton);
+        suggestButton.setOnClickListener(this);
+        suggestButton.setEnabled(false);
+
+        accuseButton = (Button)myActivity.findViewById(R.id.accuseButton);
+        accuseButton.setOnClickListener(this);
+        accuseButton.setEnabled(false);
+
+        noteButton = (Button)myActivity.findViewById(R.id.notesPopUpButton);
+        noteButton.setOnClickListener(this);
+        noteButton.setEnabled(true);
+
+//        noteButton = R.id.notesPopUpButton;
+//        moveButton[0] = R.id.rightButton;
+//        moveButton[1] = R.id.leftButton;
+//        moveButton[2] = R.id.downButton;
+//        moveButton[3] = R.id.upButton;
 
     }
 
@@ -56,20 +89,17 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     protected void onCreate(Bundle savedInstanceState)
     {
         //super.onCreate(savedInstanceState);
-
         //Store all the move buttons in an array
         //moveButton[0] = R.id.rightButton;
         //moveButton[1] = R.id.leftButton;
         //moveButton[2] = R.id.downButton;
         //moveButton[3] = R.id.upButton;
-
-        for (int i = 0; i < 4; i++)
-        {
+//        for (int i = 0; i < 4; i++)
+//        {
             //Set the move buttons as on click listeners
             //Button moveBut = (Button)findViewById(moveButton[i]);
             //moveBut.setOnClickListener(this);
-        }
-
+//        }
 
     }
 

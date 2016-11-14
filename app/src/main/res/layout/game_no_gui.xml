@@ -32,7 +32,7 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="134dp"
-                android:id="@+id/playerInteractionLayout"
+                android:id="@+id/a"
                 android:weightSum="1"
                 tools:layout_width="match_parent">
 
@@ -96,7 +96,7 @@
                     android:layout_width="517dp"
                     android:layout_height="match_parent"
                     android:paddingLeft="250dp"
-                    android:id="@+id/@+id/playersCardLayout">
+                    android:id="@+id/b">
 
                 </LinearLayout>
 

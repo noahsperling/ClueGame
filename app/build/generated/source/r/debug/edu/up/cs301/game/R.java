@@ -30,9 +30,10 @@ public final class R {
         public static final int purple_delete_button=0x7f020002;
     }
     public static final class id {
-        public static final int @+id/playersCardLayout=0x7f0a0018;
+        public static final int a=0x7f0a0011;
         public static final int accuseButton=0x7f0a001b;
         public static final int addPlayerButton=0x7f0a000d;
+        public static final int b=0x7f0a0018;
         public static final int ballRoomCheckBox=0x7f0a0044;
         public static final int ballRoomTextView=0x7f0a002f;
         public static final int billiardCheckBox=0x7f0a0048;
@@ -81,7 +82,6 @@ public final class R {
         public static final int notesPopUpButton=0x7f0a004b;
         public static final int overallLayout=0x7f0a000e;
         public static final int playGameButton=0x7f0a0002;
-        public static final int playerInteractionLayout=0x7f0a0011;
         public static final int playerNameEditText=0x7f0a004c;
         public static final int playerNameHeadingText=0x7f0a000b;
         public static final int playerTextView=0x7f0a001d;

@@ -115,21 +115,16 @@ public class GameConfig {
 	 * remote player to have a type that corresponds to the first player in
 	 * the available-player list. These defaults can (and probably should) be
 	 * changed by calling 'addPlayer' and 'setRemoteData'.
-	 * 
-	 * @param availTypes
-	 * 		the list of available player types (excluding the network player, which
-	 * 		is added by the constructor
-	 * @param minPlayers
+	 *  @param minPlayers
 	 * 		the minimum number of players allowed in this game
 	 * @param maxPlayers
 	 * 		the maximum number of players allowed in this game
 	 * @param gameName
-	 * 		the name of the game
+ * 		the name of the game
 	 * @param portNum
-	 * 		the port number used by this game for connecting over the network
 	 */
-	public GameConfig(ArrayList<GamePlayerType> availTypes, int minPlayers,
-			int maxPlayers, String gameName, int portNum) {
+	public GameConfig(int minPlayers,
+					  int maxPlayers, String gameName, int portNum) {
 		
 		// create an array to hold the available player types, including
 		// the "Network Player" that will be added
