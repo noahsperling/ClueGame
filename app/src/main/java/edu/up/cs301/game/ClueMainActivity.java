@@ -14,8 +14,7 @@ public class ClueMainActivity extends GameMainActivity {
     public static final int PORT_NUMBER = 6732;
 
     @Override
-    public GameConfig createDefaultConfig()
-    {
+    public GameConfig createDefaultConfig() {
         ArrayList<GamePlayerType> playerTypes = new ArrayList<GamePlayerType>();
 
         playerTypes.add(new GamePlayerType("Human Player") {
@@ -44,6 +43,7 @@ public class ClueMainActivity extends GameMainActivity {
         return defaultConfig;
     }
 
+    @Override
     public LocalGame createLocalGame()
     {
         return new ClueLocalGame();
