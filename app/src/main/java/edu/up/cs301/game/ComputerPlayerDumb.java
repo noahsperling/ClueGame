@@ -6,4 +6,7 @@ package edu.up.cs301.game;
 
 public class ComputerPlayerDumb extends ClueComputerPlayer {
 
+    public ComputerPlayerDumb(String name){
+        super(name);
+    }
 }
