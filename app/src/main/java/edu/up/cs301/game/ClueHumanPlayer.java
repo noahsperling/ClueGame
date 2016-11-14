@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 
 import edu.up.cs301.game.infoMsg.GameInfo;
 
@@ -26,6 +27,29 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     private Button accuseButton;
 
     private Button noteButton;
+
+    //Check Boxes!!
+    private CheckBox colonelMustardCheck;
+    private CheckBox professorPlumCheck;
+    private CheckBox mrGreenCheck;
+    private CheckBox mrsPeacockCheck;
+    private CheckBox missScarletCheck;
+    private CheckBox mrsWhiteCheck;
+    private CheckBox knifeCheck;
+    private CheckBox candlestickCheck;
+    private CheckBox revolverCheck;
+    private CheckBox ropeCheck;
+    private CheckBox leadPipeCheck;
+    private CheckBox wrenchCheck;
+    private CheckBox hallCheck;
+    private CheckBox loungeCheck;
+    private CheckBox diningRoomCheck;
+    private CheckBox kitchenCheck;
+    private CheckBox ballroomCheck;
+    private CheckBox conservatoryCheck;
+    private CheckBox billiardRoomCheck;
+    private CheckBox libraryCheck;
+    private CheckBox studyCheck;
 
 
     //playersHand
@@ -76,6 +100,69 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         noteButton.setOnClickListener(this);
         noteButton.setEnabled(true);
 
+        //CheckBoxes!!
+        colonelMustardCheck = (CheckBox)myActivity.findViewById(R.id.colMustardCheckBox);
+        colonelMustardCheck.setOnClickListener(this);
+
+        professorPlumCheck = (CheckBox)myActivity.findViewById(R.id.profPlumCheckBox);
+        professorPlumCheck.setOnClickListener(this);
+
+        mrGreenCheck = (CheckBox)myActivity.findViewById(R.id.mrGreenCheckBox);
+        mrGreenCheck.setOnClickListener(this);
+
+        mrsPeacockCheck = (CheckBox)myActivity.findViewById(R.id.mrsPeacockCheckBox);
+        mrsPeacockCheck.setOnClickListener(this);
+
+        missScarletCheck = (CheckBox)myActivity.findViewById(R.id.missScarletCheckBox);
+        missScarletCheck.setOnClickListener(this);
+
+        mrsWhiteCheck = (CheckBox)myActivity.findViewById(R.id.mrsWhiteCheckBox);
+        mrsWhiteCheck.setOnClickListener(this);
+
+        knifeCheck = (CheckBox)myActivity.findViewById(R.id.knifeCheckBox);
+        knifeCheck.setOnClickListener(this);
+
+        candlestickCheck = (CheckBox)myActivity.findViewById(R.id.candlestickCheckBox);
+        candlestickCheck.setOnClickListener(this);
+
+        revolverCheck = (CheckBox)myActivity.findViewById(R.id.revolverCheckbox);
+        revolverCheck.setOnClickListener(this);
+
+        ropeCheck = (CheckBox)myActivity.findViewById(R.id.ropeCheckBox);
+        ropeCheck.setOnClickListener(this);
+
+        leadPipeCheck = (CheckBox)myActivity.findViewById(R.id.leadPipeCheckBox);
+        leadPipeCheck.setOnClickListener(this);
+
+        wrenchCheck = (CheckBox)myActivity.findViewById(R.id.wrenchCheckBox);
+        wrenchCheck.setOnClickListener(this);
+
+        hallCheck = (CheckBox)myActivity.findViewById(R.id.hallCheckBox);
+        hallCheck.setOnClickListener(this);
+
+        loungeCheck = (CheckBox)myActivity.findViewById(R.id.loungeCheckBox);
+        loungeCheck.setOnClickListener(this);
+
+        diningRoomCheck = (CheckBox)myActivity.findViewById(R.id.diningRoomCheckBox);
+        diningRoomCheck.setOnClickListener(this);
+
+        kitchenCheck = (CheckBox)myActivity.findViewById(R.id.kitchenCheckBox);
+        kitchenCheck.setOnClickListener(this);
+
+        ballroomCheck = (CheckBox)myActivity.findViewById(R.id.ballRoomCheckBox);
+        ballroomCheck.setOnClickListener(this);
+
+        conservatoryCheck = (CheckBox)myActivity.findViewById(R.id.conservatoryCheckBox);
+        conservatoryCheck.setOnClickListener(this);
+
+        billiardRoomCheck = (CheckBox)myActivity.findViewById(R.id.billiardCheckBox);
+        billiardRoomCheck.setOnClickListener(this);
+
+        libraryCheck = (CheckBox)myActivity.findViewById(R.id.libraryCheckBox);
+        libraryCheck.setOnClickListener(this);
+
+        studyCheck = (CheckBox)myActivity.findViewById(R.id.studyCheckBox);
+        studyCheck.setOnClickListener(this);
 //        noteButton = R.id.notesPopUpButton;
 //        moveButton[0] = R.id.rightButton;
 //        moveButton[1] = R.id.leftButton;
