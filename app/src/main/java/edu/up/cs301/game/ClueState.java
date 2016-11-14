@@ -62,8 +62,8 @@ public class ClueState extends GameState {
         }
         checkboxes = new boolean[numPlayers][21];
         for(int i = 0; i < numPlayers; i++) {
-            for(int j = 0; j < 21; j+) {
-                checkboxes[i][j] =
+            for(int j = 0; j < 21; j++) {
+//                checkboxes[i][j] =
             }
         }
 
@@ -170,8 +170,8 @@ public class ClueState extends GameState {
         canRoll[index] = newCanRoll;
     }
 
-    public void setCheckBoxes(int playerID, int index, boolean) {
-        checkboxes[playerID][index] =
+    public void setCheckBoxes(int playerID, int index, boolean newCheckBoxes) {
+        checkboxes[playerID][index] = newCheckBoxes;
     }
 
     public void setGameOver(boolean newGameOver) {
