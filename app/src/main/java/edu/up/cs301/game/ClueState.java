@@ -20,6 +20,7 @@ public class ClueState extends GameState {
     private int boardTiles[][];
     private boolean canSuggest[];
     private boolean canRoll[];
+    private boolean checkboxes[][];
     private ArrayList[] cards;
     private boolean gameOver;
 
@@ -30,6 +31,7 @@ public class ClueState extends GameState {
         playerNames = new String[numPlayers];
         canSuggest = new boolean[numPlayers];
         canRoll = new boolean[numPlayers];
+        checkboxes = new boolean[numPlayers][21];
 
         gameOver = false;
 
@@ -39,6 +41,9 @@ public class ClueState extends GameState {
             canRoll[i] = false;
             notes[i] = "";
             playerNames[i] = new String(initPlayerNames[i]);
+            for(int j = 0; j < 21; j++) {
+                checkboxes[i][j] = false;
+            }
         }
     }
 
@@ -55,6 +60,13 @@ public class ClueState extends GameState {
                 cards[i][j] = s.getCards(i, j);
             }*/
         }
+        checkboxes = new boolean[numPlayers][21];
+        for(int i = 0; i < numPlayers; i++) {
+            for(int j = 0; j < 21; j+) {
+                checkboxes[i][j] =
+            }
+        }
+
         for(int i = 0; i < boardTiles.length; i++) {
             for(int j = 0; j < boardTiles[i].length; j++) {
                 boardTiles[i][j] = s.getBoardTile(i, j);
@@ -113,6 +125,10 @@ public class ClueState extends GameState {
 
     //public Card[] getCards(int playerID, int index) { return cards[playerID][index]; }
 
+    public boolean getCheckBox(int playerID, int index) {
+        return checkboxes[playerID][index];
+    }
+
     public boolean getGameOver() {
         return gameOver;
     }
@@ -152,6 +168,10 @@ public class ClueState extends GameState {
 
     public void setCanRoll(int index, boolean newCanRoll) {
         canRoll[index] = newCanRoll;
+    }
+
+    public void setCheckBoxes(int playerID, int index, boolean) {
+        checkboxes[playerID][index] =
     }
 
     public void setGameOver(boolean newGameOver) {

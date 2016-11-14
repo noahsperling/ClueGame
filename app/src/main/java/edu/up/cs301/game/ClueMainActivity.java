@@ -13,9 +13,11 @@ public class ClueMainActivity extends GameMainActivity {
 
     public static final int PORT_NUMBER = 6732;
 
+    @Override
     public GameConfig createDefaultConfig()
     {
         ArrayList<GamePlayerType> playerTypes = new ArrayList<GamePlayerType>();
+
         playerTypes.add(new GamePlayerType("Human Player") {
             public GamePlayer createPlayer(String name) {
                 return new ClueHumanPlayer(name, R.layout.game_no_gui);

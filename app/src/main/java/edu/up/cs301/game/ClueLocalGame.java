@@ -52,8 +52,6 @@ public class ClueLocalGame extends LocalGame {
                 }
             }
         }
-        ClueState sendState = new ClueState(state);
-        if(p.getPlayerID == )
         p.sendInfo(new ClueState(state));
     }
 
