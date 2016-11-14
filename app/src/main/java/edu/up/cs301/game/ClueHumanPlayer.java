@@ -6,6 +6,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 
+import edu.up.cs301.game.actionMsg.ClueAccuseAction;
+import edu.up.cs301.game.actionMsg.ClueCheckAction;
+import edu.up.cs301.game.actionMsg.ClueEndTurnAction;
+import edu.up.cs301.game.actionMsg.ClueMoveDownAction;
+import edu.up.cs301.game.actionMsg.ClueMoveLeftAction;
+import edu.up.cs301.game.actionMsg.ClueMoveRightAction;
+import edu.up.cs301.game.actionMsg.ClueMoveUpAction;
+import edu.up.cs301.game.actionMsg.ClueSuggestionAction;
+import edu.up.cs301.game.actionMsg.ClueWrittenNoteAction;
 import edu.up.cs301.game.infoMsg.GameInfo;
 
 /**
@@ -220,132 +229,195 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
     public void onClick(View view)
     {
+        //Move player actions
+        if (view == upButton)
+        {
+            ClueMoveUpAction up = new ClueMoveUpAction(this);
+            game.sendAction(up);
+        }
+        else if (view == downButton)
+        {
+            ClueMoveDownAction down = new ClueMoveDownAction(this);
+            game.sendAction(down);
+        }
+        else if (view == leftButton)
+        {
+            ClueMoveLeftAction left = new ClueMoveLeftAction(this);
+            game.sendAction(left);
+        }
+        else if (view == rightButton)
+        {
+            ClueMoveRightAction right = new ClueMoveRightAction(this);
+            game.sendAction(right);
+        }
+        //Non move buttons
+        else if (view == accuseButton)
+        {
+            ClueAccuseAction accuse = new ClueAccuseAction(this);
+            game.sendAction(accuse);
+        }
+        else if (view == suggestButton)
+        {
+            ClueSuggestionAction suggest = new ClueSuggestionAction(this);
+            game.sendAction(suggest);
+        }
+        else if (view == endTurnButton)
+        {
+            ClueEndTurnAction endTurn = new ClueEndTurnAction(this);
+            game.sendAction(endTurn);
+        }
+        else if (view == noteButton)
+        {
+            ClueWrittenNoteAction writtenNote = new ClueWrittenNoteAction(this);
+            game.sendAction(writtenNote);
+        }
         //CheckBoxes
-        if (view == colonelMustardCheck)
+        else if (view == colonelMustardCheck)
         {
             checkBoxBool[0] = true;
             colonelMustardCheck.setChecked(true);
-            sendInfo(getRecentState());
+            ClueCheckAction checkAct = new ClueCheckAction(this);
+            game.sendAction(checkAct);
         }
         else if (view == professorPlumCheck)
         {
             checkBoxBool[1] = true;
             professorPlumCheck.setChecked(true);
-            sendInfo(getRecentState());
+            ClueCheckAction checkAct = new ClueCheckAction(this);
+            game.sendAction(checkAct);
         }
         else if (view == mrGreenCheck)
         {
             checkBoxBool[2] = true;
             mrGreenCheck.setChecked(true);
-            sendInfo(getRecentState());
+            ClueCheckAction checkAct = new ClueCheckAction(this);
+            game.sendAction(checkAct);
         }
         else if (view == mrsPeacockCheck)
         {
             checkBoxBool[3] = true;
             mrsPeacockCheck.setChecked(true);
-            sendInfo(getRecentState());
+            ClueCheckAction checkAct = new ClueCheckAction(this);
+            game.sendAction(checkAct);
         }
         else if (view == missScarletCheck)
         {
             checkBoxBool[4] = true;
             missScarletCheck.setChecked(true);
-            sendInfo(getRecentState());
+            ClueCheckAction checkAct = new ClueCheckAction(this);
+            game.sendAction(checkAct);
         }
         else if (view == mrsWhiteCheck)
         {
             checkBoxBool[5] = true;
             mrsWhiteCheck.setChecked(true);
-            sendInfo(getRecentState());
+            ClueCheckAction checkAct = new ClueCheckAction(this);
+            game.sendAction(checkAct);
         }
         else if (view == knifeCheck)
         {
             checkBoxBool[6] = true;
             knifeCheck.setChecked(true);
-            sendInfo(getRecentState());
+            ClueCheckAction checkAct = new ClueCheckAction(this);
+            game.sendAction(checkAct);
         }
         else if (view == candlestickCheck)
         {
             checkBoxBool[7] = true;
             candlestickCheck.setChecked(true);
-            sendInfo(getRecentState());
+            ClueCheckAction checkAct = new ClueCheckAction(this);
+            game.sendAction(checkAct);
         }
         else if (view == revolverCheck)
         {
             checkBoxBool[8] = true;
             revolverCheck.setChecked(true);
-            sendInfo(getRecentState());
+            ClueCheckAction checkAct = new ClueCheckAction(this);
+            game.sendAction(checkAct);
         }
         else if (view == ropeCheck)
         {
             checkBoxBool[9] = true;
             ropeCheck.setChecked(true);
-            sendInfo(getRecentState());
+            ClueCheckAction checkAct = new ClueCheckAction(this);
+            game.sendAction(checkAct);
         }
         else if (view == leadPipeCheck)
         {
             checkBoxBool[10] = true;
             leadPipeCheck.setChecked(true);
-            sendInfo(getRecentState());
+            ClueCheckAction checkAct = new ClueCheckAction(this);
+            game.sendAction(checkAct);
         }
         else if (view == wrenchCheck)
         {
             checkBoxBool[11] = true;
             wrenchCheck.setChecked(true);
-            sendInfo(getRecentState());
+            ClueCheckAction checkAct = new ClueCheckAction(this);
+            game.sendAction(checkAct);
         }
         else if (view == hallCheck)
         {
             checkBoxBool[12] = true;
             hallCheck.setChecked(true);
-            sendInfo(getRecentState());
+            ClueCheckAction checkAct = new ClueCheckAction(this);
+            game.sendAction(checkAct);
         }
         else if (view == loungeCheck)
         {
             checkBoxBool[13] = true;
             loungeCheck.setChecked(true);
-            sendInfo(getRecentState());
+            ClueCheckAction checkAct = new ClueCheckAction(this);
+            game.sendAction(checkAct);
         }
         else if (view == diningRoomCheck)
         {
             checkBoxBool[14] = true;
             diningRoomCheck.setChecked(true);
-            sendInfo(getRecentState());
+            ClueCheckAction checkAct = new ClueCheckAction(this);
+            game.sendAction(checkAct);
         }
         else if (view == kitchenCheck)
         {
             checkBoxBool[15] = true;
             kitchenCheck.setChecked(true);
-            sendInfo(getRecentState());
+            ClueCheckAction checkAct = new ClueCheckAction(this);
+            game.sendAction(checkAct);
         }
         else if (view == ballroomCheck)
         {
             checkBoxBool[16] = true;
             ballroomCheck.setChecked(true);
-            sendInfo(getRecentState());
+            ClueCheckAction checkAct = new ClueCheckAction(this);
+            game.sendAction(checkAct);
         }
         else if (view == conservatoryCheck)
         {
             checkBoxBool[17] = true;
             conservatoryCheck.setChecked(true);
-            sendInfo(getRecentState());
+            ClueCheckAction checkAct = new ClueCheckAction(this);
+            game.sendAction(checkAct);
         }
         else if (view == billiardRoomCheck)
         {
             checkBoxBool[18] = true;
             billiardRoomCheck.setChecked(true);
-            sendInfo(getRecentState());
+            ClueCheckAction checkAct = new ClueCheckAction(this);
+            game.sendAction(checkAct);
         }
         else if (view == libraryCheck)
         {
             checkBoxBool[19] = true;
             libraryCheck.setChecked(true);
-            sendInfo(getRecentState());
+            ClueCheckAction checkAct = new ClueCheckAction(this);
+            game.sendAction(checkAct);
         }
         else if (view == studyCheck)
         {
             checkBoxBool[20] = true;
             studyCheck.setChecked(true);
-            sendInfo(getRecentState());
+            ClueCheckAction checkAct = new ClueCheckAction(this);
+            game.sendAction(checkAct);
         }
 
     }
