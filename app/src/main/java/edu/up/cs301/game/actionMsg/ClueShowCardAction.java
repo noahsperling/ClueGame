@@ -1,6 +1,7 @@
 package edu.up.cs301.game.actionMsg;
 
 import edu.up.cs301.game.Card;
+import edu.up.cs301.game.GamePlayer;
 
 /**
  * Created by Eric Imperio on 11/8/2016.
@@ -9,7 +10,7 @@ import edu.up.cs301.game.Card;
 public class ClueShowCardAction extends ClueNonTurnAction{
     public Card card;
 
-    public ClueShowCardAction(int playerID){
-        super(playerID);
+    public ClueShowCardAction(GamePlayer player){
+        super(player);
     }
 }

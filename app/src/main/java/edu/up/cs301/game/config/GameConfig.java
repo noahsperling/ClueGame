@@ -123,7 +123,7 @@ public class GameConfig {
  * 		the name of the game
 	 * @param portNum
 	 */
-	public GameConfig(int minPlayers,
+	public GameConfig(ArrayList<GamePlayerType> availTypes, int minPlayers,
 					  int maxPlayers, String gameName, int portNum) {
 		
 		// create an array to hold the available player types, including
@@ -146,7 +146,7 @@ public class GameConfig {
 		initGameConfig(availArray, minPlayers, maxPlayers, gameName, portNum);
 		
 	}// constructor
-	
+
 	/**
 	 * makes a copy of a config, but without the player information
 	 * @return
@@ -159,7 +159,7 @@ public class GameConfig {
 	/**
 	 * private version of the constructor, used to support the 'copyWithoutPlayers'
 	 * method
-	 * 
+	 *
 	 * @param availTypes
 	 * 		the list of available player types (excluding the network player, which
 	 * 		is added by the constructor
