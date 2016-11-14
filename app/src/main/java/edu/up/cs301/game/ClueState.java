@@ -1,6 +1,9 @@
 package edu.up.cs301.game;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Hashtable;
 
 import edu.up.cs301.game.infoMsg.GameState;
 
@@ -21,7 +24,10 @@ public class ClueState extends GameState {
     private boolean canSuggest[];
     private boolean canRoll[];
     private boolean checkboxes[][];
-    private ArrayList[] cards;
+    private int cardsPerHand;
+    private Hand cards[];
+    private Card solution[];
+    private ArrayList<Card> allCards;
     private boolean gameOver;
 
     public ClueState(int initNumPlayers, String initPlayerNames[], int initTurnID) {
@@ -32,6 +38,77 @@ public class ClueState extends GameState {
         canSuggest = new boolean[numPlayers];
         canRoll = new boolean[numPlayers];
         checkboxes = new boolean[numPlayers][21];
+        if(numPlayers == 3) {
+            cardsPerHand = 6;
+        }else if(numPlayers == 4) {
+            cardsPerHand = 5;
+        }else if(numPlayers == 5) {
+            cardsPerHand = 4;
+        }else if(numPlayers == 6) {
+            cardsPerHand = 3;
+        }
+
+        for(Card c: Card.values()) {
+            allCards.add(c);
+        }
+        Collections.shuffle(allCards);
+        Collections.shuffle(allCards); //a second time just to be thorough
+        boolean suspect = false;
+        boolean weapon = false;
+        boolean room = false;
+        for(int i = 0; i < 21; i++) {
+            Card temp = allCards.get(i);
+            if(!suspect && !weapon && !room) {
+                solution[0] = temp;
+                if(solution[0].getType() == Type.PERSON) {
+                    suspect = true;
+                }else if(solution[0].getType() == Type.WEAPON) {
+                    weapon = true;
+                }else if(solution[0].getType() == Type.ROOM) {
+                    room = true;
+                }
+                allCards.remove(i);
+            }else if(!suspect && !room && (temp.getType().equals(Type.PERSON) || temp.getType().equals(Type.ROOM))) {
+                solution[1] = temp;
+                if(solution[1].getType() == Type.PERSON) {
+                    suspect = true;
+                }else if(solution[1].getType() == Type.ROOM) {
+                    room = true;
+                }
+                allCards.remove(i);
+            }else if(!suspect && !weapon && (temp.getType().equals(Type.PERSON) || temp.getType().equals(Type.WEAPON))) {
+                solution[1] = temp;
+                if(solution[1].getType() == Type.PERSON) {
+                    suspect = true;
+                }else if(solution[1].getType() == Type.WEAPON) {
+                    room = true;
+                }
+                allCards.remove(i);
+            }else if(!room && !weapon && (temp.getType().equals(Type.ROOM) || temp.getType().equals(Type.WEAPON))) {
+                solution[1] = temp;
+                if(solution[1].getType() == Type.ROOM) {
+                    suspect = true;
+                }else if(solution[1].getType() == Type.WEAPON) {
+                    room = true;
+                }
+                allCards.remove(i);
+            }else if(!suspect && temp.getType().equals(Type.PERSON))  {
+                solution[2] = temp;
+                allCards.remove(i);
+                break;
+            }else if(!weapon && temp.getType().equals(Type.WEAPON)) {
+                solution[2] = temp;
+                allCards.remove(i);
+                break;
+            }else if(!room && temp.getType().equals(Type.ROOM)) {
+                solution[2] = temp;
+                allCards.remove(i);
+                break;
+            }
+        }
+        //put cards in players hands
+
+
 
         gameOver = false;
 
@@ -62,8 +139,8 @@ public class ClueState extends GameState {
         }
         checkboxes = new boolean[numPlayers][21];
         for(int i = 0; i < numPlayers; i++) {
-            for(int j = 0; j < 21; j+) {
-                checkboxes[i][j] =
+            for(int j = 0; j < 21; j++) {
+                checkboxes[i][j] = s.getCheckBox(i, j);
             }
         }
 
@@ -170,8 +247,8 @@ public class ClueState extends GameState {
         canRoll[index] = newCanRoll;
     }
 
-    public void setCheckBoxes(int playerID, int index, boolean) {
-        checkboxes[playerID][index] =
+    public void setCheckBox(int playerID, int index, boolean newVal) {
+        checkboxes[playerID][index] = newVal;
     }
 
     public void setGameOver(boolean newGameOver) {

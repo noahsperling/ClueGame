@@ -1,1 +1,10 @@
 Professor Vegdahl's TTTgame was referenced a number of times.
+
+Problem:
+    We need a way to randomize the order of Card objects in an arrayList to shuffle the deck.
+Steps Taken:
+    I looked at a post on StackOverflow by user NINCOMPOOP that suggested using
+    Collections.shuffle(ArrayList).  It remains to be seen if it wil be useful.
+    http://stackoverflow.com/questions/16112515/how-to-shuffle-an-arraylist
+Solution:
+    It compiles so it might actually work.
