@@ -40,6 +40,20 @@ public class ClueLocalGame extends LocalGame {
     }
 
     public void sendUpdatedStateTo(GamePlayer p) {
+        ClueState sendState = new ClueState(state);
+        if(p instanceof ClueHumanPlayer) {
+            ClueHumanPlayer player = (ClueHumanPlayer)p;
+            int playerCount = sendState.getNumPlayers();
+            if(player.getID() == 0) {
+                for(int i = 0; i < playerCount; i++) {
+                    if(i != player.getID()) {
+                        sendState.setNotes(i, null);
+                    }
+                }
+            }
+        }
+        ClueState sendState = new ClueState(state);
+        if(p.getPlayerID == )
         p.sendInfo(new ClueState(state));
     }
 
