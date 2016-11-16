@@ -110,6 +110,7 @@ public class ClueState extends GameState {
 
 
 
+
         gameOver = false;
 
         for(int i = 0; i < numPlayers; i++) {
