@@ -11,14 +11,16 @@ import edu.up.cs301.game.actionMsg.GameAction;
 
 public class ClueLocalGame extends LocalGame {
 
-    public ClueLocalGame() {
-        super();
-    }
-    int numPlayers = players.length;
-    ClueState state = new ClueState(numPlayers, playerNames, 0); // needs arguments from startup
-
     ClueNonTurnAction nonTurnAction;
     ClueMoveAction moveAction;
+    ClueState state;
+    int numPlayers;
+
+    public ClueLocalGame() {
+        super();
+        numPlayers = players.length;
+        state = new ClueState(numPlayers, playerNames, 0); // needs arguments from startup
+    }
 
     public boolean canMove(int playerID) {
         return true;
