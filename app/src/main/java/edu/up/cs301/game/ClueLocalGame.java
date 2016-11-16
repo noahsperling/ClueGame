@@ -33,7 +33,7 @@ public class ClueLocalGame extends LocalGame {
 
     @Override
     public boolean makeMove(GameAction a) {
-        int[][] playBoard = new int[27][27];
+        int[][] playBoard;
 
         if(a instanceof ClueMoveAction) {
             moveAction = (ClueMoveAction) a;
