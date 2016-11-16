@@ -7,10 +7,17 @@ import java.util.ArrayList;
  */
 
 public class Hand {
-    ArrayList<Card> cards;
+    private ArrayList<Card> cards;
 
     public Hand() {
         cards = new ArrayList<Card>();
+    }
+    public Hand(Hand h) {
+        cards = new ArrayList<Card>(h.getArrayListLength());
+        Card tempCards[] = h.getCards();
+        for(int i = 0; i < h.getArrayListLength(); i++) {
+            cards.add(tempCards[i]);
+        }
     }
 
     public void addCard(Card c) {
@@ -23,5 +30,8 @@ public class Hand {
             tempCardArray[i] = cards.get(i);
         }
         return tempCardArray;
+    }
+    public int getArrayListLength() {
+        return cards.size();
     }
 }

@@ -33,11 +33,21 @@ public class ClueState extends GameState {
     public ClueState(int initNumPlayers, String initPlayerNames[], int initTurnID) {
         turnID = initTurnID;
         numPlayers = initNumPlayers;
+        if(numPlayers == 3) {
+            cardsPerHand = 6;
+        }else if(numPlayers == 4) {
+            cardsPerHand = 5;
+        }else if(numPlayers == 5) {
+            cardsPerHand = 4;
+        }else {
+            cardsPerHand = 3;
+        }
         playerIDs = new int[numPlayers];
         playerNames = new String[numPlayers];
         canSuggest = new boolean[numPlayers];
         canRoll = new boolean[numPlayers];
         checkboxes = new boolean[numPlayers][21];
+        cards = new Hand[numPlayers];
         if(numPlayers == 3) {
             cardsPerHand = 6;
         }else if(numPlayers == 4) {
@@ -107,6 +117,17 @@ public class ClueState extends GameState {
             }
         }
         //put cards in players hands
+        for(int i = 0; i < numPlayers; i++) {
+            for(int j = 0; j < cardsPerHand; j++) {
+                if(allCards.size() != 0) {
+                    int index = allCards.size() - 1;
+                    cards[i].addCard(allCards.get(index));
+                    allCards.remove(index);
+                }
+            }
+        }
+
+
 
 
 
@@ -134,9 +155,11 @@ public class ClueState extends GameState {
             canSuggest[i] = s.getCanSuggest(i);
             canRoll[i] = s.getCanRoll(i);
             notes[i] = new String(s.getNotes(i));
-            /*for(int j = 0; j < cards[i].length; j++) {
-                cards[i][j] = s.getCards(i, j);
-            }*/
+            cardsPerHand = s.getCardsPerHand();
+            Card temp[] = s.cards[i].getCards();
+            for(int j = 0; j < s.cards[i].getArrayListLength(); j++) {
+                cards[j].addCard(temp[j]);
+            }
         }
         checkboxes = new boolean[numPlayers][21];
         for(int i = 0; i < numPlayers; i++) {
@@ -209,6 +232,14 @@ public class ClueState extends GameState {
 
     public boolean getGameOver() {
         return gameOver;
+    }
+
+    public Hand getCards(int index) {
+        return new Hand(cards[index]);
+    }
+
+    public int getCardsPerHand() {
+        return cardsPerHand;
     }
 
     //setters
