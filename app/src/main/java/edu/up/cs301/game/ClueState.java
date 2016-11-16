@@ -24,6 +24,7 @@ public class ClueState extends GameState {
     private boolean canSuggest[];
     private boolean canRoll[];
     private boolean checkboxes[][];
+    private int playerBoard[][];
     private int cardsPerHand;
     private Hand cards[];
     private Card solution[];
@@ -33,11 +34,21 @@ public class ClueState extends GameState {
     public ClueState(int initNumPlayers, String initPlayerNames[], int initTurnID) {
         turnID = initTurnID;
         numPlayers = initNumPlayers;
+        if(numPlayers == 3) {
+            cardsPerHand = 6;
+        }else if(numPlayers == 4) {
+            cardsPerHand = 5;
+        }else if(numPlayers == 5) {
+            cardsPerHand = 4;
+        }else {
+            cardsPerHand = 3;
+        }
         playerIDs = new int[numPlayers];
         playerNames = new String[numPlayers];
         canSuggest = new boolean[numPlayers];
         canRoll = new boolean[numPlayers];
         checkboxes = new boolean[numPlayers][21];
+        cards = new Hand[numPlayers];
         if(numPlayers == 3) {
             cardsPerHand = 6;
         }else if(numPlayers == 4) {
@@ -105,8 +116,64 @@ public class ClueState extends GameState {
                 allCards.remove(i);
                 break;
             }
+
+            //Create integer array that will keep track of where the players are
+            playerBoard = new int[27][27];
+
+            //Set every element of the array to -1 initially.  If there is not a player
+            //on a tile, it will be set to -1.
+            for (int m = 0; m < 27; m++)
+            {
+                for (int n = 0; n < 27; n++)
+                {
+                    playerBoard[m][n] = -1;
+                }
+            }
+
+            //Set each player's initial position on the board and store it in an integer array.
+            switch(initNumPlayers)
+            {
+                case 1: playerBoard[17][1] = 0; //Player 0 starts at mrs.peacocks spot on the board.
+                    break;
+                case 2: playerBoard[17][1] = 0;
+                    playerBoard[19][1] = 1;
+                    break;
+                case 3: playerBoard[17][1] = 0;
+                    playerBoard[19][1] = 1;
+                    playerBoard[24][8] = 2;
+                    break;
+                case 4: playerBoard[17][1] = 0;
+                    playerBoard[19][1] = 1;
+                    playerBoard[24][8] = 2;
+                    playerBoard[15][25] = 3;
+                    break;
+                case 5: playerBoard[17][1] = 0;
+                    playerBoard[19][1] = 1;
+                    playerBoard[24][8] = 2;
+                    playerBoard[15][25] = 3;
+                    playerBoard[10][25] = 4;
+                    break;
+                case 6: playerBoard[17][1] = 0;
+                    playerBoard[19][1] = 1;
+                    playerBoard[24][8] = 2;
+                    playerBoard[15][25] = 3;
+                    playerBoard[10][25] = 4;
+                    playerBoard[1][6] = 5;
+                    break;
+            }
         }
         //put cards in players hands
+        for(int i = 0; i < numPlayers; i++) {
+            for(int j = 0; j < cardsPerHand; j++) {
+                if(allCards.size() != 0) {
+                    int index = allCards.size() - 1;
+                    cards[i].addCard(allCards.get(index));
+                    allCards.remove(index);
+                }
+            }
+        }
+
+
 
 
 
@@ -134,9 +201,11 @@ public class ClueState extends GameState {
             canSuggest[i] = s.getCanSuggest(i);
             canRoll[i] = s.getCanRoll(i);
             notes[i] = new String(s.getNotes(i));
-            /*for(int j = 0; j < cards[i].length; j++) {
-                cards[i][j] = s.getCards(i, j);
-            }*/
+            cardsPerHand = s.getCardsPerHand();
+            Card temp[] = s.cards[i].getCards();
+            for(int j = 0; j < s.cards[i].getArrayListLength(); j++) {
+                cards[j].addCard(temp[j]);
+            }
         }
         checkboxes = new boolean[numPlayers][21];
         for(int i = 0; i < numPlayers; i++) {
@@ -156,6 +225,11 @@ public class ClueState extends GameState {
     }
 
     //getters
+    public int[][] getPlayerBoard()
+    {
+        return playerBoard;
+    }
+
     public int getTurnId() {
         return turnID;
     }
@@ -211,7 +285,31 @@ public class ClueState extends GameState {
         return gameOver;
     }
 
+    public Hand getCards(int index) {
+        return new Hand(cards[index]);
+    }
+
+    public int getCardsPerHand() {
+        return cardsPerHand;
+    }
+
     //setters
+    public void setPlayerBoard(int i, int j, int playerID)
+    {
+        for (int m = 0; m < 27; m++)
+        {
+            for (int n = 0; n < 27; n++)
+            {
+                if (playerBoard[m][n] == playerID)
+                {
+                    playerBoard[m][n] = -1;
+                    playerBoard[i][j] = playerID;
+                    break;
+                }
+            }
+        }
+    }
+
     public void setTurnID(int newTurnID) {
         turnID = newTurnID;
     }
