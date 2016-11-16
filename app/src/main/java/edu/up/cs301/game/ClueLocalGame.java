@@ -18,6 +18,11 @@ public class ClueLocalGame extends LocalGame {
 
     public ClueLocalGame() {
         super();
+    }
+
+    @Override
+    public void start(GamePlayer[] players){
+        super.start(players);
         numPlayers = players.length;
         state = new ClueState(numPlayers, playerNames, 0); // needs arguments from startup
     }
