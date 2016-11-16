@@ -77,7 +77,34 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
         super(initName, initID);
 
+        layoutID = R.layout.game_no_gui;
+
         //Set boolean array to false initially!  When they are checked they will be set to true.
+
+    }
+
+
+
+    @Override
+    public View getTopView() {
+        return null;
+    }
+
+    public int getID()
+    {
+        return playerID;
+    }
+
+    public void setPlayerID(int newPlayerID) {
+        playerID = newPlayerID;
+    }
+
+    public void setAsGui(GameMainActivity g)
+    {
+        myActivity = g;
+        g.setContentView(layoutID);
+
+        //Create all the buttons
         checkBoxBool = new boolean[21];
 
         upButton = (Button)myActivity.findViewById(R.id.upButton);
@@ -175,27 +202,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
         studyCheck = (CheckBox)myActivity.findViewById(R.id.studyCheckBox);
         studyCheck.setOnClickListener(this);
-    }
 
 
 
-    @Override
-    public View getTopView() {
-        return null;
-    }
-
-    public int getID()
-    {
-        return playerID;
-    }
-
-    public void setPlayerID(int newPlayerID) {
-        playerID = newPlayerID;
-    }
-
-    public void setAsGui(GameMainActivity g) {
-        myActivity = g;
-        g.setContentView(layoutID);
         //surfaceView = (ClueSurfaceView)myActivity.findViewById(R.id.surfaceView);
     }
 
