@@ -207,6 +207,7 @@ public class ClueState extends GameState {
                 cards[j].addCard(temp[j]);
             }
         }
+        solution = s.getSolution();
         checkboxes = new boolean[numPlayers][21];
         for(int i = 0; i < numPlayers; i++) {
             for(int j = 0; j < 21; j++) {
@@ -293,21 +294,19 @@ public class ClueState extends GameState {
         return cardsPerHand;
     }
 
+    public Card[] getSolution() {
+        Card temp[] = new Card[3];
+        temp[0] = solution[0];
+        temp[1] = solution[1];
+        temp[2] = solution[2];
+        return temp;
+    }
+
     //setters
-    public void setPlayerBoard(int i, int j, int playerID)
+    public void setPlayerBoard(int m, int n, int i, int j, int playerID)
     {
-        for (int m = 0; m < 27; m++)
-        {
-            for (int n = 0; n < 27; n++)
-            {
-                if (playerBoard[m][n] == playerID)
-                {
                     playerBoard[m][n] = -1;
                     playerBoard[i][j] = playerID;
-                    break;
-                }
-            }
-        }
     }
 
     public void setTurnID(int newTurnID) {

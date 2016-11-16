@@ -33,9 +33,31 @@ public class ClueLocalGame extends LocalGame {
 
     @Override
     public boolean makeMove(GameAction a) {
+        int[][] playBoard;
 
         if(a instanceof ClueMoveAction) {
             moveAction = (ClueMoveAction) a;
+            if (moveAction instanceof ClueMoveUpAction)
+            {
+                int x = 0; //Create current position variables
+                int y = 0;
+                int curPlayerID = ((ClueMoveAction) a).playerID;
+                playBoard = state.getPlayerBoard();
+                for (int i = 0; i < 27; i++) //Find the current position of the player
+                {
+                    for (int j = 0; j< 27; j++)
+                    {
+                        if (playBoard[i][j] == curPlayerID)
+                        {
+                            //Set the current position of the player.
+                            x = i;
+                            y = j;
+                        }
+                    }
+                }
+                state.setPlayerBoard(x, y, x, y-1, curPlayerID); //Set the new position of the player
+                //and set the old position to zero.
+            }
             return true;
         }
         return false;
