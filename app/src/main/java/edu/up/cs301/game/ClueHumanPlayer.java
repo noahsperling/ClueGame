@@ -200,28 +200,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         studyCheck.setOnClickListener(this);
     }
 
-
-
-    @Override
-    public View getTopView() {
-        return null;
-    }
-
-    public int getID()
-    {
-        return playerID;
-    }
-
-    public void setPlayerID(int newPlayerID) {
-        playerID = newPlayerID;
-    }
-
-    public void setAsGui(GameMainActivity g) {
-        myActivity = g;
-        g.setContentView(layoutID);
-        //surfaceView = (ClueSurfaceView)myActivity.findViewById(R.id.surfaceView);
-    }
-
     public ClueState getRecentState()
     {
         return recentState;

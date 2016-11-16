@@ -49,15 +49,10 @@ public class ClueState extends GameState {
         canRoll = new boolean[numPlayers];
         checkboxes = new boolean[numPlayers][21];
         cards = new Hand[numPlayers];
-        if(numPlayers == 3) {
-            cardsPerHand = 6;
-        }else if(numPlayers == 4) {
-            cardsPerHand = 5;
-        }else if(numPlayers == 5) {
-            cardsPerHand = 4;
-        }else if(numPlayers == 6) {
-            cardsPerHand = 3;
+        for(int i =0; i<numPlayers;i++){
+            cards[i] = new Hand();
         }
+        notes = new String[numPlayers];
 
         for(Card c: Card.values()) {
             allCards.add(c);
@@ -162,6 +157,7 @@ public class ClueState extends GameState {
                     break;
             }
         }
+
         //put cards in players hands
         for(int i = 0; i < numPlayers; i++) {
             for(int j = 0; j < cardsPerHand; j++) {
@@ -175,9 +171,6 @@ public class ClueState extends GameState {
 
 
 
-
-
-
         gameOver = false;
 
         for(int i = 0; i < numPlayers; i++) {
@@ -185,7 +178,7 @@ public class ClueState extends GameState {
             canSuggest[i] = false;
             canRoll[i] = false;
             notes[i] = "";
-            playerNames[i] = new String(initPlayerNames[i]);
+            playerNames[i] = initPlayerNames[i];
             for(int j = 0; j < 21; j++) {
                 checkboxes[i][j] = false;
             }
