@@ -24,6 +24,7 @@ public class ClueState extends GameState {
     private boolean canSuggest[];
     private boolean canRoll[];
     private boolean checkboxes[][];
+    private int playerBoard[][];
     private int cardsPerHand;
     private Hand cards[];
     private Card solution[];
@@ -104,6 +105,51 @@ public class ClueState extends GameState {
                 solution[2] = temp;
                 allCards.remove(i);
                 break;
+            }
+
+            //Create integer array that will keep track of where the players are
+            playerBoard = new int[27][27];
+
+            //Set every element of the array to -1 initially.  If there is not a player
+            //on a tile, it will be set to -1.
+            for (int m = 0; m < 27; m++)
+            {
+                for (int n = 0; n < 27; n++)
+                {
+                    playerBoard[m][n] = -1;
+                }
+            }
+
+            //Set each player's initial position on the board and store it in an integer array.
+            switch(initNumPlayers)
+            {
+                case 1: playerBoard[17][1] = 0; //Player 0 starts at mrs.peacocks spot on the board.
+                    break;
+                case 2: playerBoard[17][1] = 0;
+                    playerBoard[19][1] = 1;
+                    break;
+                case 3: playerBoard[17][1] = 0;
+                    playerBoard[19][1] = 1;
+                    playerBoard[24][8] = 2;
+                    break;
+                case 4: playerBoard[17][1] = 0;
+                    playerBoard[19][1] = 1;
+                    playerBoard[24][8] = 2;
+                    playerBoard[15][25] = 3;
+                    break;
+                case 5: playerBoard[17][1] = 0;
+                    playerBoard[19][1] = 1;
+                    playerBoard[24][8] = 2;
+                    playerBoard[15][25] = 3;
+                    playerBoard[10][25] = 4;
+                    break;
+                case 6: playerBoard[17][1] = 0;
+                    playerBoard[19][1] = 1;
+                    playerBoard[24][8] = 2;
+                    playerBoard[15][25] = 3;
+                    playerBoard[10][25] = 4;
+                    playerBoard[1][6] = 5;
+                    break;
             }
         }
         //put cards in players hands
