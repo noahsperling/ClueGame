@@ -27,8 +27,8 @@ public class ClueState extends GameState {
     private int playerBoard[][];
     private int cardsPerHand;
     private Hand cards[];
-    private Card solution[];
-    private ArrayList<Card> allCards;
+    private Card solution[] = new Card[3];
+    private ArrayList<Card> allCards = new ArrayList<Card>();
     private boolean gameOver;
 
     public ClueState(int initNumPlayers, String initPlayerNames[], int initTurnID) {
