@@ -303,20 +303,10 @@ public class ClueState extends GameState {
     }
 
     //setters
-    public void setPlayerBoard(int i, int j, int playerID)
+    public void setPlayerBoard(int m, int n, int i, int j, int playerID)
     {
-        for (int m = 0; m < 27; m++)
-        {
-            for (int n = 0; n < 27; n++)
-            {
-                if (playerBoard[m][n] == playerID)
-                {
                     playerBoard[m][n] = -1;
                     playerBoard[i][j] = playerID;
-                    break;
-                }
-            }
-        }
     }
 
     public void setTurnID(int newTurnID) {
