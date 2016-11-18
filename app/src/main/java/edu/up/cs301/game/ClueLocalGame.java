@@ -77,6 +77,7 @@ public class ClueLocalGame extends LocalGame {
     @Override
     public boolean makeMove(GameAction a) {
         int[][] playBoard;
+        Tile[][] curBoard;
 
         if(a instanceof ClueMoveAction) {
             moveAction = (ClueMoveAction) a;
@@ -87,7 +88,8 @@ public class ClueLocalGame extends LocalGame {
             int y = 0;
             int curPlayerID = ((ClueMoveAction) a).playerID; //The ID of the player who made the action
             CluePlayer player = (CluePlayer)a.getPlayer();
-            playBoard = state.getPlayerBoard(); //Get the current board so we know where all the players are
+            playBoard = state.getPlayerBoard(); //Get the current player board so we know where all the players are
+            curBoard = (state.getBoard()).getBoardArr(); //Get the current board w/tiles
 
             //Set x and y:
             for (int i = 0; i < 27; i++) //Find the current position of the player
@@ -122,25 +124,37 @@ public class ClueLocalGame extends LocalGame {
                 {
                     if (moveAction instanceof ClueMoveUpAction)
                     {
-                        state.setPlayerBoard(x, y, x, y - 1, curPlayerID);
-                        state.setSpacesMoved(state.getSpacesMoved() + 1);
+                        if (playBoard[x][y-1] == -1 && curBoard[x][y-1].getTileType() == 0)
+                        {
+                            state.setPlayerBoard(x, y, x, y - 1, curPlayerID);
+                            state.setSpacesMoved(state.getSpacesMoved() + 1);
+                        }
                         //Set the new position of the player
                         //and set the old position to zero.
                     }
                     else if (moveAction instanceof ClueMoveDownAction)
                     {
-                        state.setPlayerBoard(x, y, x, y + 1, curPlayerID);
-                        state.setSpacesMoved(state.getSpacesMoved() + 1);
+                        if (playBoard[x][y+1] == -1 && curBoard[x][y+1].getTileType() == 0)
+                        {
+                            state.setPlayerBoard(x, y, x, y + 1, curPlayerID);
+                            state.setSpacesMoved(state.getSpacesMoved() + 1);
+                        }
                     }
                     else if (moveAction instanceof ClueMoveRightAction)
                     {
-                        state.setPlayerBoard(x, y, x + 1, y, curPlayerID);
-                        state.setSpacesMoved(state.getSpacesMoved() + 1);
+                        if (playBoard[x+1][y] == -1 && curBoard[x+1][y].getTileType() == 0)
+                        {
+                            state.setPlayerBoard(x, y, x + 1, y, curPlayerID);
+                            state.setSpacesMoved(state.getSpacesMoved() + 1);
+                        }
                     }
                     else if (moveAction instanceof ClueMoveLeftAction)
                     {
-                        state.setPlayerBoard(x, y, x - 1, y, curPlayerID);
-                        state.setSpacesMoved(state.getSpacesMoved() + 1);
+                        if (playBoard[x-1][y] == -1 && curBoard[x-1][y].getTileType() == 0)
+                        {
+                            state.setPlayerBoard(x, y, x - 1, y, curPlayerID);
+                            state.setSpacesMoved(state.getSpacesMoved() + 1);
+                        }
                     }
                 }
                 else if (moveAction instanceof ClueAccuseAction)

@@ -212,4 +212,9 @@ public class Board {
             }
         }
     }
+
+    public Tile[][] getBoardArr()
+    {
+        return board;
+    }
 }
