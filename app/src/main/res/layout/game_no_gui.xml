@@ -26,6 +26,10 @@
                 android:layout_height="505dp"
                 android:id="@+id/boardLayout">
 
+                <edu.up.cs301.game.ClueSurfaceView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/surfaceView" />
             </LinearLayout>
 
             <LinearLayout

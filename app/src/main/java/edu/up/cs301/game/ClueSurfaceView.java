@@ -1,6 +1,8 @@
 package edu.up.cs301.game;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.util.AttributeSet;
 import android.view.SurfaceView;
 
 /**
@@ -8,8 +10,13 @@ import android.view.SurfaceView;
  */
 public class ClueSurfaceView extends SurfaceView
 {
+
     public ClueSurfaceView(Context context)
     {
         super(context);
+    }
+
+    public void onDraw(Canvas canvas){
+
     }
 }
