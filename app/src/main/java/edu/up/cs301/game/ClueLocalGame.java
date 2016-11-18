@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import edu.up.cs301.game.actionMsg.ClueAccuseAction;
+import edu.up.cs301.game.actionMsg.ClueCheckAction;
 import edu.up.cs301.game.actionMsg.ClueEndTurnAction;
 import edu.up.cs301.game.actionMsg.ClueMoveAction;
 import edu.up.cs301.game.actionMsg.ClueMoveDownAction;
@@ -13,8 +14,10 @@ import edu.up.cs301.game.actionMsg.ClueMoveRightAction;
 import edu.up.cs301.game.actionMsg.ClueMoveUpAction;
 import edu.up.cs301.game.actionMsg.ClueNonTurnAction;
 import edu.up.cs301.game.actionMsg.ClueRollAction;
+import edu.up.cs301.game.actionMsg.ClueShowCardAction;
 import edu.up.cs301.game.actionMsg.ClueSuggestionAction;
 import edu.up.cs301.game.actionMsg.ClueUsePassagewayAction;
+import edu.up.cs301.game.actionMsg.ClueWrittenNoteAction;
 import edu.up.cs301.game.actionMsg.GameAction;
 import edu.up.cs301.game.config.GamePlayerType;
 
@@ -154,17 +157,43 @@ public class ClueLocalGame extends LocalGame {
                 }
                 else if (moveAction instanceof ClueEndTurnAction)
                 {
-
+                    //Change the turnID to the next player.
+                    if (state.getTurnId() == 5)
+                    {
+                        state.setTurnID(0);
+                    }
+                    else
+                    {
+                        state.setTurnID(state.getTurnId() + 1);
+                    }
                 }
             }
             return true;
+        }
+        else
+        {
+            makeNonTurnAction((ClueNonTurnAction)a);
         }
         return false;
 
     }
 
-    public boolean makeNonTurnAction(ClueNonTurnAction a) { //arguments and maybe just delete
+    public boolean makeNonTurnAction(ClueNonTurnAction a)
+    { //arguments and maybe just delete
         nonTurnAction = a;
+
+        if (nonTurnAction instanceof ClueWrittenNoteAction)
+        {
+
+        }
+        else if (nonTurnAction instanceof ClueCheckAction)
+        {
+            return true;
+        }
+        else if (nonTurnAction instanceof ClueShowCardAction)
+        {
+
+        }
         return true;
     }
 

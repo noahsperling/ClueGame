@@ -230,6 +230,11 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     public void onClick(View view)
     {
         //Move player actions
+        if (game == null)
+        {
+            return;
+        }
+
         if (view == upButton)
         {
             ClueMoveUpAction up = new ClueMoveUpAction(this);
