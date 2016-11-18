@@ -9,7 +9,7 @@ import android.graphics.Point;
 
 public class Board {
     private Tile[][] board = new Tile[27][27];
-    private static int TILE_SIZE = 10;
+    public static int TILE_SIZE = 10;
 
     public Board(){
         for(int i = 0; i <27; i++){
@@ -71,11 +71,11 @@ public class Board {
         //Library
         for (int i = 1; i<7; i++){
             for(int j = 7; j<12; j++){
-                board[j][8] = new Tile(1,false,Card.LIBRARY,new Point(j*TILE_SIZE,i*TILE_SIZE));
+                board[j][i] = new Tile(1,false,Card.LIBRARY,new Point(j*TILE_SIZE,i*TILE_SIZE));
             }
         }
         board[8][7] = new Tile(1,false,Card.LIBRARY,new Point(8*TILE_SIZE,7*TILE_SIZE));
-        board[9][7].setIsDoor(true);
+        board[9][7] = new Tile(1,true,Card.LIBRARY,new Point(9*TILE_SIZE,7*TILE_SIZE));
         board[10][7] = new Tile(1,false,Card.LIBRARY,new Point(10*TILE_SIZE,7*TILE_SIZE));
         board[11][4].setIsDoor(true);
         board[11][7] = new Tile(0,false,null,new Point(11*TILE_SIZE,7*TILE_SIZE));
@@ -204,6 +204,10 @@ public class Board {
     }
 
     public void onDraw(Canvas c){
-
+        for (int i = 0; i<27; i++){
+            for(int j = 0; j<27;j++){
+                board[j][i].onDraw(c);
+            }
+        }
     }
 }

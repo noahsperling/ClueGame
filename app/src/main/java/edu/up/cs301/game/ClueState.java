@@ -30,6 +30,7 @@ public class ClueState extends GameState {
     private Card solution[] = new Card[3];
     private ArrayList<Card> allCards = new ArrayList<Card>();
     private boolean gameOver;
+    private Board board;
 
     public ClueState(int initNumPlayers, String initPlayerNames[], int initTurnID) {
         turnID = initTurnID;
@@ -183,6 +184,8 @@ public class ClueState extends GameState {
                 checkboxes[i][j] = false;
             }
         }
+
+        board = new Board();
     }
 
     public ClueState(ClueState s) {
@@ -216,6 +219,7 @@ public class ClueState extends GameState {
         dieValue = s.getDieValue();
         spacesMoved = s.getSpacesMoved();
         gameOver = s.getGameOver();
+        board = s.getBoard();
     }
 
     //getters
@@ -286,6 +290,8 @@ public class ClueState extends GameState {
     public int getCardsPerHand() {
         return cardsPerHand;
     }
+
+    public Board getBoard(){return board;}
 
     public Card[] getSolution() {
         Card temp[] = new Card[3];

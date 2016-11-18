@@ -1,6 +1,8 @@
 package edu.up.cs301.game;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Point;
 
 /**
@@ -8,7 +10,7 @@ import android.graphics.Point;
  */
 
 public class Tile {
-    private int tileType; //0 = hallway, 1 = room, 2 = door
+    private int tileType; //0 = hallway, 1 = room
     private boolean isDoor;
     private Card room; //A Room from the Card enum in which the tile belongs to.
     private Point location;
@@ -29,5 +31,16 @@ public class Tile {
     }
     public void setIsDoor(boolean isDoor){ this.isDoor = isDoor; }
 
-    public void onDraw(Canvas c){}
+    public void onDraw(Canvas c)
+    {
+        Paint p = new Paint();
+        p.setColor(Color.argb(0,0,0,0));
+        if(tileType == 0){
+            p.setColor(Color.rgb(245,203,167));
+        }else if (tileType == 1){
+            p.setColor(room.getColor());
+        }
+
+        c.drawRect(location.x,location.y,location.x+Board.TILE_SIZE,location.y+Board.TILE_SIZE,p);
+    }
 }

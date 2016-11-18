@@ -65,7 +65,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     //playerTurn
     //noteView
 
-    private ClueSurfaceView surfaceView;
+    private ClueBoardView boardView;
 
     private Activity myActivity;
 
@@ -101,7 +101,10 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     public void setAsGui(GameMainActivity g) {
         myActivity = g;
         g.setContentView(layoutID);
-        //surfaceView = (ClueSurfaceView)myActivity.findViewById(R.id.surfaceView);
+        boardView = (ClueBoardView) myActivity.findViewById(R.id.boardView);
+        if(recentState != null) {
+            boardView.updateBoard(recentState.getBoard());
+        }
 
         upButton = (Button)myActivity.findViewById(R.id.upButton);
         upButton.setOnClickListener(this);
