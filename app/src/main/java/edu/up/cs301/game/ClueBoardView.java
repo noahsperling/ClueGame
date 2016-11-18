@@ -17,7 +17,7 @@ public class ClueBoardView extends SurfaceView
     }
 
     public void updateBoard(Board board){
-
+        this.board = board;
     }
 
     public void onDraw(Canvas canvas){
