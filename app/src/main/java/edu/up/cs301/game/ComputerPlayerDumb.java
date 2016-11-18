@@ -38,27 +38,27 @@ public class ComputerPlayerDumb extends ClueComputerPlayer {
 
         //roll the die
         //check to see if the player can roll
-
         //These actions take in a GamePlayer
         if (myState.getCanRoll(this.playerID) == true) {
-//            game.sendAction(new ClueRollAction(ClueComputerPlayer) );
+            game.sendAction(new ClueRollAction(this) );
         }
+
+        //random generator for move actions
         Random rand = new Random();
         int move = rand.nextInt(4);
+
         if (move == 1) {
-//            game.sendAction(new ClueMoveLeftAction((ClueComputerPlayer));
+            game.sendAction(new ClueMoveLeftAction((this)));
         }
         if (move == 2) {
-//            game.sendAction(new ClueMoveUpAction((ClueComputerPlayer));
+            game.sendAction(new ClueMoveUpAction((this)));
         }
         if (move == 3) {
-//            game.sendAction(new ClueMoveRightAction((ClueComputerPlayer));
+            game.sendAction(new ClueMoveRightAction((this)));
         }
         if (move == 4) {
-//            game.sendAction(new ClueMoveDownAction((ClueComputerPlayer));
+            game.sendAction(new ClueMoveDownAction(this));
         }
-
-
 
 
         //if it enters a room, suggest random
