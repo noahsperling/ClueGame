@@ -12,6 +12,7 @@ import edu.up.cs301.game.config.GamePlayerType;
 public class ClueMainActivity extends GameMainActivity {
 
     public static final int PORT_NUMBER = 6732;
+    private ArrayList<GamePlayerType> gamePlayerTypes;
 
     @Override
     public GameConfig createDefaultConfig() {
@@ -42,13 +43,15 @@ public class ClueMainActivity extends GameMainActivity {
 
         defaultConfig.setRemoteData("Remote Player", "", 0);
 
+        gamePlayerTypes = playerTypes;
+
         return defaultConfig;
     }
 
     @Override
     public LocalGame createLocalGame()
     {
-        return new ClueLocalGame();
+        return new ClueLocalGame(gamePlayerTypes);
     }
 
 

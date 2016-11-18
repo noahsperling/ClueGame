@@ -1,5 +1,7 @@
 package edu.up.cs301.game;
 
+import java.util.ArrayList;
+
 import java.util.Random;
 
 import edu.up.cs301.game.actionMsg.ClueAccuseAction;
@@ -14,6 +16,7 @@ import edu.up.cs301.game.actionMsg.ClueRollAction;
 import edu.up.cs301.game.actionMsg.ClueSuggestionAction;
 import edu.up.cs301.game.actionMsg.ClueUsePassagewayAction;
 import edu.up.cs301.game.actionMsg.GameAction;
+import edu.up.cs301.game.config.GamePlayerType;
 
 /**
  * Created by Noah on 10/25/2016.
@@ -27,20 +30,23 @@ public class ClueLocalGame extends LocalGame {
     int numPlayers;
     private Random rand;
 
-    public ClueLocalGame() {
+    public ClueLocalGame(ArrayList<GamePlayerType> gamePlayerTypes) {
         super();
+        String[] str = new String[gamePlayerTypes.size()];
+        for(int i = 0; i<str.length;i++){
+            str[i] = gamePlayerTypes.get(i).getTypeName();
+        }
+        state = new ClueState(gamePlayerTypes.size(),str, 0);
     }
 
     @Override
     public void start(GamePlayer[] players){
-        super.start(players);
+        super.start(players);/*
         numPlayers = players.length;
-        state = new ClueState(numPlayers, playerNames, 0); // needs arguments from startup
+        state = new ClueState(numPlayers, playerNames, 0); // needs arguments from startup*/
     }
 
-    public boolean canMove(int playerID)
-    {
-
+    public boolean canMove(int playerID) {
         return true;
     } //always returns true
 
