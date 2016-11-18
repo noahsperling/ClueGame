@@ -40,7 +40,8 @@ public class Tile {
         }else if (tileType == 1){
             p.setColor(room.getColor());
         }
-
-        c.drawRect(location.x,location.y,location.x+Board.TILE_SIZE,location.y+Board.TILE_SIZE,p);
+        int adjustedX = location.x+((c.getWidth()-(27*Board.TILE_SIZE))/2);
+        int adjustedY = location.y-(Board.TILE_SIZE/2);
+        c.drawRect(adjustedX,adjustedY,adjustedX+Board.TILE_SIZE,adjustedY+Board.TILE_SIZE,p);
     }
 }
