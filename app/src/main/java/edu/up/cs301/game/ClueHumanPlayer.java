@@ -426,4 +426,16 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         }
 
     }
+
+    public int getPlayerID() {
+        return playerID;
+    }
+
+    public boolean[] getCheckBoxArray() {
+        boolean temp[] = new boolean[21];
+        for(int i = 0; i < 21; i++) {
+            temp[i] = checkBoxBool[i];
+        }
+        return temp;
+    }
 }

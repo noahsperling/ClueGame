@@ -13,6 +13,6 @@ public class ClueMoveAction extends GameAction
     public ClueMoveAction(GamePlayer player)
     {
         super(player);
-        playerID = ((CluePlayer) player).getPlayerId();
+        playerID = ((CluePlayer) player).getPlayerID();
     }
 }

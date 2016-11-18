@@ -7,55 +7,29 @@ import edu.up.cs301.game.infoMsg.GameInfo;
 /**
  * Created by sperling19 on 11/9/2016.
  */
-public class CluePlayer implements GamePlayer{
+public interface CluePlayer{
+    /*
+    ClueState recentState = null;
 
-    private ClueState recentState;
-
-    private int playerId;
-
-
-    public void gameSetAsGui(GameMainActivity activity)
-    {
-
-    }
+    public void gameSetAsGui(GameMainActivity activity);
 
     // sets this player as the GUI player (overrideable)
-    public void setAsGui(GameMainActivity activity)
-    {
-
-    }
+    public void setAsGui(GameMainActivity activity);
 
     // sends a message to the player
-    public void sendInfo(GameInfo info)
-    {
-
-    }
+    public void sendInfo(GameInfo info);
 
     // start the player
-    public void start()
-    {
-
-    }
+    public void start();
 
     // whether this player requires a GUI
-    public boolean requiresGui()
-    {
-        return true;
-    }
+    public boolean requiresGui();
 
     // whether this player supports a GUI
-    public boolean supportsGui()
-    {
-        return true;
-    }
+    public boolean supportsGui();
 
-    public ClueState getRecentState()
-    {
-        return recentState;
-    }
-    //comment + another word
+    public ClueState getRecentState();
+    //comment + another word*/
 
-    public int getPlayerId(){
-        return  playerId;
-    }
+    int getPlayerID();
 }

@@ -1,5 +1,7 @@
 package edu.up.cs301.game.actionMsg;
 
+import edu.up.cs301.game.ClueComputerPlayer;
+import edu.up.cs301.game.ClueHumanPlayer;
 import edu.up.cs301.game.CluePlayer;
 import edu.up.cs301.game.GamePlayer;
 
@@ -14,7 +16,11 @@ public class ClueNonTurnAction extends GameAction
     public ClueNonTurnAction(GamePlayer player)
     {
         super(player);
-        playerID = ((CluePlayer) player).getPlayerId();
+        if(player instanceof ClueHumanPlayer) {
+            playerID = ((ClueHumanPlayer)player).getPlayerID();
+        }else if (player instanceof ClueComputerPlayer) {
+            playerID = ((ClueComputerPlayer)player).getPlayerID();
+        }
     }
 
 }

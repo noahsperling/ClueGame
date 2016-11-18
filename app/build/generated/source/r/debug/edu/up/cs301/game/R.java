@@ -67,7 +67,7 @@ public final class R {
         public static final int localTabLayout=0x7f0a0004;
         public static final int loungeCheckBox=0x7f0a0044;
         public static final int loungeTextView=0x7f0a002f;
-        public static final int menu_settings=0x7f0a0055;
+        public static final int menu_settings=0x7f0a0056;
         public static final int missScarletCheckBox=0x7f0a003b;
         public static final int missScarletTextView=0x7f0a0024;
         public static final int moveLayout=0x7f0a0013;
@@ -106,6 +106,7 @@ public final class R {
         public static final int studyCheckBox=0x7f0a0048;
         public static final int studyTextView=0x7f0a0033;
         public static final int suggestButton=0x7f0a001b;
+        public static final int surfaceView=0x7f0a0055;
         public static final int suspectsTextView=0x7f0a001f;
         public static final int tabHost=0x7f0a0000;
         public static final int tableDataRow=0x7f0a0050;
@@ -124,6 +125,7 @@ public final class R {
         public static final int game_no_gui=0x7f030003;
         public static final int game_player_list_row=0x7f030004;
         public static final int game_remote_tab=0x7f030005;
+        public static final int player_gui=0x7f030006;
     }
     public static final class menu {
         public static final int game_main=0x7f090000;

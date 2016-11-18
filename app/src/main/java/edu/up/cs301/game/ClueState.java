@@ -162,7 +162,7 @@ public class ClueState extends GameState {
         //put cards in players hands
         for(int i = 0; i < numPlayers; i++) {
             for(int j = 0; j < cardsPerHand; j++) {
-                if(allCards.size() != 0) {
+                if(allCards.size() > 0) {
                     int index = allCards.size() - 1;
                     cards[i].addCard(allCards.get(index));
                     allCards.remove(index);
