@@ -75,7 +75,5 @@ public class Tile {
                     c.drawRect(adjustedX, adjustedY, adjustedX + (Board.TILE_SIZE / 8), adjustedY + Board.TILE_SIZE, p);
                 }
         }
-
-
     }
 }
