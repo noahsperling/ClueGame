@@ -21,6 +21,11 @@ import edu.up.cs301.game.actionMsg.ClueWrittenNoteAction;
 import edu.up.cs301.game.actionMsg.GameAction;
 import edu.up.cs301.game.config.GamePlayerType;
 
+import static edu.up.cs301.game.Card.CONSERVATORY;
+import static edu.up.cs301.game.Card.KITCHEN;
+import static edu.up.cs301.game.Card.LOUNGE;
+import static edu.up.cs301.game.Card.STUDY;
+
 /**
  * Created by Noah on 10/25/2016.
  */
@@ -98,8 +103,8 @@ public class ClueLocalGame extends LocalGame {
             }
 
             //Check to make sure it's actually the player's turn
-            if (state.getTurnId() == curPlayerID) {
-
+            if (state.getTurnId() == curPlayerID)
+            {
                 if (state.getCanRoll(curPlayerID))
                 {
                     //What to do if a certain action is made
@@ -127,6 +132,12 @@ public class ClueLocalGame extends LocalGame {
                                 state.setSpacesMoved(state.getSpacesMoved() + 1);
                                 state.setNewToRoom(curPlayerID, true); //Set the new to room in array to true.
                             }
+                            else if (curBoard[x][y].getTileType() == 1 && curBoard[x][y-1].getTileType() == 1) //If the player is in and will move within a room
+                            {
+                                //If the player is moving around within a room, it will set their new position but will
+                                //not increment the spaces moved.
+                                state.getBoard().setPlayerBoard(x, y, x, y - 1, curPlayerID);
+                            }
                             else //Otherwise they're moving to a hallway.
                             {
                                 state.getBoard().setPlayerBoard(x, y, x, y - 1, curPlayerID); //Set the new position of the player and set the old position to zero.
@@ -143,6 +154,12 @@ public class ClueLocalGame extends LocalGame {
                                 state.getBoard().setPlayerBoard(x, y, x, y + 1, curPlayerID);
                                 state.setSpacesMoved(state.getSpacesMoved() + 1);
                                 state.setNewToRoom(curPlayerID, true);
+                            }
+                            else if (curBoard[x][y].getTileType() == 1 && curBoard[x][y+1].getTileType() == 1) //If the player is in and will move within a room
+                            {
+                                //If the player is moving around within a room, it will set their new position but will
+                                //not increment the spaces moved.
+                                state.getBoard().setPlayerBoard(x, y, x, y + 1, curPlayerID);
                             }
                             else
                             {
@@ -161,6 +178,12 @@ public class ClueLocalGame extends LocalGame {
                                 state.setSpacesMoved(state.getSpacesMoved() + 1);
                                 state.setNewToRoom(curPlayerID, true);
                             }
+                            else if (curBoard[x][y].getTileType() == 1 && curBoard[x+1][y].getTileType() == 1) //If the player is in and will move within a room
+                            {
+                                //If the player is moving around within a room, it will set their new position but will
+                                //not increment the spaces moved.
+                                state.getBoard().setPlayerBoard(x, y, x + 1, y, curPlayerID);
+                            }
                             else
                             {
                                 state.getBoard().setPlayerBoard(x, y, x + 1, y, curPlayerID);
@@ -176,6 +199,12 @@ public class ClueLocalGame extends LocalGame {
                             {
                                 state.getBoard().setPlayerBoard(x, y, x - 1, y, curPlayerID);
                                 state.setSpacesMoved(state.getSpacesMoved() + 1);
+                            }
+                            else if (curBoard[x][y].getTileType() == 1 && curBoard[x-1][y].getTileType() == 1) //If the player is in and will move within a room
+                            {
+                                //If the player is moving around within a room, it will set their new position but will
+                                //not increment the spaces moved.
+                                state.getBoard().setPlayerBoard(x, y, x - 1, y, curPlayerID);
                             }
                             else
                             {
@@ -203,7 +232,24 @@ public class ClueLocalGame extends LocalGame {
                 }
                 else if (moveAction instanceof ClueUsePassagewayAction)
                 {
-
+                    //These if statements will see where the player is at and will move them to the corner room
+                    //diagonal to them.
+                    if (curBoard[x][y].getRoom() == LOUNGE)
+                    {
+                        state.getBoard().setPlayerBoard(x, y, 22, 2, curPlayerID); //Move Player to conservatory
+                    }
+                    else if (curBoard[x][y].getRoom() == CONSERVATORY)
+                    {
+                        state.getBoard().setPlayerBoard(x, y, 2, 20, curPlayerID); //Move Player to lounge
+                    }
+                    else if (curBoard[x][y].getRoom() == STUDY)
+                    {
+                        state.getBoard().setPlayerBoard(x, y, 22, 22, curPlayerID); //Move Player to kitchen
+                    }
+                    else if (curBoard[x][y].getRoom() == KITCHEN)
+                    {
+                        state.getBoard().setPlayerBoard(x, y, 3, 4, curPlayerID); //Move Player to the study
+                    }
                 }
                 else if (moveAction instanceof ClueEndTurnAction)
                 {

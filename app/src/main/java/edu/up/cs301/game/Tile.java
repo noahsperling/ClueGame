@@ -39,6 +39,7 @@ public class Tile {
     public void setBottomWall(boolean wall){ bottomWall = wall; }
     public void setRightWall(boolean wall){ rightWall = wall; }
     public void setLeftWall(boolean wall){ leftWall = wall; }
+    public Point getLocation(){return location;}
 
     public void onDraw(Canvas c)
     {
