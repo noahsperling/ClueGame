@@ -105,10 +105,10 @@ public class ClueLocalGame extends LocalGame {
             //Check to make sure it's actually the player's turn
             if (state.getTurnId() == curPlayerID)
             {
-                if (state.getCanRoll(curPlayerID))
+                if (moveAction instanceof ClueRollAction)
                 {
                     //What to do if a certain action is made
-                    if (moveAction instanceof ClueRollAction)
+                    if (state.getCanRoll(curPlayerID))
                     {
                         int numRolled = rand.nextInt(6) + 1; //Will produce a random number between 1 and 6.
                         state.setDieValue(numRolled);
