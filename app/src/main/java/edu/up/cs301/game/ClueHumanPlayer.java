@@ -86,8 +86,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         layoutID = initID;
     }
 
-
-
     @Override
     public View getTopView() {
         return null;

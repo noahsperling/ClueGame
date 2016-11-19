@@ -330,4 +330,23 @@ public class ClueLocalGame extends LocalGame {
         }
     }
 
+    private boolean checkTileValid(int x, int y, Board b) {
+        if(b.getBoardArr()[x][y] == null) {
+            return false;
+        }if(b.getBoardArr()[x][y].getTileType() == 0) {
+            return true;
+        }else if(b.getBoardArr()[x][y].getTileType() == 1 && b.getBoardArr()[x][y].getIsDoor()) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkIntValid(int x, int y, int[][] b) {
+        if(b[x][y] == -1) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
 }
