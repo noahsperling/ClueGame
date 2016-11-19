@@ -40,7 +40,6 @@ public final class R {
         public static final int billiardRoomTextView=0x7f0a003c;
         public static final int boardLayout=0x7f0a0010;
         public static final int boardView=0x7f0a0018;
-        public static final int button=0x7f0a0013;
         public static final int candlestickCheckBox=0x7f0a0046;
         public static final int candlestickTextView=0x7f0a0030;
         public static final int colMustardCheckBox=0x7f0a003f;
@@ -52,6 +51,7 @@ public final class R {
         public static final int diningRoomTextView=0x7f0a003d;
         public static final int displayView=0x7f0a0011;
         public static final int downButton=0x7f0a001e;
+        public static final int editText=0x7f0a0019;
         public static final int endTurnButton=0x7f0a0022;
         public static final int hallCheckBox=0x7f0a004b;
         public static final int hallTextView=0x7f0a0036;
@@ -103,6 +103,7 @@ public final class R {
         public static final int revolverTextView=0x7f0a0031;
         public static final int rightButton=0x7f0a001f;
         public static final int rollAndSpinnerView=0x7f0a0012;
+        public static final int rollButton=0x7f0a0013;
         public static final int roomsTextView=0x7f0a0035;
         public static final int ropeCheckBox=0x7f0a0048;
         public static final int ropeTextView=0x7f0a0032;
@@ -120,7 +121,6 @@ public final class R {
         public static final int tabHost=0x7f0a0000;
         public static final int tableDataRow=0x7f0a0058;
         public static final int tableHeadingRow=0x7f0a000a;
-        public static final int textView=0x7f0a0019;
         public static final int textView1=0x7f0a0008;
         public static final int textView12=0x7f0a002e;
         public static final int turnActionLayout=0x7f0a000f;
