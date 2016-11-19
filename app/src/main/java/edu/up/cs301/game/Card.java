@@ -10,12 +10,12 @@ public enum Card {
     HALL("Hall", Type.ROOM, Color.rgb(247,220,111)), //yellow
     BILLIARD_ROOM("Billiard Room", Type.ROOM, Color.rgb(39,174,96)), //green
     BALLROOM("Ballroom", Type.ROOM, Color.rgb(220,118,51)), //brown
-    DINING_ROOM("Dining Room", Type.ROOM, Color.rgb(11,44,0)),//brown
+    DINING_ROOM("Dining Room", Type.ROOM, Color.rgb(44,55,30)),//brown
     STUDY("Study", Type.ROOM, Color.rgb(231,76,60)), //red
-    CONSERVATORY("Conversatory", Type.ROOM, Color.rgb(39,55,70)), //black
+    CONSERVATORY("Conservatory", Type.ROOM, Color.rgb(60,100,140)), //purple
     LIBRARY("Library", Type.ROOM, Color.rgb(133,146,158)), //grey
-    LOUNGE("Lounge", Type.ROOM, Color.rgb(133,193,233)), //blue
-    KITCHEN("Kitchen", Type.ROOM, Color.BLACK),
+    LOUNGE("Lounge", Type.ROOM, Color.rgb(133,153,233)), //blue
+    KITCHEN("Kitchen", Type.ROOM, Color.rgb(133,193,133)), //green
     ROPE("Rope",Type.WEAPON, Color.WHITE),
     KNIFE("Knife",Type.WEAPON, Color.GRAY),
     WRENCH("Wrench",Type.WEAPON, Color.DKGRAY),
