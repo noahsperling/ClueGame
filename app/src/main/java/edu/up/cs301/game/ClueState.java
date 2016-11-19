@@ -312,6 +312,10 @@ public class ClueState extends GameState {
         return new Hand(cards[index]);
     }
 
+    public ArrayList<Card> getAllCards() {
+        return allCards;
+    }
+
     public int getCardsPerHand() {
         return cardsPerHand;
     }
