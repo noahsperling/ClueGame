@@ -13,13 +13,19 @@ import android.view.SurfaceView;
 
 public class ClueCardView extends SurfaceView {
 
+    Hand hand = new Hand();
     public ClueCardView(Context context, AttributeSet attributeSet)
     {
         super(context, attributeSet);
         setWillNotDraw(false);
+        hand.addCard(Card.BALLROOM);
+        hand.addCard(Card.CANDLESTICK);
+        hand.addCard(Card.COL_MUSTARD);
     }
 
-    public void updateCards(){
+    public void updateCards(Hand hand){
+        this.hand = hand;
+        invalidate();
     }
 
     @Override
@@ -28,5 +34,7 @@ public class ClueCardView extends SurfaceView {
         p.setColor(Color.argb(127, 255, 255, 255)); //grey
         canvas.drawRect(0, 0, getWidth(), getHeight(), p);
         super.onDraw(canvas);
+        hand.onDraw(canvas);
+
     }
 }
