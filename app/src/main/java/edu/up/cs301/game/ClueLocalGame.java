@@ -62,14 +62,6 @@ public class ClueLocalGame extends LocalGame {
         else
         {
             //The players have moved the max number of times and their turn will be ended.
-            if (state.getTurnId() == 5)
-            {
-                state.setTurnID(0);
-            }
-            else
-            {
-                state.setTurnID(state.getTurnId() + 1);
-            }
             return false;
         }
     }
@@ -129,40 +121,79 @@ public class ClueLocalGame extends LocalGame {
                         //or through a door.
                         if (playBoard[x][y-1] == -1 && (curBoard[x][y-1].getTileType() == 0 || curBoard[x][y-1].getIsDoor()))
                         {
-                            state.getBoard().setPlayerBoard(x, y, x, y - 1, curPlayerID); //Set the new position of the player and set the old position to zero.
-                            state.setSpacesMoved(state.getSpacesMoved() + 1);
+                            if (curBoard[x][y-1].getIsDoor() && curBoard[x][y].getTileType() == 0) //If the player is moving into a room
+                            {
+                                state.getBoard().setPlayerBoard(x, y, x, y - 1, curPlayerID); //Set the new position of the player and set the old position to zero.
+                                state.setSpacesMoved(state.getSpacesMoved() + 1);
+                                state.setNewToRoom(curPlayerID, true); //Set the new to room in array to true.
+                            }
+                            else //Otherwise they're moving to a hallway.
+                            {
+                                state.getBoard().setPlayerBoard(x, y, x, y - 1, curPlayerID); //Set the new position of the player and set the old position to zero.
+                                state.setSpacesMoved(state.getSpacesMoved() + 1);
+                            }
                         }
                     }
                     else if (moveAction instanceof ClueMoveDownAction)
                     {
                         if (playBoard[x][y+1] == -1 && (curBoard[x][y+1].getTileType() == 0 || curBoard[x][y+1].getIsDoor()))
                         {
-                            state.getBoard().setPlayerBoard(x, y, x, y + 1, curPlayerID);
-                            state.setSpacesMoved(state.getSpacesMoved() + 1);
+                            if (curBoard[x][y+1].getIsDoor() && curBoard[x][y].getTileType() == 0)
+                            {
+                                state.getBoard().setPlayerBoard(x, y, x, y + 1, curPlayerID);
+                                state.setSpacesMoved(state.getSpacesMoved() + 1);
+                                state.setNewToRoom(curPlayerID, true);
+                            }
+                            else
+                            {
+                                state.getBoard().setPlayerBoard(x, y, x, y + 1, curPlayerID);
+                                state.setSpacesMoved(state.getSpacesMoved() + 1);
+                            }
                         }
                     }
                     else if (moveAction instanceof ClueMoveRightAction)
                     {
                         if (playBoard[x+1][y] == -1 && (curBoard[x+1][y].getTileType() == 0 || curBoard[x+1][y].getIsDoor()))
                         {
-                            state.getBoard().setPlayerBoard(x, y, x + 1, y, curPlayerID);
-                            state.setSpacesMoved(state.getSpacesMoved() + 1);
+                            if (curBoard[x+1][y].getIsDoor() && curBoard[x][y].getTileType() == 0)
+                            {
+                                state.getBoard().setPlayerBoard(x, y, x + 1, y, curPlayerID);
+                                state.setSpacesMoved(state.getSpacesMoved() + 1);
+                                state.setNewToRoom(curPlayerID, true);
+                            }
+                            else
+                            {
+                                state.getBoard().setPlayerBoard(x, y, x + 1, y, curPlayerID);
+                                state.setSpacesMoved(state.getSpacesMoved() + 1);
+                            }
                         }
                     }
                     else if (moveAction instanceof ClueMoveLeftAction)
                     {
                         if (playBoard[x-1][y] == -1 && (curBoard[x-1][y].getTileType() == 0 || curBoard[x-1][y].getIsDoor()))
                         {
-                            state.getBoard().setPlayerBoard(x, y, x - 1, y, curPlayerID);
-                            state.setSpacesMoved(state.getSpacesMoved() + 1);
+                            if (curBoard[x-1][y].getIsDoor() && curBoard[x][y].getTileType() == 0)
+                            {
+                                state.getBoard().setPlayerBoard(x, y, x - 1, y, curPlayerID);
+                                state.setSpacesMoved(state.getSpacesMoved() + 1);
+                            }
+                            else
+                            {
+                                state.getBoard().setPlayerBoard(x, y, x - 1, y, curPlayerID);
+                                state.setSpacesMoved(state.getSpacesMoved() + 1);
+                                state.setNewToRoom(curPlayerID, true);
+                            }
                         }
                     }
                 }
                 else if (moveAction instanceof ClueAccuseAction)
                 {
-                    if(state.getTurnId() == moveAction.playerID) {
+                    if(state.getTurnId() == moveAction.playerID)
+                    {
 
-                    }else {
+                    }
+                    else
+                    {
                         return false;
                     }
                 }
@@ -177,6 +208,7 @@ public class ClueLocalGame extends LocalGame {
                 else if (moveAction instanceof ClueEndTurnAction)
                 {
                     //Change the turnID to the next player and lets the next player roll
+                    state.setNewToRoom(curPlayerID, false); //Once they've ended their turn, they are no longer new to a room.
                     if (state.getTurnId() == (state.getNumPlayers() - 1))
                     {
                         state.setCanRoll(0, true);
@@ -191,7 +223,7 @@ public class ClueLocalGame extends LocalGame {
             }
             return true;
         }
-        else
+        else //If it's not a move action
         {
             makeNonTurnAction((ClueNonTurnAction)a);
         }

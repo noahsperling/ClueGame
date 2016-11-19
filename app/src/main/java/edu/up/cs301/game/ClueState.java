@@ -30,6 +30,7 @@ public class ClueState extends GameState {
     private ArrayList<Card> allCards = new ArrayList<Card>();
     private boolean gameOver;
     private Board board;
+    private boolean newToRoom[];
 
     public ClueState(int initNumPlayers, String initPlayerNames[], int initTurnID) {
         turnID = initTurnID;
@@ -49,6 +50,8 @@ public class ClueState extends GameState {
         canRoll = new boolean[numPlayers];
         checkboxes = new boolean[numPlayers][21];
         cards = new Hand[numPlayers];
+        newToRoom = new boolean[numPlayers];
+
         for(int i =0; i<numPlayers;i++){
             cards[i] = new Hand();
         }
@@ -329,6 +332,13 @@ public class ClueState extends GameState {
         temp[2] = solution[2];
         return temp;
     }
+    public boolean[] getNewToRoom()
+    {
+        return newToRoom;
+    }
+
+
+
 
     //setters
     /*public void setPlayerBoard(int m, int n, int i, int j, int playerID)
@@ -337,6 +347,11 @@ public class ClueState extends GameState {
                     playerBoard[i][j] = playerID;
     }
     */
+
+    public void setNewToRoom(int playerID, boolean newTo)
+    {
+        newToRoom[playerID] = newTo;
+    }
 
     public void setTurnID(int newTurnID) {
         turnID = newTurnID;
