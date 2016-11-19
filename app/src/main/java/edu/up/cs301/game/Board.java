@@ -462,6 +462,7 @@ public class Board {
         c.drawText(Card.BALLROOM.getName(),adjustedX+(11*TILE_SIZE),adjustedY+(20*TILE_SIZE),p);
         c.drawText(Card.KITCHEN.getName(), (float) (adjustedX+(19.5*TILE_SIZE)),adjustedY+(20.5f*TILE_SIZE),p);
         c.drawText(Card.DINING_ROOM.getName(),adjustedX+(18*TILE_SIZE),adjustedY+(12*TILE_SIZE),p);
+        c.drawText("Clue",(c.getWidth()/2)-TILE_SIZE*2,(c.getHeight()/2)-10,p);
 
         //draw Players
         for(int i = 0; i < 27; i++) {
