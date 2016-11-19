@@ -382,4 +382,9 @@ public class Board {
         c.drawText(Card.KITCHEN.getName(), (float) (adjustedX+(19.5*TILE_SIZE)),adjustedY+(20.5f*TILE_SIZE),p);
         c.drawText(Card.DINING_ROOM.getName(),adjustedX+(18*TILE_SIZE),adjustedY+(12*TILE_SIZE),p);
     }
+
+    public Tile[][] getBoardArr()
+    {
+        return board;
+    }
 }
