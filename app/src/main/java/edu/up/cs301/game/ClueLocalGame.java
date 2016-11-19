@@ -1,5 +1,7 @@
 package edu.up.cs301.game;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 import java.util.Random;
@@ -150,6 +152,7 @@ public class ClueLocalGame extends LocalGame {
                     }
                     else if (moveAction instanceof ClueMoveDownAction)
                     {
+                        Log.i("curBoard[x][y+1]", "" + curBoard[x][y+1]);
                         if (curBoard[x][y+1] != null && playBoard[x][y+1] == -1 && (curBoard[x][y+1].getTileType() == 0 || curBoard[x][y+1].getIsDoor()))
                         {
                             if (curBoard[x][y+1].getIsDoor() && curBoard[x][y].getTileType() == 0)

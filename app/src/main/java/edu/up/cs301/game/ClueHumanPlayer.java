@@ -212,17 +212,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         return recentState;
     }
 
-
-    public void start()
-    {
-
-    }
-
-    public void sendInfo(GameInfo g)
-    {
-
-    }
-
     @Override
     public void receiveInfo(GameInfo info)
     {
