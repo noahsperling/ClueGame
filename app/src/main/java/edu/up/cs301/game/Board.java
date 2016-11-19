@@ -364,9 +364,16 @@ public class Board {
             }
         }
 
+        playerBoard[17][1] = 0;
+        playerBoard[19][1] = 1;
+        playerBoard[24][8] = 2;
+        playerBoard[15][25] = 3;
+        playerBoard[10][25] = 4;
+        playerBoard[1][6] = 5;
+
     }
 
-    public void setUpPlayers(int initNumPlayers){
+    /*public void setUpPlayers(int initNumPlayers){
         switch(initNumPlayers)
         {
             case 1: playerBoard[17][1] = 0; //Player 0 starts at mrs.peacocks spot on the board.
@@ -397,10 +404,17 @@ public class Board {
                 playerBoard[1][6] = 5;
                 break;
         }
-    }
+    }*/
 
     public void drawPlayer(int playerID, int posX, int posY, Canvas c) {
         Paint p = new Paint();
+        posX = 39 * posX;
+        posY = 39 * posY;
+        float adjustedX = (float)(posX+((c.getWidth()-(27*39))/2));
+        float adjustedY = (float)(posY-(39/2));
+
+        p.setColor(Color.WHITE);
+
         switch(playerID) {
             case 0:
                 p.setColor(Color.BLUE);
@@ -421,7 +435,7 @@ public class Board {
                 p.setColor(Color.rgb(142, 68, 173));
                 break;
         }
-        c.drawCircle((float)((39 * posX) + (39 / 2)), (float)((39 * posY) + (39/2)), 19.5f, p);
+        c.drawCircle(((adjustedX) + (39 / 2)), ((adjustedY) + (39/2)), 19.5f, p);
     }
 
     public void onDraw(Canvas c){

@@ -129,7 +129,6 @@ public class ClueState extends GameState {
 
         //creates board, which stores board tiles and player locations
         board = new Board();
-        board.setUpPlayers(initNumPlayers);
 
         //I had to comment this out weirdly. Not sure why
 
