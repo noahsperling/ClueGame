@@ -144,6 +144,27 @@ public final class R {
     }
     public static final class mipmap {
         public static final int ballroom=0x7f030000;
+        public static final int ballroom_room=0x7f030001;
+        public static final int candlestick=0x7f030002;
+        public static final int clue=0x7f030003;
+        public static final int col_mustard=0x7f030004;
+        public static final int conservatory=0x7f030005;
+        public static final int dining_room=0x7f030006;
+        public static final int hall=0x7f030007;
+        public static final int kitchen=0x7f030008;
+        public static final int knife=0x7f030009;
+        public static final int lead_pipe=0x7f03000a;
+        public static final int library=0x7f03000b;
+        public static final int lounge=0x7f03000c;
+        public static final int miss_scarlet=0x7f03000d;
+        public static final int mr_green=0x7f03000e;
+        public static final int mrs_peacock=0x7f03000f;
+        public static final int mrs_white=0x7f030010;
+        public static final int prof_plum=0x7f030011;
+        public static final int revolver=0x7f030012;
+        public static final int rope=0x7f030013;
+        public static final int study=0x7f030014;
+        public static final int wrench=0x7f030015;
     }
     public static final class raw {
         public static final int log=0x7f050000;

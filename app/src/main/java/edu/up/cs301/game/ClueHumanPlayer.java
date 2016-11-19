@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.RadioButton;
 
 import edu.up.cs301.game.actionMsg.ClueAccuseAction;
 import edu.up.cs301.game.actionMsg.ClueCheckAction;
@@ -32,8 +34,10 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     private Button leftButton;
     private Button rightButton;
     private Button endTurnButton;
-    private Button suggestButton;
-    private Button accuseButton;
+    private RadioButton suggestR;
+    private RadioButton accuseR;
+    private EditText notesGUI;
+
 
     private Button noteButton;
 
@@ -130,17 +134,13 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         endTurnButton.setOnClickListener(this);
         endTurnButton.setEnabled(false);
 
-        suggestButton = (Button)myActivity.findViewById(R.id.suggestButton);
-        suggestButton.setOnClickListener(this);
-        suggestButton.setEnabled(false);
+        suggestR = (RadioButton)myActivity.findViewById(R.id.radioSuggestButton);
+        suggestR.setOnClickListener(this);
+        suggestR.setChecked(false);
 
-        accuseButton = (Button)myActivity.findViewById(R.id.accuseButton);
-        accuseButton.setOnClickListener(this);
-        accuseButton.setEnabled(false);
-
-        noteButton = (Button)myActivity.findViewById(R.id.notesPopUpButton);
-        noteButton.setOnClickListener(this);
-        noteButton.setEnabled(true);
+        accuseR = (RadioButton)myActivity.findViewById(R.id.radioAccuseButton);
+        accuseR.setOnClickListener(this);
+        accuseR.setChecked(false);
 
         //CheckBoxes!!
         colonelMustardCheck = (CheckBox)myActivity.findViewById(R.id.colMustardCheckBox);
@@ -263,11 +263,15 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         //for radio buttons
         else if (view.getId() == R.id.radioAccuseButton)
         {
+            suggestR.setChecked(false);
+            accuseR.setChecked(true);
             ClueAccuseAction accuse = new ClueAccuseAction(this);
             game.sendAction(accuse);
         }
         else if (view.getId() == R.id.radioSuggestButton)
         {
+            suggestR.setChecked(true);
+            accuseR.setChecked(false);
             ClueSuggestionAction suggest = new ClueSuggestionAction(this);
             game.sendAction(suggest);
         }
