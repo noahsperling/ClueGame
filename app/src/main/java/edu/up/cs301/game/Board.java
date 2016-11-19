@@ -11,6 +11,7 @@ import android.graphics.Point;
 
 public class Board {
     private Tile[][] board = new Tile[27][27];
+    private int playerBoard[][] = new int[27][27];
     public static int TILE_SIZE = 39;
 
     public Board(){
@@ -356,6 +357,71 @@ public class Board {
             board[j][24].setRightWall(true);
         }
 
+        //sets up integer playerBoard that stores player locations
+        for(int k = 0; k < 27; k++) {
+            for(int l = 0; l < 27; l++) {
+                playerBoard[k][l] = -1;
+            }
+        }
+
+    }
+
+    public void setUpPlayers(int initNumPlayers){
+        switch(initNumPlayers)
+        {
+            case 1: playerBoard[17][1] = 0; //Player 0 starts at mrs.peacocks spot on the board.
+                break;
+            case 2: playerBoard[17][1] = 0;
+                playerBoard[19][1] = 1;
+                break;
+            case 3: playerBoard[17][1] = 0;
+                playerBoard[19][1] = 1;
+                playerBoard[24][8] = 2;
+                break;
+            case 4: playerBoard[17][1] = 0;
+                playerBoard[19][1] = 1;
+                playerBoard[24][8] = 2;
+                playerBoard[15][25] = 3;
+                break;
+            case 5: playerBoard[17][1] = 0;
+                playerBoard[19][1] = 1;
+                playerBoard[24][8] = 2;
+                playerBoard[15][25] = 3;
+                playerBoard[10][25] = 4;
+                break;
+            case 6: playerBoard[17][1] = 0;
+                playerBoard[19][1] = 1;
+                playerBoard[24][8] = 2;
+                playerBoard[15][25] = 3;
+                playerBoard[10][25] = 4;
+                playerBoard[1][6] = 5;
+                break;
+        }
+    }
+
+    public void drawPlayer(int playerID, int posX, int posY, Canvas c) {
+        Paint p = new Paint();
+        switch(playerID) {
+            case 0:
+                p.setColor(Color.BLUE);
+                break;
+            case 1:
+                p.setColor(Color.RED);
+                break;
+            case 2:
+                p.setColor(Color.GREEN);
+                break;
+            case 3:
+                p.setColor(Color.WHITE);
+                break;
+            case 4:
+                p.setColor(Color.YELLOW);
+                break;
+            case 5:
+                p.setColor(Color.rgb(142, 68, 173));
+                break;
+        }
+        c.drawCircle((float)((39 * posX) + (39 / 2)), (float)((39 * posY) + (39/2)), 19.5f, p);
     }
 
     public void onDraw(Canvas c){
@@ -381,10 +447,30 @@ public class Board {
         c.drawText(Card.BALLROOM.getName(),adjustedX+(11*TILE_SIZE),adjustedY+(20*TILE_SIZE),p);
         c.drawText(Card.KITCHEN.getName(), (float) (adjustedX+(19.5*TILE_SIZE)),adjustedY+(20.5f*TILE_SIZE),p);
         c.drawText(Card.DINING_ROOM.getName(),adjustedX+(18*TILE_SIZE),adjustedY+(12*TILE_SIZE),p);
+
+        //draw Players
+        for(int i = 0; i < 27; i++) {
+            for(int j = 0; j < 27; j++) {
+                if(playerBoard[i][j] != -1) {
+                    drawPlayer(i, j, playerBoard[i][j], c);
+                }
+            }
+        }
     }
 
     public Tile[][] getBoardArr()
     {
         return board;
     }
+
+    public int[][] getPlayerBoard() {
+        return playerBoard;
+    }
+
+    public void setPlayerBoard(int x, int y, int m, int n, int playerID) {
+        playerBoard[x][y] = playerID;
+        playerBoard[m][n] = -1;
+    }
+
+
 }

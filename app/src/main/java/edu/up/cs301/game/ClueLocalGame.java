@@ -88,7 +88,7 @@ public class ClueLocalGame extends LocalGame {
             int y = 0;
             int curPlayerID = ((ClueMoveAction) a).playerID; //The ID of the player who made the action
             CluePlayer player = (CluePlayer)a.getPlayer();
-            playBoard = state.getPlayerBoard(); //Get the current player board so we know where all the players are
+            playBoard = state.getBoard().getPlayerBoard(); //Get the current player board so we know where all the players are
             curBoard = (state.getBoard()).getBoardArr(); //Get the current board w/tiles
 
             //Set x and y:
@@ -129,7 +129,7 @@ public class ClueLocalGame extends LocalGame {
                         //or through a door.
                         if (playBoard[x][y-1] == -1 && (curBoard[x][y-1].getTileType() == 0 || curBoard[x][y-1].getIsDoor()))
                         {
-                            state.setPlayerBoard(x, y, x, y - 1, curPlayerID); //Set the new position of the player and set the old position to zero.
+                            state.getBoard().setPlayerBoard(x, y, x, y - 1, curPlayerID); //Set the new position of the player and set the old position to zero.
                             state.setSpacesMoved(state.getSpacesMoved() + 1);
                         }
                     }
@@ -137,7 +137,7 @@ public class ClueLocalGame extends LocalGame {
                     {
                         if (playBoard[x][y+1] == -1 && (curBoard[x][y+1].getTileType() == 0 || curBoard[x][y+1].getIsDoor()))
                         {
-                            state.setPlayerBoard(x, y, x, y + 1, curPlayerID);
+                            state.getBoard().setPlayerBoard(x, y, x, y + 1, curPlayerID);
                             state.setSpacesMoved(state.getSpacesMoved() + 1);
                         }
                     }
@@ -145,7 +145,7 @@ public class ClueLocalGame extends LocalGame {
                     {
                         if (playBoard[x+1][y] == -1 && (curBoard[x+1][y].getTileType() == 0 || curBoard[x+1][y].getIsDoor()))
                         {
-                            state.setPlayerBoard(x, y, x + 1, y, curPlayerID);
+                            state.getBoard().setPlayerBoard(x, y, x + 1, y, curPlayerID);
                             state.setSpacesMoved(state.getSpacesMoved() + 1);
                         }
                     }
@@ -153,7 +153,7 @@ public class ClueLocalGame extends LocalGame {
                     {
                         if (playBoard[x-1][y] == -1 && (curBoard[x-1][y].getTileType() == 0 || curBoard[x-1][y].getIsDoor()))
                         {
-                            state.setPlayerBoard(x, y, x - 1, y, curPlayerID);
+                            state.getBoard().setPlayerBoard(x, y, x - 1, y, curPlayerID);
                             state.setSpacesMoved(state.getSpacesMoved() + 1);
                         }
                     }

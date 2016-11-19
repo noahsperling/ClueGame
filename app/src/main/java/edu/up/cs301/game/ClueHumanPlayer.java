@@ -113,15 +113,18 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
         downButton = (Button)myActivity.findViewById(R.id.downButton);
         downButton.setOnClickListener(this);
-        downButton.setEnabled(false);
+        //downButton.setEnabled(false);
+        downButton.setEnabled(true);
 
         leftButton = (Button)myActivity.findViewById(R.id.leftButton);
         leftButton.setOnClickListener(this);
-        leftButton.setEnabled(false);
+        //leftButton.setEnabled(false);
+        leftButton.setEnabled(true);
 
         rightButton = (Button)myActivity.findViewById(R.id.rightButton);
         rightButton.setOnClickListener(this);
-        rightButton.setEnabled(false);
+        //rightButton.setEnabled(false);
+        rightButton.setEnabled(true);
 
         endTurnButton = (Button)myActivity.findViewById(R.id.endTurnButton);
         endTurnButton.setOnClickListener(this);
