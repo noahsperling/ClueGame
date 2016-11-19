@@ -364,12 +364,12 @@ public class Board {
             }
         }
 
-        playerBoard[17][1] = 0;
-        playerBoard[19][1] = 1;
-        playerBoard[24][8] = 2;
-        playerBoard[15][25] = 3;
-        playerBoard[10][25] = 4;
-        playerBoard[1][6] = 5;
+        playerBoard[1][17] = 0;
+        playerBoard[8][24] = 1;
+        playerBoard[25][15] = 2;
+        playerBoard[25][10] = 3;
+        playerBoard[19][1] = 4;
+        playerBoard[6][1] = 5;
 
     }
 
@@ -383,7 +383,6 @@ public class Board {
                 break;
             case 3: playerBoard[17][1] = 0;
                 playerBoard[19][1] = 1;
-                playerBoard[24][8] = 2;
                 break;
             case 4: playerBoard[17][1] = 0;
                 playerBoard[19][1] = 1;
@@ -396,6 +395,7 @@ public class Board {
                 playerBoard[15][25] = 3;
                 playerBoard[10][25] = 4;
                 break;
+                playerBoard[24][8] = 2;
             case 6: playerBoard[17][1] = 0;
                 playerBoard[19][1] = 1;
                 playerBoard[24][8] = 2;
@@ -408,34 +408,34 @@ public class Board {
 
     public void drawPlayer(int playerID, int posX, int posY, Canvas c) {
         Paint p = new Paint();
-        posX = 39 * posX;
-        posY = 39 * posY;
-        float adjustedX = (float)(posX+((c.getWidth()-(27*39))/2));
-        float adjustedY = (float)(posY-(39/2));
+        posX = TILE_SIZE * posX;
+        posY = TILE_SIZE * posY;
+        int adjustedX = (posX+((c.getWidth()-(27*TILE_SIZE))/2)+1);
+        int adjustedY = (posY-(TILE_SIZE/2)+1);
 
         p.setColor(Color.WHITE);
 
         switch(playerID) {
             case 0:
-                p.setColor(Color.BLUE);
+                p.setColor(Card.MISS_SCARLET.getColor());
                 break;
             case 1:
-                p.setColor(Color.RED);
+                p.setColor(Card.COL_MUSTARD.getColor());
                 break;
             case 2:
-                p.setColor(Color.GREEN);
+                p.setColor(Card.MRS_WHTE.getColor());
                 break;
             case 3:
-                p.setColor(Color.WHITE);
+                p.setColor(Card.MR_GREEN.getColor());
                 break;
             case 4:
-                p.setColor(Color.YELLOW);
+                p.setColor(Card.MRS_PEACOCK.getColor());
                 break;
             case 5:
-                p.setColor(Color.rgb(142, 68, 173));
+                p.setColor(Card.PROF_PLUM.getColor());
                 break;
         }
-        c.drawCircle(((adjustedX) + (39 / 2)), ((adjustedY) + (39/2)), 19.5f, p);
+        c.drawCircle(((adjustedX) + (TILE_SIZE / 2)), ((adjustedY) + (TILE_SIZE/2)), (TILE_SIZE/2)-2, p);
     }
 
     public void onDraw(Canvas c){
@@ -465,8 +465,8 @@ public class Board {
         //draw Players
         for(int i = 0; i < 27; i++) {
             for(int j = 0; j < 27; j++) {
-                if(playerBoard[i][j] != -1) {
-                    drawPlayer(i, j, playerBoard[i][j], c);
+                if(playerBoard[j][i] != -1) {
+                    drawPlayer(playerBoard[j][i], i, j, c);
                 }
             }
         }
