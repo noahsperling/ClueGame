@@ -60,6 +60,22 @@ public class ComputerPlayerDumb extends ClueComputerPlayer {
             game.sendAction(new ClueMoveDownAction(this));
         }
 
+        //if it enters a room, suggest random
+        if (myState.getCanSuggest(this.playerID)) {
+            Card guess1;
+            Card guess2;
+
+            Random ranCards = new Random();
+
+            int intGuess1 = ranCards.nextInt(21);
+            int intGuess2 = ranCards.nextInt(21);
+
+            if (intGuess1 != intGuess2) {
+                myState.getAllCards().get(intGuess1);
+                myState.getAllCards().get(intGuess2);
+            }
+        }
+
 
         //if it enters a room, suggest random
         //if it uses all its moves and does not enter a room, end turn
