@@ -21,6 +21,11 @@ import edu.up.cs301.game.actionMsg.ClueWrittenNoteAction;
 import edu.up.cs301.game.actionMsg.GameAction;
 import edu.up.cs301.game.config.GamePlayerType;
 
+import static edu.up.cs301.game.Card.CONSERVATORY;
+import static edu.up.cs301.game.Card.KITCHEN;
+import static edu.up.cs301.game.Card.LOUNGE;
+import static edu.up.cs301.game.Card.STUDY;
+
 /**
  * Created by Noah on 10/25/2016.
  */
@@ -203,7 +208,24 @@ public class ClueLocalGame extends LocalGame {
                 }
                 else if (moveAction instanceof ClueUsePassagewayAction)
                 {
-
+                    //These if statements will see where the player is at and will move them to the corner room
+                    //diagonal to them.
+                    if (curBoard[x][y].getRoom() == LOUNGE)
+                    {
+                        state.getBoard().setPlayerBoard(x, y, 22, 2, curPlayerID); //Move Player to conservatory
+                    }
+                    else if (curBoard[x][y].getRoom() == CONSERVATORY)
+                    {
+                        state.getBoard().setPlayerBoard(x, y, 2, 20, curPlayerID); //Move Player to lounge
+                    }
+                    else if (curBoard[x][y].getRoom() == STUDY)
+                    {
+                        state.getBoard().setPlayerBoard(x, y, 22, 22, curPlayerID); //Move Player to kitchen
+                    }
+                    else if (curBoard[x][y].getRoom() == KITCHEN)
+                    {
+                        state.getBoard().setPlayerBoard(x, y, 3, 4, curPlayerID); //Move Player to the study
+                    }
                 }
                 else if (moveAction instanceof ClueEndTurnAction)
                 {
