@@ -401,6 +401,11 @@ public class Board {
 
     public void drawPlayer(int playerID, int posX, int posY, Canvas c) {
         Paint p = new Paint();
+        posX = 39 * posX;
+        posY = 39 * posY;
+        float adjustedX = (float)(posX+((c.getWidth()-(27*39))/2));
+        float adjustedY = (float)(posY-(39/2));
+
         switch(playerID) {
             case 0:
                 p.setColor(Color.BLUE);
@@ -421,7 +426,7 @@ public class Board {
                 p.setColor(Color.rgb(142, 68, 173));
                 break;
         }
-        c.drawCircle((float)((39 * posX) + (39 / 2)), (float)((39 * posY) + (39/2)), 19.5f, p);
+        c.drawCircle(((adjustedX) + (39 / 2)), ((adjustedY) + (39/2)), 19.5f, p);
     }
 
     public void onDraw(Canvas c){
