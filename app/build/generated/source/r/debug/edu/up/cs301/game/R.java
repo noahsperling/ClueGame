@@ -30,10 +30,10 @@ public final class R {
         public static final int purple_delete_button=0x7f020002;
     }
     public static final class id {
-        public static final int a=0x7f0a0012;
+        public static final int a=0x7f0a0056;
         public static final int accuseButton=0x7f0a001c;
         public static final int addPlayerButton=0x7f0a000d;
-        public static final int b=0x7f0a0019;
+        public static final int b=0x7f0a0057;
         public static final int ballRoomCheckBox=0x7f0a0045;
         public static final int ballRoomTextView=0x7f0a0030;
         public static final int billiardCheckBox=0x7f0a0049;
@@ -67,7 +67,7 @@ public final class R {
         public static final int localTabLayout=0x7f0a0004;
         public static final int loungeCheckBox=0x7f0a0044;
         public static final int loungeTextView=0x7f0a002f;
-        public static final int menu_settings=0x7f0a0056;
+        public static final int menu_settings=0x7f0a0058;
         public static final int missScarletCheckBox=0x7f0a003b;
         public static final int missScarletTextView=0x7f0a0024;
         public static final int moveLayout=0x7f0a0013;
@@ -83,6 +83,8 @@ public final class R {
         public static final int notesPopUpButton=0x7f0a004c;
         public static final int overallLayout=0x7f0a000e;
         public static final int playGameButton=0x7f0a0002;
+        public static final int playerHandView=0x7f0a0019;
+        public static final int playerInteractionView=0x7f0a0012;
         public static final int playerNameEditText=0x7f0a004d;
         public static final int playerNameHeadingText=0x7f0a000b;
         public static final int playerTextView=0x7f0a001e;

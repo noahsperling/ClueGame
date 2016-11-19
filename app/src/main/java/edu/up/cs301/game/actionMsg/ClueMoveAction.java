@@ -1,5 +1,7 @@
 package edu.up.cs301.game.actionMsg;
 
+import edu.up.cs301.game.ClueComputerPlayer;
+import edu.up.cs301.game.ClueHumanPlayer;
 import edu.up.cs301.game.CluePlayer;
 import edu.up.cs301.game.GamePlayer;
 
@@ -13,6 +15,10 @@ public class ClueMoveAction extends GameAction
     public ClueMoveAction(GamePlayer player)
     {
         super(player);
-        playerID = ((CluePlayer) player).getPlayerID();
+        if(player instanceof ClueHumanPlayer) {
+            playerID = ((ClueHumanPlayer)player).getPlayerID();
+        }else if(player instanceof ClueComputerPlayer) {
+            playerID = ((ClueComputerPlayer)player).getPlayerID();
+        }
     }
 }

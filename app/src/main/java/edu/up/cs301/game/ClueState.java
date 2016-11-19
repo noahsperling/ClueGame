@@ -32,8 +32,14 @@ public class ClueState extends GameState {
     private Board board;
     private boolean newToRoom[];
 
+    // to satisfy Serializable interface - IDK if necessary
+    private static final long serialVersionUID = 7737393762469851826L;
+
+
     public ClueState(int initNumPlayers, String initPlayerNames[], int initTurnID) {
         turnID = initTurnID;
+        dieValue = 6;
+        spacesMoved = 0;
         numPlayers = initNumPlayers;
         if(numPlayers == 3) {
             cardsPerHand = 6;
@@ -227,18 +233,31 @@ public class ClueState extends GameState {
     public ClueState(ClueState s) {
         turnID = s.turnID;
         numPlayers = s.getNumPlayers();
+        playerIDs = new int[numPlayers];
+        playerNames = new String[numPlayers];
+        canSuggest = new boolean[numPlayers];
+        canRoll = new boolean[numPlayers];
+        checkboxes = new boolean[numPlayers][21];
+        cards = new Hand[numPlayers];
+        newToRoom = new boolean[numPlayers];
+        notes = new String[numPlayers];
+        cardsPerHand = s.getCardsPerHand();
+        cards = new Hand[numPlayers];
+
+
+
         for(int i = 0; i < numPlayers; i++) {
             playerIDs[i] = s.getPlayerID(i);
             playerNames[i] = s.getPlayerName(i)+"";
             canSuggest[i] = s.getCanSuggest(i);
             canRoll[i] = s.getCanRoll(i);
             notes[i] = s.getNotes(i)+"";
-            cardsPerHand = s.getCardsPerHand();
-            Card temp[] = s.cards[i].getCards();
-            for(int j = 0; j < s.cards[i].getArrayListLength(); j++) {
-                cards[j].addCard(temp[j]);
-            }
         }
+
+        for(int i = 0; i < numPlayers; i++) {
+            cards[i] = s.getCards(i);
+        }
+
         solution = s.getSolution();
         checkboxes = new boolean[numPlayers][21];
         for(int i = 0; i < numPlayers; i++) {

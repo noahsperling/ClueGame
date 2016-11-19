@@ -79,7 +79,7 @@ public class ClueLocalGame extends LocalGame {
             int x = 0; //Create current position variables
             int y = 0;
             int curPlayerID = ((ClueMoveAction) a).playerID; //The ID of the player who made the action
-            CluePlayer player = (CluePlayer)a.getPlayer();
+            //player = (CluePlayer)a.getPlayer();
             playBoard = state.getBoard().getPlayerBoard(); //Get the current player board so we know where all the players are
             curBoard = (state.getBoard()).getBoardArr(); //Get the current board w/tiles
 

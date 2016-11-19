@@ -86,7 +86,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
     @Override
     public View getTopView() {
-        return null;
+        return myActivity.findViewById(R.id.boardView);
     }
 
     public int getID()
@@ -213,15 +213,15 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     }
 
 
-    public void start()
-    {
+    //public void start()
+    //{
 
-    }
+    //}
 
-    public void sendInfo(GameInfo g)
-    {
+    //public void sendInfo(GameInfo g)
+    //{
 
-    }
+    //}
 
     @Override
     public void receiveInfo(GameInfo info)

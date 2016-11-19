@@ -14,6 +14,10 @@ public class ClueMainActivity extends GameMainActivity {
     public static final int PORT_NUMBER = 6732;
     private ArrayList<GamePlayerType> gamePlayerTypes;
 
+    public ClueMainActivity() {
+        super();
+    }
+
     @Override
     public GameConfig createDefaultConfig() {
         ArrayList<GamePlayerType> playerTypes = new ArrayList<GamePlayerType>();
