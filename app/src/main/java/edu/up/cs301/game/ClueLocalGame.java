@@ -155,10 +155,8 @@ public class ClueLocalGame extends LocalGame {
                                 state.setSpacesMoved(state.getSpacesMoved() + 1);
                                 state.setNewToRoom(curPlayerID, true);
                             }
-                            else if (curBoard[x][y].getTileType() == 1 && curBoard[x][y+1].getTileType() == 1) //If the player is in and will move within a room
+                            else if (curBoard[x][y].getTileType() == 1 && curBoard[x][y+1].getTileType() == 1)
                             {
-                                //If the player is moving around within a room, it will set their new position but will
-                                //not increment the spaces moved.
                                 state.getBoard().setPlayerBoard(x, y, x, y + 1, curPlayerID);
                             }
                             else
@@ -178,10 +176,8 @@ public class ClueLocalGame extends LocalGame {
                                 state.setSpacesMoved(state.getSpacesMoved() + 1);
                                 state.setNewToRoom(curPlayerID, true);
                             }
-                            else if (curBoard[x][y].getTileType() == 1 && curBoard[x+1][y].getTileType() == 1) //If the player is in and will move within a room
+                            else if (curBoard[x][y].getTileType() == 1 && curBoard[x+1][y].getTileType() == 1)
                             {
-                                //If the player is moving around within a room, it will set their new position but will
-                                //not increment the spaces moved.
                                 state.getBoard().setPlayerBoard(x, y, x + 1, y, curPlayerID);
                             }
                             else
@@ -200,10 +196,8 @@ public class ClueLocalGame extends LocalGame {
                                 state.getBoard().setPlayerBoard(x, y, x - 1, y, curPlayerID);
                                 state.setSpacesMoved(state.getSpacesMoved() + 1);
                             }
-                            else if (curBoard[x][y].getTileType() == 1 && curBoard[x-1][y].getTileType() == 1) //If the player is in and will move within a room
+                            else if (curBoard[x][y].getTileType() == 1 && curBoard[x-1][y].getTileType() == 1)
                             {
-                                //If the player is moving around within a room, it will set their new position but will
-                                //not increment the spaces moved.
                                 state.getBoard().setPlayerBoard(x, y, x - 1, y, curPlayerID);
                             }
                             else
