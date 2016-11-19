@@ -103,8 +103,8 @@ public class ClueLocalGame extends LocalGame {
             }
 
             //Check to make sure it's actually the player's turn
-            if (state.getTurnId() == curPlayerID) {
-
+            if (state.getTurnId() == curPlayerID)
+            {
                 if (state.getCanRoll(curPlayerID))
                 {
                     //What to do if a certain action is made
@@ -132,6 +132,12 @@ public class ClueLocalGame extends LocalGame {
                                 state.setSpacesMoved(state.getSpacesMoved() + 1);
                                 state.setNewToRoom(curPlayerID, true); //Set the new to room in array to true.
                             }
+                            else if (curBoard[x][y].getTileType() == 1 && curBoard[x][y-1].getTileType() == 1) //If the player is in and will move within a room
+                            {
+                                //If the player is moving around within a room, it will set their new position but will
+                                //not increment the spaces moved.
+                                state.getBoard().setPlayerBoard(x, y, x, y - 1, curPlayerID);
+                            }
                             else //Otherwise they're moving to a hallway.
                             {
                                 state.getBoard().setPlayerBoard(x, y, x, y - 1, curPlayerID); //Set the new position of the player and set the old position to zero.
@@ -148,6 +154,12 @@ public class ClueLocalGame extends LocalGame {
                                 state.getBoard().setPlayerBoard(x, y, x, y + 1, curPlayerID);
                                 state.setSpacesMoved(state.getSpacesMoved() + 1);
                                 state.setNewToRoom(curPlayerID, true);
+                            }
+                            else if (curBoard[x][y].getTileType() == 1 && curBoard[x][y+1].getTileType() == 1) //If the player is in and will move within a room
+                            {
+                                //If the player is moving around within a room, it will set their new position but will
+                                //not increment the spaces moved.
+                                state.getBoard().setPlayerBoard(x, y, x, y + 1, curPlayerID);
                             }
                             else
                             {
@@ -166,6 +178,12 @@ public class ClueLocalGame extends LocalGame {
                                 state.setSpacesMoved(state.getSpacesMoved() + 1);
                                 state.setNewToRoom(curPlayerID, true);
                             }
+                            else if (curBoard[x][y].getTileType() == 1 && curBoard[x+1][y].getTileType() == 1) //If the player is in and will move within a room
+                            {
+                                //If the player is moving around within a room, it will set their new position but will
+                                //not increment the spaces moved.
+                                state.getBoard().setPlayerBoard(x, y, x + 1, y, curPlayerID);
+                            }
                             else
                             {
                                 state.getBoard().setPlayerBoard(x, y, x + 1, y, curPlayerID);
@@ -181,6 +199,12 @@ public class ClueLocalGame extends LocalGame {
                             {
                                 state.getBoard().setPlayerBoard(x, y, x - 1, y, curPlayerID);
                                 state.setSpacesMoved(state.getSpacesMoved() + 1);
+                            }
+                            else if (curBoard[x][y].getTileType() == 1 && curBoard[x-1][y].getTileType() == 1) //If the player is in and will move within a room
+                            {
+                                //If the player is moving around within a room, it will set their new position but will
+                                //not increment the spaces moved.
+                                state.getBoard().setPlayerBoard(x, y, x - 1, y, curPlayerID);
                             }
                             else
                             {
