@@ -64,7 +64,7 @@ public class Tile {
                 }
 
                 if(rightWall){//right
-                    c.drawRect(adjustedX+Board.TILE_SIZE-(Board.TILE_SIZE/8),adjustedY+Board.TILE_SIZE,adjustedX+Board.TILE_SIZE,adjustedY,p);
+                    c.drawRect(adjustedX+Board.TILE_SIZE-(Board.TILE_SIZE/8),adjustedY,adjustedX+Board.TILE_SIZE,adjustedY+Board.TILE_SIZE,p);
                 }
 
                 if(bottomWall){//bottom
@@ -75,7 +75,5 @@ public class Tile {
                     c.drawRect(adjustedX, adjustedY, adjustedX + (Board.TILE_SIZE / 8), adjustedY + Board.TILE_SIZE, p);
                 }
         }
-
-
     }
 }
