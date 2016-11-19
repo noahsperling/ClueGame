@@ -86,7 +86,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
     @Override
     public View getTopView() {
-        return myActivity.findViewById(R.id.boardView);
+        return null;
     }
 
     public int getID()
@@ -213,15 +213,15 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     }
 
 
-    //public void start()
-    //{
+    public void start()
+    {
 
-    //}
+    }
 
-    //public void sendInfo(GameInfo g)
-    //{
+    public void sendInfo(GameInfo g)
+    {
 
-    //}
+    }
 
     @Override
     public void receiveInfo(GameInfo info)
@@ -259,27 +259,31 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             ClueMoveRightAction right = new ClueMoveRightAction(this);
             game.sendAction(right);
         }
-        //Non move buttons
-        else if (view == accuseButton)
+
+        //for radio buttons
+        else if (view.getId() == R.id.radioAccuseButton)
         {
             ClueAccuseAction accuse = new ClueAccuseAction(this);
             game.sendAction(accuse);
         }
-        else if (view == suggestButton)
+        else if (view.getId() == R.id.radioSuggestButton)
         {
             ClueSuggestionAction suggest = new ClueSuggestionAction(this);
             game.sendAction(suggest);
         }
+        //end turn button
         else if (view == endTurnButton)
         {
             ClueEndTurnAction endTurn = new ClueEndTurnAction(this);
             game.sendAction(endTurn);
         }
-        else if (view == noteButton)
+        //note edit text
+        else if (view.getId() == R.id.editText)
         {
             ClueWrittenNoteAction writtenNote = new ClueWrittenNoteAction(this);
             game.sendAction(writtenNote);
         }
+
         //CheckBoxes
         else if (view == colonelMustardCheck)
         {
