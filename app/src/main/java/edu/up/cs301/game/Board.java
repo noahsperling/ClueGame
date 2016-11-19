@@ -413,8 +413,9 @@ public class Board {
         int adjustedX = (posX+((c.getWidth()-(27*TILE_SIZE))/2)+1);
         int adjustedY = (posY-(TILE_SIZE/2)+1);
 
+        p.setColor(Color.BLACK);
+        c.drawCircle(((adjustedX) + (TILE_SIZE / 2)), ((adjustedY) + (TILE_SIZE/2)), (TILE_SIZE/2)-2, p);
         p.setColor(Color.WHITE);
-
         switch(playerID) {
             case 0:
                 p.setColor(Card.MISS_SCARLET.getColor());
@@ -435,7 +436,7 @@ public class Board {
                 p.setColor(Card.PROF_PLUM.getColor());
                 break;
         }
-        c.drawCircle(((adjustedX) + (TILE_SIZE / 2)), ((adjustedY) + (TILE_SIZE/2)), (TILE_SIZE/2)-2, p);
+        c.drawCircle(((adjustedX) + (TILE_SIZE / 2)), ((adjustedY) + (TILE_SIZE/2)), (TILE_SIZE/2)-4, p);
     }
 
     public void onDraw(Canvas c){
