@@ -160,7 +160,11 @@ public class ClueLocalGame extends LocalGame {
                 }
                 else if (moveAction instanceof ClueAccuseAction)
                 {
+                    if(state.getTurnId() == moveAction.playerID) {
 
+                    }else {
+                        return false;
+                    }
                 }
                 else if (moveAction instanceof ClueSuggestionAction)
                 {
@@ -172,13 +176,15 @@ public class ClueLocalGame extends LocalGame {
                 }
                 else if (moveAction instanceof ClueEndTurnAction)
                 {
-                    //Change the turnID to the next player.
-                    if (state.getTurnId() == 5)
+                    //Change the turnID to the next player and lets the next player roll
+                    if (state.getTurnId() == (state.getNumPlayers() - 1))
                     {
+                        state.setCanRoll(0, true);
                         state.setTurnID(0);
                     }
                     else
                     {
+                        state.setCanRoll(state.getTurnId() + 1, true);
                         state.setTurnID(state.getTurnId() + 1);
                     }
                 }
