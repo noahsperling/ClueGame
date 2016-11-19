@@ -90,67 +90,76 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="20dp"
                                 android:layout_weight="1"
-                                android:layout_row="5"
-                                android:layout_column="0" />
-
-
-                            <TextView
-                                android:text="Suggest/Accuse:"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/suggestOrAccuseTextView"
-                                android:layout_row="6"
-                                android:layout_column="0" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="20dp"
-                                android:layout_weight="1"
                                 android:layout_row="7"
                                 android:layout_column="0" />
+
+                            <TextView
+                                android:text="Room:"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/roomSpinnerTextView"
+                                android:layout_row="8"
+                                android:layout_column="0" />
+
 
                             <Spinner
                                 android:layout_width="166dp"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/spinner2"
-                                android:layout_weight="1"
-                                android:layout_row="8"
-                                android:layout_column="0" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="20dp"
+                                android:id="@+id/roomSpinner"
                                 android:layout_weight="1"
                                 android:layout_row="9"
                                 android:layout_column="0" />
 
-                            <Spinner
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/spinner5"
-                                android:layout_weight="1"
-                                android:layout_row="10"
-                                android:layout_column="0" />
-
                             <Space
                                 android:layout_width="match_parent"
                                 android:layout_height="20dp"
                                 android:layout_weight="1"
+                                android:layout_row="10"
+                                android:layout_column="0" />
+
+                            <TextView
+                                android:text="Weapon:"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/weaponSpinnerTextView"
                                 android:layout_row="11"
                                 android:layout_column="0" />
 
                             <Spinner
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/spinner6"
+                                android:id="@+id/weaponSpinner"
                                 android:layout_weight="1"
                                 android:layout_row="12"
                                 android:layout_column="0" />
 
                             <Space
                                 android:layout_width="match_parent"
+                                android:layout_height="20dp"
                                 android:layout_weight="1"
                                 android:layout_row="13"
+                                android:layout_column="0" />
+
+                            <TextView
+                                android:text="Suspect:"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/suspectSpinnerTextView"
+                                android:layout_row="14"
+                                android:layout_column="0" />
+
+                            <Spinner
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/suspectSpinner"
+                                android:layout_weight="1"
+                                android:layout_row="15"
+                                android:layout_column="0" />
+
+                            <Space
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_row="16"
                                 android:layout_column="0"
                                 android:layout_height="30dp" />
 
@@ -160,10 +169,8 @@
                                 android:layout_height="wrap_content"
                                 android:id="@+id/endTurnButton"
                                 android:layout_weight="1"
-                                android:layout_row="14"
+                                android:layout_row="17"
                                 android:layout_column="0" />
-
-
 
                         </GridLayout>
                     </LinearLayout>
