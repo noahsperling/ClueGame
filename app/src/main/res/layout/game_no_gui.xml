@@ -215,14 +215,13 @@
 
                 </LinearLayout>
 
-                <LinearLayout
+                <edu.up.cs301.game.ClueCardView
                     android:orientation="vertical"
-                    android:layout_width="517dp"
+                    android:layout_width="515dp"
                     android:layout_height="match_parent"
                     android:paddingLeft="250dp"
                     android:id="@+id/playerHandView">
-
-                </LinearLayout>
+                </edu.up.cs301.game.ClueCardView>
 
                 <LinearLayout
                     android:orientation="vertical"

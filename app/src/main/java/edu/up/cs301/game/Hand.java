@@ -1,5 +1,7 @@
 package edu.up.cs301.game;
 
+import android.graphics.Canvas;
+
 import java.util.ArrayList;
 
 /**
@@ -33,5 +35,9 @@ public class Hand {
     }
     public int getArrayListLength() {
         return cards.size();
+    }
+
+    public void onDraw(Canvas c){
+
     }
 }
