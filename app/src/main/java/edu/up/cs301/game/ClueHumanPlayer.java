@@ -229,6 +229,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         if(info instanceof ClueState) {
             recentState = new ClueState((ClueState)info);
         }
+        boardView.invalidate();
     }
 
     public void onClick(View view)
