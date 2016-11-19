@@ -61,11 +61,12 @@
                                 android:layout_row="1"
                                 android:layout_column="0" />
 
-                            <TextView
-                                android:text="Suggest/Accuse:"
+                            <RadioButton
+                                android:text="Suggest"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/suggestOrAccuseTextView"
+                                android:id="@+id/radioSuggestButton"
+                                android:layout_weight="1"
                                 android:layout_row="2"
                                 android:layout_column="0" />
 
@@ -76,10 +77,11 @@
                                 android:layout_row="3"
                                 android:layout_column="0" />
 
-                            <Spinner
-                                android:layout_width="166dp"
+                            <RadioButton
+                                android:text="Accuse"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/spinner2"
+                                android:id="@+id/radioAccuseButton"
                                 android:layout_weight="1"
                                 android:layout_row="4"
                                 android:layout_column="0" />
@@ -91,11 +93,12 @@
                                 android:layout_row="5"
                                 android:layout_column="0" />
 
-                            <Spinner
-                                android:layout_width="match_parent"
+
+                            <TextView
+                                android:text="Suggest/Accuse:"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/spinner5"
-                                android:layout_weight="1"
+                                android:id="@+id/suggestOrAccuseTextView"
                                 android:layout_row="6"
                                 android:layout_column="0" />
 
@@ -107,11 +110,57 @@
                                 android:layout_column="0" />
 
                             <Spinner
+                                android:layout_width="166dp"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/spinner2"
+                                android:layout_weight="1"
+                                android:layout_row="8"
+                                android:layout_column="0" />
+
+                            <Space
+                                android:layout_width="match_parent"
+                                android:layout_height="20dp"
+                                android:layout_weight="1"
+                                android:layout_row="9"
+                                android:layout_column="0" />
+
+                            <Spinner
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/spinner5"
+                                android:layout_weight="1"
+                                android:layout_row="10"
+                                android:layout_column="0" />
+
+                            <Space
+                                android:layout_width="match_parent"
+                                android:layout_height="20dp"
+                                android:layout_weight="1"
+                                android:layout_row="11"
+                                android:layout_column="0" />
+
+                            <Spinner
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/spinner6"
                                 android:layout_weight="1"
-                                android:layout_row="8"
+                                android:layout_row="12"
+                                android:layout_column="0" />
+
+                            <Space
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_row="13"
+                                android:layout_column="0"
+                                android:layout_height="30dp" />
+
+                            <Button
+                                android:text="END TURN"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/endTurnButton"
+                                android:layout_weight="1"
+                                android:layout_row="14"
                                 android:layout_column="0" />
 
 
@@ -217,46 +266,11 @@
 
                 <edu.up.cs301.game.ClueCardView
                     android:orientation="vertical"
-                    android:layout_width="515dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingLeft="250dp"
                     android:id="@+id/playerHandView">
                 </edu.up.cs301.game.ClueCardView>
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <GridLayout
-                        android:layout_width="127dp"
-                        android:layout_height="match_parent">
-
-                        <Button
-                            android:text="END TURN"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/endTurnButton"
-                            android:layout_row="0"
-                            android:layout_column="1" />
-
-                        <Button
-                            android:text="SUGGEST"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/suggestButton"
-                            android:layout_row="1"
-                            android:layout_column="1" />
-
-                        <Button
-                            android:text="ACCUSE"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/accuseButton"
-                            android:layout_row="2"
-                            android:layout_column="1" />
-                    </GridLayout>
-                </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>
@@ -275,7 +289,9 @@
                     android:text="You Are:"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
-                    android:id="@+id/playerTextView" />
+                    android:id="@+id/playerTextView"
+                    android:layout_row="0"
+                    android:layout_column="0" />
 
                 <TextView
                     android:text="SUSPECTS"
@@ -616,17 +632,10 @@
                     android:layout_row="24"
                     android:layout_column="1" />
 
-                <Button
-                    android:text="Notes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:id="@+id/notesPopUpButton"
-                    android:layout_row="26"
-                    android:layout_column="0" />
-
             </GridLayout>
 
         </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
+
