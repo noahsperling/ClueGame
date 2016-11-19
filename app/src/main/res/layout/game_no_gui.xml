@@ -26,17 +26,42 @@
                 android:layout_height="505dp"
                 android:id="@+id/boardLayout">
 
-                <edu.up.cs301.game.ClueBoardView
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/boardView" />
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_height="match_parent"
+                        android:layout_width="175dp"></LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <edu.up.cs301.game.ClueBoardView
+                            android:layout_height="match_parent"
+                            android:id="@+id/boardView"
+                            android:layout_weight="0.01"
+                            android:layout_width="565dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_height="match_parent"
+                        android:layout_width="175dp"></LinearLayout>
+
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="134dp"
-                android:id="@+id/a"
+                android:id="@+id/playerInteractionView"
                 android:weightSum="1"
                 tools:layout_width="match_parent">
 
@@ -100,7 +125,7 @@
                     android:layout_width="517dp"
                     android:layout_height="match_parent"
                     android:paddingLeft="250dp"
-                    android:id="@+id/b">
+                    android:id="@+id/playerHandView">
 
                 </LinearLayout>
 
