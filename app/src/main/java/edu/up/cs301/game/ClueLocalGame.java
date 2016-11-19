@@ -276,7 +276,6 @@ public class ClueLocalGame extends LocalGame {
                     }
                 }
             }
-            return true;
         }
         else //If it's not a move action
         {
