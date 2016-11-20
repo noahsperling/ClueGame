@@ -3,12 +3,14 @@ package edu.up.cs301.game;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,8 +49,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     private Spinner suspectSpinner;
     private EditText notesGUI;
     private Button rollButton;
-
-
     private Button noteButton;
 
     //Check Boxes!!
@@ -156,14 +156,22 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         rollButton.setEnabled(true);
 
         //Spinners
+//        Spinner dropdown = (Spinner)myActivity.findViewById(R.id.roomSpinner);
+        String[] roomItems = new String[]{"Room","Weapon", "Suspect"};
+        String[] weaponItems = new String[]{"Knife"};
+        String[] suspectItem = new String []{"Miss Scarlet"};
+        ArrayAdapter<String> roomAdapter = new ArrayAdapter<String>(myActivity, android.R.layout.simple_spinner_dropdown_item, roomItems);
+        ArrayAdapter<String> weaponAdapter = new ArrayAdapter<String>(myActivity, android.R.layout.simple_spinner_dropdown_item, weaponItems);
+        ArrayAdapter<String> suspectAdapter = new ArrayAdapter<String>(myActivity,android.R.layout.simple_spinner_dropdown_item, suspectItem );
+
         roomSpinner = (Spinner)myActivity.findViewById(R.id.roomSpinner);
-        roomSpinner.setOnClickListener(this);
+        roomSpinner.setAdapter(roomAdapter);
 
         weaponSpinnner = (Spinner)myActivity.findViewById(R.id.weaponSpinner);
-        weaponSpinnner.setOnClickListener(this);
+        weaponSpinnner.setAdapter(weaponAdapter);
 
         suspectSpinner = (Spinner)myActivity.findViewById(R.id.suspectSpinner);
-        suspectSpinner.setOnClickListener(this);
+        suspectSpinner.setAdapter(suspectAdapter);
 
         //CheckBoxes!!
         colonelMustardCheck = (CheckBox)myActivity.findViewById(R.id.colMustardCheckBox);
