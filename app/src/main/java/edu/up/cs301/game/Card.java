@@ -24,8 +24,8 @@ public enum Card {
     REVOLVER("Revolver",Type.WEAPON, Color.rgb(160,64,0)), //dark brown
     MR_GREEN("Mr. Green",Type.PERSON, Color.GREEN),
     MRS_PEACOCK("Mrs. Peacock",Type.PERSON, Color.BLUE),
-    MRS_WHTE("Mrs. White",Type.PERSON, Color.WHITE),
-    COL_MUSTARD("COl. Mustard",Type.PERSON, Color.YELLOW),
+    MRS_WHITE("Mrs. White",Type.PERSON, Color.WHITE),
+    COL_MUSTARD("Col. Mustard",Type.PERSON, Color.YELLOW),
     MISS_SCARLET("Miss Scarlet",Type.PERSON, Color.RED),
     PROF_PLUM("Professor Plum",Type.PERSON, Color.rgb(142,68,173)); //purple
 
