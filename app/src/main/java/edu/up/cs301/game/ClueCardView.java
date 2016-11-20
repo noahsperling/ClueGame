@@ -29,7 +29,8 @@ public class ClueCardView extends SurfaceView {
     }
 
     @Override
-    public void onDraw(Canvas canvas) {
+    public void onDraw(Canvas canvas)
+    {
         Paint p = new Paint();
         p.setColor(Color.argb(127, 255, 255, 255)); //grey
         canvas.drawRect(0, 0, getWidth(), getHeight(), p);

@@ -19,4 +19,34 @@
     <string name="dialog_quit_question">Do you really want to quit?</string>
     <string name="local_tab">Local Game</string>
     <string name="remote_tab">Remote Game</string>
+
+    <string-array name="room_entries">
+        <item>Hall</item>
+        <item>Lounge</item>
+        <item>Ball Room</item>
+        <item>Kitchen</item>
+        <item>Conservatory</item>
+        <item>Study</item>
+        <item>Billiard Room</item>
+        <item>Dining Room</item>
+        <item>Library</item>
+    </string-array>
+
+    <string-array name="weapon_entries">
+        <item>Knife</item>
+        <item>Candlestick</item>
+        <item>Revolver</item>
+        <item>Rope</item>
+        <item>Lead Pipe</item>
+        <item>Wrench</item>
+    </string-array>
+
+    <string-array name="suspect_entries">
+        <item>Colonel Mustard</item>
+        <item>Professor Plum</item>
+        <item>Mr. Green</item>
+        <item>Mrs. Peacock</item>
+        <item>Miss Scarlet</item>
+        <item>Mrs. White</item>
+    </string-array>
 </resources>
