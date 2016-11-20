@@ -81,6 +81,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     //noteView
 
     private ClueBoardView boardView;
+    private ClueCardView cardView;
 
     private Activity myActivity;
 
@@ -118,6 +119,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         if(recentState != null) {
             boardView.updateBoard(recentState.getBoard());
         }
+        cardView = (ClueCardView) myActivity.findViewById(R.id.playerHandView);
 
         upButton = (Button)myActivity.findViewById(R.id.upButton);
         upButton.setOnClickListener(this);
@@ -255,6 +257,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         }
         boardView.updateBoard(recentState.getBoard());
         boardView.invalidate();
+        cardView.updateCards(recentState.getCards(playerID));
+        cardView.invalidate();
     }
 
     public void onClick(View view)
@@ -286,11 +290,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             game.sendAction(right);
         }
         else if(view == rollButton) {
-            if(recentState.getCanRoll(playerID)) {
-                ClueRollAction roll = new ClueRollAction(this);
-                game.sendAction(roll);
-                rollButton.setEnabled(false);
-            }
+            ClueRollAction roll = new ClueRollAction(this);
+            game.sendAction(roll);
+            rollButton.setEnabled(false);
         }
 
         //for radio buttons
@@ -298,7 +300,14 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         {
             suggestR.setChecked(false);
             accuseR.setChecked(true);
+            String roomSelect = roomSpinner.getSelectedItem().toString();
+            String weaponSelect = weaponSpinnner.getSelectedItem().toString();
+            String suspectSelect = suspectSpinner.getSelectedItem().toString();
+
             ClueAccuseAction accuse = new ClueAccuseAction(this);
+            accuse.room = roomSelect;
+            accuse.weapon = weaponSelect;
+            accuse.suspect = suspectSelect;
             game.sendAction(accuse);
         }
         else if (view.getId() == R.id.radioSuggestButton)

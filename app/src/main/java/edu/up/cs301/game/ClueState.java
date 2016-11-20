@@ -31,6 +31,7 @@ public class ClueState extends GameState {
     private boolean gameOver;
     private Board board;
     private boolean newToRoom[];
+    private boolean playerStillInGame[];
 
     // to satisfy Serializable interface - IDK if necessary
     private static final long serialVersionUID = 7737393762469851826L;
@@ -57,6 +58,10 @@ public class ClueState extends GameState {
         checkboxes = new boolean[numPlayers][21];
         cards = new Hand[numPlayers];
         newToRoom = new boolean[numPlayers];
+        playerStillInGame = new boolean[numPlayers];
+        for(int i=0;i<numPlayers;i++){
+            playerStillInGame[i] = true;
+        }
 
         for(int i =0; i<numPlayers;i++){
             cards[i] = new Hand();
@@ -243,6 +248,7 @@ public class ClueState extends GameState {
         notes = new String[numPlayers];
         cardsPerHand = s.getCardsPerHand();
         cards = new Hand[numPlayers];
+        playerStillInGame = s.playerStillInGame;
 
 
 

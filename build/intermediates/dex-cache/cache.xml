@@ -2,13 +2,31 @@
 <items version="2" >
 
     <item
-        is-multidex="false"
-        jar="C:\Users\Langley\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-v4\18.0.0\support-v4-18.0.0.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGameRedownload2/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="05ad624cc4327460e544a07f8704746031e675a8">
+        <dex dex="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGameRedownload2/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_f5615c8f9a18725026c7458d0b846ebf112d74b2/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGameRedownload2/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="43ec47562e0de66124716baa6af1ab524f1cbd00">
+        <dex dex="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGameRedownload2/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_a28f0ea7024d25916b9f772ad84e67ffbca2b484/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Paige/Library/Android/sdk/extras/android/m2repository/com/android/support/support-v4/18.0.0/support-v4-18.0.0.jar"
+        jumboMode="true"
         optimize="true"
         revision="22.0.1"
         sha1="44ec51e9d395a47aab135e5e1b556c0007442156">
-        <dex dex="C:\Users\Langley\Documents\Sophomore\Fall 2016\CS 301\ClueGame\app\build\intermediates\pre-dexed\debug\support-v4-18.0.0_db0e286207f6ceee715419fb76e1237dcd6ee891.jar" />
+        <dex dex="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGameRedownload2/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-v4-18.0.0_8e0fca08f5eb1515bf356cf9abc9298b18290ff6/classes.dex" />
     </item>
 
 </items>
