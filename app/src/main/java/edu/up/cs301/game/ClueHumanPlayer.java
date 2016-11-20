@@ -158,7 +158,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         rollButton.setEnabled(true);
 
         //Spinners
-//        Spinner dropdown = (Spinner)myActivity.findViewById(R.id.roomSpinner);
+        //will have to make sure room is locked when making a suggestion
         String[] roomItems = new String[]{"Ballroom","Billiard Room ", "Conservatory", "Dining Room", "Hall", "Kitchen", "Library", "Lounge", "Study"};
         String[] weaponItems = new String[]{"Candlestick", "Knife", "Lead Pipe", "Revolver", "Rope", "Wrench", };
         String[] suspectItem = new String []{"Mr. Green", "Col. Mustard", "Mrs. Peacock", "Prof. Plum", "Miss Scarlet", "Mrs.White"};
