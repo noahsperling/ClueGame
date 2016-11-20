@@ -2,6 +2,7 @@ package edu.up.cs301.game;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +52,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     private EditText notesGUI;
     private Button rollButton;
     private Button noteButton;
+    private TextView numberOfMovesLeft;
 
     //Check Boxes!!
     private CheckBox colonelMustardCheck;
@@ -239,6 +242,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         studyCheck = (CheckBox)myActivity.findViewById(R.id.studyCheckBox);
         studyCheck.setOnClickListener(this);
 
+        numberOfMovesLeft = (TextView)myActivity.findViewById(R.id.numberOfMovesTextView);
+        numberOfMovesLeft.setText(0+"");
+
     }
 
     public ClueState getRecentState()
@@ -263,6 +269,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
     public void onClick(View view)
     {
+        //ClueLocalGame clg = (ClueLocalGame) game;
         //Move player actions
         if (game == null)
         {
@@ -273,21 +280,26 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         {
             ClueMoveUpAction up = new ClueMoveUpAction(this);
             game.sendAction(up);
+            //numberOfMovesLeft.setText((recentState.getDieValue()-recentState.getSpacesMoved())+"");
+
         }
         else if (view == downButton)
         {
             ClueMoveDownAction down = new ClueMoveDownAction(this);
             game.sendAction(down);
+            //numberOfMovesLeft.setText((recentState.getDieValue()-recentState.getSpacesMoved())+"");
         }
         else if (view == leftButton)
         {
             ClueMoveLeftAction left = new ClueMoveLeftAction(this);
             game.sendAction(left);
+            //numberOfMovesLeft.setText((recentState.getDieValue()-recentState.getSpacesMoved())+"");
         }
         else if (view == rightButton)
         {
             ClueMoveRightAction right = new ClueMoveRightAction(this);
             game.sendAction(right);
+            //numberOfMovesLeft.setText((recentState.getDieValue()-recentState.getSpacesMoved())+"");
         }
         else if(view == rollButton) {
             ClueRollAction roll = new ClueRollAction(this);
@@ -322,6 +334,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         {
             ClueEndTurnAction endTurn = new ClueEndTurnAction(this);
             game.sendAction(endTurn);
+
         }
         //note edit text
         else if (view.getId() == R.id.editText)
@@ -573,9 +586,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             ClueCheckAction checkAct = new ClueCheckAction(this);
             game.sendAction(checkAct);
         }
-        else if (view == studyCheck)
-        {
-            if(!checkBoxBool[20]) {
+        else if (view == studyCheck) {
+            if (!checkBoxBool[20]) {
                 checkBoxBool[20] = true;
                 studyCheck.setChecked(true);
             } else {
@@ -584,8 +596,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             }
             ClueCheckAction checkAct = new ClueCheckAction(this);
             game.sendAction(checkAct);
+        }else{
+            return;
         }
-
     }
 
     public int getPlayerID() {

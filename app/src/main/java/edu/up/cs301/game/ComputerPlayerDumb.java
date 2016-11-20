@@ -1,5 +1,7 @@
 package edu.up.cs301.game;
 
+import android.util.Log;
+
 import java.util.Random;
 
 import edu.up.cs301.game.actionMsg.ClueEndTurnAction;
@@ -24,11 +26,13 @@ public class ComputerPlayerDumb extends ClueComputerPlayer {
 
     @Override
     protected void receiveInfo(GameInfo info) {
+        //ClueLocalGame clg = (ClueLocalGame) game;
         if(info instanceof BindGameInfo) {
             playerID = ((BindGameInfo) info).getPlayerNum();
         }else if(info instanceof ClueState) {
                 ClueState myState = (ClueState) info; //cast it
                 if(myState.getTurnId() == playerID) {
+                    game.sendAction(new ClueRollAction(this));
                     game.sendAction(new ClueEndTurnAction(this));
                 }
 
