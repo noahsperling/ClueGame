@@ -578,7 +578,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             ClueCheckAction checkAct = new ClueCheckAction(this);
             game.sendAction(checkAct);
         }
-
     }
 
     public int getPlayerID() {
