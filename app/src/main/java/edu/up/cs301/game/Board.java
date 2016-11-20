@@ -424,7 +424,7 @@ public class Board {
                 p.setColor(Card.COL_MUSTARD.getColor());
                 break;
             case 2:
-                p.setColor(Card.MRS_WHTE.getColor());
+                p.setColor(Card.MRS_WHITE.getColor());
                 break;
             case 3:
                 p.setColor(Card.MR_GREEN.getColor());

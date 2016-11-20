@@ -157,9 +157,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
         //Spinners
 //        Spinner dropdown = (Spinner)myActivity.findViewById(R.id.roomSpinner);
-        String[] roomItems = new String[]{"Ballroom","Billiard Room ", "Ball Room", "Dining Room", "Study", "Conservatory", "Library", "Lounge", "Kitchen"};
-        String[] weaponItems = new String[]{"Knife"};
-        String[] suspectItem = new String []{"Miss Scarlet"};
+        String[] roomItems = new String[]{"Ballroom","Billiard Room ", "Conservatory", "Dining Room", "Hall", "Kitchen", "Library", "Lounge", "Study"};
+        String[] weaponItems = new String[]{"Candlestick", "Knife", "Lead Pipe", "Revolver", "Rope", "Wrench", };
+        String[] suspectItem = new String []{"Mr. Green", "Col. Mustard", "Mrs. Peacock", "Prof. Plum", "Miss Scarlet", "Mrs.White"};
         ArrayAdapter<String> roomAdapter = new ArrayAdapter<String>(myActivity, android.R.layout.simple_spinner_dropdown_item, roomItems);
         ArrayAdapter<String> weaponAdapter = new ArrayAdapter<String>(myActivity, android.R.layout.simple_spinner_dropdown_item, weaponItems);
         ArrayAdapter<String> suspectAdapter = new ArrayAdapter<String>(myActivity,android.R.layout.simple_spinner_dropdown_item, suspectItem );
