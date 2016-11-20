@@ -227,14 +227,8 @@ public class ClueLocalGame extends LocalGame {
                 }
                 else if (moveAction instanceof ClueAccuseAction)
                 {
-                    if(state.getTurnId() == moveAction.playerID)
-                    {
-
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    //Show the cards
+                    
                 }
                 else if (moveAction instanceof ClueSuggestionAction)
                 {
