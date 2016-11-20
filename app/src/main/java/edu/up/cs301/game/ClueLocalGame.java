@@ -27,6 +27,8 @@ import static edu.up.cs301.game.Card.CONSERVATORY;
 import static edu.up.cs301.game.Card.KITCHEN;
 import static edu.up.cs301.game.Card.LOUNGE;
 import static edu.up.cs301.game.Card.STUDY;
+import static edu.up.cs301.game.Type.ROOM;
+import static edu.up.cs301.game.Type.WEAPON;
 
 /**
  * Created by Noah on 10/25/2016.
@@ -228,7 +230,41 @@ public class ClueLocalGame extends LocalGame {
                 }
                 else if (moveAction instanceof ClueAccuseAction)
                 {
-                    //Show the cards
+                    boolean solved = true;
+                    Card solution[] = state.getSolution();
+                    ClueAccuseAction moveActionAcc = (ClueAccuseAction)moveAction;
+
+                    //Check to see if the players guess matches the solution
+                    for (int i = 0; i < 3; i++)
+                    {
+                        if (solution[i].getType() == ROOM)
+                        {
+                            if (solution[i].getName() != moveActionAcc.room)
+                            {
+                                solved = false;
+                            }
+                        }
+                        else if (solution[i].getType() == WEAPON)
+                        {
+                            if (solution[i].getName() != moveActionAcc.weapon)
+                            {
+                                solved = false;
+                            }
+                        }
+                        else
+                        {
+                            if (solution[i].getName() != moveActionAcc.suspect)
+                            {
+                                solved = false;
+                            }
+                        }
+                    }
+
+                    if (!solved)
+                    {
+                        //End the game for that player.
+
+                    }
                     
                 }
                 else if (moveAction instanceof ClueSuggestionAction)

@@ -300,7 +300,14 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         {
             suggestR.setChecked(false);
             accuseR.setChecked(true);
+            String roomSelect = roomSpinner.getSelectedItem().toString();
+            String weaponSelect = weaponSpinnner.getSelectedItem().toString();
+            String suspectSelect = suspectSpinner.getSelectedItem().toString();
+
             ClueAccuseAction accuse = new ClueAccuseAction(this);
+            accuse.room = roomSelect;
+            accuse.weapon = weaponSelect;
+            accuse.suspect = suspectSelect;
             game.sendAction(accuse);
         }
         else if (view.getId() == R.id.radioSuggestButton)

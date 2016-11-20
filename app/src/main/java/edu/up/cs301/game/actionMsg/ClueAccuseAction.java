@@ -8,9 +8,9 @@ import edu.up.cs301.game.GamePlayer;
  */
 public class ClueAccuseAction extends ClueMoveAction
 {
-    public Card room;
-    public Card person;
-    public Card weapon;
+    public String room;
+    public String suspect;
+    public String weapon;
 
     public ClueAccuseAction(GamePlayer player)
     {
