@@ -3,10 +3,15 @@ package edu.up.cs301.game;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Spinner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.up.cs301.game.actionMsg.ClueAccuseAction;
 import edu.up.cs301.game.actionMsg.ClueCheckAction;
@@ -37,6 +42,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     private Button endTurnButton;
     private RadioButton suggestR;
     private RadioButton accuseR;
+    private Spinner roomSpinner;
+    private Spinner weaponSpinnner;
+    private Spinner suspectSpinner;
     private EditText notesGUI;
     private Button rollButton;
 
@@ -146,6 +154,16 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         rollButton = (Button)myActivity.findViewById(R.id.rollButton);
         rollButton.setOnClickListener(this);
         rollButton.setEnabled(true);
+
+        //Spinners
+        roomSpinner = (Spinner)myActivity.findViewById(R.id.roomSpinner);
+        roomSpinner.setOnClickListener(this);
+
+        weaponSpinnner = (Spinner)myActivity.findViewById(R.id.weaponSpinner);
+        weaponSpinnner.setOnClickListener(this);
+
+        suspectSpinner = (Spinner)myActivity.findViewById(R.id.suspectSpinner);
+        suspectSpinner.setOnClickListener(this);
 
         //CheckBoxes!!
         colonelMustardCheck = (CheckBox)myActivity.findViewById(R.id.colMustardCheckBox);
