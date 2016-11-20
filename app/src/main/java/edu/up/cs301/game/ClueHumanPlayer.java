@@ -81,6 +81,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     //noteView
 
     private ClueBoardView boardView;
+    private ClueCardView cardView;
 
     private Activity myActivity;
 
@@ -118,6 +119,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         if(recentState != null) {
             boardView.updateBoard(recentState.getBoard());
         }
+        cardView = (ClueCardView) myActivity.findViewById(R.id.playerHandView);
 
         upButton = (Button)myActivity.findViewById(R.id.upButton);
         upButton.setOnClickListener(this);
@@ -255,6 +257,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         }
         boardView.updateBoard(recentState.getBoard());
         boardView.invalidate();
+        cardView.updateCards(recentState.getCards(playerID));
+        cardView.invalidate();
     }
 
     public void onClick(View view)
