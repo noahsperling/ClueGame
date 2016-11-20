@@ -47,6 +47,7 @@ public class ClueLocalGame extends LocalGame {
             str[i] = gamePlayerTypes.get(i).getTypeName();
         }
         state = new ClueState(gamePlayerTypes.size(),str, 0);
+        rand = new Random();
     }
 
     @Override
@@ -131,7 +132,7 @@ public class ClueLocalGame extends LocalGame {
                         {
                             if (curBoard[x-1][y].getIsDoor() && curBoard[x][y].getTileType() == 0) //If the player is moving into a room
                             {
-                                state.getBoard().setPlayerBoard(x, y, x - 1, y, curPlayerID); //Set the new position of the player and set the old position to zero.
+                                state.getBoard().setPlayerBoard(x - 1, y, x , y, curPlayerID); //Set the new position of the player and set the old position to zero.
                                 state.setSpacesMoved(state.getSpacesMoved() + 1);
                                 state.setNewToRoom(curPlayerID, true); //Set the new to room in array to true.
                                 return true;
@@ -140,12 +141,12 @@ public class ClueLocalGame extends LocalGame {
                             {
                                 //If the player is moving around within a room, it will set their new position but will
                                 //not increment the spaces moved.
-                                state.getBoard().setPlayerBoard(x, y, x-1, y, curPlayerID);
+                                state.getBoard().setPlayerBoard(x - 1, y, x, y, curPlayerID);
                                 return true;
                             }
                             else //Otherwise they're moving to a hallway.
                             {
-                                state.getBoard().setPlayerBoard(x, y, x-1, y, curPlayerID); //Set the new position of the player and set the old position to zero.
+                                state.getBoard().setPlayerBoard(x - 1, y, x, y, curPlayerID); //Set the new position of the player and set the old position to zero.
                                 state.setSpacesMoved(state.getSpacesMoved() + 1);
                                 return true;
                             }
@@ -157,19 +158,19 @@ public class ClueLocalGame extends LocalGame {
                         {
                             if (curBoard[x+1][y].getIsDoor() && curBoard[x+1][y].getTileType() == 0)
                             {
-                                state.getBoard().setPlayerBoard(x, y, x+1, y, curPlayerID);
+                                state.getBoard().setPlayerBoard(x + 1, y, x, y, curPlayerID);
                                 state.setSpacesMoved(state.getSpacesMoved() + 1);
                                 state.setNewToRoom(curPlayerID, true);
                                 return true;
                             }
                             else if (curBoard[x][y].getTileType() == 1 && curBoard[x+1][y].getTileType() == 1)
                             {
-                                state.getBoard().setPlayerBoard(x, y, x+1, y, curPlayerID);
+                                state.getBoard().setPlayerBoard(x + 1, y, x, y, curPlayerID);
                                 return true;
                             }
                             else
                             {
-                                state.getBoard().setPlayerBoard(x, y, x+1, y, curPlayerID);
+                                state.getBoard().setPlayerBoard(x + 1, y, x, y, curPlayerID);
                                 state.setSpacesMoved(state.getSpacesMoved() + 1);
                                 return true;
                             }
@@ -181,19 +182,19 @@ public class ClueLocalGame extends LocalGame {
                         {
                             if (curBoard[x][y+1].getIsDoor() && curBoard[x][y].getTileType() == 0)
                             {
-                                state.getBoard().setPlayerBoard(x, y, x, y + 1, curPlayerID);
+                                state.getBoard().setPlayerBoard(x, y + 1, x, y, curPlayerID);
                                 state.setSpacesMoved(state.getSpacesMoved() + 1);
                                 state.setNewToRoom(curPlayerID, true);
                                 return true;
                             }
                             else if (curBoard[x][y].getTileType() == 1 && curBoard[x][y+1].getTileType() == 1)
                             {
-                                state.getBoard().setPlayerBoard(x, y, x, y + 1, curPlayerID);
+                                state.getBoard().setPlayerBoard(x, y + 1, x, y, curPlayerID);
                                 return true;
                             }
                             else
                             {
-                                state.getBoard().setPlayerBoard(x, y, x, y + 1, curPlayerID);
+                                state.getBoard().setPlayerBoard(x, y + 1, x, y, curPlayerID);
                                 state.setSpacesMoved(state.getSpacesMoved() + 1);
                                 return true;
                             }
@@ -205,18 +206,18 @@ public class ClueLocalGame extends LocalGame {
                         {
                             if (curBoard[x][y-1].getIsDoor() && curBoard[x][y].getTileType() == 0)
                             {
-                                state.getBoard().setPlayerBoard(x, y, x, y - 1, curPlayerID);
+                                state.getBoard().setPlayerBoard(x, y - 1, x, y, curPlayerID);
                                 state.setSpacesMoved(state.getSpacesMoved() + 1);
                                 return true;
                             }
                             else if (curBoard[x][y].getTileType() == 1 && curBoard[x][y-1].getTileType() == 1)
                             {
-                                state.getBoard().setPlayerBoard(x, y, x, y - 1, curPlayerID);
+                                state.getBoard().setPlayerBoard(x, y - 1, x, y, curPlayerID);
                                 return true;
                             }
                             else
                             {
-                                state.getBoard().setPlayerBoard(x, y, x, y - 1, curPlayerID);
+                                state.getBoard().setPlayerBoard(x, y - 1, x, y, curPlayerID);
                                 state.setSpacesMoved(state.getSpacesMoved() + 1);
                                 state.setNewToRoom(curPlayerID, true);
                                 return true;

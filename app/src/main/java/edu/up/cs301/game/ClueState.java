@@ -38,7 +38,7 @@ public class ClueState extends GameState {
 
     public ClueState(int initNumPlayers, String initPlayerNames[], int initTurnID) {
         turnID = initTurnID;
-        dieValue = 6;
+        dieValue = 0;
         spacesMoved = 0;
         numPlayers = initNumPlayers;
         if(numPlayers == 3) {

@@ -15,6 +15,7 @@ import edu.up.cs301.game.actionMsg.ClueMoveDownAction;
 import edu.up.cs301.game.actionMsg.ClueMoveLeftAction;
 import edu.up.cs301.game.actionMsg.ClueMoveRightAction;
 import edu.up.cs301.game.actionMsg.ClueMoveUpAction;
+import edu.up.cs301.game.actionMsg.ClueRollAction;
 import edu.up.cs301.game.actionMsg.ClueSuggestionAction;
 import edu.up.cs301.game.actionMsg.ClueWrittenNoteAction;
 import edu.up.cs301.game.infoMsg.GameInfo;
@@ -37,6 +38,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     private RadioButton suggestR;
     private RadioButton accuseR;
     private EditText notesGUI;
+    private Button rollButton;
 
 
     private Button noteButton;
@@ -63,6 +65,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     private CheckBox billiardRoomCheck;
     private CheckBox libraryCheck;
     private CheckBox studyCheck;
+
 
 
     //playersHand
@@ -130,7 +133,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
         endTurnButton = (Button)myActivity.findViewById(R.id.endTurnButton);
         endTurnButton.setOnClickListener(this);
-        endTurnButton.setEnabled(false);
+        endTurnButton.setEnabled(true);
 
         suggestR = (RadioButton)myActivity.findViewById(R.id.radioSuggestButton);
         suggestR.setOnClickListener(this);
@@ -139,6 +142,10 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         accuseR = (RadioButton)myActivity.findViewById(R.id.radioAccuseButton);
         accuseR.setOnClickListener(this);
         accuseR.setChecked(false);
+
+        rollButton = (Button)myActivity.findViewById(R.id.rollButton);
+        rollButton.setOnClickListener(this);
+        rollButton.setEnabled(true);
 
         //CheckBoxes!!
         colonelMustardCheck = (CheckBox)myActivity.findViewById(R.id.colMustardCheckBox);
@@ -203,6 +210,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
         studyCheck = (CheckBox)myActivity.findViewById(R.id.studyCheckBox);
         studyCheck.setOnClickListener(this);
+
     }
 
     public ClueState getRecentState()
@@ -216,6 +224,10 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         if(info instanceof ClueState) {
             recentState = new ClueState((ClueState)info);
         }
+        if(recentState.getCanRoll(playerID)) {
+            rollButton.setEnabled(true);
+        }
+        boardView.updateBoard(recentState.getBoard());
         boardView.invalidate();
     }
 
@@ -246,6 +258,13 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         {
             ClueMoveRightAction right = new ClueMoveRightAction(this);
             game.sendAction(right);
+        }
+        else if(view == rollButton) {
+            if(recentState.getCanRoll(playerID)) {
+                ClueRollAction roll = new ClueRollAction(this);
+                game.sendAction(roll);
+                rollButton.setEnabled(false);
+            }
         }
 
         //for radio buttons
