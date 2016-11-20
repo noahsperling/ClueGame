@@ -19,4 +19,7 @@ public class ClueCheckAction extends ClueNonTurnAction {
             checkbox =((ClueComputerPlayer)player).getCheckBoxArray();
         }
     }
+    public boolean[] getCheckbox() {
+        return checkbox;
+    }
 }

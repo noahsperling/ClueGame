@@ -412,6 +412,10 @@ public class ClueState extends GameState {
         checkboxes[playerID][index] = newVal;
     }
 
+    public void setCards(int playerID, Hand h) {
+        cards[playerID] = h;
+    }
+
     public void setGameOver(boolean newGameOver) {
         gameOver = newGameOver;
     }

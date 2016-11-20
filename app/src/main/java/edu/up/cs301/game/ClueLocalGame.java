@@ -295,6 +295,10 @@ public class ClueLocalGame extends LocalGame {
         }
         else if (nonTurnAction instanceof ClueCheckAction)
         {
+            int index = ((ClueCheckAction)a).playerID;
+            for(int i = 0; i < ((ClueCheckAction)a).getCheckbox().length; i++) {
+                state.setCheckBox(index, i, ((ClueCheckAction)a).getCheckbox()[i]);
+            }
             return true;
         }
         else if (nonTurnAction instanceof ClueShowCardAction)
@@ -314,6 +318,7 @@ public class ClueLocalGame extends LocalGame {
                 for(int i = 0; i < playerCount; i++) {
                     if(i != player.getID()) {
                         sendState.setNotes(i, null);
+                        sendState.setCards(i, null);
                     }
                 }
             }
