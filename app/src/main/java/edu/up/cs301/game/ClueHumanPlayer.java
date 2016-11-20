@@ -286,11 +286,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             game.sendAction(right);
         }
         else if(view == rollButton) {
-            if(recentState.getCanRoll(playerID)) {
-                ClueRollAction roll = new ClueRollAction(this);
-                game.sendAction(roll);
-                rollButton.setEnabled(false);
-            }
+            ClueRollAction roll = new ClueRollAction(this);
+            game.sendAction(roll);
+            rollButton.setEnabled(false);
         }
 
         //for radio buttons

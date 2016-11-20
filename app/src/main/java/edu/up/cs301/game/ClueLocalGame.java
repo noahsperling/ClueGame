@@ -116,6 +116,7 @@ public class ClueLocalGame extends LocalGame {
                         int numRolled = rand.nextInt(6) + 1; //Will produce a random number between 1 and 6.
                         state.setDieValue(numRolled);
                         state.setCanRoll(curPlayerID, false);
+                        return true;
 
                         //Set roll button to disabled here?  or maybe do that when it is pressed?
                     }
@@ -241,18 +242,22 @@ public class ClueLocalGame extends LocalGame {
                     if (curBoard[x][y].getRoom() == LOUNGE)
                     {
                         state.getBoard().setPlayerBoard(x, y, 22, 2, curPlayerID); //Move Player to conservatory
+                        return true;
                     }
                     else if (curBoard[x][y].getRoom() == CONSERVATORY)
                     {
                         state.getBoard().setPlayerBoard(x, y, 2, 20, curPlayerID); //Move Player to lounge
+                        return true;
                     }
                     else if (curBoard[x][y].getRoom() == STUDY)
                     {
                         state.getBoard().setPlayerBoard(x, y, 22, 22, curPlayerID); //Move Player to kitchen
+                        return true;
                     }
                     else if (curBoard[x][y].getRoom() == KITCHEN)
                     {
                         state.getBoard().setPlayerBoard(x, y, 3, 4, curPlayerID); //Move Player to the study
+                        return true;
                     }
                 }
                 else if (moveAction instanceof ClueEndTurnAction)
@@ -263,18 +268,21 @@ public class ClueLocalGame extends LocalGame {
                     {
                         state.setCanRoll(0, true);
                         state.setTurnID(0);
+                        return true;
                     }
                     else
                     {
                         state.setCanRoll(state.getTurnId() + 1, true);
                         state.setTurnID(state.getTurnId() + 1);
+                        return true;
+
                     }
                 }
             }
         }
         else //If it's not a move action
         {
-            makeNonTurnAction((ClueNonTurnAction)a);
+            return makeNonTurnAction((ClueNonTurnAction)a);
         }
         return false;
 
