@@ -27,7 +27,7 @@ public enum Card {
     MRS_WHITE("Mrs. White",Type.PERSON, Color.WHITE),
     COL_MUSTARD("Col. Mustard",Type.PERSON, Color.YELLOW),
     MISS_SCARLET("Miss Scarlet",Type.PERSON, Color.RED),
-    PROF_PLUM("Professor Plum",Type.PERSON, Color.rgb(142,68,173)); //purple
+    PROF_PLUM("Prof. Plum",Type.PERSON, Color.rgb(142,68,173)); //purple
 
     private String name;
     private Type cardType;

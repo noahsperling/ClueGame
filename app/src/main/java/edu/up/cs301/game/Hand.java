@@ -50,7 +50,11 @@ public class Hand {
             int width = (c.getHeight()*3/4);
             c.drawRect((width*i), 0, width*(i+1), c.getHeight(), p);
             p.setTextSize(25);
-            p.setColor(Color.WHITE);
+            if(Card.ROPE == cards.get(i) || Card.MRS_WHITE == cards.get(i)) {
+                p.setColor(Color.BLACK);
+            }else {
+                p.setColor(Color.WHITE);
+            }
             c.drawText(cards.get(i).getName(), (width/2)-(cards.get(i).getName().length()*5)+(width*i), c.getHeight()/2, p);
         }
     }
