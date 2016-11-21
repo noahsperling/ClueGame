@@ -41,8 +41,6 @@ import static edu.up.cs301.game.R.id.noteLayout;
 
 public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View.OnClickListener{
 
-    int playerID;
-    String name; //I don't know if this is important or not, or even needs to be here
     private ClueState recentState;
     private boolean checkBoxBool[];
     private Button upButton;
@@ -54,7 +52,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     private RadioButton accuseR;
     private RadioButton showCardR;
     private Spinner roomSpinner;
-    private Spinner weaponSpinnner;
+    private Spinner weaponSpinner;
     private Spinner suspectSpinner;
     private Button rollButton;
     private TextView numberOfMovesLeft;
@@ -196,8 +194,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         roomSpinner = (Spinner)myActivity.findViewById(R.id.roomSpinner);
 //        roomSpinner.setAdapter(roomAdapter);
 
-        weaponSpinnner = (Spinner)myActivity.findViewById(R.id.weaponSpinner);
-//        weaponSpinnner.setAdapter(weaponAdapter);
+        weaponSpinner = (Spinner)myActivity.findViewById(R.id.weaponSpinner);
+//        weaponSpinner.setAdapter(weaponAdapter);
 
         suspectSpinner = (Spinner)myActivity.findViewById(R.id.suspectSpinner);
 //        suspectSpinner.setAdapter(suspectAdapter);
@@ -276,10 +274,12 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
     }
 
+    /* unsure why this exists
     public ClueState getRecentState()
     {
         return recentState;
     }
+    */
 
     @Override
     public void receiveInfo(GameInfo info)
@@ -366,7 +366,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         }
         else if (view.getId() == R.id.submitButton) {
             if (suggestR.isChecked() == true) {
-                String weaponSelect = weaponSpinnner.getSelectedItem().toString();
+                String weaponSelect = weaponSpinner.getSelectedItem().toString();
                 String suspectSelect = suspectSpinner.getSelectedItem().toString();
 
                 ClueSuggestionAction suggest = new ClueSuggestionAction(this);
@@ -388,7 +388,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             }
             else if (accuseR.isChecked() == true) {
                 String roomSelect = roomSpinner.getSelectedItem().toString();
-                String weaponSelect = weaponSpinnner.getSelectedItem().toString();
+                String weaponSelect = weaponSpinner.getSelectedItem().toString();
                 String suspectSelect = suspectSpinner.getSelectedItem().toString();
 
                 ClueAccuseAction accuse = new ClueAccuseAction(this);
@@ -406,7 +406,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                 ClueShowCardAction showCard = new ClueShowCardAction(this);
 
                 String roomSelect = roomSpinner.getSelectedItem().toString();
-                String weaponSelect = weaponSpinnner.getSelectedItem().toString();
+                String weaponSelect = weaponSpinner.getSelectedItem().toString();
                 String suspectSelect = suspectSpinner.getSelectedItem().toString();
 
                 showCard.room = roomSelect;
@@ -720,7 +720,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         ArrayAdapter<String> suspectAdapter = new ArrayAdapter<String>(myActivity,android.R.layout.simple_spinner_dropdown_item, suspectItem );
 
         roomSpinner.setAdapter(roomAdapter);
-        weaponSpinnner.setAdapter(weaponAdapter);
+        weaponSpinner.setAdapter(weaponAdapter);
         suspectSpinner.setAdapter(suspectAdapter);
 
     }

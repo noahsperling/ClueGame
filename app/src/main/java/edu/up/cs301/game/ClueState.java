@@ -222,6 +222,8 @@ public class ClueState extends GameState {
 
         gameOver = false;
 
+        inCornerRoom = new boolean[numPlayers];
+
         for(int i = 0; i < numPlayers; i++) {
             playerIDs[i] = i;
             canSuggest[i] = false;
@@ -250,7 +252,7 @@ public class ClueState extends GameState {
         cardsPerHand = s.getCardsPerHand();
         cards = new Hand[numPlayers];
         playerStillInGame = s.playerStillInGame;
-
+        inCornerRoom = s.getInCornerRoom();
 
 
         for(int i = 0; i < numPlayers; i++) {

@@ -29,6 +29,11 @@ public class ComputerPlayerDumb extends ClueComputerPlayer {
     protected void receiveInfo(GameInfo info) {
         Log.i("Called me","  ");
         if(info instanceof ClueState) {
+            if(((ClueState)info).getTurnId() == playerID) {
+                game.sendAction(new ClueEndTurnAction(this));
+            }
+
+            /* I just commented it out to try a couple things.
                 ClueState myState = (ClueState)info; //cast it
             if(myState.getTurnId() == playerID) {
                 if (myState.getCanRoll(this.playerID) == true) {
@@ -58,7 +63,7 @@ public class ComputerPlayerDumb extends ClueComputerPlayer {
                 }else{
                     game.sendAction(new ClueEndTurnAction(this));
                 }
-            }
+            }*/
 
 
 
@@ -121,7 +126,7 @@ public class ComputerPlayerDumb extends ClueComputerPlayer {
                 guess2 = myState.getAllCards().get(intGuess2);
             }*/
 
-            }
+        }else {return;}
 
         //if it enters a room, suggest random
         //if it uses all its moves and does not enter a room, end turn
