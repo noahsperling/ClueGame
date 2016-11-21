@@ -438,7 +438,7 @@ public class ClueLocalGame extends LocalGame {
 
             for (int i = 0; i < state.getNumPlayers(); i++) {
                 if (index < state.getNumPlayers()) {
-                    //change spinners and radio buttons for show card action
+                    //change spinners for the show card action to contain the hands the next player has in their hand
                     int showCardPlayer = index++;
                     Hand showCardPlayerHand = state.getCards(showCardPlayer);
                     Card[] playersCard = showCardPlayerHand.getCards();
