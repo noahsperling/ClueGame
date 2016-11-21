@@ -260,6 +260,8 @@ public class ClueLocalGame extends LocalGame {
                             }
                         }else {
                             return false;
+
+
                         }
                     }
                     else if (moveAction instanceof ClueMoveRightAction)
