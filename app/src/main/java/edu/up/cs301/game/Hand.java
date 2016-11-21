@@ -1,11 +1,11 @@
 package edu.up.cs301.game;
 
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
+        import android.graphics.Canvas;
+        import android.graphics.Color;
+        import android.graphics.Paint;
 
-import java.util.ArrayList;
+        import java.util.ArrayList;
 
 
 /**
@@ -20,10 +20,12 @@ public class Hand {
     }
 
     public Hand(Hand h) {
-        cards = new ArrayList<Card>(h.getArrayListLength());
-        Card tempCards[] = h.getCards();
-        for(int i = 0; i < h.getArrayListLength(); i++) {
-            cards.add(tempCards[i]);
+        if(h != null) {
+            cards = new ArrayList<Card>(h.getArrayListLength());
+            Card tempCards[] = h.getCards();
+            for (int i = 0; i < h.getArrayListLength(); i++) {
+                cards.add(tempCards[i]);
+            }
         }
     }
 

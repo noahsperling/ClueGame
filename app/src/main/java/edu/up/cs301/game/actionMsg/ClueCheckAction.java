@@ -2,6 +2,8 @@ package edu.up.cs301.game.actionMsg;
 
 import edu.up.cs301.game.ClueComputerPlayer;
 import edu.up.cs301.game.ClueHumanPlayer;
+import edu.up.cs301.game.ComputerPlayerDumb;
+import edu.up.cs301.game.GameComputerPlayer;
 import edu.up.cs301.game.GamePlayer;
 
 /**
@@ -17,8 +19,8 @@ public class ClueCheckAction extends ClueNonTurnAction {
         super(player);
         if(player instanceof ClueHumanPlayer) {
             checkbox =((ClueHumanPlayer)player).getCheckBoxArray();
-        }else if(player instanceof ClueComputerPlayer) {
-            checkbox =((ClueComputerPlayer)player).getCheckBoxArray();
+        }else if(player instanceof GameComputerPlayer) {
+            //checkbox =((GameComputerPlayer)player).getCheckBoxArray();
         }
     }
     public boolean[] getCheckbox() {

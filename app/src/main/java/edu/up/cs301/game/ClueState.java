@@ -365,6 +365,8 @@ public class ClueState extends GameState {
         return newToRoom;
     }
 
+    public boolean getNewToRoom(int playerID){ return newToRoom[playerID];}
+
     public boolean[] getInCornerRoom()
     {
         return inCornerRoom;

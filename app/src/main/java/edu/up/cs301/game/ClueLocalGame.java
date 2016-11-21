@@ -560,16 +560,28 @@ public class ClueLocalGame extends LocalGame {
         if(p instanceof ClueHumanPlayer) {
             ClueHumanPlayer player = (ClueHumanPlayer)p;
             int playerCount = sendState.getNumPlayers();
-            if(player.getID() == 0) {
+            if(player.getPlayerID() == 0) {
                 for(int i = 0; i < playerCount; i++) {
-                    if(i != player.getID()) {
+                    if(i != player.getPlayerID()) {
+                        sendState.setNotes(i, null);
+                        sendState.setCards(i, null);
+                    }
+                }
+            }
+        }else if(p instanceof GameComputerPlayer){
+            ComputerPlayerDumb player = (ComputerPlayerDumb)p;
+            int playerCount = sendState.getNumPlayers();
+            if(player.getPlayerID() == 0) {
+                for(int i = 0; i < playerCount; i++) {
+                    if(i != player.getPlayerID()) {
                         sendState.setNotes(i, null);
                         sendState.setCards(i, null);
                     }
                 }
             }
         }
-        p.sendInfo(new ClueState(state));
+
+        p.sendInfo(sendState);
     }
 
     @Override
