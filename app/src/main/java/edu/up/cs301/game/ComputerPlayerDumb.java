@@ -12,6 +12,7 @@ import edu.up.cs301.game.actionMsg.ClueMoveUpAction;
 import edu.up.cs301.game.actionMsg.ClueRollAction;
 import edu.up.cs301.game.infoMsg.BindGameInfo;
 import edu.up.cs301.game.infoMsg.GameInfo;
+import edu.up.cs301.game.infoMsg.IllegalMoveInfo;
 import edu.up.cs301.game.infoMsg.NotYourTurnInfo;
 
 /**
@@ -26,7 +27,9 @@ public class ComputerPlayerDumb extends ClueComputerPlayer {
 
     @Override
     protected void receiveInfo(GameInfo info) {
-        if(info instanceof ClueState) {
+        if(info instanceof IllegalMoveInfo || info instanceof NotYourTurnInfo) {
+            return;
+        }else if(info instanceof ClueState) {
                 ClueState myState = (ClueState)info; //cast it
                 if(myState.getTurnId() == playerID) {
                     //game.sendAction(new ClueRollAction(this));
@@ -92,8 +95,9 @@ public class ComputerPlayerDumb extends ClueComputerPlayer {
                 guess2 = myState.getAllCards().get(intGuess2);
             }*/
 
+            }else{
+            return;
         }
-
 
         //if it enters a room, suggest random
         //if it uses all its moves and does not enter a room, end turn

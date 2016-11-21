@@ -271,6 +271,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         boardView.invalidate();
         cardView.updateCards(recentState.getCards(playerID));
         cardView.invalidate();
+        numberOfMovesLeft.setText(recentState.getDieValue()-recentState.getSpacesMoved()+"");
     }
 
     public void onClick(View view)

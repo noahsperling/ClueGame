@@ -14,7 +14,7 @@ public class ClueSuggestionAction extends ClueMoveAction
     {
         super(player);
     }
-    public Card room;
-    public Card person;
-    public Card weapon;
+    public String room;
+    public String person;
+    public String weapon;
 }
