@@ -24,8 +24,11 @@ import edu.up.cs301.game.actionMsg.GameAction;
 import edu.up.cs301.game.config.GamePlayerType;
 
 import static edu.up.cs301.game.Card.CONSERVATORY;
+import static edu.up.cs301.game.Card.HALL;
 import static edu.up.cs301.game.Card.KITCHEN;
 import static edu.up.cs301.game.Card.LOUNGE;
+import static edu.up.cs301.game.Card.MISS_SCARLET;
+import static edu.up.cs301.game.Card.MR_GREEN;
 import static edu.up.cs301.game.Card.STUDY;
 import static edu.up.cs301.game.Type.ROOM;
 import static edu.up.cs301.game.Type.WEAPON;
@@ -40,6 +43,9 @@ public class ClueLocalGame extends LocalGame {
     ClueMoveAction moveAction;
     ClueState state;
     private Random rand;
+    private String[] showCardSpinnerRoom;
+    private String[] showCardSpinnerWeapon;
+    private String[] showCardSpinnerSuspect;
 
     public ClueLocalGame(ArrayList<GamePlayerType> gamePlayerTypes) {
         super();
@@ -344,15 +350,34 @@ public class ClueLocalGame extends LocalGame {
         } else if (nonTurnAction instanceof ClueShowCardAction) {
             int index = ((ClueShowCardAction) a).playerID;
 
-            for (int i = 0; i < numPlayers; i++) {
-                if (index < numPlayers) {
+            for (int i = 0; i < state.getNumPlayers(); i++) {
+                if (index < state.getNumPlayers()) {
                     //change spinners and radio buttons for show card action
                     int showCardPlayer = index++;
                     Hand showCardPlayerHand = state.getCards(showCardPlayer);
+                    Card[] playersCard = showCardPlayerHand.getCards();
                     int showCardPlayerHandNumber = state.getCardsPerHand();
 
+                    //go through the players hand and create new spinner item lists for the show card action
                     for (int j = 0; j < showCardPlayerHandNumber; j++) {
+                        if (playersCard[j].equals(Type.PERSON)) {
+                            //go through the suspect cards and put the ones that are in the hand,
+                            //into the string array that will be displayed in the spinner
+                            for (int x = 0; x < 6; x++) {
+                                if (playersCard[j].equals(MISS_SCARLET)) {
+                                    showCardSpinnerRoom[0] = "Miss Scarlet";
+                                }
+                                else if (playersCard[j].equals(MR_GREEN)){
 
+                                }
+                            }
+                        }
+                        else if (playersCard[j].equals(Type.ROOM)) {
+
+                        }
+                        else if (playersCard[j].equals(Type.WEAPON)) {
+
+                        }
                     }
 
                     String[] roomItems = new String[]{};
