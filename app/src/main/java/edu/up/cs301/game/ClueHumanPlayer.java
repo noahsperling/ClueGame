@@ -26,6 +26,7 @@ import edu.up.cs301.game.actionMsg.ClueMoveLeftAction;
 import edu.up.cs301.game.actionMsg.ClueMoveRightAction;
 import edu.up.cs301.game.actionMsg.ClueMoveUpAction;
 import edu.up.cs301.game.actionMsg.ClueRollAction;
+import edu.up.cs301.game.actionMsg.ClueShowCardAction;
 import edu.up.cs301.game.actionMsg.ClueSuggestionAction;
 import edu.up.cs301.game.actionMsg.ClueWrittenNoteAction;
 import edu.up.cs301.game.infoMsg.GameInfo;
@@ -50,6 +51,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     private Button endTurnButton;
     private RadioButton suggestR;
     private RadioButton accuseR;
+    private RadioButton showCardR;
     private Spinner roomSpinner;
     private Spinner weaponSpinnner;
     private Spinner suspectSpinner;
@@ -161,6 +163,11 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         accuseR.setOnClickListener(this);
         accuseR.setChecked(false);
 
+        showCardR = (RadioButton)myActivity.findViewById(R.id.radioShowCardButton);
+        showCardR.setOnClickListener(this);
+        showCardR.setChecked(false);
+        showCardR.setEnabled(false);
+
         rollButton = (Button)myActivity.findViewById(R.id.rollButton);
         rollButton.setOnClickListener(this);
         rollButton.setEnabled(true);
@@ -173,21 +180,23 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
         //Spinners
         //will have to make sure room is locked when making a suggestion
-        String[] roomItems = new String[]{"Ballroom","Billiard Room ", "Conservatory", "Dining Room", "Hall", "Kitchen", "Library", "Lounge", "Study"};
-        String[] weaponItems = new String[]{"Candlestick", "Knife", "Lead Pipe", "Revolver", "Rope", "Wrench", };
-        String[] suspectItem = new String []{"Mr. Green", "Col. Mustard", "Mrs. Peacock", "Prof. Plum", "Miss Scarlet", "Mrs.White"};
-        ArrayAdapter<String> roomAdapter = new ArrayAdapter<String>(myActivity, android.R.layout.simple_spinner_dropdown_item, roomItems);
-        ArrayAdapter<String> weaponAdapter = new ArrayAdapter<String>(myActivity, android.R.layout.simple_spinner_dropdown_item, weaponItems);
-        ArrayAdapter<String> suspectAdapter = new ArrayAdapter<String>(myActivity,android.R.layout.simple_spinner_dropdown_item, suspectItem );
+//        String[] roomItems = new String[]{"Ballroom","Billiard Room ", "Conservatory", "Dining Room", "Hall", "Kitchen", "Library", "Lounge", "Study"};
+//        String[] weaponItems = new String[]{"Candlestick", "Knife", "Lead Pipe", "Revolver", "Rope", "Wrench", };
+//        String[] suspectItem = new String []{"Mr. Green", "Col. Mustard", "Mrs. Peacock", "Prof. Plum", "Miss Scarlet", "Mrs.White"};
+//        ArrayAdapter<String> roomAdapter = new ArrayAdapter<String>(myActivity, android.R.layout.simple_spinner_dropdown_item, roomItems);
+//        ArrayAdapter<String> weaponAdapter = new ArrayAdapter<String>(myActivity, android.R.layout.simple_spinner_dropdown_item, weaponItems);
+//        ArrayAdapter<String> suspectAdapter = new ArrayAdapter<String>(myActivity,android.R.layout.simple_spinner_dropdown_item, suspectItem );
 
         roomSpinner = (Spinner)myActivity.findViewById(R.id.roomSpinner);
-        roomSpinner.setAdapter(roomAdapter);
+//        roomSpinner.setAdapter(roomAdapter);
 
         weaponSpinnner = (Spinner)myActivity.findViewById(R.id.weaponSpinner);
-        weaponSpinnner.setAdapter(weaponAdapter);
+//        weaponSpinnner.setAdapter(weaponAdapter);
 
         suspectSpinner = (Spinner)myActivity.findViewById(R.id.suspectSpinner);
-        suspectSpinner.setAdapter(suspectAdapter);
+//        suspectSpinner.setAdapter(suspectAdapter);
+
+        setSpinners();
 
         //CheckBoxes!!
         colonelMustardCheck = (CheckBox)myActivity.findViewById(R.id.colMustardCheckBox);
@@ -333,6 +342,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             accuseR.setChecked(false);
 
         }
+        //no showCardR onclick listener because it is just to show the user that they need to choose
+        //cards in the spinners to show a card to a player who has made a suggestion
 
         else if (view.getId() == R.id.cancelButton) {
             suggestR.setChecked(false);
@@ -345,9 +356,19 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
                 ClueSuggestionAction suggest = new ClueSuggestionAction(this);
                 suggest.weapon = weaponSelect;
-                suggest.person = suspectSelect;
+                suggest.suspect = suspectSelect;
                 game.sendAction(suggest);
                 Log.i("suggest action sent", " ");
+
+                //need to send in show card action because now the player to their left
+                //has to choose from the spinners and stuff?
+                //set the showcard radio button to enabled/is checked true for the next player.
+                //then if that player has no cards, then go to the next player.
+                //if the player has a card, then they submit it and it the info shows up on the player who
+                //suggested GUI in a textview somewhere obvious
+
+                //does this need to sent in as info?
+                ClueShowCardAction showCard = new ClueShowCardAction(this);
 
             }
             else if (accuseR.isChecked() == true) {
@@ -363,6 +384,24 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                 accuseR.setEnabled(false);
                 Log.i("accuse action sent", " ");
             }
+            else if (showCardR.isChecked() == true) {
+                //disable the other radio buttons then re-enable?
+
+
+                ClueShowCardAction showCard = new ClueShowCardAction(this);
+
+                String roomSelect = roomSpinner.getSelectedItem().toString();
+                String weaponSelect = weaponSpinnner.getSelectedItem().toString();
+                String suspectSelect = suspectSpinner.getSelectedItem().toString();
+
+                showCard.room = roomSelect;
+                showCard.weapon = weaponSelect;
+                showCard.suspect = suspectSelect;
+
+                showCardR.setEnabled(false);
+
+            }
+            //might have to add show card radio button?? have a text view saying it you need to pick a card to display
         }
 
         //end turn button
@@ -649,5 +688,18 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             temp[i] = checkBoxBool[i];
         }
         return temp;
+    }
+    public void setSpinners(){
+        String[] roomItems = new String[]{"Ballroom","Billiard Room ", "Conservatory", "Dining Room", "Hall", "Kitchen", "Library", "Lounge", "Study"};
+        String[] weaponItems = new String[]{"Candlestick", "Knife", "Lead Pipe", "Revolver", "Rope", "Wrench", };
+        String[] suspectItem = new String []{"Mr. Green", "Col. Mustard", "Mrs. Peacock", "Prof. Plum", "Miss Scarlet", "Mrs.White"};
+        ArrayAdapter<String> roomAdapter = new ArrayAdapter<String>(myActivity, android.R.layout.simple_spinner_dropdown_item, roomItems);
+        ArrayAdapter<String> weaponAdapter = new ArrayAdapter<String>(myActivity, android.R.layout.simple_spinner_dropdown_item, weaponItems);
+        ArrayAdapter<String> suspectAdapter = new ArrayAdapter<String>(myActivity,android.R.layout.simple_spinner_dropdown_item, suspectItem );
+
+        roomSpinner.setAdapter(roomAdapter);
+        weaponSpinnner.setAdapter(weaponAdapter);
+        suspectSpinner.setAdapter(suspectAdapter);
+
     }
 }

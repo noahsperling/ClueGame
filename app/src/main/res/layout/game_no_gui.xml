@@ -55,7 +55,7 @@
 
                             <Space
                                 android:layout_width="match_parent"
-                                android:layout_height="10dp"
+                                android:layout_height="1dp"
                                 android:layout_weight="1"
                                 android:layout_row="1"
                                 android:layout_column="0" />
@@ -78,11 +78,20 @@
                                 android:layout_row="3"
                                 android:layout_column="0" />
 
+                            <RadioButton
+                                android:text="Show Card"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/radioShowCardButton"
+                                android:layout_weight="1"
+                                android:layout_row="4"
+                                android:layout_column="0" />
+
                             <Space
                                 android:layout_width="match_parent"
                                 android:layout_height="10dp"
                                 android:layout_weight="1"
-                                android:layout_row="4"
+                                android:layout_row="5"
                                 android:layout_column="0" />
 
                             <TextView
@@ -90,7 +99,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/roomSpinnerTextView"
-                                android:layout_row="5"
+                                android:layout_row="6"
                                 android:layout_column="0" />
 
                             <Spinner
@@ -98,14 +107,14 @@
                                 android:layout_height="wrap_content"
                                 android:id="@+id/roomSpinner"
                                 android:layout_weight="1"
-                                android:layout_row="6"
+                                android:layout_row="7"
                                 android:layout_column="0" />
 
                             <Space
                                 android:layout_width="match_parent"
                                 android:layout_height="10dp"
                                 android:layout_weight="1"
-                                android:layout_row="7"
+                                android:layout_row="8"
                                 android:layout_column="0" />
 
                             <TextView
@@ -113,7 +122,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/weaponSpinnerTextView"
-                                android:layout_row="8"
+                                android:layout_row="9"
                                 android:layout_column="0" />
 
                             <Spinner
@@ -121,14 +130,14 @@
                                 android:layout_height="wrap_content"
                                 android:id="@+id/weaponSpinner"
                                 android:layout_weight="1"
-                                android:layout_row="9"
+                                android:layout_row="10"
                                 android:layout_column="0" />
 
                             <Space
                                 android:layout_width="match_parent"
                                 android:layout_height="10dp"
                                 android:layout_weight="1"
-                                android:layout_row="10"
+                                android:layout_row="11"
                                 android:layout_column="0" />
 
                             <TextView
@@ -136,7 +145,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/suspectSpinnerTextView"
-                                android:layout_row="11"
+                                android:layout_row="12"
                                 android:layout_column="0" />
 
                             <Spinner
@@ -144,14 +153,14 @@
                                 android:layout_height="wrap_content"
                                 android:id="@+id/suspectSpinner"
                                 android:layout_weight="1"
-                                android:layout_row="12"
+                                android:layout_row="13"
                                 android:layout_column="0" />
 
                             <Space
                                 android:layout_width="match_parent"
                                 android:layout_height="5dp"
                                 android:layout_weight="1"
-                                android:layout_row="13"
+                                android:layout_row="14"
                                 android:layout_column="0" />
 
                             <Button
@@ -159,7 +168,7 @@
                                 android:layout_width="wrap_content"
                                 android:id="@+id/cancelButton"
                                 android:layout_height="wrap_content"
-                                android:layout_row="14"
+                                android:layout_row="15"
                                 android:layout_column="0"
                                 android:layout_marginLeft="43dp"/>
 
@@ -168,7 +177,7 @@
                                 android:layout_width="wrap_content"
                                 android:id="@+id/submitButton"
                                 android:layout_height="wrap_content"
-                                android:layout_row="15"
+                                android:layout_row="16"
                                 android:layout_column="0"
                                 android:layout_marginLeft="45dp"/>
 

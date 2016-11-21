@@ -1,6 +1,7 @@
 package edu.up.cs301.game;
 
 import android.util.Log;
+import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 
@@ -498,6 +499,9 @@ public class ClueLocalGame extends LocalGame {
                             x = 0;
                         }
                     }
+
+                    //change the current spinners for accusing and suggesting to the show card spinners
+
                  }
                 }
             }

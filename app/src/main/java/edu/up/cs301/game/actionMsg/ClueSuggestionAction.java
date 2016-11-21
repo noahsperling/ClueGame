@@ -15,6 +15,6 @@ public class ClueSuggestionAction extends ClueMoveAction
         super(player);
     }
     public String room;
-    public String person;
+    public String suspect;
     public String weapon;
 }
