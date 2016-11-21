@@ -324,28 +324,38 @@ public class ClueLocalGame extends LocalGame {
 
     }
 
-    public boolean makeNonTurnAction(ClueNonTurnAction a)
-    { //arguments and maybe just delete
+    public boolean makeNonTurnAction(ClueNonTurnAction a) { //arguments and maybe just delete
         nonTurnAction = a;
 
-        if (nonTurnAction instanceof ClueWrittenNoteAction)
-        {
+        if (nonTurnAction instanceof ClueWrittenNoteAction) {
+            return true;
 
-        }
-        else if (nonTurnAction instanceof ClueCheckAction)
-        {
-            int index = ((ClueCheckAction)a).playerID;
-            for(int i = 0; i < ((ClueCheckAction)a).getCheckbox().length; i++) {
-                state.setCheckBox(index, i, ((ClueCheckAction)a).getCheckbox()[i]);
+        } else if (nonTurnAction instanceof ClueCheckAction) {
+            int index = ((ClueCheckAction) a).playerID;
+            for (int i = 0; i < ((ClueCheckAction) a).getCheckbox().length; i++) {
+                state.setCheckBox(index, i, ((ClueCheckAction) a).getCheckbox()[i]);
+            }
+            return true;
+        } else if (nonTurnAction instanceof ClueShowCardAction) {
+            int index = ((ClueShowCardAction) a).playerID;
+
+            for (int i = 0; i < numPlayers; i++) {
+                if (index < numPlayers) {
+                    //change spinners and radio buttons for show card action
+                    int showCardPlayer = index++;
+                    Hand showCardPlayerHand = state.getCards(showCardPlayer);
+                    int showCardPlayerHandNumber = state.getCardsPerHand();
+
+                    for (int j = 0; j < showCardPlayerHandNumber; j++) {
+
+                    }
+
+                    String[] roomItems = new String[]{};
+                    }
+                }
             }
             return true;
         }
-        else if (nonTurnAction instanceof ClueShowCardAction)
-        {
-
-        }
-        return true;
-    }
 
     @Override
     public void sendUpdatedStateTo(GamePlayer p) {
