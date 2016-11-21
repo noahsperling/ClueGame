@@ -131,7 +131,7 @@ public class ClueLocalGame extends LocalGame {
                         //or through a door.
 
                         if(curBoard[x-1][y] != null) {
-                            if (playBoard[x-1][y] == -1 && (curBoard[x-1][y].getTileType() == 0 || curBoard[x-1][y].getIsDoor() || curBoard[x-1][y].getTileType() == 1))
+                            if ((playBoard[x-1][y] == -1 && (curBoard[x-1][y].getTileType() == 0 || curBoard[x-1][y].getIsDoor() || curBoard[x-1][y].getTileType() == 1)) && !curBoard[x-1][y].getBottomWall())
                             {
                                 if (curBoard[x-1][y].getIsDoor() && curBoard[x][y].getTileType() == 0) //If the player is moving into a room
                                 {
@@ -161,7 +161,7 @@ public class ClueLocalGame extends LocalGame {
                     else if (moveAction instanceof ClueMoveDownAction)
                     {
                         if(curBoard[x+1][y] != null) {
-                            if (playBoard[x+1][y] == -1 && (curBoard[x+1][y].getTileType() == 0 || curBoard[x+1][y].getIsDoor() || curBoard[x-1][y].getTileType() == 1))
+                            if ((playBoard[x+1][y] == -1 && (curBoard[x+1][y].getTileType() == 0 || curBoard[x+1][y].getIsDoor() || curBoard[x+1][y].getTileType() == 1)) && !curBoard[x+1][y].getTopWall())
                             {
                                 if (curBoard[x+1][y].getIsDoor() && curBoard[x+1][y].getTileType() == 0)
                                 {
@@ -189,7 +189,7 @@ public class ClueLocalGame extends LocalGame {
                     else if (moveAction instanceof ClueMoveRightAction)
                     {
                         if(curBoard[x][y+1] != null) {
-                            if(playBoard[x][y+1] == -1 && (curBoard[x][y+1].getTileType() == 0 || curBoard[x][y+1].getIsDoor() || curBoard[x-1][y].getTileType() == 1))
+                            if((playBoard[x][y+1] == -1 && (curBoard[x][y+1].getTileType() == 0 || curBoard[x][y+1].getIsDoor() || curBoard[x][y+1].getTileType() == 1)) && !curBoard[x][y+1].getLeftWall())
                             {
                                 if (curBoard[x][y+1].getIsDoor() && curBoard[x][y].getTileType() == 0)
                                 {
@@ -217,7 +217,7 @@ public class ClueLocalGame extends LocalGame {
                     else if (moveAction instanceof ClueMoveLeftAction)
                     {
                         if(curBoard[x][y-1] != null) {
-                            if (playBoard[x][y-1] == -1 && (curBoard[x][y-1].getTileType() == 0 || curBoard[x][y-1].getIsDoor() || curBoard[x-1][y].getTileType() == 1))
+                            if ((playBoard[x][y-1] == -1 && (curBoard[x][y-1].getTileType() == 0 || curBoard[x][y-1].getIsDoor() || curBoard[x][y-1].getTileType() == 1) && !curBoard[x][y-1].getRightWall()))
                             {
                                 if (curBoard[x][y-1].getIsDoor() && curBoard[x][y].getTileType() == 0)
                                 {

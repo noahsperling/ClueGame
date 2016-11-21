@@ -34,6 +34,10 @@ public class Tile {
     {
         return room;
     }
+    public boolean getLeftWall(){return leftWall;}
+    public boolean getRightWall(){return rightWall;}
+    public boolean getTopWall(){return topWall;}
+    public boolean getBottomWall() {return bottomWall;}
     public void setIsDoor(boolean isDoor){ this.isDoor = isDoor; }
     public void setTopWall(boolean wall){ this.topWall = wall; }
     public void setBottomWall(boolean wall){ bottomWall = wall; }
