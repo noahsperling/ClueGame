@@ -27,6 +27,7 @@ import edu.up.cs301.game.actionMsg.ClueMoveRightAction;
 import edu.up.cs301.game.actionMsg.ClueMoveUpAction;
 import edu.up.cs301.game.actionMsg.ClueRollAction;
 import edu.up.cs301.game.actionMsg.ClueSuggestionAction;
+import edu.up.cs301.game.actionMsg.ClueUsePassagewayAction;
 import edu.up.cs301.game.actionMsg.ClueWrittenNoteAction;
 import edu.up.cs301.game.infoMsg.GameInfo;
 
@@ -57,6 +58,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     private TextView numberOfMovesLeft;
     private Button cancelButton;
     private Button submitButton;
+    private Button secretPassagewayButton;
     private EditText notesGUI;
 
     //Check Boxes!!
@@ -171,6 +173,10 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         submitButton = (Button)myActivity.findViewById(R.id.submitButton);
         submitButton.setOnClickListener(this);
 
+        secretPassagewayButton = (Button)myActivity.findViewById(R.id.secretPassagewayButton);
+        secretPassagewayButton.setOnClickListener(this);
+        secretPassagewayButton.setEnabled(false);
+
         //Spinners
         //will have to make sure room is locked when making a suggestion
         String[] roomItems = new String[]{"Ballroom","Billiard Room ", "Conservatory", "Dining Room", "Hall", "Kitchen", "Library", "Lounge", "Study"};
@@ -272,6 +278,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         if(info instanceof ClueState) {
             recentState = new ClueState((ClueState)info);
         }
+
+        boolean corner[] = recentState.getInCornerRoom();
+
         if(recentState.getTurnId() == playerID) {
             endTurnButton.setEnabled(true);
             if(recentState.getCanRoll(playerID)) {
@@ -279,7 +288,13 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             }else if(!recentState.getCanRoll(playerID)) {
                 rollButton.setEnabled(false);
             }
+
+            if (corner[playerID])
+            {
+                secretPassagewayButton.setEnabled(true);
+            }
         }
+
         boardView.updateBoard(recentState.getBoard());
         boardView.invalidate();
         cardView.updateCards(recentState.getCards(playerID));
@@ -363,6 +378,11 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                 accuseR.setEnabled(false);
                 Log.i("accuse action sent", " ");
             }
+        }
+        else if (view == secretPassagewayButton)
+        {
+            ClueUsePassagewayAction passageway = new ClueUsePassagewayAction(this);
+            game.sendAction(passageway);
         }
 
         //end turn button

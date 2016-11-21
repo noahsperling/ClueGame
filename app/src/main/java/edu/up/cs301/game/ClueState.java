@@ -32,6 +32,7 @@ public class ClueState extends GameState {
     private Board board;
     private boolean newToRoom[];
     private boolean playerStillInGame[];
+    private boolean inCornerRoom[];
 
     // to satisfy Serializable interface - IDK if necessary
     private static final long serialVersionUID = 7737393762469851826L;
@@ -362,6 +363,11 @@ public class ClueState extends GameState {
         return newToRoom;
     }
 
+    public boolean[] getInCornerRoom()
+    {
+        return inCornerRoom;
+    }
+
 
 
 
@@ -420,6 +426,11 @@ public class ClueState extends GameState {
 
     public void setCards(int playerID, Hand h) {
         cards[playerID] = h;
+    }
+
+    public void setInCornerRoom(int playerID, boolean inRoom)
+    {
+        inCornerRoom[playerID] = inRoom;
     }
 
     public void setGameOver(boolean newGameOver) {
