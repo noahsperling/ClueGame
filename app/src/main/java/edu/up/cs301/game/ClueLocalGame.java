@@ -305,6 +305,7 @@ public class ClueLocalGame extends LocalGame {
                         state.setCanRoll(0, true);
                         state.setTurnID(0);
                         state.setSpacesMoved(0);
+                        state.setDieValue(0);
                         return true;
                     }
                     else
