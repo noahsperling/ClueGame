@@ -357,6 +357,14 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             accuseR.setChecked(false);
 
         }
+        else if (view.getId() == R.id.radioShowCardButton) {
+            suggestR.setChecked(false);
+            accuseR.setChecked(false);
+            suggestR.setEnabled(false);
+            accuseR.setEnabled(false);
+
+            showCardR.setChecked(true);
+        }
         //no showCardR onclick listener because it is just to show the user that they need to choose
         //cards in the spinners to show a card to a player who has made a suggestion
 
@@ -384,6 +392,13 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
                 //does this need to sent in as info?
                 ClueShowCardAction showCard = new ClueShowCardAction(this);
+                showCardR.setEnabled(true);
+                showCardR.setChecked(false);
+                suggestR.setEnabled(false);
+                suggestR.setChecked(false);
+                accuseR.setEnabled(false);
+
+                //arraylist to array
 
             }
             else if (accuseR.isChecked() == true) {
@@ -405,15 +420,10 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
                 ClueShowCardAction showCard = new ClueShowCardAction(this);
 
-                String roomSelect = roomSpinner.getSelectedItem().toString();
-                String weaponSelect = weaponSpinner.getSelectedItem().toString();
-                String suspectSelect = suspectSpinner.getSelectedItem().toString();
+                //use only one spinner for all the cards that can be shown
+                String showCardString = roomSpinner.getSelectedItem().toString();
 
-                showCard.room = roomSelect;
-                showCard.weapon = weaponSelect;
-                showCard.suspect = suspectSelect;
-
-                showCardR.setEnabled(false);
+                showCard.room = showCardString;
 
             }
             //might have to add show card radio button?? have a text view saying it you need to pick a card to display
@@ -422,7 +432,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         {
             ClueUsePassagewayAction passageway = new ClueUsePassagewayAction(this);
             game.sendAction(passageway);
-            secretPassagewayButton.setEnabled(false);
         }
 
         //end turn button

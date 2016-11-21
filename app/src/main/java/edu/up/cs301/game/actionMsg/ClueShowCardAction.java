@@ -10,9 +10,16 @@ import edu.up.cs301.game.GamePlayer;
 public class ClueShowCardAction extends ClueNonTurnAction{
     private static final long serialVersionUID = 30672024L;
 
-    public String room;
-    public String suspect;
-    public String weapon;
+    private String cardToShow;
+
+    public String getCardToShow() {
+        return cardToShow;
+    }
+
+    public void setCardToShow(String newCard) {
+        cardToShow = newCard;
+    }
+
 
     public ClueShowCardAction(GamePlayer player){
         super(player);
