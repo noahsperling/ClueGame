@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
+import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,9 @@ import edu.up.cs301.game.infoMsg.GameInfo;
  * Created by Noah on 11/8/2016.
  */
 
-public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View.OnClickListener{
+public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View.OnClickListener, Serializable{
+
+    public static final long serialVersionUID = 368723687236L;
 
     int playerID;
     String name; //I don't know if this is important or not, or even needs to be here
@@ -73,8 +76,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     private CheckBox billiardRoomCheck;
     private CheckBox libraryCheck;
     private CheckBox studyCheck;
-
-
 
     //playersHand
     //playerTurn
@@ -252,8 +253,13 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         if(info instanceof ClueState) {
             recentState = new ClueState((ClueState)info);
         }
-        if(recentState.getCanRoll(playerID)) {
-            rollButton.setEnabled(true);
+        if(recentState.getTurnId() == playerID) {
+            endTurnButton.setEnabled(true);
+            if(recentState.getCanRoll(playerID)) {
+                rollButton.setEnabled(true);
+            }else if(!recentState.getCanRoll(playerID)) {
+                rollButton.setEnabled(false);
+            }
         }
         boardView.updateBoard(recentState.getBoard());
         boardView.invalidate();
@@ -292,7 +298,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         else if(view == rollButton) {
             ClueRollAction roll = new ClueRollAction(this);
             game.sendAction(roll);
-            rollButton.setEnabled(false);
+            //rollButton.setEnabled(false);
         }
 
         //for radio buttons
@@ -322,6 +328,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         {
             ClueEndTurnAction endTurn = new ClueEndTurnAction(this);
             game.sendAction(endTurn);
+            //endTurnButton.setEnabled(false);
         }
         //note edit text
         else if (view.getId() == R.id.editText)
@@ -586,6 +593,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             game.sendAction(checkAct);
         }
     }
+
+
 
     public int getPlayerID() {
         return playerID;

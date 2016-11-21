@@ -39,7 +39,6 @@ public class ClueLocalGame extends LocalGame {
     ClueNonTurnAction nonTurnAction;
     ClueMoveAction moveAction;
     ClueState state;
-    int numPlayers;
     private Random rand;
 
     public ClueLocalGame(ArrayList<GamePlayerType> gamePlayerTypes) {
@@ -52,12 +51,12 @@ public class ClueLocalGame extends LocalGame {
         rand = new Random();
     }
 
-    @Override
-    public void start(GamePlayer[] players){
-        super.start(players);/*
-        numPlayers = players.length;
-        state = new ClueState(numPlayers, playerNames, 0); // needs arguments from startup*/
-    }
+    //@Override
+    //public void start(GamePlayer[] players){
+        //super.start(players);
+        //numPlayers = players.length;
+        //state = new ClueState(numPlayers, playerNames, 0); // needs arguments from startup*/
+    //}
 
     public boolean canMove(int playerID) {
         return true;
@@ -82,7 +81,7 @@ public class ClueLocalGame extends LocalGame {
         Tile[][] curBoard;
 
         if(a instanceof ClueMoveAction) {
-            moveAction = (ClueMoveAction) a;
+            moveAction = (ClueMoveAction)a;
 
 
             //Instance variables that will be used for some of the actions
@@ -300,16 +299,19 @@ public class ClueLocalGame extends LocalGame {
                 {
                     //Change the turnID to the next player and lets the next player roll
                     state.setNewToRoom(curPlayerID, false); //Once they've ended their turn, they are no longer new to a room.
+                    state.setCanRoll(curPlayerID, false);
                     if (state.getTurnId() == (state.getNumPlayers() - 1))
                     {
                         state.setCanRoll(0, true);
                         state.setTurnID(0);
+                        state.setSpacesMoved(0);
                         return true;
                     }
                     else
                     {
                         state.setCanRoll(state.getTurnId() + 1, true);
                         state.setTurnID(state.getTurnId() + 1);
+                        state.setSpacesMoved(0);
                         return true;
 
                     }
@@ -374,6 +376,7 @@ public class ClueLocalGame extends LocalGame {
         }
     }
 
+    /* not necessary but still here in case
     private boolean checkTileValid(int x, int y, Board b) {
         if(b.getBoardArr()[x][y] == null) {
             return false;
@@ -392,5 +395,6 @@ public class ClueLocalGame extends LocalGame {
             return false;
         }
     }
+    */
 
 }
