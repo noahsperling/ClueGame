@@ -34,6 +34,7 @@ public class ClueState extends GameState {
     private boolean playerStillInGame[];
     private boolean inCornerRoom[];
     private String[] suggestCards;
+    private int playerIDWhoSuggested;
     private String[] cardToShow;
 
     // to satisfy Serializable interface - IDK if necessary
@@ -45,6 +46,7 @@ public class ClueState extends GameState {
         dieValue = 0;
         spacesMoved = 0;
         numPlayers = initNumPlayers;
+        playerIDWhoSuggested = -1;
         if(numPlayers == 3) {
             cardsPerHand = 6;
         }else if(numPlayers == 4) {
@@ -228,6 +230,7 @@ public class ClueState extends GameState {
         gameOver = s.getGameOver();
         board = s.getBoard();
         suggestCards = s.getSuggestCards();
+        playerIDWhoSuggested = s.getPlayerIDWhoSuggested();
     }
 
     //getters
@@ -325,9 +328,15 @@ public class ClueState extends GameState {
         return suggestCards;
     }
 
+    public int getPlayerIDWhoSuggested() {
+        return playerIDWhoSuggested;
+    }
+
     public String getCardToShow(int playerID) {
         return cardToShow[playerID];
     }
+
+
 
 
 
@@ -396,6 +405,10 @@ public class ClueState extends GameState {
 
     public void setSuggestCards(String[] newSuggestCards) {
         suggestCards = newSuggestCards;
+    }
+
+    public void setPlayerIDWhoSuggested(int newID) {
+        playerIDWhoSuggested = newID;
     }
 
     public void setCardToShow(String newCardToShow, int playerID) {
