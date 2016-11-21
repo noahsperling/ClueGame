@@ -400,23 +400,23 @@ public class ClueLocalGame extends LocalGame {
                                     showCardSpinnerSuspect[x] = "Miss Scarlet";
                                     x++;
                                 }
-                                else if (playersCard[j].equals(MR_GREEN)){
+                                if (playersCard[j].equals(MR_GREEN)){
                                     showCardSpinnerSuspect[x] = "Mr. Green";
                                     x++;
                                 }
-                                else if (playersCard[j].equals(MRS_PEACOCK)) {
+                                if (playersCard[j].equals(MRS_PEACOCK)) {
                                     showCardSpinnerSuspect[x] = "Mrs. Peacock";
                                     x++;
                                 }
-                                else if (playersCard[j].equals(MRS_WHITE)) {
+                                if (playersCard[j].equals(MRS_WHITE)) {
                                     showCardSpinnerSuspect[x] = "Mrs. White";
                                     x++;
                                 }
-                                else if (playersCard[j].equals(COL_MUSTARD)) {
+                                if (playersCard[j].equals(COL_MUSTARD)) {
                                     showCardSpinnerSuspect[x] = "Col. Mustard";
                                     x++;
                                 }
-                                else if (playersCard[j].equals(PROF_PLUM)) {
+                                if (playersCard[j].equals(PROF_PLUM)) {
                                     showCardSpinnerSuspect[x] = "Prof. Plum";
                                     x++;
                                 }
@@ -468,32 +468,30 @@ public class ClueLocalGame extends LocalGame {
                                 showCardSpinnerWeapon[x] = "Lead Pipe";
                                 x++;
                             }
-                            else if (playersCard[j].equals(REVOLVER)){
+                            if (playersCard[j].equals(REVOLVER)){
                                 showCardSpinnerWeapon[x] = "Revolver";
                                 x++;
                             }
-                            else if (playersCard[j].equals(CANDLESTICK)) {
+                            if (playersCard[j].equals(CANDLESTICK)) {
                                 showCardSpinnerWeapon[x] = "Candlestick";
                                 x++;
                             }
-                            else if (playersCard[j].equals(WRENCH)) {
+                            if (playersCard[j].equals(WRENCH)) {
                                 showCardSpinnerWeapon[x] = "Wrench";
                                 x++;
                             }
-                            else if (playersCard[j].equals(ROPE)) {
+                            if (playersCard[j].equals(ROPE)) {
                                 showCardSpinnerWeapon[x] = "Rope";
                                 x++;
                             }
-                            else if (playersCard[j].equals(KNIFE)) {
+                            if (playersCard[j].equals(KNIFE)) {
                                 showCardSpinnerWeapon[x] = "Knife";
                                 x++;
                             }
                             x = 0;
                         }
                     }
-
-                    String[] roomItems = new String[]{};
-                    }
+                 }
                 }
             }
             return true;
