@@ -31,7 +31,9 @@ public class ComputerPlayerDumb extends ClueComputerPlayer {
             return;
         }else if(info instanceof ClueState) {
                 ClueState myState = (ClueState)info; //cast it
-                if(myState.getTurnId() == playerID) {
+            if (myState.getTurnId() != this.playerID) {
+                return;
+            }else if(myState.getTurnId() == playerID) {
                     //game.sendAction(new ClueRollAction(this));
                     game.sendAction(new ClueEndTurnAction(this));
                 }
