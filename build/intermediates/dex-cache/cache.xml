@@ -3,30 +3,30 @@
 
     <item
         is-multidex="true"
-        jar="C:\Users\theem\Documents\GitHub\assignment-1-noahsperling\ClueGame\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jar="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGame/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="22.0.1"
-        sha1="17db8caee6217daaf9a2c43127ca27cc9f14c763">
-        <dex dex="C:\Users\theem\Documents\GitHub\assignment-1-noahsperling\ClueGame\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_f0f2bcac08dc6125ba4ff0e78280dd0038a9cc8f\classes.dex" />
+        sha1="55db4b2f425a4b12ca7ce9d29e1277a324becfcd">
+        <dex dex="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGame/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_638c8ead0b3a160c98cd2a094eaadbc3d9d43a13/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\theem\Documents\GitHub\assignment-1-noahsperling\ClueGame\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="22.0.1"
-        sha1="eea86230f886214654402ad2429808b57a58cae9">
-        <dex dex="C:\Users\theem\Documents\GitHub\assignment-1-noahsperling\ClueGame\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_7b366ae6563687a13bf8de5d4b9b5149ee38596e\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\theem\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-v4\18.0.0\support-v4-18.0.0.jar"
+        jar="/Users/Paige/Library/Android/sdk/extras/android/m2repository/com/android/support/support-v4/18.0.0/support-v4-18.0.0.jar"
         jumboMode="true"
         optimize="true"
         revision="22.0.1"
         sha1="44ec51e9d395a47aab135e5e1b556c0007442156">
-        <dex dex="C:\Users\theem\Documents\GitHub\assignment-1-noahsperling\ClueGame\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-v4-18.0.0_250dad91f4f791ecc4700ac1700dba57fd3e1d99\classes.dex" />
+        <dex dex="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGame/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-v4-18.0.0_8e0fca08f5eb1515bf356cf9abc9298b18290ff6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGame/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="ac70a3c1079bc2d5c2e00d868b6c8c0cc815f2c4">
+        <dex dex="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGame/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_79d5f6560bc4d2e61887b427fe3d4e90ac2d05eb/classes.dex" />
     </item>
 
 </items>
