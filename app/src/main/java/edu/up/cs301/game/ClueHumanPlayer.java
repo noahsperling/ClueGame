@@ -424,6 +424,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                 String showCardString = roomSpinner.getSelectedItem().toString();
 
                 showCard.room = showCardString;
+                //
 
             }
             //might have to add show card radio button?? have a text view saying it you need to pick a card to display
