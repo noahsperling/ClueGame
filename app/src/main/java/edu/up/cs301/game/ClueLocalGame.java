@@ -136,100 +136,116 @@ public class ClueLocalGame extends LocalGame {
                         //position on the board.  Also checks to make sure their next position is in the hallway
                         //or through a door.
 
-                        if (curBoard[x-1][y] != null && playBoard[x-1][y] == -1 && (curBoard[x-1][y].getTileType() == 0 || curBoard[x-1][y].getIsDoor()))
-                        {
-                            if (curBoard[x-1][y].getIsDoor() && curBoard[x][y].getTileType() == 0) //If the player is moving into a room
+                        if(curBoard[x-1][y] != null) {
+                            if (playBoard[x-1][y] == -1 && (curBoard[x-1][y].getTileType() == 0 || curBoard[x-1][y].getIsDoor() || curBoard[x-1][y].getTileType() == 1))
                             {
-                                state.getBoard().setPlayerBoard(x - 1, y, x , y, curPlayerID); //Set the new position of the player and set the old position to zero.
-                                state.setSpacesMoved(state.getSpacesMoved() + 1);
-                                state.setNewToRoom(curPlayerID, true); //Set the new to room in array to true.
-                                return true;
+                                if (curBoard[x-1][y].getIsDoor() && curBoard[x][y].getTileType() == 0) //If the player is moving into a room
+                                {
+                                    state.getBoard().setPlayerBoard(x - 1, y, x , y, curPlayerID); //Set the new position of the player and set the old position to zero.
+                                    state.setSpacesMoved(state.getSpacesMoved() + 1);
+                                    state.setNewToRoom(curPlayerID, true); //Set the new to room in array to true.
+                                    return true;
+                                }
+                                else if (curBoard[x][y].getTileType() == 1 && curBoard[x-1][y].getTileType() == 1) //If the player is in and will move within a room
+                                {
+                                    //If the player is moving around within a room, it will set their new position but will
+                                    //not increment the spaces moved.
+                                    state.getBoard().setPlayerBoard(x - 1, y, x, y, curPlayerID);
+                                    return true;
+                                }
+                                else //Otherwise they're moving to a hallway.
+                                {
+                                    state.getBoard().setPlayerBoard(x - 1, y, x, y, curPlayerID); //Set the new position of the player and set the old position to zero.
+                                    state.setSpacesMoved(state.getSpacesMoved() + 1);
+                                    return true;
+                                }
                             }
-                            else if (curBoard[x][y].getTileType() == 1 && curBoard[x-1][y].getTileType() == 1) //If the player is in and will move within a room
-                            {
-                                //If the player is moving around within a room, it will set their new position but will
-                                //not increment the spaces moved.
-                                state.getBoard().setPlayerBoard(x - 1, y, x, y, curPlayerID);
-                                return true;
-                            }
-                            else //Otherwise they're moving to a hallway.
-                            {
-                                state.getBoard().setPlayerBoard(x - 1, y, x, y, curPlayerID); //Set the new position of the player and set the old position to zero.
-                                state.setSpacesMoved(state.getSpacesMoved() + 1);
-                                return true;
-                            }
+                        }else {
+                            return false;
                         }
                     }
                     else if (moveAction instanceof ClueMoveDownAction)
                     {
-                        if (curBoard[x+1][y] != null && playBoard[x+1][y] == -1 && (curBoard[x+1][y].getTileType() == 0 || curBoard[x+1][y].getIsDoor()))
-                        {
-                            if (curBoard[x+1][y].getIsDoor() && curBoard[x+1][y].getTileType() == 0)
+                        if(curBoard[x+1][y] != null) {
+                            if (playBoard[x+1][y] == -1 && (curBoard[x+1][y].getTileType() == 0 || curBoard[x+1][y].getIsDoor() || curBoard[x-1][y].getTileType() == 1))
                             {
-                                state.getBoard().setPlayerBoard(x + 1, y, x, y, curPlayerID);
-                                state.setSpacesMoved(state.getSpacesMoved() + 1);
-                                state.setNewToRoom(curPlayerID, true);
-                                return true;
+                                if (curBoard[x+1][y].getIsDoor() && curBoard[x+1][y].getTileType() == 0)
+                                {
+                                    state.getBoard().setPlayerBoard(x + 1, y, x, y, curPlayerID);
+                                    state.setSpacesMoved(state.getSpacesMoved() + 1);
+                                    state.setNewToRoom(curPlayerID, true);
+                                    return true;
+                                }
+                                else if (curBoard[x][y].getTileType() == 1 && curBoard[x+1][y].getTileType() == 1)
+                                {
+                                    state.getBoard().setPlayerBoard(x + 1, y, x, y, curPlayerID);
+                                    return true;
+                                }
+                                else
+                                {
+                                    state.getBoard().setPlayerBoard(x + 1, y, x, y, curPlayerID);
+                                    state.setSpacesMoved(state.getSpacesMoved() + 1);
+                                    return true;
+                                }
                             }
-                            else if (curBoard[x][y].getTileType() == 1 && curBoard[x+1][y].getTileType() == 1)
-                            {
-                                state.getBoard().setPlayerBoard(x + 1, y, x, y, curPlayerID);
-                                return true;
-                            }
-                            else
-                            {
-                                state.getBoard().setPlayerBoard(x + 1, y, x, y, curPlayerID);
-                                state.setSpacesMoved(state.getSpacesMoved() + 1);
-                                return true;
-                            }
+                        }else {
+                            return false;
                         }
                     }
                     else if (moveAction instanceof ClueMoveRightAction)
                     {
-                        if (curBoard[x][y+1] != null && playBoard[x][y+1] == -1 && (curBoard[x][y+1].getTileType() == 0 || curBoard[x][y+1].getIsDoor()))
-                        {
-                            if (curBoard[x][y+1].getIsDoor() && curBoard[x][y].getTileType() == 0)
+                        if(curBoard[x][y+1] != null) {
+                            if(playBoard[x][y+1] == -1 && (curBoard[x][y+1].getTileType() == 0 || curBoard[x][y+1].getIsDoor() || curBoard[x-1][y].getTileType() == 1))
                             {
-                                state.getBoard().setPlayerBoard(x, y + 1, x, y, curPlayerID);
-                                state.setSpacesMoved(state.getSpacesMoved() + 1);
-                                state.setNewToRoom(curPlayerID, true);
-                                return true;
+                                if (curBoard[x][y+1].getIsDoor() && curBoard[x][y].getTileType() == 0)
+                                {
+                                    state.getBoard().setPlayerBoard(x, y + 1, x, y, curPlayerID);
+                                    state.setSpacesMoved(state.getSpacesMoved() + 1);
+                                    state.setNewToRoom(curPlayerID, true);
+                                    return true;
+                                }
+                                else if (curBoard[x][y].getTileType() == 1 && curBoard[x][y+1].getTileType() == 1)
+                                {
+                                    state.getBoard().setPlayerBoard(x, y + 1, x, y, curPlayerID);
+                                    return true;
+                                }
+                                else
+                                {
+                                    state.getBoard().setPlayerBoard(x, y + 1, x, y, curPlayerID);
+                                    state.setSpacesMoved(state.getSpacesMoved() + 1);
+                                    return true;
+                                }
                             }
-                            else if (curBoard[x][y].getTileType() == 1 && curBoard[x][y+1].getTileType() == 1)
-                            {
-                                state.getBoard().setPlayerBoard(x, y + 1, x, y, curPlayerID);
-                                return true;
-                            }
-                            else
-                            {
-                                state.getBoard().setPlayerBoard(x, y + 1, x, y, curPlayerID);
-                                state.setSpacesMoved(state.getSpacesMoved() + 1);
-                                return true;
-                            }
+                        }else {
+                            return false;
                         }
                     }
                     else if (moveAction instanceof ClueMoveLeftAction)
                     {
-                        if (curBoard[x][y-1] != null && playBoard[x][y-1] == -1 && (curBoard[x][y-1].getTileType() == 0 || curBoard[x][y-1].getIsDoor()))
-                        {
-                            if (curBoard[x][y-1].getIsDoor() && curBoard[x][y].getTileType() == 0)
+                        if(curBoard[x][y-1] != null) {
+                            if (playBoard[x][y-1] == -1 && (curBoard[x][y-1].getTileType() == 0 || curBoard[x][y-1].getIsDoor() || curBoard[x-1][y].getTileType() == 1))
                             {
-                                state.getBoard().setPlayerBoard(x, y - 1, x, y, curPlayerID);
-                                state.setSpacesMoved(state.getSpacesMoved() + 1);
-                                return true;
+                                if (curBoard[x][y-1].getIsDoor() && curBoard[x][y].getTileType() == 0)
+                                {
+                                    state.getBoard().setPlayerBoard(x, y - 1, x, y, curPlayerID);
+                                    state.setSpacesMoved(state.getSpacesMoved() + 1);
+                                    return true;
+                                }
+                                else if (curBoard[x][y].getTileType() == 1 && curBoard[x][y-1].getTileType() == 1)
+                                {
+                                    state.getBoard().setPlayerBoard(x, y - 1, x, y, curPlayerID);
+                                    return true;
+                                }
+                                else
+                                {
+                                    state.getBoard().setPlayerBoard(x, y - 1, x, y, curPlayerID);
+                                    state.setSpacesMoved(state.getSpacesMoved() + 1);
+                                    state.setNewToRoom(curPlayerID, true);
+                                    return true;
+                                }
                             }
-                            else if (curBoard[x][y].getTileType() == 1 && curBoard[x][y-1].getTileType() == 1)
-                            {
-                                state.getBoard().setPlayerBoard(x, y - 1, x, y, curPlayerID);
-                                return true;
-                            }
-                            else
-                            {
-                                state.getBoard().setPlayerBoard(x, y - 1, x, y, curPlayerID);
-                                state.setSpacesMoved(state.getSpacesMoved() + 1);
-                                state.setNewToRoom(curPlayerID, true);
-                                return true;
-                            }
+                        }else {
+                            return false;
                         }
                     }
                 }
