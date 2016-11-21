@@ -27,16 +27,40 @@ public class ComputerPlayerDumb extends ClueComputerPlayer {
 
     @Override
     protected void receiveInfo(GameInfo info) {
-        if(info instanceof IllegalMoveInfo || info instanceof NotYourTurnInfo) {
-            return;
-        }else if(info instanceof ClueState) {
+        Log.i("Called me","  ");
+        if(info instanceof ClueState) {
                 ClueState myState = (ClueState)info; //cast it
-            if (myState.getTurnId() != this.playerID) {
-                return;
-            }else if(myState.getTurnId() == playerID) {
-                    //game.sendAction(new ClueRollAction(this));
+            if(myState.getTurnId() == playerID) {
+                if (myState.getCanRoll(this.playerID) == true) {
+                    Log.i("Roll","Rolling");
+                    game.sendAction(new ClueRollAction(this));
+                    return;
+                }
+
+                if(myState.getDieValue() != myState.getSpacesMoved()) {
+                    Random rand = new Random();
+                    int move = rand.nextInt(4) + 1;
+                    Log.i("Moving",""+move);
+
+                    if (move == 1) {
+                        game.sendAction(new ClueMoveLeftAction((this)));
+                    }
+                    if (move == 2) {
+                        game.sendAction(new ClueMoveUpAction((this)));
+                    }
+                    if (move == 3) {
+                        game.sendAction(new ClueMoveRightAction((this)));
+                    }
+                    if (move == 4) {
+                        game.sendAction(new ClueMoveDownAction(this));
+                    }
+                    return;
+                }else{
                     game.sendAction(new ClueEndTurnAction(this));
                 }
+            }
+
+
 
 
             /*Card guess1;
@@ -97,9 +121,7 @@ public class ComputerPlayerDumb extends ClueComputerPlayer {
                 guess2 = myState.getAllCards().get(intGuess2);
             }*/
 
-            }else{
-            return;
-        }
+            }
 
         //if it enters a room, suggest random
         //if it uses all its moves and does not enter a room, end turn
