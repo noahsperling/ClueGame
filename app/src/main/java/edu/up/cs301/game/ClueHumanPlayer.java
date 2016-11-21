@@ -286,7 +286,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             recentState = new ClueState((ClueState)info);
         }
 
-//        boolean corner[] = recentState.getInCornerRoom();
+        boolean corner[] = recentState.getInCornerRoom();
 
         if(recentState.getTurnId() == playerID) {
             endTurnButton.setEnabled(true);
@@ -295,11 +295,11 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             }else if(!recentState.getCanRoll(playerID)) {
                 rollButton.setEnabled(false);
             }
-//
-//            if (corner[playerID])
-//            {
-//                secretPassagewayButton.setEnabled(true);
-//            }
+
+            if (corner[playerID])
+            {
+                secretPassagewayButton.setEnabled(true);
+            }
         }
 
         boardView.updateBoard(recentState.getBoard());
@@ -422,6 +422,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                 showCard.setCardToShow(showCardString);
 
                 game.sendAction(showCard);
+
 
             }
             //might have to add show card radio button?? have a text view saying it you need to pick a card to display
