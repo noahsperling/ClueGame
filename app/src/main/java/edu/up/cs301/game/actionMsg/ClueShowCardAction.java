@@ -10,7 +10,7 @@ import edu.up.cs301.game.GamePlayer;
 public class ClueShowCardAction extends ClueNonTurnAction{
     private static final long serialVersionUID = 30672024L;
 
-    public Card card;
+    public String card;
 
     public ClueShowCardAction(GamePlayer player){
         super(player);

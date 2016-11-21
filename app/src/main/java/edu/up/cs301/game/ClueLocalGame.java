@@ -227,7 +227,8 @@ public class ClueLocalGame extends LocalGame {
                         }
                     }
                 }
-                else if (moveAction instanceof ClueAccuseAction)
+
+                if (moveAction instanceof ClueAccuseAction)
                 {
                     boolean solved = true;
                     Card solution[] = state.getSolution();
