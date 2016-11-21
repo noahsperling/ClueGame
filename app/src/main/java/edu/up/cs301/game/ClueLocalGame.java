@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import java.util.Random;
 
+import javax.net.ssl.HandshakeCompletedListener;
+
 import edu.up.cs301.game.actionMsg.ClueAccuseAction;
 import edu.up.cs301.game.actionMsg.ClueCheckAction;
 import edu.up.cs301.game.actionMsg.ClueEndTurnAction;
@@ -23,13 +25,27 @@ import edu.up.cs301.game.actionMsg.ClueWrittenNoteAction;
 import edu.up.cs301.game.actionMsg.GameAction;
 import edu.up.cs301.game.config.GamePlayerType;
 
+import static edu.up.cs301.game.Card.BALLROOM;
+import static edu.up.cs301.game.Card.BILLIARD_ROOM;
+import static edu.up.cs301.game.Card.CANDLESTICK;
+import static edu.up.cs301.game.Card.COL_MUSTARD;
 import static edu.up.cs301.game.Card.CONSERVATORY;
+import static edu.up.cs301.game.Card.DINING_ROOM;
 import static edu.up.cs301.game.Card.HALL;
 import static edu.up.cs301.game.Card.KITCHEN;
+import static edu.up.cs301.game.Card.KNIFE;
+import static edu.up.cs301.game.Card.LEAD_PIPE;
+import static edu.up.cs301.game.Card.LIBRARY;
 import static edu.up.cs301.game.Card.LOUNGE;
 import static edu.up.cs301.game.Card.MISS_SCARLET;
+import static edu.up.cs301.game.Card.MRS_PEACOCK;
+import static edu.up.cs301.game.Card.MRS_WHITE;
 import static edu.up.cs301.game.Card.MR_GREEN;
+import static edu.up.cs301.game.Card.PROF_PLUM;
+import static edu.up.cs301.game.Card.REVOLVER;
+import static edu.up.cs301.game.Card.ROPE;
 import static edu.up.cs301.game.Card.STUDY;
+import static edu.up.cs301.game.Card.WRENCH;
 import static edu.up.cs301.game.Type.ROOM;
 import static edu.up.cs301.game.Type.WEAPON;
 
@@ -379,20 +395,100 @@ public class ClueLocalGame extends LocalGame {
                         if (playersCard[j].equals(Type.PERSON)) {
                             //go through the suspect cards and put the ones that are in the hand,
                             //into the string array that will be displayed in the spinner
-                            for (int x = 0; x < 6; x++) {
+                                int x = 0;
                                 if (playersCard[j].equals(MISS_SCARLET)) {
-                                    showCardSpinnerRoom[0] = "Miss Scarlet";
+                                    showCardSpinnerSuspect[x] = "Miss Scarlet";
+                                    x++;
                                 }
                                 else if (playersCard[j].equals(MR_GREEN)){
-
+                                    showCardSpinnerSuspect[x] = "Mr. Green";
+                                    x++;
                                 }
+                                else if (playersCard[j].equals(MRS_PEACOCK)) {
+                                    showCardSpinnerSuspect[x] = "Mrs. Peacock";
+                                    x++;
+                                }
+                                else if (playersCard[j].equals(MRS_WHITE)) {
+                                    showCardSpinnerSuspect[x] = "Mrs. White";
+                                    x++;
+                                }
+                                else if (playersCard[j].equals(COL_MUSTARD)) {
+                                    showCardSpinnerSuspect[x] = "Col. Mustard";
+                                    x++;
+                                }
+                                else if (playersCard[j].equals(PROF_PLUM)) {
+                                    showCardSpinnerSuspect[x] = "Prof. Plum";
+                                    x++;
+                                }
+                                x = 0;
                             }
-                        }
                         else if (playersCard[j].equals(Type.ROOM)) {
-
-                        }
+                                int x = 0;
+                                if (playersCard[j].equals(HALL)) {
+                                    showCardSpinnerRoom[x] = "Hall";
+                                    x++;
+                                }
+                                if (playersCard[j].equals(LOUNGE)){
+                                    showCardSpinnerRoom[x] = "Lounge";
+                                    x++;
+                                }
+                                if (playersCard[j].equals(DINING_ROOM)) {
+                                    showCardSpinnerRoom[x] = "Dining Room";
+                                    x++;
+                                }
+                                if (playersCard[j].equals(KITCHEN)) {
+                                    showCardSpinnerRoom[x] = "Kitchen";
+                                    x++;
+                                }
+                                if (playersCard[j].equals(BALLROOM)) {
+                                    showCardSpinnerRoom[x] = "Ballroom";
+                                    x++;
+                                }
+                                if (playersCard[j].equals(CONSERVATORY)) {
+                                    showCardSpinnerRoom[x] = "Conservatory";
+                                    x++;
+                                }
+                                if (playersCard[j].equals(BILLIARD_ROOM)) {
+                                    showCardSpinnerRoom[x] = "Billiard Room";
+                                    x++;
+                                }
+                                if (playersCard[j].equals(LIBRARY)) {
+                                    showCardSpinnerRoom[x] = "Library";
+                                    x++;
+                                }
+                                if (playersCard[j].equals(STUDY)) {
+                                    showCardSpinnerRoom[x] = "Study";
+                                    x++;
+                                }
+                                x = 0;
+                            }
                         else if (playersCard[j].equals(Type.WEAPON)) {
-
+                            int x = 0;
+                            if (playersCard[j].equals(LEAD_PIPE)) {
+                                showCardSpinnerWeapon[x] = "Lead Pipe";
+                                x++;
+                            }
+                            else if (playersCard[j].equals(REVOLVER)){
+                                showCardSpinnerWeapon[x] = "Revolver";
+                                x++;
+                            }
+                            else if (playersCard[j].equals(CANDLESTICK)) {
+                                showCardSpinnerWeapon[x] = "Candlestick";
+                                x++;
+                            }
+                            else if (playersCard[j].equals(WRENCH)) {
+                                showCardSpinnerWeapon[x] = "Wrench";
+                                x++;
+                            }
+                            else if (playersCard[j].equals(ROPE)) {
+                                showCardSpinnerWeapon[x] = "Rope";
+                                x++;
+                            }
+                            else if (playersCard[j].equals(KNIFE)) {
+                                showCardSpinnerWeapon[x] = "Knife";
+                                x++;
+                            }
+                            x = 0;
                         }
                     }
 
