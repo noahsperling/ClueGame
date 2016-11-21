@@ -690,6 +690,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         return temp;
     }
     public void setSpinners(){
+        //where the spinner for show cards will have to created and sent in appropriately
+
         String[] roomItems = new String[]{"Ballroom","Billiard Room ", "Conservatory", "Dining Room", "Hall", "Kitchen", "Library", "Lounge", "Study"};
         String[] weaponItems = new String[]{"Candlestick", "Knife", "Lead Pipe", "Revolver", "Rope", "Wrench", };
         String[] suspectItem = new String []{"Mr. Green", "Col. Mustard", "Mrs. Peacock", "Prof. Plum", "Miss Scarlet", "Mrs.White"};
