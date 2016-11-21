@@ -84,8 +84,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     private CheckBox libraryCheck;
     private CheckBox studyCheck;
 
-
-
     //playersHand
     //playerTurn
     //noteView
@@ -416,15 +414,14 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             }
             else if (showCardR.isChecked() == true) {
                 //disable the other radio buttons then re-enable?
-
-
                 ClueShowCardAction showCard = new ClueShowCardAction(this);
 
                 //use only one spinner for all the cards that can be shown
                 String showCardString = roomSpinner.getSelectedItem().toString();
 
-                showCard.room = showCardString;
-                //
+                showCard.setCardToShow(showCardString);
+
+                game.sendAction(showCard);
 
             }
             //might have to add show card radio button?? have a text view saying it you need to pick a card to display
