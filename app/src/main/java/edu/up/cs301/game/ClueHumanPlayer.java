@@ -334,7 +334,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         {
             ClueEndTurnAction endTurn = new ClueEndTurnAction(this);
             game.sendAction(endTurn);
-            //endTurnButton.setEnabled(false);
+            endTurnButton.setEnabled(false);
         }
         //note edit text
         else if (view.getId() == R.id.editText)
