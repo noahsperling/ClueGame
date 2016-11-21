@@ -50,10 +50,10 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     private Spinner roomSpinner;
     private Spinner weaponSpinnner;
     private Spinner suspectSpinner;
-    private EditText notesGUI;
     private Button rollButton;
-    private Button noteButton;
     private TextView numberOfMovesLeft;
+    private Button cancelButton;
+    private Button submitButton;
 
     //Check Boxes!!
     private CheckBox colonelMustardCheck;
@@ -160,6 +160,12 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         rollButton = (Button)myActivity.findViewById(R.id.rollButton);
         rollButton.setOnClickListener(this);
         rollButton.setEnabled(true);
+
+        cancelButton = (Button)myActivity.findViewById(R.id.cancelButton);
+        cancelButton.setOnClickListener(this);
+
+        submitButton = (Button)myActivity.findViewById(R.id.submitButton);
+        submitButton.setOnClickListener(this);
 
         //Spinners
         //will have to make sure room is locked when making a suggestion
@@ -313,23 +319,45 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         {
             suggestR.setChecked(false);
             accuseR.setChecked(true);
-            String roomSelect = roomSpinner.getSelectedItem().toString();
-            String weaponSelect = weaponSpinnner.getSelectedItem().toString();
-            String suspectSelect = suspectSpinner.getSelectedItem().toString();
-
-            ClueAccuseAction accuse = new ClueAccuseAction(this);
-            accuse.room = roomSelect;
-            accuse.weapon = weaponSelect;
-            accuse.suspect = suspectSelect;
-            game.sendAction(accuse);
         }
         else if (view.getId() == R.id.radioSuggestButton)
         {
             suggestR.setChecked(true);
             accuseR.setChecked(false);
-            ClueSuggestionAction suggest = new ClueSuggestionAction(this);
-            game.sendAction(suggest);
+
         }
+
+        else if (view.getId() == R.id.cancelButton) {
+            suggestR.setChecked(false);
+            accuseR.setChecked(false);
+        }
+        else if (view.getId() == R.id.submitButton) {
+            if (suggestR.isChecked() == true) {
+                String weaponSelect = weaponSpinnner.getSelectedItem().toString();
+                String suspectSelect = suspectSpinner.getSelectedItem().toString();
+
+                ClueSuggestionAction suggest = new ClueSuggestionAction(this);
+                suggest.weapon = weaponSelect;
+                suggest.person = suspectSelect;
+                game.sendAction(suggest);
+                Log.i("suggest action sent", " ");
+
+            }
+            else if (accuseR.isChecked() == true) {
+                String roomSelect = roomSpinner.getSelectedItem().toString();
+                String weaponSelect = weaponSpinnner.getSelectedItem().toString();
+                String suspectSelect = suspectSpinner.getSelectedItem().toString();
+
+                ClueAccuseAction accuse = new ClueAccuseAction(this);
+                accuse.room = roomSelect;
+                accuse.weapon = weaponSelect;
+                accuse.suspect = suspectSelect;
+                game.sendAction(accuse);
+                accuseR.setEnabled(false);
+                Log.i("accuse action sent", " ");
+            }
+        }
+
         //end turn button
         else if (view == endTurnButton)
         {
