@@ -13,6 +13,7 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -258,8 +259,13 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         if(info instanceof ClueState) {
             recentState = new ClueState((ClueState)info);
         }
-        if(recentState.getCanRoll(playerID)) {
-            rollButton.setEnabled(true);
+        if(recentState.getTurnId() == playerID) {
+            endTurnButton.setEnabled(true);
+            if(recentState.getCanRoll(playerID)) {
+                rollButton.setEnabled(true);
+            }else if(!recentState.getCanRoll(playerID)) {
+                rollButton.setEnabled(false);
+            }
         }
         boardView.updateBoard(recentState.getBoard());
         boardView.invalidate();
@@ -269,7 +275,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
     public void onClick(View view)
     {
-        //ClueLocalGame clg = (ClueLocalGame) game;
         //Move player actions
         if (game == null)
         {
@@ -280,26 +285,21 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         {
             ClueMoveUpAction up = new ClueMoveUpAction(this);
             game.sendAction(up);
-            //numberOfMovesLeft.setText((recentState.getDieValue()-recentState.getSpacesMoved())+"");
-
         }
         else if (view == downButton)
         {
             ClueMoveDownAction down = new ClueMoveDownAction(this);
             game.sendAction(down);
-            //numberOfMovesLeft.setText((recentState.getDieValue()-recentState.getSpacesMoved())+"");
         }
         else if (view == leftButton)
         {
             ClueMoveLeftAction left = new ClueMoveLeftAction(this);
             game.sendAction(left);
-            //numberOfMovesLeft.setText((recentState.getDieValue()-recentState.getSpacesMoved())+"");
         }
         else if (view == rightButton)
         {
             ClueMoveRightAction right = new ClueMoveRightAction(this);
             game.sendAction(right);
-            //numberOfMovesLeft.setText((recentState.getDieValue()-recentState.getSpacesMoved())+"");
         }
         else if(view == rollButton) {
             ClueRollAction roll = new ClueRollAction(this);
@@ -334,7 +334,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         {
             ClueEndTurnAction endTurn = new ClueEndTurnAction(this);
             game.sendAction(endTurn);
-
+            //endTurnButton.setEnabled(false);
         }
         //note edit text
         else if (view.getId() == R.id.editText)
@@ -599,6 +599,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         }else{
             return;
         }
+
     }
 
     public int getPlayerID() {

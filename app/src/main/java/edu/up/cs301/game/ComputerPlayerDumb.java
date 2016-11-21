@@ -26,13 +26,10 @@ public class ComputerPlayerDumb extends ClueComputerPlayer {
 
     @Override
     protected void receiveInfo(GameInfo info) {
-        //ClueLocalGame clg = (ClueLocalGame) game;
-        if(info instanceof BindGameInfo) {
-            playerID = ((BindGameInfo) info).getPlayerNum();
-        }else if(info instanceof ClueState) {
-                ClueState myState = (ClueState) info; //cast it
+        if(info instanceof ClueState) {
+                ClueState myState = (ClueState)info; //cast it
                 if(myState.getTurnId() == playerID) {
-                    game.sendAction(new ClueRollAction(this));
+                    //game.sendAction(new ClueRollAction(this));
                     game.sendAction(new ClueEndTurnAction(this));
                 }
 
