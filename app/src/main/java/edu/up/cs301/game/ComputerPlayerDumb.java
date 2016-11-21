@@ -1,5 +1,7 @@
 package edu.up.cs301.game;
 
+import android.util.Log;
+
 import java.util.Random;
 
 import edu.up.cs301.game.actionMsg.ClueEndTurnAction;

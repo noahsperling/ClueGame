@@ -2,6 +2,7 @@ package edu.up.cs301.game;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 import java.io.Serializable;
 
 import java.util.ArrayList;
@@ -32,9 +34,7 @@ import edu.up.cs301.game.infoMsg.GameInfo;
  * Created by Noah on 11/8/2016.
  */
 
-public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View.OnClickListener, Serializable{
-
-    public static final long serialVersionUID = 368723687236L;
+public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View.OnClickListener{
 
     int playerID;
     String name; //I don't know if this is important or not, or even needs to be here
@@ -53,6 +53,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     private EditText notesGUI;
     private Button rollButton;
     private Button noteButton;
+    private TextView numberOfMovesLeft;
 
     //Check Boxes!!
     private CheckBox colonelMustardCheck;
@@ -76,6 +77,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     private CheckBox billiardRoomCheck;
     private CheckBox libraryCheck;
     private CheckBox studyCheck;
+
+
 
     //playersHand
     //playerTurn
@@ -240,6 +243,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         studyCheck = (CheckBox)myActivity.findViewById(R.id.studyCheckBox);
         studyCheck.setOnClickListener(this);
 
+        numberOfMovesLeft = (TextView)myActivity.findViewById(R.id.numberOfMovesTextView);
+        numberOfMovesLeft.setText(0+"");
+
     }
 
     public ClueState getRecentState()
@@ -298,7 +304,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         else if(view == rollButton) {
             ClueRollAction roll = new ClueRollAction(this);
             game.sendAction(roll);
-            //rollButton.setEnabled(false);
+            rollButton.setEnabled(false);
         }
 
         //for radio buttons
@@ -580,9 +586,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             ClueCheckAction checkAct = new ClueCheckAction(this);
             game.sendAction(checkAct);
         }
-        else if (view == studyCheck)
-        {
-            if(!checkBoxBool[20]) {
+        else if (view == studyCheck) {
+            if (!checkBoxBool[20]) {
                 checkBoxBool[20] = true;
                 studyCheck.setChecked(true);
             } else {
@@ -591,10 +596,11 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             }
             ClueCheckAction checkAct = new ClueCheckAction(this);
             game.sendAction(checkAct);
+        }else{
+            return;
         }
+
     }
-
-
 
     public int getPlayerID() {
         return playerID;

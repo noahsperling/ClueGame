@@ -7,6 +7,8 @@ import edu.up.cs301.game.GamePlayer;
  */
 public class ClueMoveRightAction extends ClueMoveAction
 {
+    private static final long serialVersionUID = 30672021L;
+
     public ClueMoveRightAction(GamePlayer player)
     {
         super(player);

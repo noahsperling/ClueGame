@@ -9,6 +9,8 @@ import edu.up.cs301.game.GamePlayer;
  */
 
 public class ClueCheckAction extends ClueNonTurnAction {
+    private static final long serialVersionUID = 30672015L;
+
     public boolean[] checkbox;
 
     public ClueCheckAction(GamePlayer player){

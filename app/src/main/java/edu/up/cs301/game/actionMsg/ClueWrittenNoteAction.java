@@ -7,6 +7,8 @@ import edu.up.cs301.game.GamePlayer;
  */
 
 public class ClueWrittenNoteAction extends ClueNonTurnAction {
+    private static final long serialVersionUID = 30672027L;
+
     public String note;
 
     public ClueWrittenNoteAction(GamePlayer player){
