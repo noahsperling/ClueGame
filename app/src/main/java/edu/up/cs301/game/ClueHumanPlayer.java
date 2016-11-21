@@ -298,10 +298,10 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                 rollButton.setEnabled(false);
             }
 
-            if (corner[playerID])
-            {
-                secretPassagewayButton.setEnabled(true);
-            }
+//            if (corner[playerID])
+//            {
+//                secretPassagewayButton.setEnabled(true);
+//            }
         }
 
         boardView.updateBoard(recentState.getBoard());
