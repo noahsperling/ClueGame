@@ -33,6 +33,7 @@ public class ClueState extends GameState {
     private boolean newToRoom[];
     private boolean playerStillInGame[];
     private boolean inCornerRoom[];
+    private String[] suggestCards;
 
     // to satisfy Serializable interface - IDK if necessary
     private static final long serialVersionUID = 7737393762469851826L;
@@ -59,6 +60,7 @@ public class ClueState extends GameState {
         checkboxes = new boolean[numPlayers][21];
         cards = new Hand[numPlayers];
         newToRoom = new boolean[numPlayers];
+        suggestCards = new String[3];
         playerStillInGame = new boolean[numPlayers];
         for(int i=0;i<numPlayers;i++){
             playerStillInGame[i] = true;
@@ -229,6 +231,7 @@ public class ClueState extends GameState {
             canSuggest[i] = false;
             canRoll[i] = false;
             notes[i] = "";
+            suggestCards[i] = "";
             playerNames[i] = initPlayerNames[i]+"";
             for(int j = 0; j < 21; j++) {
                 checkboxes[i][j] = false;
@@ -279,6 +282,7 @@ public class ClueState extends GameState {
         spacesMoved = s.getSpacesMoved();
         gameOver = s.getGameOver();
         board = s.getBoard();
+        suggestCards = s.getSuggestCards();
     }
 
     //getters
@@ -372,6 +376,10 @@ public class ClueState extends GameState {
         return inCornerRoom;
     }
 
+    public String[] getSuggestCards() {
+        return suggestCards;
+    }
+
 
 
 
@@ -435,6 +443,10 @@ public class ClueState extends GameState {
     public void setInCornerRoom(int playerID, boolean inRoom)
     {
         inCornerRoom[playerID] = inRoom;
+    }
+
+    public void setSuggestCards(String[] newSuggestCards) {
+        suggestCards = newSuggestCards;
     }
 
     public void setGameOver(boolean newGameOver) {
