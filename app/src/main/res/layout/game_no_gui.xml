@@ -205,6 +205,12 @@
                         android:layout_width="195dp">
 
                         <Button
+                            android:text="SECRET PASSAGEWAY"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/secretPassagewayButton" />
+
+                        <Button
                             android:text="END TURN"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -218,9 +224,9 @@
                             android:inputType="textMultiLine"
                             android:ems="2"
                             android:id="@+id/editText"
-                            android:layout_weight="1"
                             android:gravity="top"
-                            android:layout_height="450dp" />
+                            android:layout_height="390dp"
+                            android:layout_weight="1.50" />
 
                     </LinearLayout>
 
