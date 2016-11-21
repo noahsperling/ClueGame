@@ -30,6 +30,9 @@ import edu.up.cs301.game.actionMsg.ClueSuggestionAction;
 import edu.up.cs301.game.actionMsg.ClueWrittenNoteAction;
 import edu.up.cs301.game.infoMsg.GameInfo;
 
+import static edu.up.cs301.game.R.id.editText;
+import static edu.up.cs301.game.R.id.noteLayout;
+
 /**
  * Created by Noah on 11/8/2016.
  */
@@ -54,6 +57,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     private TextView numberOfMovesLeft;
     private Button cancelButton;
     private Button submitButton;
+    private EditText notesGUI;
 
     //Check Boxes!!
     private CheckBox colonelMustardCheck;
@@ -252,6 +256,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         numberOfMovesLeft = (TextView)myActivity.findViewById(R.id.numberOfMovesTextView);
         numberOfMovesLeft.setText(0+"");
 
+        notesGUI = (EditText)myActivity.findViewById(R.id.editText);
+        notesGUI.setOnClickListener(this);
+
     }
 
     public ClueState getRecentState()
@@ -366,9 +373,10 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             endTurnButton.setEnabled(false);
         }
         //note edit text
-        else if (view.getId() == R.id.editText)
+        else if (view == notesGUI)
         {
             ClueWrittenNoteAction writtenNote = new ClueWrittenNoteAction(this);
+            writtenNote.note = notesGUI.getText().toString();
             game.sendAction(writtenNote);
         }
 

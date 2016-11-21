@@ -370,7 +370,10 @@ public class ClueLocalGame extends LocalGame {
     public boolean makeNonTurnAction(ClueNonTurnAction a) { //arguments and maybe just delete
         nonTurnAction = a;
 
-        if (nonTurnAction instanceof ClueWrittenNoteAction) {
+        if (nonTurnAction instanceof ClueWrittenNoteAction)
+        {
+            ClueWrittenNoteAction written = (ClueWrittenNoteAction)nonTurnAction;
+            state.setNotes(written.playerID, written.note);
             return true;
 
         } else if (nonTurnAction instanceof ClueCheckAction) {
