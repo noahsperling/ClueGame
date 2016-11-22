@@ -207,8 +207,9 @@
                         <TextView
                             android:text="Messages:"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/messageTextView" />
+                            android:id="@+id/messageTextView"
+                            android:textSize="20sp"
+                            android:layout_height="35dp" />
 
                         <Button
                             android:text="SECRET PASSAGEWAY"
