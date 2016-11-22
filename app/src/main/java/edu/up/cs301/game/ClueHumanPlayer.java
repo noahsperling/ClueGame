@@ -299,23 +299,22 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             recentState = new ClueState((ClueState)info);
             if(!nameSet) {
                 switch (playerID) {
-                    case 0:
-                        playerTextView.setText("You are Miss\n Scarlet.");
+                    case 0: playerTextView.setText("You are Miss\n Scarlet.\n");
                         break;
                     case 1:
-                        playerTextView.setText("You are Colonel\n Mustard.");
+                        playerTextView.setText("You are Colonel\n Mustard.\n");
                         break;
                     case 2:
-                        playerTextView.setText("You are Mrs.\n White.");
+                        playerTextView.setText("You are Mrs.\n White.\n");
                         break;
                     case 3:
-                        playerTextView.setText("You are Mr.\n Green.");
+                        playerTextView.setText("You are Mr.\n Green.\n");
                         break;
                     case 4:
-                        playerTextView.setText("You are Mrs.\n Peacock.");
+                        playerTextView.setText("You are Mrs.\n Peacock.\n");
                         break;
                     case 5:
-                        playerTextView.setText("You are \nProfessor Plum.");
+                        playerTextView.setText("You are \nProfessor Plum.\n");
                         break;
                 }
                 nameSet = true;
@@ -378,6 +377,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             {
                 secretPassagewayButton.setEnabled(true);
             }
+
         }else if(recentState.getTurnId() == playerID && !recentState.getPlayerStillInGame(playerID)){
             endTurnButton.setEnabled(false);
             game.sendAction(new ClueEndTurnAction(this));
