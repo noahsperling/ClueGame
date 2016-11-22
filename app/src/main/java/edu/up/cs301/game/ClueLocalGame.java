@@ -63,7 +63,6 @@ public class ClueLocalGame extends LocalGame {
     private String[] showCardSpinnerRoom;
     private String[] showCardSpinnerWeapon;
     private String[] showCardSpinnerSuspect;
-    public String syncOnMe = "Sync";
 
     public ClueLocalGame(ArrayList<GamePlayerType> gamePlayerTypes) {
         super();
@@ -384,11 +383,10 @@ public class ClueLocalGame extends LocalGame {
                         }
                     }
 
-                        if (!solved) {
-                            //End the game for that player.
-
+                    if (!solved) {
+                        //End the game for that player.
+                        state.setPlayerStillInGame(curPlayerID,false);
                     }
-                    
                 }
                 else if (moveAction instanceof ClueSuggestionAction)
                 {
@@ -491,7 +489,7 @@ public class ClueLocalGame extends LocalGame {
 
                     //go through the players hand and get the cards that match the suggestion
                     for (int j = 0; j < playerCardsNumber; j++) {
-//                        if (playerCards[j].equals())
+                       //if (playerCards[j].equals())
                     }
                 }
             }

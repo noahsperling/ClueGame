@@ -345,6 +345,10 @@ public class ClueState extends GameState {
         return cardToShow[playerID];
     }
 
+    public boolean getPlayerStillInGame(int playerID){
+        return playerStillInGame[playerID];
+    }
+
 
 
 
@@ -431,6 +435,10 @@ public class ClueState extends GameState {
 
     public void setGameOver(boolean newGameOver) {
         gameOver = newGameOver;
+    }
+
+    public void setPlayerStillInGame(int playerID, boolean b){
+        playerStillInGame[playerID] = b;
     }
 
     //public void setCards(int index, int index1, Card c) {

@@ -37,8 +37,6 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
 
     @Override
     protected void receiveInfo(GameInfo info) {
-        synchronized (((ClueLocalGame)game).syncOnMe) {
-            Log.i("Computer Player "+playerID,""+info);
             if (info instanceof ClueState) {
             /*if(((ClueState)info).getTurnId() == playerID) {
                 game.sendAction(new ClueEndTurnAction(this));
@@ -46,9 +44,7 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
 
                 // I just commented it out to try a couple things.
                 ClueState myState = (ClueState) info; //cast it
-                Log.i("Computer Player", myState.getTurnId()+"");
-                if (myState.getTurnId() == playerID) {
-                    Log.i("My Turn", "" + playerID);
+                if (myState.getTurnId() == playerID && myState.getPlayerStillInGame(playerID)) {
                     if (myState.getCanRoll(this.playerID)) {
                         Log.i("Roll", "Rolling");
                         game.sendAction(new ClueRollAction(this));
@@ -84,12 +80,14 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
                         }
                         csa.weapon = guess1.getName();
                         csa.suspect = guess2.getName();
+                        Log.i("Computer Player "+playerID,"Suggesting");
                         game.sendAction(csa);
 
                     } else if (myState.getDieValue() != myState.getSpacesMoved()) {
                         Random rand = new Random();
                         int move = rand.nextInt(5) + 1;
                         Log.i("Moving", "" + move + ":" + " " + playerID);
+                        sleep(300);
 
                         if (move == 1) {
                             game.sendAction(new ClueMoveLeftAction((this)));
@@ -176,6 +174,4 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
             //if it enters a room, suggest random
             //if it uses all its moves and does not enter a room, end turn
         }
-    }
-
 }

@@ -349,15 +349,11 @@ public abstract class LocalGame implements Game, Tickable {
 	 *            the action to send
 	 */
 	public final void sendAction(GameAction action) {
-		synchronized (((ClueLocalGame)this).syncOnMe) {
 			if (myHandler == null) return; // give up if no handler
-			Log.i("Action Received", "From: " + action.getPlayer());
 			// package the action into a message and send it to the handler
 			Message msg = new Message();
 			msg.obj = action;
 			myHandler.dispatchMessage(msg);
-			Log.i("Action Completed", "For: " + action.getPlayer());
-		}
 	}
 	
 	/**
