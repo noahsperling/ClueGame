@@ -176,7 +176,7 @@ public class ClueState extends GameState {
             canRoll[i] = false;
             notes[i] = "";
             suggestCards[i] = null;
-            cardToShow = null;
+            cardToShow[i] = "";
             playerNames[i] = initPlayerNames[i]+"";
             for(int j = 0; j < 21; j++) {
                 checkboxes[i][j] = false;
@@ -210,10 +210,11 @@ public class ClueState extends GameState {
 
         for(int i = 0; i < numPlayers; i++) {
             playerIDs[i] = s.getPlayerID(i);
-            playerNames[i] = s.getPlayerName(i)+"";
+            playerNames[i] = s.getPlayerName(i);
             canSuggest[i] = s.getCanSuggest(i);
             canRoll[i] = s.getCanRoll(i);
-            notes[i] = s.getNotes(i)+"";
+            notes[i] = s.getNotes(i);
+            cardToShow[i] = s.getCardToShow(i);
         }
 
         for(int i = 0; i < numPlayers; i++) {
