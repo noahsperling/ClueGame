@@ -57,6 +57,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     private Button rollButton;
     private TextView numberOfMovesLeft;
     private TextView messageTextView;
+    private TextView playerTextView;
     private Button cancelButton;
     private Button submitButton;
     private Button secretPassagewayButton;
@@ -271,6 +272,24 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         messageTextView = (TextView)myActivity.findViewById(R.id.messageTextView);
         messageTextView.setText("");
 
+        playerTextView = (TextView)myActivity.findViewById(R.id.playerTextView);
+        switch(playerID) {
+            case 0: playerTextView.setText("You are Miss Scarlet.");
+                break;
+            case 1: playerTextView.setText("You are Colonel Mustard.");
+                break;
+            case 2: playerTextView.setText("You are Mrs. White.");
+                break;
+            case 3: playerTextView.setText("You are Mr. Green.");
+                break;
+            case 4: playerTextView.setText("You are Mrs. Peacock.");
+                break;
+            case 5: playerTextView.setText("You are Professor Plum.");
+                break;
+            default: playerTextView.setText("An error occurred.  We don't know who you are.");
+                break;
+        }
+
         notesGUI = (EditText)myActivity.findViewById(R.id.editText);
         notesGUI.setOnClickListener(this);
 
@@ -288,6 +307,45 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     {
         if(info instanceof ClueState) {
             recentState = new ClueState((ClueState)info);
+        }
+
+        if(!recentState.getPlayerStillInGame(playerID)) {
+            //the player is out of the game, so disable all non-essential GUI things
+            endTurnButton.setEnabled(false);
+            rollButton.setEnabled(false);
+            upButton.setEnabled(false);
+            downButton.setEnabled(false);
+            leftButton.setEnabled(false);
+            rightButton.setEnabled(false);
+            secretPassagewayButton.setEnabled(false);
+            //disable and uncheck
+            suggestR.setEnabled(false);
+            accuseR.setEnabled(false);
+            suggestR.setChecked(false);
+            accuseR.setChecked(false);
+            //continue disabling
+            colonelMustardCheck.setEnabled(false);
+            professorPlumCheck.setEnabled(false);
+            mrGreenCheck.setEnabled(false);
+            mrsPeacockCheck.setEnabled(false);
+            missScarletCheck.setEnabled(false);
+            mrsWhiteCheck.setEnabled(false);
+            knifeCheck.setEnabled(false);
+            candlestickCheck.setEnabled(false);
+            revolverCheck.setEnabled(false);
+            ropeCheck.setEnabled(false);
+            leadPipeCheck.setEnabled(false);
+            wrenchCheck.setEnabled(false);
+            hallCheck.setEnabled(false);
+            loungeCheck.setEnabled(false);
+            diningRoomCheck.setEnabled(false);
+            kitchenCheck.setEnabled(false);
+            ballroomCheck.setEnabled(false);
+            conservatoryCheck.setEnabled(false);
+            billiardRoomCheck.setEnabled(false);
+            libraryCheck.setEnabled(false);
+            studyCheck.setEnabled(false);
+            recentState.setCardToShow("You Lost!", playerID);
         }
 
         boolean corner[] = recentState.getInCornerRoom();
