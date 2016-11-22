@@ -319,6 +319,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             setSpinners();
         }
 
+        //set new text view to this every time recentState.getCardToShow(playerID)
+
         boardView.updateBoard(recentState.getBoard());
         boardView.invalidate();
         cardView.updateCards(recentState.getCards(playerID));
