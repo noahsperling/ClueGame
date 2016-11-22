@@ -386,6 +386,13 @@ public class ClueLocalGame extends LocalGame {
                 }
                 else if (moveAction instanceof ClueSuggestionAction)
                 {
+                    ClueSuggestionAction b = (ClueSuggestionAction)a;
+                    String[] suggestionCards = new String[3];
+                    suggestionCards[0] = b.room;
+                    suggestionCards[1] = b.suspect;
+                    suggestionCards[2] = b.weapon;
+                    state.setSuggestCards(suggestionCards);
+                    state.setPlayerIDWhoSuggested(b.playerID);
 
                 }
                 else if (moveAction instanceof ClueUsePassagewayAction)
