@@ -405,13 +405,17 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                     //if the player has a card, then they submit it and it the info shows up on the player who
                     //suggested GUI in a textview somewhere obvious
 
-                //does this need to sent in as info?
-                ClueShowCardAction showCard = new ClueShowCardAction(this);
-                showCardR.setEnabled(true);
-                showCardR.setChecked(false);
-                suggestR.setEnabled(false);
-                suggestR.setChecked(false);
-                accuseR.setEnabled(false);
+                    //does this need to sent in as info?
+                    ClueShowCardAction showCard = new ClueShowCardAction(this);
+                    showCardR.setEnabled(true);
+                    showCardR.setChecked(false);
+                    suggestR.setEnabled(false);
+                    suggestR.setChecked(false);
+                    accuseR.setEnabled(false);
+
+                    //ClueEndTurnAction end = new ClueEndTurnAction(this);
+                    endTurnButton.setEnabled(false);
+                    //game.sendAction(end);
 
                 //arraylist to array
 
