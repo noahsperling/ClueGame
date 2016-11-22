@@ -47,6 +47,7 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
                 // I just commented it out to try a couple things.
                 ClueState myState = (ClueState) info; //cast it
                 if(myState.getCheckCardToSend()[playerID]) {
+                    Log.i("Computer Player "+playerID,"Showing Card");
                     String[] temp = myState.getSuggestCards();
                     Hand tempHand = myState.getCards(playerID);
                     Card[] tempCards = tempHand.getCards();
@@ -55,6 +56,7 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
                     for(int i = 0; i < tempHand.getArrayListLength(); i++) {
                         cardNames[i] = tempCards[i].getName();
                     }
+
                     for(int i = 0; i < 3; i++) {
                         for(int j = 0; j < cardNames.length; j++) {
                             if(cardNames[j].equals(temp[i])) {
@@ -65,7 +67,11 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
                     String[] validCards = new String[cards.size()];
                     cards.toArray(validCards);
                     if(validCards.length == 0) {
-                        game.sendAction(new ClueShowCardAction(null));
+                        /*ClueShowCardAction s = new ClueShowCardAction(this);
+                        s.setCardToShow(null);
+                        game.sendAction(s);
+                        //game.sendAction(null);*/
+                        game.sendAction(new ClueShowCardAction(this));
                     }else {
                         Random rand1 = new Random();
                         int c = rand1.nextInt(validCards.length);
@@ -76,7 +82,7 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
                 }
                 if (myState.getTurnId() == playerID && myState.getPlayerStillInGame(playerID)) {
                     if (myState.getCanRoll(this.playerID)) {
-                        Log.i("Roll", "Rolling");
+                        Log.i("Computer Player"+playerID, "Rolling");
                         game.sendAction(new ClueRollAction(this));
                         return;
                     } else if (myState.getNewToRoom(playerID)) {
@@ -116,7 +122,7 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
                     } else if (myState.getDieValue() != myState.getSpacesMoved()) {
                         Random rand = new Random();
                         int move = rand.nextInt(5) + 1;
-                        Log.i("Moving", "" + move + ":" + " " + playerID);
+                        Log.i("Computer Player "+playerID, "Moving"+ move);
                         sleep(300);
 
                         if (move == 1) {
@@ -131,7 +137,7 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
                             game.sendAction(new ClueUsePassagewayAction(this));
                         }
                     } else {
-                        Log.i("End", " Turn");
+                        Log.i("Computer Player "+playerID, "End Turn");
                         game.sendAction(new ClueEndTurnAction(this));
                     }
 

@@ -557,7 +557,11 @@ public class ClueLocalGame extends LocalGame {
                     state.setCheckCardToSend(0, true);
                 }else if(state.getPlayerIDWhoSuggested() != b.playerID + 1) {
                     state.setCheckCardToSend(b.playerID, false);
-                    state.setCheckCardToSend(b.playerID + 1, true);
+                    if(b.playerID < 2) {
+                        state.setCheckCardToSend(b.playerID + 1, true);
+                    }else{
+                        state.setCheckCardToSend(0,true);
+                    }
                 }else if(b.playerID == state.getPlayerIDWhoSuggested()-1){
                     state.setCheckCardToSend(b.playerID, false);
                 }
