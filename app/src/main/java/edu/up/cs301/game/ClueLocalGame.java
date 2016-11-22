@@ -208,6 +208,7 @@ public class ClueLocalGame extends LocalGame {
                                         state.setSpacesMoved(state.getSpacesMoved() + 1);
                                     }
                                     x = x - 1;
+                                    Log.i("New to room="+state.getNewToRoom(curPlayerID), " ");
                                     return true;
                                 }
                                 else //Otherwise they're moving to a hallway.

@@ -242,6 +242,13 @@ public class ClueState extends GameState {
         suggestCards = s.getSuggestCards();
         playerIDWhoSuggested = s.getPlayerIDWhoSuggested();
         checkCardToSend = s.getCheckCardToSend();
+
+        //The commented code below causes an error in computer player dumb
+//        for (int i = 0; i < numPlayers; i++)
+//        {
+//            newToRoom[i] = s.getNewToRoom(i);
+//        }
+        inRoom = s.getInRoom();
     }
 
     //getters
@@ -323,6 +330,7 @@ public class ClueState extends GameState {
         temp[2] = solution[2];
         return temp;
     }
+
     public boolean[] getNewToRoom()
     {
         return newToRoom;

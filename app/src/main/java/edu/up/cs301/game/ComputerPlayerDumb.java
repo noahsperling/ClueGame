@@ -85,7 +85,7 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
                         Log.i("Computer Player"+playerID, "Rolling");
                         game.sendAction(new ClueRollAction(this));
                         return;
-                    } else if (myState.getNewToRoom(playerID)) {
+                    } else if (myState.getNewToRoom(this.playerID)) {
                         //make suggestion
                         Card guess1;
                         Card guess2;
