@@ -195,6 +195,7 @@ public class ClueLocalGame extends LocalGame {
                                     {
                                         state.setSpacesMoved(state.getSpacesMoved() -2);
                                     }
+                                    state.setInRoom(curPlayerID, true);
                                     return true;
                                 }
                                 else if (curBoard[x][y].getTileType() == 1 && curBoard[x-1][y].getTileType() == 1) //If the player is in and will move within a room
@@ -223,6 +224,7 @@ public class ClueLocalGame extends LocalGame {
                                     x = x - 1;
                                     inCornerRoom(x, y, curBoard, curPlayerID);
                                     state.setUsedPassageway(curPlayerID, false);
+                                    state.setInRoom(curPlayerID, false);
                                     return true;
                                 }
                             }
@@ -247,6 +249,7 @@ public class ClueLocalGame extends LocalGame {
                                     {
                                         state.setSpacesMoved(state.getSpacesMoved() -2);
                                     }
+                                    state.setInRoom(curPlayerID, true);
                                     return true;
                                 }
                                 else if (curBoard[x][y].getTileType() == 1 && curBoard[x+1][y].getTileType() == 1)
@@ -273,6 +276,7 @@ public class ClueLocalGame extends LocalGame {
                                     x = x + 1;
                                     inCornerRoom(x, y, curBoard, curPlayerID);
                                     state.setUsedPassageway(curPlayerID, false);
+                                    state.setInRoom(curPlayerID, false);
                                     return true;
                                 }
                             }
@@ -299,6 +303,7 @@ public class ClueLocalGame extends LocalGame {
                                     {
                                         state.setSpacesMoved(state.getSpacesMoved() -2);
                                     }
+                                    state.setInRoom(curPlayerID, true);
                                     return true;
                                 }
                                 else if (curBoard[x][y].getTileType() == 1 && curBoard[x][y+1].getTileType() == 1)
@@ -325,6 +330,7 @@ public class ClueLocalGame extends LocalGame {
                                     y = y + 1;
                                     inCornerRoom(x, y, curBoard, curPlayerID);
                                     state.setUsedPassageway(curPlayerID, false);
+                                    state.setInRoom(curPlayerID, false);
                                     return true;
                                 }
                             }
@@ -348,6 +354,7 @@ public class ClueLocalGame extends LocalGame {
                                     {
                                         state.setSpacesMoved(state.getSpacesMoved() -2);
                                     }
+                                    state.setInRoom(curPlayerID, true);
                                     return true;
                                 }
                                 else if (curBoard[x][y].getTileType() == 1 && curBoard[x][y-1].getTileType() == 1)
@@ -375,6 +382,7 @@ public class ClueLocalGame extends LocalGame {
                                     y = y - 1;
                                     inCornerRoom(x, y, curBoard, curPlayerID);
                                     state.setUsedPassageway(curPlayerID, false);
+                                    state.setInRoom(curPlayerID, false);
                                     return true;
                                 }
 
@@ -426,17 +434,20 @@ public class ClueLocalGame extends LocalGame {
                 }
                 else if (moveAction instanceof ClueSuggestionAction)
                 {
-                    ClueSuggestionAction b = (ClueSuggestionAction)a;
-                    String[] suggestionCards = new String[3];
-                    suggestionCards[0] = b.room;
-                    suggestionCards[1] = b.suspect;
-                    suggestionCards[2] = b.weapon;
-                    state.setSuggestCards(suggestionCards);
-                    state.setPlayerIDWhoSuggested(b.playerID);
-                    if(b.playerID == state.getNumPlayers() - 1) {
-                        state.setCheckCardToSend(0, true);
-                    }else {
-                        state.setCheckCardToSend(b.playerID + 1, true);
+                    if (curBoard[x][y].getTileType() == 1)
+                    {
+                        ClueSuggestionAction b = (ClueSuggestionAction) a;
+                        String[] suggestionCards = new String[3];
+                        suggestionCards[0] = b.room;
+                        suggestionCards[1] = b.suspect;
+                        suggestionCards[2] = b.weapon;
+                        state.setSuggestCards(suggestionCards);
+                        state.setPlayerIDWhoSuggested(b.playerID);
+                        if (b.playerID == state.getNumPlayers() - 1) {
+                            state.setCheckCardToSend(0, true);
+                        } else {
+                            state.setCheckCardToSend(b.playerID + 1, true);
+                        }
                     }
 
                     state.setNewToRoom(curPlayerID, false); //Once they've ended their turn, they are no longer new to a room.
@@ -475,6 +486,7 @@ public class ClueLocalGame extends LocalGame {
                             (state.getBoard()).setPlayerBoard(22, 2+curPlayerID, x, y, curPlayerID); //Move Player to conservatory
                             state.setUsedPassageway(curPlayerID, true);
                             state.setCanRoll(curPlayerID, false);
+                            state.setNewToRoom(curPlayerID, true);
                             return true;
                         }
                         else if (curBoard[x][y].getRoom() == CONSERVATORY)
@@ -482,6 +494,7 @@ public class ClueLocalGame extends LocalGame {
                             state.getBoard().setPlayerBoard(2, 20+curPlayerID, x, y, curPlayerID); //Move Player to lounge
                             state.setUsedPassageway(curPlayerID, true);
                             state.setCanRoll(curPlayerID, false);
+                            state.setNewToRoom(curPlayerID, true);
                             return true;
                         }
                         else if (curBoard[x][y].getRoom() == STUDY)
@@ -489,6 +502,7 @@ public class ClueLocalGame extends LocalGame {
                             state.getBoard().setPlayerBoard(22, 22+curPlayerID, x, y, curPlayerID); //Move Player to kitchen
                             state.setUsedPassageway(curPlayerID, true);
                             state.setCanRoll(curPlayerID, false);
+                            state.setNewToRoom(curPlayerID, true);
                             return true;
                         }
                         else if (curBoard[x][y].getRoom() == KITCHEN)
@@ -496,6 +510,7 @@ public class ClueLocalGame extends LocalGame {
                             state.getBoard().setPlayerBoard(3, 4+curPlayerID, x, y, curPlayerID); //Move Player to the study
                             state.setUsedPassageway(curPlayerID, true);
                             state.setCanRoll(curPlayerID, false);
+                            state.setNewToRoom(curPlayerID, true);
                             return true;
 
                         }

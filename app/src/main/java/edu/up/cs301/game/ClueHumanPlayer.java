@@ -362,6 +362,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
         boolean corner[] = recentState.getInCornerRoom();
         boolean usedPassage[] = recentState.getUsedPassageway();
+        boolean room[] = recentState.getInRoom();
 
         if(recentState.getTurnId() == playerID && recentState.getPlayerStillInGame(playerID)) {
             accuseR.setEnabled(true);
@@ -383,6 +384,16 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             game.sendAction(new ClueEndTurnAction(this));
         }
 
+        //enable suggest button
+//        if (room[playerID])
+//        {
+//            suggestR.setEnabled(true);
+//        }
+//        else
+//        {
+//            suggestR.setEnabled(false);
+//        }
+
         //if another player made a suggestion
         if(recentState.getCheckCardToSend()[playerID]) {
             suggestR.setChecked(false);
@@ -400,7 +411,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         }
 
         //suggest and accuse radio buttons handled
-        if (recentState.getNewToRoom(playerID)) {
+        if (recentState.getNewToRoom(playerID) && room[playerID]) {
             suggestR.setEnabled(true);
             suggestR.setChecked(false);
         }
