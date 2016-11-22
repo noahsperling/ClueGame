@@ -533,15 +533,18 @@ public class ClueLocalGame extends LocalGame {
         } else if (nonTurnAction instanceof ClueShowCardAction) {
             ClueShowCardAction b = (ClueShowCardAction)a;
             if(b.getCardToShow() == null) {
-                if(b.playerID == state.getNumPlayers() - 1) {
+                if(b.playerID == state.getNumPlayers() - 1 && state.getPlayerIDWhoSuggested() != 0) {
                     state.setCheckCardToSend(b.playerID, false);
                     state.setCheckCardToSend(0, true);
-                }else {
+                }else if(state.getPlayerIDWhoSuggested() != b.playerID + 1) {
                     state.setCheckCardToSend(b.playerID, false);
                     state.setCheckCardToSend(b.playerID + 1, true);
+                }else {
+
                 }
                 return true;
             }else {
+                state.setCheckCardToSend(b.playerID, false);
 
             }
 //            int index = ((ClueShowCardAction) a).playerID;

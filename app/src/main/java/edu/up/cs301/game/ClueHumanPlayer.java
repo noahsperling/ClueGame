@@ -56,6 +56,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     private Spinner suspectSpinner;
     private Button rollButton;
     private TextView numberOfMovesLeft;
+    private TextView messageTextView;
     private Button cancelButton;
     private Button submitButton;
     private Button secretPassagewayButton;
@@ -267,6 +268,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         numberOfMovesLeft = (TextView)myActivity.findViewById(R.id.numberOfMovesTextView);
         numberOfMovesLeft.setText(0+"");
 
+        messageTextView = (TextView)myActivity.findViewById(R.id.messageTextView);
+        messageTextView.setText("");
+
         notesGUI = (EditText)myActivity.findViewById(R.id.editText);
         notesGUI.setOnClickListener(this);
 
@@ -319,7 +323,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             setSpinners();
         }
 
-        //set new text view to this every time recentState.getCardToShow(playerID)
+        messageTextView.setText(recentState.getCardToShow(playerID));
 
         boardView.updateBoard(recentState.getBoard());
         boardView.invalidate();
