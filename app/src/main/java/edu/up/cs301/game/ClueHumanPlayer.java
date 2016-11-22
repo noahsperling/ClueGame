@@ -156,10 +156,12 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
         suggestR = (RadioButton)myActivity.findViewById(R.id.radioSuggestButton);
         suggestR.setOnClickListener(this);
+        suggestR.setEnabled(false);
         suggestR.setChecked(false);
 
         accuseR = (RadioButton)myActivity.findViewById(R.id.radioAccuseButton);
         accuseR.setOnClickListener(this);
+        accuseR.setEnabled(false);
         accuseR.setChecked(false);
 
         showCardR = (RadioButton)myActivity.findViewById(R.id.radioShowCardButton);
@@ -294,6 +296,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         boolean usedPassage[] = recentState.getUsedPassageway();
 
         if(recentState.getTurnId() == playerID && recentState.getPlayerStillInGame(playerID)) {
+            accuseR.setEnabled(true);
+            accuseR.setChecked(false);
             endTurnButton.setEnabled(true);
             if(recentState.getCanRoll(playerID)) {
                 rollButton.setEnabled(true);
@@ -324,6 +328,16 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             suggestR.setEnabled(true);
             accuseR.setEnabled(true);
             setSpinners();
+        }
+
+        //suggest and accuse radio buttons handled
+        if (recentState.getNewToRoom(playerID)) {
+            suggestR.setEnabled(true);
+            suggestR.setChecked(false);
+        }
+        else{
+            suggestR.setEnabled(false);
+            suggestR.setChecked(false);
         }
 
         messageTextView.setText(recentState.getCardToShow(playerID));
