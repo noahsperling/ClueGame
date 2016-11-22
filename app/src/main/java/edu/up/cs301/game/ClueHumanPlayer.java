@@ -463,12 +463,20 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             else if (view.getId() == R.id.radioAccuseButton) {
                 suggestR.setChecked(false);
                 accuseR.setChecked(true);
+                setSpinners();
             } else if (view.getId() == R.id.radioSuggestButton) {
                 suggestR.setChecked(true);
                 accuseR.setChecked(false);
+                showCardR.setChecked(false);
+                setSuggestSpinners();
+                roomSpinner.setEnabled(true);
+                weaponSpinner.setEnabled(true);
+                roomSpinner.setEnabled(true);
+
 
         }
         else if (view.getId() == R.id.radioShowCardButton) {
+                setSpinners();
             /*suggestR.setChecked(false);
             accuseR.setChecked(false);
             suggestR.setEnabled(false);
@@ -484,7 +492,22 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                 accuseR.setChecked(false);
             } else if (view.getId() == R.id.submitButton) {
                 if (suggestR.isChecked() == true) {
-                    String roomSelect = roomSpinner.getSelectedItem().toString();
+                    int[][] board = recentState.getBoard().getPlayerBoard();
+                    int x = 0;
+                    int y = 0;
+                    for(int i=0;i<27;i++){
+                        for(int j=0;j<27;j++){
+                            if(board[j][i] == playerID){
+                                x = i;
+                                y = j;
+                            }
+                        }
+                    }
+                    if(recentState.getBoard().getBoardArr()[y][x].getRoom() == null){
+                        return;
+                    }
+
+                    String roomSelect = recentState.getBoard().getBoardArr()[y][x].getRoom().getName();
                     String weaponSelect = weaponSpinner.getSelectedItem().toString();
                     String suspectSelect = suspectSpinner.getSelectedItem().toString();
 
@@ -531,8 +554,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                     game.sendAction(accuse);
                 } else if (showCardR.isChecked() == true) {
                     //disable the other radio buttons then re-enable?
-
-
+                    showCardR.setEnabled(false);
+                    showCardR.setChecked(false);
                     ClueShowCardAction showCard = new ClueShowCardAction(this);
 
                 //use only one spinner for all the cards that can be shown
@@ -809,9 +832,10 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     public void setSpinners(){
         //where the spinner for show cards will have to created and sent in appropriately
 
-        String[] roomItems = new String[]{"Ballroom","Billiard Room ", "Conservatory", "Dining Room", "Hall", "Kitchen", "Library", "Lounge", "Study"};
-        String[] weaponItems = new String[]{"Candlestick", "Knife", "Lead Pipe", "Revolver", "Rope", "Wrench", };
-        String[] suspectItem = new String []{"Mr. Green", "Col. Mustard", "Mrs. Peacock", "Prof. Plum", "Miss Scarlet", "Mrs.White"};
+        String[] roomItems = new String[]{Card.BALLROOM.getName(),Card.BILLIARD_ROOM.getName(), Card.CONSERVATORY.getName(),
+                Card.DINING_ROOM.getName(), Card.HALL.getName(), Card.KITCHEN.getName(), Card.LIBRARY.getName(), Card.LOUNGE.getName(), Card.STUDY.getName()};
+        String[] weaponItems = new String[]{Card.CANDLESTICK.getName(), Card.KNIFE.getName(), Card.LEAD_PIPE.getName(), Card.REVOLVER.getName(), Card.ROPE.getName(),Card.WRENCH.getName()};
+        String[] suspectItem = new String []{Card.MR_GREEN.getName(), Card.COL_MUSTARD.getName(),Card.MRS_PEACOCK.getName(), Card.PROF_PLUM.getName(), Card.MISS_SCARLET.getName(), Card.MRS_WHITE.getName()};
         ArrayAdapter<String> roomAdapter = new ArrayAdapter<String>(myActivity, android.R.layout.simple_spinner_dropdown_item, roomItems);
         ArrayAdapter<String> weaponAdapter = new ArrayAdapter<String>(myActivity, android.R.layout.simple_spinner_dropdown_item, weaponItems);
         ArrayAdapter<String> suspectAdapter = new ArrayAdapter<String>(myActivity,android.R.layout.simple_spinner_dropdown_item, suspectItem );
@@ -820,6 +844,19 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         weaponSpinner.setAdapter(weaponAdapter);
         suspectSpinner.setAdapter(suspectAdapter);
 
+    }
+
+    public void setSuggestSpinners(){
+        String[] roomItems = new String[]{"Current Room"};
+        String[] weaponItems = new String[]{Card.CANDLESTICK.getName(), Card.KNIFE.getName(), Card.LEAD_PIPE.getName(), Card.REVOLVER.getName(), Card.ROPE.getName(),Card.WRENCH.getName()};
+        String[] suspectItem = new String []{Card.MR_GREEN.getName(), Card.COL_MUSTARD.getName(),Card.MRS_PEACOCK.getName(), Card.PROF_PLUM.getName(), Card.MISS_SCARLET.getName(), Card.MRS_WHITE.getName()};
+        ArrayAdapter<String> roomAdapter = new ArrayAdapter<String>(myActivity, android.R.layout.simple_spinner_dropdown_item, roomItems);
+        ArrayAdapter<String> weaponAdapter = new ArrayAdapter<String>(myActivity, android.R.layout.simple_spinner_dropdown_item, weaponItems);
+        ArrayAdapter<String> suspectAdapter = new ArrayAdapter<String>(myActivity,android.R.layout.simple_spinner_dropdown_item, suspectItem );
+
+        roomSpinner.setAdapter(roomAdapter);
+        weaponSpinner.setAdapter(weaponAdapter);
+        suspectSpinner.setAdapter(suspectAdapter);
     }
 
     public void setSendCardSpinners() {
