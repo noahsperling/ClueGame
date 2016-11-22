@@ -345,6 +345,11 @@ public class ClueState extends GameState {
         return cardToShow[playerID];
     }
 
+    public boolean[] getPlayerStillInGame()
+    {
+        return playerStillInGame;
+    }
+
 
 
 
@@ -415,6 +420,11 @@ public class ClueState extends GameState {
     public void setUsedPassageway(int playerID, boolean used)
     {
         usedPassageway[playerID] = used;
+    }
+
+    public void setPlayerStillInGame(int playerID, boolean inGame)
+    {
+        playerStillInGame[playerID] = inGame;
     }
 
     public void setSuggestCards(String[] newSuggestCards) {
