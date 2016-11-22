@@ -187,7 +187,7 @@ public class ClueLocalGame extends LocalGame {
                                 {
                                     state.getBoard().setPlayerBoard(x - 1, y, x , y, curPlayerID); //Set the new position of the player and set the old position to zero.
                                     state.setSpacesMoved(state.getSpacesMoved() + 1);
-                                    state.setUsedPassageway(curPlayerID, true);
+                                    state.setUsedPassageway(curPlayerID, false);
                                     state.setNewToRoom(curPlayerID, true); //Set the new to room in array to true.
                                     x = x - 1;
                                     inCornerRoom(x, y, curBoard, curPlayerID);
