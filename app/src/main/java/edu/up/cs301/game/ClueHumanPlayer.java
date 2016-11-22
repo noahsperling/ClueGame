@@ -303,6 +303,22 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             }
         }
 
+        //if another player made a suggestion
+        if(recentState.getCheckCardToSend()[playerID]) {
+            suggestR.setChecked(false);
+            accuseR.setChecked(false);
+            suggestR.setEnabled(false);
+            accuseR.setEnabled(false);
+
+            showCardR.setChecked(true);
+
+            setSendCardSpinners();
+        }else if(!recentState.getCheckCardToSend()[playerID]) {
+            suggestR.setEnabled(true);
+            accuseR.setEnabled(true);
+            setSpinners();
+        }
+
         boardView.updateBoard(recentState.getBoard());
         boardView.invalidate();
         cardView.updateCards(recentState.getCards(playerID));
@@ -346,12 +362,12 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
         }
         else if (view.getId() == R.id.radioShowCardButton) {
-            suggestR.setChecked(false);
+            /*suggestR.setChecked(false);
             accuseR.setChecked(false);
             suggestR.setEnabled(false);
             accuseR.setEnabled(false);
 
-            showCardR.setChecked(true);
+            showCardR.setChecked(true);*/
         }
         //no showCardR onclick listener because it is just to show the user that they need to choose
         //cards in the spinners to show a card to a player who has made a suggestion
@@ -689,5 +705,32 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         weaponSpinner.setAdapter(weaponAdapter);
         suspectSpinner.setAdapter(suspectAdapter);
 
+    }
+
+    public void setSendCardSpinners() {
+        String[] temp = recentState.getSuggestCards();
+        Hand tempHand = recentState.getCards(playerID);
+        Card[] tempCards = tempHand.getCards();
+        String[] cardNames = new String[tempHand.getArrayListLength()];
+        ArrayList<String> cards = new ArrayList<String>();
+        for(int i = 0; i < tempHand.getArrayListLength(); i++) {
+            cardNames[i] = tempCards[i].getName();
+        }
+        for(int i = 0; i < 3; i++) {
+            for(int j = 0; j < cardNames.length; j++) {
+                if(cardNames[j].equals(temp[j])) {
+                    cards.add(temp[j]);
+                }
+            }
+        }
+        String[] validCards = (String[])(cards.toArray());
+        if(validCards.length == 0) {
+            game.sendAction(new ClueShowCardAction(null));
+        }else {
+            ArrayAdapter<String> roomAdapter = new ArrayAdapter<String>(myActivity, android.R.layout.simple_spinner_dropdown_item, validCards);
+            roomSpinner.setAdapter(roomAdapter);
+            weaponSpinner.setEnabled(false);
+            suspectSpinner.setEnabled(false);
+        }
     }
 }
