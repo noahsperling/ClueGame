@@ -452,26 +452,30 @@ public class ClueLocalGame extends LocalGame {
                         if (curBoard[x][y].getRoom() == LOUNGE)
                         {
                             Log.i("Got to lounge if", " ");
-                            (state.getBoard()).setPlayerBoard(22, 2, x, y, curPlayerID); //Move Player to conservatory
+                            (state.getBoard()).setPlayerBoard(22, 2+curPlayerID, x, y, curPlayerID); //Move Player to conservatory
                             state.setUsedPassageway(curPlayerID, true);
+                            state.setCanRoll(curPlayerID, false);
                             return true;
                         }
                         else if (curBoard[x][y].getRoom() == CONSERVATORY)
                         {
-                            state.getBoard().setPlayerBoard(2, 20, x, y, curPlayerID); //Move Player to lounge
+                            state.getBoard().setPlayerBoard(2, 20+curPlayerID, x, y, curPlayerID); //Move Player to lounge
                             state.setUsedPassageway(curPlayerID, true);
+                            state.setCanRoll(curPlayerID, false);
                             return true;
                         }
                         else if (curBoard[x][y].getRoom() == STUDY)
                         {
-                            state.getBoard().setPlayerBoard(22, 22, x, y, curPlayerID); //Move Player to kitchen
+                            state.getBoard().setPlayerBoard(22, 22+curPlayerID, x, y, curPlayerID); //Move Player to kitchen
                             state.setUsedPassageway(curPlayerID, true);
+                            state.setCanRoll(curPlayerID, false);
                             return true;
                         }
                         else if (curBoard[x][y].getRoom() == KITCHEN)
                         {
-                            state.getBoard().setPlayerBoard(3, 4, x, y, curPlayerID); //Move Player to the study
+                            state.getBoard().setPlayerBoard(3, 4+curPlayerID, x, y, curPlayerID); //Move Player to the study
                             state.setUsedPassageway(curPlayerID, true);
+                            state.setCanRoll(curPlayerID, false);
                             return true;
 
                         }
