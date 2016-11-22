@@ -36,6 +36,7 @@ public class ClueState extends GameState {
     private String[] suggestCards;
     private int playerIDWhoSuggested;
     private String[] cardToShow;
+    private boolean[] checkCardToSend;
     private boolean usedPassageway[];
 
     // to satisfy Serializable interface - IDK if necessary
@@ -66,6 +67,7 @@ public class ClueState extends GameState {
         newToRoom = new boolean[numPlayers];
         suggestCards = new String[3];
         cardToShow = new String[numPlayers];
+        checkCardToSend = new boolean[numPlayers];
         playerStillInGame = new boolean[numPlayers];
         for(int i=0;i<numPlayers;i++){
             playerStillInGame[i] = true;
@@ -235,6 +237,7 @@ public class ClueState extends GameState {
         board = s.getBoard();
         suggestCards = s.getSuggestCards();
         playerIDWhoSuggested = s.getPlayerIDWhoSuggested();
+        checkCardToSend = s.getCheckCardToSend();
     }
 
     //getters
@@ -349,6 +352,14 @@ public class ClueState extends GameState {
         return playerStillInGame[playerID];
     }
 
+    public boolean[] getPlayerStillInGame()
+    {
+        return playerStillInGame;
+    }
+
+    public boolean[] getCheckCardToSend() {
+        return checkCardToSend;
+    }
 
 
 
@@ -421,6 +432,11 @@ public class ClueState extends GameState {
         usedPassageway[playerID] = used;
     }
 
+    public void setPlayerStillInGame(int playerID, boolean inGame)
+    {
+        playerStillInGame[playerID] = inGame;
+    }
+
     public void setSuggestCards(String[] newSuggestCards) {
         suggestCards = newSuggestCards;
     }
@@ -431,6 +447,10 @@ public class ClueState extends GameState {
 
     public void setCardToShow(String newCardToShow, int playerID) {
         cardToShow[playerID] = newCardToShow;
+    }
+
+    public void setCheckCardToSend(int playerID, boolean value) {
+        checkCardToSend[playerID] = value;
     }
 
     public void setGameOver(boolean newGameOver) {
