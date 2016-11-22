@@ -435,6 +435,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             } else if (view == secretPassagewayButton) {
                 ClueUsePassagewayAction passageway = new ClueUsePassagewayAction(this);
                 game.sendAction(passageway);
+                secretPassagewayButton.setEnabled(false);
             }
 
             //end turn button
