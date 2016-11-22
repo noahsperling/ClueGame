@@ -399,6 +399,11 @@ public class ClueLocalGame extends LocalGame {
                     suggestionCards[2] = b.weapon;
                     state.setSuggestCards(suggestionCards);
                     state.setPlayerIDWhoSuggested(b.playerID);
+                    if(b.playerID == state.getNumPlayers() - 1) {
+                        state.setCheckCardToSend(0, true);
+                    }else {
+                        state.setCheckCardToSend(b.playerID + 1, true);
+                    }
 
                 }
                 else if (moveAction instanceof ClueUsePassagewayAction)
