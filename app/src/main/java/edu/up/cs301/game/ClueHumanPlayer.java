@@ -51,8 +51,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     private Button rightButton;
     private Button endTurnButton;
     private RadioButton suggestR;
-    private RadioButton accuseR;
     private RadioButton showCardR;
+    private RadioButton accuseR;
     private Spinner roomSpinner;
     private Spinner weaponSpinner;
     private Spinner suspectSpinner;
