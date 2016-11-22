@@ -386,10 +386,12 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                 accuseR.setChecked(false);
             } else if (view.getId() == R.id.submitButton) {
                 if (suggestR.isChecked() == true) {
+                    String roomSelect = roomSpinner.getSelectedItem().toString();
                     String weaponSelect = weaponSpinner.getSelectedItem().toString();
                     String suspectSelect = suspectSpinner.getSelectedItem().toString();
 
                     ClueSuggestionAction suggest = new ClueSuggestionAction(this);
+                    suggest.room = roomSelect;
                     suggest.weapon = weaponSelect;
                     suggest.suspect = suspectSelect;
                     Log.i("suggest action sent", " ");

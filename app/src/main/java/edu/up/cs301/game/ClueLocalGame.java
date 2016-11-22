@@ -538,13 +538,13 @@ public class ClueLocalGame extends LocalGame {
                 }else if(state.getPlayerIDWhoSuggested() != b.playerID + 1) {
                     state.setCheckCardToSend(b.playerID, false);
                     state.setCheckCardToSend(b.playerID + 1, true);
-                }else {
-
+                }else if(b.playerID == state.getPlayerIDWhoSuggested()-1){
+                    state.setCheckCardToSend(b.playerID, false);
                 }
                 return true;
             }else {
                 state.setCheckCardToSend(b.playerID, false);
-
+                state.setCardToShow(b.getCardToShow(), state.getPlayerIDWhoSuggested());
             }
 //            int index = ((ClueShowCardAction) a).playerID;
 //
@@ -557,7 +557,7 @@ public class ClueLocalGame extends LocalGame {
 //
 //                    //go through the players hand and get the cards that match the suggestion
 //                    for (int j = 0; j < playerCardsNumber; j++) {
-////                        if (playerCards[j].equals())
+//                       if (playerCards[j].equals())
 //                    }
 //                }
 //            }

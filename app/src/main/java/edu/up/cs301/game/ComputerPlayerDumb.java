@@ -2,6 +2,7 @@ package edu.up.cs301.game;
 
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import edu.up.cs301.game.actionMsg.ClueEndTurnAction;
@@ -10,6 +11,7 @@ import edu.up.cs301.game.actionMsg.ClueMoveLeftAction;
 import edu.up.cs301.game.actionMsg.ClueMoveRightAction;
 import edu.up.cs301.game.actionMsg.ClueMoveUpAction;
 import edu.up.cs301.game.actionMsg.ClueRollAction;
+import edu.up.cs301.game.actionMsg.ClueShowCardAction;
 import edu.up.cs301.game.actionMsg.ClueSuggestionAction;
 import edu.up.cs301.game.actionMsg.ClueUsePassagewayAction;
 import edu.up.cs301.game.infoMsg.BindGameInfo;
@@ -44,6 +46,34 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
 
                 // I just commented it out to try a couple things.
                 ClueState myState = (ClueState) info; //cast it
+                if(myState.getCheckCardToSend()[playerID]) {
+                    String[] temp = myState.getSuggestCards();
+                    Hand tempHand = myState.getCards(playerID);
+                    Card[] tempCards = tempHand.getCards();
+                    String[] cardNames = new String[tempHand.getArrayListLength()];
+                    ArrayList<String> cards = new ArrayList<String>();
+                    for(int i = 0; i < tempHand.getArrayListLength(); i++) {
+                        cardNames[i] = tempCards[i].getName();
+                    }
+                    for(int i = 0; i < 3; i++) {
+                        for(int j = 0; j < cardNames.length; j++) {
+                            if(cardNames[j].equals(temp[i])) {
+                                cards.add(temp[i]);
+                            }
+                        }
+                    }
+                    String[] validCards = new String[cards.size()];
+                    cards.toArray(validCards);
+                    if(validCards.length == 0) {
+                        game.sendAction(new ClueShowCardAction(null));
+                    }else {
+                        Random rand1 = new Random();
+                        int c = rand1.nextInt(validCards.length);
+                        ClueShowCardAction s = new ClueShowCardAction(this);
+                        s.setCardToShow(validCards[c]);
+                        game.sendAction(s);
+                    }
+                }
                 if (myState.getTurnId() == playerID && myState.getPlayerStillInGame(playerID)) {
                     if (myState.getCanRoll(this.playerID)) {
                         Log.i("Roll", "Rolling");
@@ -104,6 +134,8 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
                         Log.i("End", " Turn");
                         game.sendAction(new ClueEndTurnAction(this));
                     }
+
+
                 }//
 
 
