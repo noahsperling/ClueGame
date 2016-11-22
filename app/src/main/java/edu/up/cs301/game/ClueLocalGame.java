@@ -63,6 +63,7 @@ public class ClueLocalGame extends LocalGame {
     private String[] showCardSpinnerRoom;
     private String[] showCardSpinnerWeapon;
     private String[] showCardSpinnerSuspect;
+    public String syncOnMe = "Sync";
 
     public ClueLocalGame(ArrayList<GamePlayerType> gamePlayerTypes) {
         super();
@@ -383,9 +384,8 @@ public class ClueLocalGame extends LocalGame {
                         }
                     }
 
-                    if (!solved)
-                    {
-                        //End the game for that player.
+                        if (!solved) {
+                            //End the game for that player.
 
                     }
                     

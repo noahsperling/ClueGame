@@ -8,7 +8,7 @@ import edu.up.cs301.game.actionMsg.ClueMoveAction;
  */
 public class ClueEndTurnAction extends ClueMoveAction
 {
-    private static final long serialVersionUID = 30672016L;
+    private static final long serialVersionUID = 122324325347645443L;
 
     public ClueEndTurnAction(GamePlayer player) {
         super(player);
