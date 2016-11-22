@@ -662,8 +662,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             } else {
                 return;
             }
-        }
-
+    }
 
     public int getPlayerID() {
         return playerID;
