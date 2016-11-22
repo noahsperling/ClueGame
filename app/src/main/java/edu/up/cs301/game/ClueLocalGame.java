@@ -63,6 +63,7 @@ public class ClueLocalGame extends LocalGame {
     private String[] showCardSpinnerRoom;
     private String[] showCardSpinnerWeapon;
     private String[] showCardSpinnerSuspect;
+    public String syncOnMe = "Sync";
 
     public ClueLocalGame(ArrayList<GamePlayerType> gamePlayerTypes) {
         super();
@@ -383,9 +384,8 @@ public class ClueLocalGame extends LocalGame {
                         }
                     }
 
-                    if (!solved)
-                    {
-                        //End the game for that player.
+                        if (!solved) {
+                            //End the game for that player.
 
                     }
                     
@@ -485,21 +485,21 @@ public class ClueLocalGame extends LocalGame {
             }
             return true;
         } else if (nonTurnAction instanceof ClueShowCardAction) {
-            int index = ((ClueShowCardAction) a).playerID;
-
-            for (int i = 0; i < state.getNumPlayers(); i++) {
-                if (index < state.getNumPlayers()) {
-                    //change spinners for the show card action to contain the hands the next player has in their hand
-                    Hand currentPlayerHand = state.getCards(index);
-                    Card[] playerCards = currentPlayerHand.getCards();
-                    int playerCardsNumber = state.getCardsPerHand();
-
-                    //go through the players hand and get the cards that match the suggestion
-                    for (int j = 0; j < playerCardsNumber; j++) {
-//                        if (playerCards[j].equals())
-                    }
-                }
-            }
+//            int index = ((ClueShowCardAction) a).playerID;
+//
+//            for (int i = 0; i < state.getNumPlayers(); i++) {
+//                if (index < state.getNumPlayers()) {
+//                    //change spinners for the show card action to contain the hands the next player has in their hand
+//                    Hand currentPlayerHand = state.getCards(index);
+//                    Card[] playerCards = currentPlayerHand.getCards();
+//                    int playerCardsNumber = state.getCardsPerHand();
+//
+//                    //go through the players hand and get the cards that match the suggestion
+//                    for (int j = 0; j < playerCardsNumber; j++) {
+////                        if (playerCards[j].equals())
+//                    }
+//                }
+//            }
         }
             return true;
         }

@@ -37,86 +37,76 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
 
     @Override
     protected void receiveInfo(GameInfo info) {
-
-        if(info instanceof ClueState) {
-            if(((ClueState)info).getTurnId() == playerID) {
+        synchronized (((ClueLocalGame)game).syncOnMe) {
+            Log.i("Computer Player "+playerID,""+info);
+            if (info instanceof ClueState) {
+            /*if(((ClueState)info).getTurnId() == playerID) {
                 game.sendAction(new ClueEndTurnAction(this));
-            }
+            }*/
 
-            /* I just commented it out to try a couple things.
-                ClueState myState = (ClueState)info; //cast it
-            if(myState.getTurnId() == playerID) {
-                Log.i("My Turn",""+playerID);
-                if (myState.getCanRoll(this.playerID)) {
-                    Log.i("Roll","Rolling");
-                    game.sendAction(new ClueRollAction(this));
-                    return;
-                }
+                // I just commented it out to try a couple things.
+                ClueState myState = (ClueState) info; //cast it
+                Log.i("Computer Player", myState.getTurnId()+"");
+                if (myState.getTurnId() == playerID) {
+                    Log.i("My Turn", "" + playerID);
+                    if (myState.getCanRoll(this.playerID)) {
+                        Log.i("Roll", "Rolling");
+                        game.sendAction(new ClueRollAction(this));
+                        return;
+                    } else if (myState.getNewToRoom(playerID)) {
+                        //make suggestion
+                        Card guess1;
+                        Card guess2;
+                        Random ranCards = new Random();
+                        int intGuess1 = ranCards.nextInt(21);
+                        int intGuess2 = ranCards.nextInt(21);
 
-                if(myState.getNewToRoom(playerID)){
-                    //make suggestion
-                    Card guess1;
-                    Card guess2;
-                    Random ranCards = new Random();
-                    int intGuess1 = ranCards.nextInt(21);
-                    int intGuess2 = ranCards.nextInt(21);
+                        while (myState.getAllCards().get(intGuess1).getType() != Type.WEAPON) {
+                            int temp1 = ranCards.nextInt(21);
+                            intGuess1 = temp1;
+                        }
 
-                    while (myState.getAllCards().get(intGuess1).getType() != Type.WEAPON) {
-                        int temp1 = ranCards.nextInt(21);
-                        intGuess1 = temp1;
-                    }
+                        while (myState.getAllCards().get(intGuess2).getType() != Type.PERSON) {
+                            int temp2 = ranCards.nextInt(21);
+                            intGuess2 = temp2;
+                        }
 
-                    while(myState.getAllCards().get(intGuess2).getType() != Type.PERSON){
-                        int temp2 = ranCards.nextInt(21);
-                        intGuess2 = temp2;
-                    }
-
-                    guess1 = myState.getAllCards().get(intGuess1);
-                    guess2 = myState.getAllCards().get(intGuess2);
-                    ClueSuggestionAction csa = new ClueSuggestionAction(this);
-                    for(int i=0;i<26;i++){
-                        for(int j=0;j<26;j++){
-                            if(myState.getBoard().getPlayerBoard()[j][i]==playerID){
-                                csa.room = myState.getBoard().getBoardArr()[j][i].getRoom().getName();
-                                break;
+                        guess1 = myState.getAllCards().get(intGuess1);
+                        guess2 = myState.getAllCards().get(intGuess2);
+                        ClueSuggestionAction csa = new ClueSuggestionAction(this);
+                        for (int i = 0; i < 26; i++) {
+                            for (int j = 0; j < 26; j++) {
+                                if (myState.getBoard().getPlayerBoard()[j][i] == playerID) {
+                                    csa.room = myState.getBoard().getBoardArr()[j][i].getRoom().getName();
+                                    break;
+                                }
                             }
                         }
-                    }
-                    csa.weapon = guess1.getName();
-                    csa.person = guess2.getName();
-                    game.sendAction(csa);
-                    return;
+                        csa.weapon = guess1.getName();
+                        csa.suspect = guess2.getName();
+                        game.sendAction(csa);
 
-                }else if(myState.getDieValue() != myState.getSpacesMoved()) {
-                    Random rand = new Random();
-                    int move = rand.nextInt(5) + 1;
-                    Log.i("Moving",""+move+":"+" "+playerID);
+                    } else if (myState.getDieValue() != myState.getSpacesMoved()) {
+                        Random rand = new Random();
+                        int move = rand.nextInt(5) + 1;
+                        Log.i("Moving", "" + move + ":" + " " + playerID);
 
-                    if (move == 1) {
-                        game.sendAction(new ClueMoveLeftAction((this)));
-                        return;
+                        if (move == 1) {
+                            game.sendAction(new ClueMoveLeftAction((this)));
+                        } else if (move == 2) {
+                            game.sendAction(new ClueMoveUpAction((this)));
+                        } else if (move == 3) {
+                            game.sendAction(new ClueMoveRightAction((this)));
+                        } else if (move == 4) {
+                            game.sendAction(new ClueMoveDownAction(this));
+                        } else if (move == 5) {
+                            game.sendAction(new ClueUsePassagewayAction(this));
+                        }
+                    } else {
+                        Log.i("End", " Turn");
+                        game.sendAction(new ClueEndTurnAction(this));
                     }
-                    if (move == 2) {
-                        game.sendAction(new ClueMoveUpAction((this)));
-                        return;
-                    }
-                    if (move == 3) {
-                        game.sendAction(new ClueMoveRightAction((this)));
-                        return;
-                    }
-                    if (move == 4) {
-                        game.sendAction(new ClueMoveDownAction(this));
-                        return;
-                    }
-                    if(move == 5){
-                        game.sendAction(new ClueUsePassagewayAction(this));
-                    }
-                }else{
-                    Log.i("End"," Turn");
-                    game.sendAction(new ClueEndTurnAction(this));
-                    return;
-                }
-            }*/
+                }//
 
 
 
@@ -179,10 +169,13 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
                 guess2 = myState.getAllCards().get(intGuess2);
             }*/
 
-        }else {return;}
+            } else {
+                return;
+            }
 
-        //if it enters a room, suggest random
-        //if it uses all its moves and does not enter a room, end turn
+            //if it enters a room, suggest random
+            //if it uses all its moves and does not enter a room, end turn
+        }
     }
 
 }
