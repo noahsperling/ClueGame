@@ -36,6 +36,7 @@ public class ClueState extends GameState {
     private String[] suggestCards;
     private int playerIDWhoSuggested;
     private String[] cardToShow;
+    private boolean usedPassageway[];
 
     // to satisfy Serializable interface - IDK if necessary
     private static final long serialVersionUID = 7737393762469851826L;
@@ -167,6 +168,7 @@ public class ClueState extends GameState {
         gameOver = false;
 
         inCornerRoom = new boolean[numPlayers];
+        usedPassageway = new boolean[numPlayers];
 
         for(int i = 0; i < numPlayers; i++) {
             playerIDs[i] = i;
@@ -203,6 +205,7 @@ public class ClueState extends GameState {
         for(int i = 0; i < numPlayers; i++) {
             cardToShow[i] = s.getCardToShow(i);
         }
+        usedPassageway = s.getUsedPassageway();
 
 
         for(int i = 0; i < numPlayers; i++) {
@@ -325,6 +328,11 @@ public class ClueState extends GameState {
         return inCornerRoom;
     }
 
+    public boolean[] getUsedPassageway()
+    {
+        return usedPassageway;
+    }
+
     public String[] getSuggestCards() {
         return suggestCards;
     }
@@ -402,6 +410,11 @@ public class ClueState extends GameState {
     public void setInCornerRoom(int playerID, boolean inRoom)
     {
         inCornerRoom[playerID] = inRoom;
+    }
+
+    public void setUsedPassageway(int playerID, boolean used)
+    {
+        usedPassageway[playerID] = used;
     }
 
     public void setSuggestCards(String[] newSuggestCards) {

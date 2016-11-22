@@ -287,6 +287,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         }
 
         boolean corner[] = recentState.getInCornerRoom();
+        boolean usedPassage[] = recentState.getUsedPassageway();
 
         if(recentState.getTurnId() == playerID) {
             endTurnButton.setEnabled(true);
@@ -296,7 +297,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                 rollButton.setEnabled(false);
             }
 
-            if (corner[playerID])
+            if (corner[playerID] && !usedPassage[playerID])
             {
                 secretPassagewayButton.setEnabled(true);
             }
@@ -431,6 +432,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         {
             ClueUsePassagewayAction passageway = new ClueUsePassagewayAction(this);
             game.sendAction(passageway);
+            secretPassagewayButton.setEnabled(false);
         }
 
         //end turn button

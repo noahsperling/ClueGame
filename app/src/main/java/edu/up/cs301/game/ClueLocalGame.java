@@ -212,6 +212,7 @@ public class ClueLocalGame extends LocalGame {
                                     state.setSpacesMoved(state.getSpacesMoved() + 1);
                                     x = x - 1;
                                     inCornerRoom(x, y, curBoard, curPlayerID);
+                                    state.setUsedPassageway(curPlayerID, false);
                                     return true;
                                 }
                             }
@@ -253,11 +254,14 @@ public class ClueLocalGame extends LocalGame {
                                     state.setSpacesMoved(state.getSpacesMoved() + 1);
                                     x = x + 1;
                                     inCornerRoom(x, y, curBoard, curPlayerID);
+                                    state.setUsedPassageway(curPlayerID, false);
                                     return true;
                                 }
                             }
                         }else {
                             return false;
+
+
                         }
                     }
                     else if (moveAction instanceof ClueMoveRightAction)
@@ -294,6 +298,7 @@ public class ClueLocalGame extends LocalGame {
                                     state.setSpacesMoved(state.getSpacesMoved() + 1);
                                     y = y + 1;
                                     inCornerRoom(x, y, curBoard, curPlayerID);
+                                    state.setUsedPassageway(curPlayerID, false);
                                     return true;
                                 }
                             }
@@ -335,6 +340,7 @@ public class ClueLocalGame extends LocalGame {
                                     state.setNewToRoom(curPlayerID, true);
                                     y = y - 1;
                                     inCornerRoom(x, y, curBoard, curPlayerID);
+                                    state.setUsedPassageway(curPlayerID, false);
                                     return true;
                                 }
 
@@ -356,21 +362,21 @@ public class ClueLocalGame extends LocalGame {
                     {
                         if (solution[i].getType() == ROOM)
                         {
-                            if (solution[i].getName() != moveActionAcc.room)
+                            if (!solution[i].getName().equals(moveActionAcc.room))
                             {
                                 solved = false;
                             }
                         }
                         else if (solution[i].getType() == WEAPON)
                         {
-                            if (solution[i].getName() != moveActionAcc.weapon)
+                            if (!solution[i].getName().equals(moveActionAcc.weapon))
                             {
                                 solved = false;
                             }
                         }
                         else
                         {
-                            if (solution[i].getName() != moveActionAcc.suspect)
+                            if (!solution[i].getName().equals(moveActionAcc.suspect))
                             {
                                 solved = false;
                             }
@@ -403,21 +409,25 @@ public class ClueLocalGame extends LocalGame {
                     {
                         Log.i("Got to lounge if", " ");
                         (state.getBoard()).setPlayerBoard(22, 2, x, y, curPlayerID); //Move Player to conservatory
+                        state.setUsedPassageway(curPlayerID, true);
                         return true;
                     }
                     else if (curBoard[x][y].getRoom() == CONSERVATORY)
                     {
                         state.getBoard().setPlayerBoard(2, 20, x, y, curPlayerID); //Move Player to lounge
+                        state.setUsedPassageway(curPlayerID, true);
                         return true;
                     }
                     else if (curBoard[x][y].getRoom() == STUDY)
                     {
                         state.getBoard().setPlayerBoard(22, 22, x, y, curPlayerID); //Move Player to kitchen
+                        state.setUsedPassageway(curPlayerID, true);
                         return true;
                     }
                     else if (curBoard[x][y].getRoom() == KITCHEN)
                     {
                         state.getBoard().setPlayerBoard(3, 4, x, y, curPlayerID); //Move Player to the study
+                        state.setUsedPassageway(curPlayerID, true);
                         return true;
                     }
                 }
