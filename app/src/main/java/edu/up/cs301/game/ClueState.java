@@ -348,6 +348,10 @@ public class ClueState extends GameState {
         return cardToShow[playerID];
     }
 
+    public boolean getPlayerStillInGame(int playerID){
+        return playerStillInGame[playerID];
+    }
+
     public boolean[] getPlayerStillInGame()
     {
         return playerStillInGame;
@@ -428,11 +432,6 @@ public class ClueState extends GameState {
         usedPassageway[playerID] = used;
     }
 
-    public void setPlayerStillInGame(int playerID, boolean inGame)
-    {
-        playerStillInGame[playerID] = inGame;
-    }
-
     public void setSuggestCards(String[] newSuggestCards) {
         suggestCards = newSuggestCards;
     }
@@ -451,6 +450,10 @@ public class ClueState extends GameState {
 
     public void setGameOver(boolean newGameOver) {
         gameOver = newGameOver;
+    }
+
+    public void setPlayerStillInGame(int playerID, boolean b){
+        playerStillInGame[playerID] = b;
     }
 
     //public void setCards(int index, int index1, Card c) {

@@ -293,7 +293,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         boolean corner[] = recentState.getInCornerRoom();
         boolean usedPassage[] = recentState.getUsedPassageway();
 
-        if(recentState.getTurnId() == playerID) {
+        if(recentState.getTurnId() == playerID && recentState.getPlayerStillInGame(playerID)) {
             endTurnButton.setEnabled(true);
             if(recentState.getCanRoll(playerID)) {
                 rollButton.setEnabled(true);
@@ -305,6 +305,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             {
                 secretPassagewayButton.setEnabled(true);
             }
+        }else if(recentState.getTurnId() == playerID && !recentState.getPlayerStillInGame(playerID)){
+            endTurnButton.setEnabled(false);
+            game.sendAction(new ClueEndTurnAction(this));
         }
 
         //if another player made a suggestion

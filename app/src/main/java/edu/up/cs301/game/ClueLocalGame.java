@@ -423,7 +423,6 @@ public class ClueLocalGame extends LocalGame {
                         state.setPlayerStillInGame(curPlayerID, false);
 
                     }
-                    
                 }
                 else if (moveAction instanceof ClueSuggestionAction)
                 {
