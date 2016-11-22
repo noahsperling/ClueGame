@@ -432,11 +432,6 @@ public class ClueState extends GameState {
         usedPassageway[playerID] = used;
     }
 
-    public void setPlayerStillInGame(int playerID, boolean inGame)
-    {
-        playerStillInGame[playerID] = inGame;
-    }
-
     public void setSuggestCards(String[] newSuggestCards) {
         suggestCards = newSuggestCards;
     }
