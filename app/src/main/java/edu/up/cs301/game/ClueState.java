@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Hashtable;
+import java.util.Random;
 
 import edu.up.cs301.game.infoMsg.GameState;
 
@@ -85,9 +86,11 @@ public class ClueState extends GameState {
         }
         Collections.shuffle(allCards);
         Collections.shuffle(allCards); //a second time just to be thorough
+        /*
         boolean suspect = false;
         boolean weapon = false;
         boolean room = false;
+
         for(int i = 0; i < 21; i++) {
             Card temp = allCards.get(i);
             if(!suspect && !weapon && !room) {
@@ -138,20 +141,19 @@ public class ClueState extends GameState {
                 break;
             }
         }
-        //Create integer array that will keep track of where the players are
-        //playerBoard = new int[27][27];
-
-        //Set every element of the array to -1 initially.  If there is not a player
-        //on a tile, it will be set to -1.
-        /*for (int m = 0; m < 27; m++)
-        {
-            for (int n = 0; n < 27; n++)
-            {
-                playerBoard[m][n] = -1;
-
-            }
-        }
         */
+
+        //sets up a solution that actually works
+        Card[] rooms = {Card.BALLROOM, Card.BILLIARD_ROOM, Card.CONSERVATORY, Card.DINING_ROOM, Card.HALL, Card.KITCHEN, Card.LOUNGE, Card.LIBRARY, Card.STUDY};
+        Card[] suspects = {Card.MISS_SCARLET, Card.COL_MUSTARD, Card.MR_GREEN, Card.MRS_PEACOCK, Card.MRS_WHITE, Card.PROF_PLUM};
+        Card[] weapons = {Card.WRENCH, Card.KNIFE, Card.CANDLESTICK, Card.REVOLVER, Card.ROPE, Card.LEAD_PIPE};
+        Random rand = new Random();
+        solution[0] = suspects[rand.nextInt(6)];
+        solution[1] = weapons[rand.nextInt(6)];
+        solution[2] = rooms[rand.nextInt(9)];
+        allCards.remove(solution[0]);
+        allCards.remove(solution[1]);
+        allCards.remove(solution[2]);
 
         //creates board, which stores board tiles and player locations
         board = new Board();
@@ -299,8 +301,6 @@ public class ClueState extends GameState {
         return canRoll[playerID];
     }
 
-    //public Card[] getCards(int playerID, int index) { return cards[playerID][index]; }
-
     public boolean getCheckBox(int playerID, int index) {
         return checkboxes[playerID][index];
     }
@@ -376,13 +376,6 @@ public class ClueState extends GameState {
     public boolean[] getInRoom () {return inRoom;}
 
     //setters
-    /*public void setPlayerBoard(int m, int n, int i, int j, int playerID)
-    {
-                    playerBoard[m][n] = -1;
-                    playerBoard[i][j] = playerID;
-    }
-    */
-
     public void setNewToRoom(int playerID, boolean newTo)
     {
         newToRoom[playerID] = newTo;
@@ -468,7 +461,4 @@ public class ClueState extends GameState {
 
     public void setInRoom (int playerID, boolean a) {inRoom[playerID] = a;}
 
-    //public void setCards(int index, int index1, Card c) {
-        //cards[index][index1] = c;
-    //}
 }

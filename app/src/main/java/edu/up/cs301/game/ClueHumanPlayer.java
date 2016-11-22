@@ -400,13 +400,15 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             accuseR.setChecked(false);
             suggestR.setEnabled(false);
             accuseR.setEnabled(false);
-
+            showCardR.setEnabled(true);
             showCardR.setChecked(true);
 
             setSendCardSpinners();
         }else if(!recentState.getCheckCardToSend()[playerID]) {
             suggestR.setEnabled(true);
             accuseR.setEnabled(true);
+            showCardR.setChecked(false);
+            showCardR.setEnabled(false);
             setSpinners();
         }
 

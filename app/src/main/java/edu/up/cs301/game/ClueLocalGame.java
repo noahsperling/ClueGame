@@ -431,6 +431,9 @@ public class ClueLocalGame extends LocalGame {
                         //End the game for that player.
                         state.setPlayerStillInGame(curPlayerID, false);
 
+                    }else {
+                        state.setGameOver(true);
+                        state.setTurnID(-1);
                     }
                 }
                 else if (moveAction instanceof ClueSuggestionAction)
