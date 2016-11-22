@@ -474,6 +474,7 @@ public class ClueLocalGame extends LocalGame {
                             state.getBoard().setPlayerBoard(3, 4, x, y, curPlayerID); //Move Player to the study
                             state.setUsedPassageway(curPlayerID, true);
                             return true;
+
                         }
                     }
                 }
