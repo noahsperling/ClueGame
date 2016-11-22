@@ -41,6 +41,8 @@ import static edu.up.cs301.game.R.id.noteLayout;
 
 public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View.OnClickListener{
 
+    private boolean nameSet;
+
     private ClueState recentState;
     private boolean checkBoxBool[];
     private Button upButton;
@@ -106,6 +108,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         //Set boolean array to false initially!  When they are checked they will be set to true.
         checkBoxBool = new boolean[21];
         layoutID = initID;
+        nameSet = false;
     }
 
     @Override
@@ -275,22 +278,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         messageTextView.setText("");
 
         playerTextView = (TextView)myActivity.findViewById(R.id.playerTextView);
-        switch(playerID) {
-            case 0: playerTextView.setText("You are Miss Scarlet.");
-                break;
-            case 1: playerTextView.setText("You are Colonel Mustard.");
-                break;
-            case 2: playerTextView.setText("You are Mrs. White.");
-                break;
-            case 3: playerTextView.setText("You are Mr. Green.");
-                break;
-            case 4: playerTextView.setText("You are Mrs. Peacock.");
-                break;
-            case 5: playerTextView.setText("You are Professor Plum.");
-                break;
-            default: playerTextView.setText("An error occurred.  We don't know who you are.");
-                break;
-        }
+        playerTextView.setText("You are a human\n player with a \nundetermined name.");
 
         notesGUI = (EditText)myActivity.findViewById(R.id.editText);
         notesGUI.setOnClickListener(this);
@@ -309,6 +297,29 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     {
         if(info instanceof ClueState) {
             recentState = new ClueState((ClueState)info);
+            if(!nameSet) {
+                switch (playerID) {
+                    case 0:
+                        playerTextView.setText("You are Miss\n Scarlet.");
+                        break;
+                    case 1:
+                        playerTextView.setText("You are Colonel\n Mustard.");
+                        break;
+                    case 2:
+                        playerTextView.setText("You are Mrs.\n White.");
+                        break;
+                    case 3:
+                        playerTextView.setText("You are Mr.\n Green.");
+                        break;
+                    case 4:
+                        playerTextView.setText("You are Mrs.\n Peacock.");
+                        break;
+                    case 5:
+                        playerTextView.setText("You are \nProfessor Plum.");
+                        break;
+                }
+                nameSet = true;
+            }
         }
 
         if(!recentState.getPlayerStillInGame(playerID)) {
@@ -807,12 +818,14 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         }
         for(int i = 0; i < 3; i++) {
             for(int j = 0; j < cardNames.length; j++) {
-                if(cardNames[j].equals(temp[j])) {
-                    cards.add(temp[j]);
+                if(cardNames[j].equals(temp[i])) {
+                    cards.add(temp[i]);
                 }
             }
         }
-        String[] validCards = (String[])(cards.toArray());
+        String[] validCards = new String[cards.size()];
+        cards.toArray(validCards);
+
         if(validCards.length == 0) {
             game.sendAction(new ClueShowCardAction(null));
         }else {
