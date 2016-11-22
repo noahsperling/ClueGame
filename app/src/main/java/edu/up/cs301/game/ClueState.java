@@ -38,6 +38,7 @@ public class ClueState extends GameState {
     private String[] cardToShow;
     private boolean[] checkCardToSend;
     private boolean usedPassageway[];
+    private boolean[] inRoom;
 
     // to satisfy Serializable interface - IDK if necessary
     private static final long serialVersionUID = 7737393762469851826L;
@@ -69,6 +70,7 @@ public class ClueState extends GameState {
         cardToShow = new String[numPlayers];
         checkCardToSend = new boolean[numPlayers];
         playerStillInGame = new boolean[numPlayers];
+        inRoom = new boolean[numPlayers];
         for(int i=0;i<numPlayers;i++){
             playerStillInGame[i] = true;
         }
@@ -204,6 +206,8 @@ public class ClueState extends GameState {
         playerStillInGame = s.playerStillInGame;
         inCornerRoom = s.getInCornerRoom();
         cardToShow = new String[numPlayers];
+        inRoom = new boolean[numPlayers];
+
         for(int i = 0; i < numPlayers; i++) {
             cardToShow[i] = s.getCardToShow(i);
         }
@@ -361,9 +365,7 @@ public class ClueState extends GameState {
         return checkCardToSend;
     }
 
-
-
-
+    public boolean[] getInRoom () {return inRoom;}
 
     //setters
     /*public void setPlayerBoard(int m, int n, int i, int j, int playerID)
@@ -455,6 +457,8 @@ public class ClueState extends GameState {
     public void setPlayerStillInGame(int playerID, boolean b){
         playerStillInGame[playerID] = b;
     }
+
+    public void setInRoom (int playerID, boolean a) {inRoom[playerID] = a;}
 
     //public void setCards(int index, int index1, Card c) {
         //cards[index][index1] = c;
