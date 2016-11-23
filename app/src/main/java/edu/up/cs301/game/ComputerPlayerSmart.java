@@ -90,18 +90,11 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                     int intGuess1 = ranCards.nextInt(21);
                     int intGuess2 = ranCards.nextInt(21);
 
-                    while (myState.getAllCards().get(intGuess1).getType() != Type.WEAPON) {
-                        int temp1 = ranCards.nextInt(21);
-                        intGuess1 = temp1;
-                    }
+                    Card[] suspects = {Card.MISS_SCARLET, Card.COL_MUSTARD, Card.MR_GREEN, Card.MRS_PEACOCK, Card.MRS_WHITE, Card.PROF_PLUM};
+                    Card[] weapons = {Card.WRENCH, Card.KNIFE, Card.CANDLESTICK, Card.REVOLVER, Card.ROPE, Card.LEAD_PIPE};
+                    Random rand = new Random();
 
-                    while (myState.getAllCards().get(intGuess2).getType() != Type.PERSON) {
-                        int temp2 = ranCards.nextInt(21);
-                        intGuess2 = temp2;
-                    }
 
-                    guess1 = myState.getAllCards().get(intGuess1);
-                    guess2 = myState.getAllCards().get(intGuess2);
                     ClueSuggestionAction csa = new ClueSuggestionAction(this);
                     for (int i = 0; i < 26; i++) {
                         for (int j = 0; j < 26; j++) {
@@ -111,9 +104,10 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                             }
                         }
                     }
-                    csa.weapon = guess1.getName();
-                    csa.suspect = guess2.getName();
-                    Log.i("Computer Player " + playerNum, "Suggesting");
+
+                    csa.suspect = suspects[rand.nextInt(6)].getName();
+                    csa.weapon = weapons[rand.nextInt(6)].getName();
+                    Log.i("Computer Player "+playerNum,"Suggesting");
                     game.sendAction(csa);
 
                 } else if (myState.getDieValue() != myState.getSpacesMoved()) {
