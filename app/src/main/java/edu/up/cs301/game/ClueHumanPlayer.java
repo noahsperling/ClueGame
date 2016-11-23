@@ -388,6 +388,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         if(recentState.getTurnId() == playerNum && recentState.getPlayerStillInGame(playerNum)) {
             accuseR.setEnabled(true);
             accuseR.setChecked(false);
+            submitButton.setEnabled(true);
+            cancelButton.setEnabled(true);
             endTurnButton.setEnabled(true);
             if(recentState.getCanRoll(playerNum)) {
                 rollButton.setEnabled(true);
@@ -418,7 +420,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         //suggest and accuse radio buttons handled
         Log.i("New to room = " +recentState.getNewToRoom(playerNum), " ");
         Log.i("Room = " + room[playerNum], " ");
-        if (room[playerNum]) {
+        if (room[playerNum] && recentState.getNewToRoom(playerNum)) {
             Log.i("Got to suggest if", " ");
             suggestR.setEnabled(true);
             suggestR.setChecked(false);
@@ -586,6 +588,11 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                 Log.i("You clicked End Turn", "YAY");
                 endTurnButton.setEnabled(false);
                 rollButton.setEnabled(false);
+                secretPassagewayButton.setEnabled(false);
+                suggestR.setEnabled(false);
+                accuseR.setEnabled(false);
+                submitButton.setEnabled(false);
+                cancelButton.setEnabled(false);
                 game.sendAction(endTurn);
             }
             //note edit text

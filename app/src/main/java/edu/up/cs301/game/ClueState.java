@@ -24,7 +24,6 @@ public class ClueState extends GameState {
     private boolean canSuggest[];
     private boolean canRoll[];
     private boolean checkboxes[][];
-    //private int playerBoard[][];
     private int cardsPerHand;
     private Hand cards[];
     private Card solution[] = new Card[3];
@@ -40,17 +39,22 @@ public class ClueState extends GameState {
     private boolean[] checkCardToSend;
     private boolean usedPassageway[];
     private boolean[] inRoom;
+    private int winnerIndex;
 
     // to satisfy Serializable interface - IDK if necessary
     private static final long serialVersionUID = 7737393762469851826L;
 
 
     public ClueState(int initNumPlayers, String initPlayerNames[], int initTurnID) {
+
+        //sets up initial integer values
         turnID = initTurnID;
         dieValue = 0;
         spacesMoved = 0;
         numPlayers = initNumPlayers;
         playerIDWhoSuggested = -1;
+
+        //tells the game how many cards to try and give each player
         if(numPlayers == 3) {
             cardsPerHand = 6;
         }else if(numPlayers == 4) {
@@ -60,6 +64,8 @@ public class ClueState extends GameState {
         }else {
             cardsPerHand = 3;
         }
+
+        //sets up arrays before loops assign values
         playerIDs = new int[numPlayers];
         playerNames = new String[numPlayers];
         canSuggest = new boolean[numPlayers];
@@ -72,6 +78,8 @@ public class ClueState extends GameState {
         checkCardToSend = new boolean[numPlayers];
         playerStillInGame = new boolean[numPlayers];
         inRoom = new boolean[numPlayers];
+
+        //says that all players are still in the game
         for(int i=0;i<numPlayers;i++){
             playerStillInGame[i] = true;
         }
@@ -86,62 +94,6 @@ public class ClueState extends GameState {
         }
         Collections.shuffle(allCards);
         Collections.shuffle(allCards); //a second time just to be thorough
-        /*
-        boolean suspect = false;
-        boolean weapon = false;
-        boolean room = false;
-
-        for(int i = 0; i < 21; i++) {
-            Card temp = allCards.get(i);
-            if(!suspect && !weapon && !room) {
-                solution[0] = temp;
-                if(solution[0].getType() == Type.PERSON) {
-                    suspect = true;
-                }else if(solution[0].getType() == Type.WEAPON) {
-                    weapon = true;
-                }else if(solution[0].getType() == Type.ROOM) {
-                    room = true;
-                }
-                allCards.remove(i);
-            }else if(!suspect && !room && (temp.getType().equals(Type.PERSON) || temp.getType().equals(Type.ROOM))) {
-                solution[1] = temp;
-                if(solution[1].getType() == Type.PERSON) {
-                    suspect = true;
-                }else if(solution[1].getType() == Type.ROOM) {
-                    room = true;
-                }
-                allCards.remove(i);
-            }else if(!suspect && !weapon && (temp.getType().equals(Type.PERSON) || temp.getType().equals(Type.WEAPON))) {
-                solution[1] = temp;
-                if(solution[1].getType() == Type.PERSON) {
-                    suspect = true;
-                }else if(solution[1].getType() == Type.WEAPON) {
-                    room = true;
-                }
-                allCards.remove(i);
-            }else if(!room && !weapon && (temp.getType().equals(Type.ROOM) || temp.getType().equals(Type.WEAPON))) {
-                solution[1] = temp;
-                if(solution[1].getType() == Type.ROOM) {
-                    suspect = true;
-                }else if(solution[1].getType() == Type.WEAPON) {
-                    room = true;
-                }
-                allCards.remove(i);
-            }else if(!suspect && temp.getType().equals(Type.PERSON))  {
-                solution[2] = temp;
-                allCards.remove(i);
-                break;
-            }else if(!weapon && temp.getType().equals(Type.WEAPON)) {
-                solution[2] = temp;
-                allCards.remove(i);
-                break;
-            }else if(!room && temp.getType().equals(Type.ROOM)) {
-                solution[2] = temp;
-                allCards.remove(i);
-                break;
-            }
-        }
-        */
 
         //sets up a solution that actually works
         Card[] rooms = {Card.BALLROOM, Card.BILLIARD_ROOM, Card.CONSERVATORY, Card.DINING_ROOM, Card.HALL, Card.KITCHEN, Card.LOUNGE, Card.LIBRARY, Card.STUDY};
@@ -170,12 +122,14 @@ public class ClueState extends GameState {
         }
 
 
-
+        //says that the game isn't oer
         gameOver = false;
 
+        //sets up boolean arrays
         inCornerRoom = new boolean[numPlayers];
         usedPassageway = new boolean[numPlayers];
 
+        //sets up more arrays, all of length numPlayers
         for(int i = 0; i < numPlayers; i++) {
             playerIDs[i] = i;
             canSuggest[i] = false;
@@ -190,6 +144,8 @@ public class ClueState extends GameState {
         }
         //turnID is the same value as the playerID, which is the same as the index in the array
         canRoll[turnID] = true;
+
+        winnerIndex = -1;
     }
 
     public ClueState(ClueState s) {
@@ -246,11 +202,12 @@ public class ClueState extends GameState {
         checkCardToSend = s.getCheckCardToSend();
 
         //The commented code below causes an error in computer player dumb
-//        for (int i = 0; i < numPlayers; i++)
-//        {
-//            newToRoom[i] = s.getNewToRoom(i);
-//        }
+        for (int i = 0; i < numPlayers; i++)
+        {
+            newToRoom[i] = s.getNewToRoom(i);
+        }
         inRoom = s.getInRoom();
+        winnerIndex = s.getWinnerIndex();
     }
 
     //getters
@@ -324,11 +281,16 @@ public class ClueState extends GameState {
     public Board getBoard(){return board;}
 
     public Card[] getSolution() {
-        Card temp[] = new Card[3];
-        temp[0] = solution[0];
-        temp[1] = solution[1];
-        temp[2] = solution[2];
-        return temp;
+        if(solution != null) {
+            Card temp[] = new Card[3];
+            temp[0] = solution[0];
+            temp[1] = solution[1];
+            temp[2] = solution[2];
+            return temp;
+        }else {
+            return null;
+        }
+
     }
 
     public boolean[] getNewToRoom()
@@ -374,6 +336,10 @@ public class ClueState extends GameState {
     }
 
     public boolean[] getInRoom () {return inRoom;}
+
+    public int getWinnerIndex() {
+        return winnerIndex;
+    }
 
     //setters
     public void setNewToRoom(int playerID, boolean newTo)
@@ -460,5 +426,13 @@ public class ClueState extends GameState {
     }
 
     public void setInRoom (int playerID, boolean a) {inRoom[playerID] = a;}
+
+    public void setWinnerIndex(int newWinnerIndex) {
+        winnerIndex = newWinnerIndex;
+    }
+
+    public void setSolution(Card[] newSolution) {
+        solution = newSolution;
+    }
 
 }
