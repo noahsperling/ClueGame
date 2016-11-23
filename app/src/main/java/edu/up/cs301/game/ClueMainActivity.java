@@ -62,7 +62,7 @@ public class ClueMainActivity extends GameMainActivity {
     public LocalGame createLocalGame()
     {
         return new ClueLocalGame(tableRows.size());
-    }
+    } //send the number of table rows created - which is equal to the number of players in the game
 
 
 }

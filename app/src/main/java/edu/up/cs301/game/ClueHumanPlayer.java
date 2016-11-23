@@ -89,10 +89,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     private CheckBox libraryCheck;
     private CheckBox studyCheck;
 
-    //playersHand
-    //playerTurn
-    //noteView
-
     private ClueBoardView boardView;
     private ClueCardView cardView;
 
@@ -102,8 +98,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
     public ClueHumanPlayer(String initName, int initID)
     {
-        //surfaceView = (ClueSurfaceView)findViewById(R.id); moved to setAsGui method
-
         super(initName);
 
         //Set boolean array to false initially!  When they are checked they will be set to true.
@@ -188,15 +182,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         secretPassagewayButton.setOnClickListener(this);
         secretPassagewayButton.setEnabled(false);
 
-        //Spinners
-        //will have to make sure room is locked when making a suggestion
-//        String[] roomItems = new String[]{"Ballroom","Billiard Room ", "Conservatory", "Dining Room", "Hall", "Kitchen", "Library", "Lounge", "Study"};
-//        String[] weaponItems = new String[]{"Candlestick", "Knife", "Lead Pipe", "Revolver", "Rope", "Wrench", };
-//        String[] suspectItem = new String []{"Mr. Green", "Col. Mustard", "Mrs. Peacock", "Prof. Plum", "Miss Scarlet", "Mrs.White"};
-//        ArrayAdapter<String> roomAdapter = new ArrayAdapter<String>(myActivity, android.R.layout.simple_spinner_dropdown_item, roomItems);
-//        ArrayAdapter<String> weaponAdapter = new ArrayAdapter<String>(myActivity, android.R.layout.simple_spinner_dropdown_item, weaponItems);
-//        ArrayAdapter<String> suspectAdapter = new ArrayAdapter<String>(myActivity,android.R.layout.simple_spinner_dropdown_item, suspectItem );
-
+        //spinners
         roomSpinner = (Spinner)myActivity.findViewById(R.id.roomSpinner);
 //        roomSpinner.setAdapter(roomAdapter);
 
@@ -285,13 +271,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         notesGUI.setOnClickListener(this);
 
     }
-
-    /* unsure why this exists
-    public ClueState getRecentState()
-    {
-        return recentState;
-    }
-    */
 
     @Override
     public void receiveInfo(GameInfo info)
@@ -411,16 +390,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             game.sendAction(new ClueEndTurnAction(this));
         }
 
-        //enable suggest button
-//        if (room[playerID])
-//        {
-//            suggestR.setEnabled(true);
-//        }
-//        else
-//        {
-//            suggestR.setEnabled(false);
-//        }
-
         //suggest and accuse radio buttons handled
         Log.i("New to room = " +recentState.getNewToRoom(playerNum), " ");
         Log.i("Room = " + room[playerNum], " ");
@@ -488,12 +457,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         }
         else if (view.getId() == R.id.radioShowCardButton) {
                 setSpinners();
-            /*suggestR.setChecked(false);
-            accuseR.setChecked(false);
-            suggestR.setEnabled(false);
-            accuseR.setEnabled(false);
-
-            showCardR.setChecked(true);*/
         }
         //no showCardR onclick listener because it is just to show the user that they need to choose
         //cards in the spinners to show a card to a player who has made a suggestion
@@ -528,7 +491,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                     suggest.suspect = suspectSelect;
                     Log.i("suggest action sent", " ");
                     game.sendAction(suggest);
-
 
 
                     //need to send in show card action because now the player to their left
