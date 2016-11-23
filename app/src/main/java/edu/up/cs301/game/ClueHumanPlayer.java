@@ -584,6 +584,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                 Log.i("You clicked End Turn", "YAY");
                 endTurnButton.setEnabled(false);
                 rollButton.setEnabled(false);
+                secretPassagewayButton.setEnabled(false);
                 game.sendAction(endTurn);
             }
             //note edit text
