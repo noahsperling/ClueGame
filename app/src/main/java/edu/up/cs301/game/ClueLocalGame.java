@@ -640,9 +640,19 @@ public class ClueLocalGame extends LocalGame {
 
     @Override
     public String checkIfGameOver() {
+        int numPlayersLeft = 0;
+        for(int i = 0; i < state.getNumPlayers(); i++) {
+            if(state.getPlayerStillInGame(i)) {
+                numPlayersLeft++;
+            }
+        }
         if(!state.getGameOver()) {
             return null;
+        }else if(numPlayersLeft == 1) {
+              state.setGameOver(true);
+                return "Game Over";
         }else {
+            Log.i("Game", "Over");
             return "Game over."; //this will be updated in the future with player names
         }
     }
