@@ -391,6 +391,10 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             submitButton.setEnabled(true);
             cancelButton.setEnabled(true);
             endTurnButton.setEnabled(true);
+            upButton.setEnabled(true);
+            downButton.setEnabled(true);
+            leftButton.setEnabled(true);
+            rightButton.setEnabled(true);
             if(recentState.getCanRoll(playerNum)) {
                 rollButton.setEnabled(true);
             }else if(!recentState.getCanRoll(playerNum)) {
@@ -593,6 +597,10 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                 accuseR.setEnabled(false);
                 submitButton.setEnabled(false);
                 cancelButton.setEnabled(false);
+                upButton.setEnabled(false);
+                downButton.setEnabled(false);
+                leftButton.setEnabled(false);
+                rightButton.setEnabled(false);
                 game.sendAction(endTurn);
             }
             //note edit text
