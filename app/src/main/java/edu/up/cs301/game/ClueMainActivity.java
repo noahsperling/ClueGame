@@ -61,7 +61,7 @@ public class ClueMainActivity extends GameMainActivity {
     @Override
     public LocalGame createLocalGame()
     {
-        return new ClueLocalGame(gamePlayerTypes);
+        return new ClueLocalGame(tableRows.size());
     }
 
 

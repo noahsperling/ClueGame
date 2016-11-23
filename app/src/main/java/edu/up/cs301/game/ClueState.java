@@ -84,7 +84,7 @@ public class ClueState extends GameState {
             playerStillInGame[i] = true;
         }
 
-        for(int i =0; i<numPlayers;i++){
+        for(int i =0; i < numPlayers;i++){
             cards[i] = new Hand();
         }
         notes = new String[numPlayers];
@@ -121,6 +121,9 @@ public class ClueState extends GameState {
             }
         }
 
+        for(int i = 0; i < 3; i++) {
+            suggestCards[i] = null;
+        }
 
         //says that the game isn't oer
         gameOver = false;
@@ -135,7 +138,6 @@ public class ClueState extends GameState {
             canSuggest[i] = false;
             canRoll[i] = false;
             notes[i] = "";
-            suggestCards[i] = null;
             cardToShow[i] = "";
             playerNames[i] = initPlayerNames[i]+"";
             for(int j = 0; j < 21; j++) {

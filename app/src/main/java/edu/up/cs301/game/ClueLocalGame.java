@@ -65,13 +65,13 @@ public class ClueLocalGame extends LocalGame {
     private String[] showCardSpinnerSuspect;
     public String syncOnMe = "Sync";
 
-    public ClueLocalGame(ArrayList<GamePlayerType> gamePlayerTypes) {
+    public ClueLocalGame(int numPlayerFromTableRows) {
         super();
-        String[] str = new String[gamePlayerTypes.size()];
-        for(int i = 0; i<str.length;i++){
+        String[] str = new String[numPlayerFromTableRows];
+        /*for(int i = 0; i<str.length;i++){
             str[i] = gamePlayerTypes.get(i).getTypeName();
-        }
-        state = new ClueState(gamePlayerTypes.size(),str, 0);
+        }*/
+        state = new ClueState(numPlayerFromTableRows,str, 0);
         rand = new Random();
     }
 
