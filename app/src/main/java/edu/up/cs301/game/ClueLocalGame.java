@@ -430,10 +430,11 @@ public class ClueLocalGame extends LocalGame {
                     {
                         //End the game for that player.
                         state.setPlayerStillInGame(curPlayerID, false);
+                        return true;
 
                     }else {
                         state.setGameOver(true);
-                        state.setTurnID(-1);
+                        return true;
                     }
                 }
                 else if (moveAction instanceof ClueSuggestionAction)
@@ -648,9 +649,9 @@ public class ClueLocalGame extends LocalGame {
         }
         if(!state.getGameOver()) {
             return null;
-        }else if(numPlayersLeft == 1) {
-              state.setGameOver(true);
-                return "Game Over";
+        }else if(numPlayersLeft == 1){
+            state.setGameOver(true);
+            return "Game Over";
         }else {
             Log.i("Game", "Over");
             return "Game over."; //this will be updated in the future with player names

@@ -31,6 +31,7 @@ import edu.up.cs301.game.actionMsg.ClueSuggestionAction;
 import edu.up.cs301.game.actionMsg.ClueUsePassagewayAction;
 import edu.up.cs301.game.actionMsg.ClueWrittenNoteAction;
 import edu.up.cs301.game.infoMsg.GameInfo;
+import edu.up.cs301.game.infoMsg.GameOverInfo;
 
 import static edu.up.cs301.game.R.id.editText;
 import static edu.up.cs301.game.R.id.noteLayout;

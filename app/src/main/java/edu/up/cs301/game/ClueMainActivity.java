@@ -1,5 +1,7 @@
 package edu.up.cs301.game;
 
+import android.content.pm.ActivityInfo;
+
 import java.util.ArrayList;
 
 import edu.up.cs301.game.config.GameConfig;
@@ -20,6 +22,10 @@ public class ClueMainActivity extends GameMainActivity {
 
     @Override
     public GameConfig createDefaultConfig() {
+
+        //locks screen to landscape
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
         ArrayList<GamePlayerType> playerTypes = new ArrayList<GamePlayerType>();
 
         playerTypes.add(new GamePlayerType("Human Player") {
