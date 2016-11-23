@@ -627,9 +627,6 @@ public class ClueLocalGame extends LocalGame {
                         sendState.setCards(i, null);
                     }
                 }
-                for(int i = 0; i < 3; i++) {
-                    sendState.setSolution(null);
-                }
             }
         }else if(p instanceof ComputerPlayerDumb){
             ComputerPlayerDumb player = (ComputerPlayerDumb)p;
@@ -641,9 +638,6 @@ public class ClueLocalGame extends LocalGame {
                         sendState.setCards(i, null);
                     }
                 }
-                for(int i = 0; i < 3; i++) {
-                    sendState.setSolution(null);
-                }
             }
         }else if(p instanceof ComputerPlayerSmart){
             ComputerPlayerSmart player = (ComputerPlayerSmart)p;
@@ -654,9 +648,6 @@ public class ClueLocalGame extends LocalGame {
                         sendState.setNotes(i, null);
                         sendState.setCards(i, null);
                     }
-                }
-                for(int i = 0; i < 3; i++) {
-                    sendState.setSolution(null);
                 }
             }
         }
