@@ -416,7 +416,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         //suggest and accuse radio buttons handled
         Log.i("New to room = " +recentState.getNewToRoom(playerNum), " ");
         Log.i("Room = " + room[playerNum], " ");
-        if (room[playerNum]) {
+        if (room[playerNum] && recentState.getNewToRoom(playerNum)) {
             Log.i("Got to suggest if", " ");
             suggestR.setEnabled(true);
             suggestR.setChecked(false);

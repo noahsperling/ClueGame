@@ -246,10 +246,10 @@ public class ClueState extends GameState {
         checkCardToSend = s.getCheckCardToSend();
 
         //The commented code below causes an error in computer player dumb
-//        for (int i = 0; i < numPlayers; i++)
-//        {
-//            newToRoom[i] = s.getNewToRoom(i);
-//        }
+        for (int i = 0; i < numPlayers; i++)
+        {
+            newToRoom[i] = s.getNewToRoom(i);
+        }
         inRoom = s.getInRoom();
     }
 

@@ -226,6 +226,7 @@ public class ClueLocalGame extends LocalGame {
                                     inCornerRoom(x, y, curBoard, curPlayerID);
                                     state.setUsedPassageway(curPlayerID, false);
                                     state.setInRoom(curPlayerID, false);
+                                    state.setNewToRoom(curPlayerID, false);
                                     return true;
                                 }
                             }
@@ -278,6 +279,7 @@ public class ClueLocalGame extends LocalGame {
                                     inCornerRoom(x, y, curBoard, curPlayerID);
                                     state.setUsedPassageway(curPlayerID, false);
                                     state.setInRoom(curPlayerID, false);
+                                    state.setNewToRoom(curPlayerID, false);
                                     return true;
                                 }
                             }
@@ -332,6 +334,7 @@ public class ClueLocalGame extends LocalGame {
                                     inCornerRoom(x, y, curBoard, curPlayerID);
                                     state.setUsedPassageway(curPlayerID, false);
                                     state.setInRoom(curPlayerID, false);
+                                    state.setNewToRoom(curPlayerID, false);
                                     return true;
                                 }
                             }
@@ -379,7 +382,7 @@ public class ClueLocalGame extends LocalGame {
                                     }
                                     state.getBoard().setPlayerBoard(x, y - 1, x, y, curPlayerID);
                                     state.setSpacesMoved(state.getSpacesMoved() + 1);
-                                    state.setNewToRoom(curPlayerID, true);
+                                    state.setNewToRoom(curPlayerID, false);
                                     y = y - 1;
                                     inCornerRoom(x, y, curBoard, curPlayerID);
                                     state.setUsedPassageway(curPlayerID, false);
