@@ -18,10 +18,10 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
     }
 
     public int getPlayerID() {
-        return playerID;
+        return playerNum;
     }
 
     public void setPlayerID(int newPlayerID) {
-        playerID = newPlayerID;
+        playerNum = newPlayerID;
     }
 }

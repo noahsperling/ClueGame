@@ -275,6 +275,7 @@ public abstract class LocalGame implements Game, Tickable {
 		// send the player a message to that effect
 		if (!makeMove(action)) {
 			player.sendInfo(new IllegalMoveInfo());
+			sendAllUpdatedState();
 			return;
 		}
 

@@ -30,11 +30,11 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
     }
 
     public int getPlayerID() {
-        return playerID;
+        return playerNum;
     }
 
     public void setPlayerID(int newPlayerID) {
-        playerID = newPlayerID;
+        playerNum = newPlayerID;
     }
 
     @Override
@@ -46,10 +46,10 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
 
                 // I just commented it out to try a couple things.
                 ClueState myState = (ClueState) info; //cast it
-                if(myState.getCheckCardToSend()[playerID]) {
-                    Log.i("Computer Player "+playerID,"Showing Card");
+                if(myState.getCheckCardToSend()[playerNum]) {
+                    Log.i("Computer Player "+playerNum,"Showing Card");
                     String[] temp = myState.getSuggestCards();
-                    Hand tempHand = myState.getCards(playerID);
+                    Hand tempHand = myState.getCards(playerNum);
                     Card[] tempCards = tempHand.getCards();
                     String[] cardNames = new String[tempHand.getArrayListLength()];
                     ArrayList<String> cards = new ArrayList<String>();
@@ -80,12 +80,12 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
                         game.sendAction(s);
                     }
                 }
-                if (myState.getTurnId() == playerID && myState.getPlayerStillInGame(playerID)) {
-                    if (myState.getCanRoll(this.playerID)) {
-                        Log.i("Computer Player"+playerID, "Rolling");
+                if (myState.getTurnId() == playerNum && myState.getPlayerStillInGame(playerNum)) {
+                    if (myState.getCanRoll(this.playerNum)) {
+                        Log.i("Computer Player"+playerNum, "Rolling");
                         game.sendAction(new ClueRollAction(this));
                         return;
-                    } else if (myState.getNewToRoom(this.playerID)) {
+                    } else if (myState.getNewToRoom(this.playerNum)) {
                         //make suggestion
                         Card guess1;
                         Card guess2;
@@ -108,7 +108,7 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
                         ClueSuggestionAction csa = new ClueSuggestionAction(this);
                         for (int i = 0; i < 26; i++) {
                             for (int j = 0; j < 26; j++) {
-                                if (myState.getBoard().getPlayerBoard()[j][i] == playerID) {
+                                if (myState.getBoard().getPlayerBoard()[j][i] == playerNum) {
                                     csa.room = myState.getBoard().getBoardArr()[j][i].getRoom().getName();
                                     break;
                                 }
@@ -116,13 +116,13 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
                         }
                         csa.weapon = guess1.getName();
                         csa.suspect = guess2.getName();
-                        Log.i("Computer Player "+playerID,"Suggesting");
+                        Log.i("Computer Player "+playerNum,"Suggesting");
                         game.sendAction(csa);
 
                     } else if (myState.getDieValue() != myState.getSpacesMoved()) {
                         Random rand = new Random();
                         int move = rand.nextInt(5) + 1;
-                        Log.i("Computer Player "+playerID, "Moving"+ move);
+                        Log.i("Computer Player "+playerNum, "Moving"+ move);
                         sleep(300);
 
                         if (move == 1) {
@@ -137,7 +137,7 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
                             game.sendAction(new ClueUsePassagewayAction(this));
                         }
                     } else {
-                        Log.i("Computer Player "+playerID, "End Turn");
+                        Log.i("Computer Player "+playerNum, "End Turn");
                         game.sendAction(new ClueEndTurnAction(this));
                     }
 

@@ -104,7 +104,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     {
         //surfaceView = (ClueSurfaceView)findViewById(R.id); moved to setAsGui method
 
-        super(initName, initID);
+        super(initName);
 
         //Set boolean array to false initially!  When they are checked they will be set to true.
         checkBoxBool = new boolean[21];
@@ -119,11 +119,11 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
     public int getID()
     {
-        return playerID;
+        return playerNum;
     }
 
     public void setPlayerID(int newPlayerID) {
-        playerID = newPlayerID;
+        playerNum = newPlayerID;
     }
 
     public void setAsGui(GameMainActivity g) {
@@ -299,7 +299,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         if(info instanceof ClueState) {
             recentState = new ClueState((ClueState)info);
             if(!nameSet) {
-                switch (playerID) {
+                switch (playerNum) {
                     case 0: playerTextView.setText("You are Miss\n Scarlet.\n");
                         break;
                     case 1:
@@ -322,7 +322,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             }
         }
 
-        if(!recentState.getPlayerStillInGame(playerID)) {
+        if(!recentState.getPlayerStillInGame(playerNum)) {
             //the player is out of the game, so disable all non-essential GUI things
             endTurnButton.setEnabled(false);
             rollButton.setEnabled(false);
@@ -358,29 +358,29 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             billiardRoomCheck.setEnabled(false);
             libraryCheck.setEnabled(false);
             studyCheck.setEnabled(false);
-            recentState.setCardToShow("You Lost!", playerID);
+            recentState.setCardToShow("You Lost!", playerNum);
         }
 
         boolean corner[] = recentState.getInCornerRoom();
         boolean usedPassage[] = recentState.getUsedPassageway();
         boolean room[] = recentState.getInRoom();
 
-        if(recentState.getTurnId() == playerID && recentState.getPlayerStillInGame(playerID)) {
+        if(recentState.getTurnId() == playerNum && recentState.getPlayerStillInGame(playerNum)) {
             accuseR.setEnabled(true);
             accuseR.setChecked(false);
             endTurnButton.setEnabled(true);
-            if(recentState.getCanRoll(playerID)) {
+            if(recentState.getCanRoll(playerNum)) {
                 rollButton.setEnabled(true);
-            }else if(!recentState.getCanRoll(playerID)) {
+            }else if(!recentState.getCanRoll(playerNum)) {
                 rollButton.setEnabled(false);
             }
 
-            if (corner[playerID] && !usedPassage[playerID])
+            if (corner[playerNum] && !usedPassage[playerNum])
             {
                 secretPassagewayButton.setEnabled(true);
             }
 
-        }else if(recentState.getTurnId() == playerID && !recentState.getPlayerStillInGame(playerID)){
+        }else if(recentState.getTurnId() == playerNum && !recentState.getPlayerStillInGame(playerNum)){
             endTurnButton.setEnabled(false);
             game.sendAction(new ClueEndTurnAction(this));
         }
@@ -396,7 +396,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 //        }
 
         //if another player made a suggestion
-        if(recentState.getCheckCardToSend()[playerID]) {
+        if(recentState.getCheckCardToSend()[playerNum]) {
             suggestR.setChecked(false);
             accuseR.setChecked(false);
             suggestR.setEnabled(false);
@@ -405,7 +405,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             showCardR.setChecked(true);
 
             setSendCardSpinners();
-        }else if(!recentState.getCheckCardToSend()[playerID]) {
+        }else if(!recentState.getCheckCardToSend()[playerNum]) {
             suggestR.setEnabled(true);
             accuseR.setEnabled(true);
             showCardR.setChecked(false);
@@ -414,9 +414,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         }
 
         //suggest and accuse radio buttons handled
-        Log.i("New to room = " +recentState.getNewToRoom(playerID), " ");
-        Log.i("Room = " + room[playerID], " ");
-        if (room[playerID]) {
+        Log.i("New to room = " +recentState.getNewToRoom(playerNum), " ");
+        Log.i("Room = " + room[playerNum], " ");
+        if (room[playerNum]) {
             Log.i("Got to suggest if", " ");
             suggestR.setEnabled(true);
             suggestR.setChecked(false);
@@ -427,11 +427,11 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             suggestR.setChecked(false);
         }
 
-        messageTextView.setText(recentState.getCardToShow(playerID));
+        messageTextView.setText(recentState.getCardToShow(playerNum));
 
         boardView.updateBoard(recentState.getBoard());
         boardView.invalidate();
-        cardView.updateCards(recentState.getCards(playerID));
+        cardView.updateCards(recentState.getCards(playerNum));
         cardView.invalidate();
         numberOfMovesLeft.setText(recentState.getDieValue()-recentState.getSpacesMoved()+"");
     }
@@ -500,7 +500,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                     int y = 0;
                     for(int i=0;i<27;i++){
                         for(int j=0;j<27;j++){
-                            if(board[j][i] == playerID){
+                            if(board[j][i] == playerNum){
                                 x = i;
                                 y = j;
                             }
@@ -822,7 +822,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     }
 
     public int getPlayerID() {
-        return playerID;
+        return playerNum;
     }
 
     public boolean[] getCheckBoxArray() {
@@ -864,7 +864,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
     public void setSendCardSpinners() {
         String[] temp = recentState.getSuggestCards();
-        Hand tempHand = recentState.getCards(playerID);
+        Hand tempHand = recentState.getCards(playerNum);
         Card[] tempCards = tempHand.getCards();
         String[] cardNames = new String[tempHand.getArrayListLength()];
         ArrayList<String> cards = new ArrayList<String>();
