@@ -368,6 +368,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         if(recentState.getTurnId() == playerNum && recentState.getPlayerStillInGame(playerNum)) {
             accuseR.setEnabled(true);
             accuseR.setChecked(false);
+            submitButton.setEnabled(true);
+            cancelButton.setEnabled(true);
             endTurnButton.setEnabled(true);
             if(recentState.getCanRoll(playerNum)) {
                 rollButton.setEnabled(true);
@@ -384,16 +386,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             endTurnButton.setEnabled(false);
             game.sendAction(new ClueEndTurnAction(this));
         }
-
-        //enable suggest button
-//        if (room[playerID])
-//        {
-//            suggestR.setEnabled(true);
-//        }
-//        else
-//        {
-//            suggestR.setEnabled(false);
-//        }
 
         //if another player made a suggestion
         if(recentState.getCheckCardToSend()[playerNum]) {
@@ -585,6 +577,10 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                 endTurnButton.setEnabled(false);
                 rollButton.setEnabled(false);
                 secretPassagewayButton.setEnabled(false);
+                suggestR.setEnabled(false);
+                accuseR.setEnabled(false);
+                submitButton.setEnabled(false);
+                cancelButton.setEnabled(false);
                 game.sendAction(endTurn);
             }
             //note edit text
