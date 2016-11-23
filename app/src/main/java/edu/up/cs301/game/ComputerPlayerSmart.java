@@ -43,10 +43,10 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
 
             // I just commented it out to try a couple things.
             ClueState myState = (ClueState) info; //cast it
-            if (myState.getCheckCardToSend()[playerID]) {
-                Log.i("Computer Player " + playerID, "Showing Card");
+            if (myState.getCheckCardToSend()[playerNum]) {
+                Log.i("Computer Player " + playerNum, "Showing Card");
                 String[] temp = myState.getSuggestCards();
-                Hand tempHand = myState.getCards(playerID);
+                Hand tempHand = myState.getCards(playerNum);
                 Card[] tempCards = tempHand.getCards();
                 String[] cardNames = new String[tempHand.getArrayListLength()];
                 ArrayList<String> cards = new ArrayList<String>();
@@ -78,11 +78,11 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                 }
             }
             if (myState.getTurnId() == playerID && myState.getPlayerStillInGame(playerID)) {
-                if (myState.getCanRoll(this.playerID)) {
-                    Log.i("Computer Player" + playerID, "Rolling");
+                if (myState.getCanRoll(this.playerNum)) {
+                    Log.i("Computer Player" + playerNum, "Rolling");
                     game.sendAction(new ClueRollAction(this));
                     return;
-                } else if (myState.getNewToRoom(this.playerID)) {
+                } else if (myState.getNewToRoom(this.playerNum)) {
                     //make suggestion
                     Card guess1;
                     Card guess2;
@@ -105,7 +105,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                     ClueSuggestionAction csa = new ClueSuggestionAction(this);
                     for (int i = 0; i < 26; i++) {
                         for (int j = 0; j < 26; j++) {
-                            if (myState.getBoard().getPlayerBoard()[j][i] == playerID) {
+                            if (myState.getBoard().getPlayerBoard()[j][i] == playerNum) {
                                 csa.room = myState.getBoard().getBoardArr()[j][i].getRoom().getName();
                                 break;
                             }
@@ -119,7 +119,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                 } else if (myState.getDieValue() != myState.getSpacesMoved()) {
                     Random rand = new Random();
                     int move = rand.nextInt(5) + 1;
-                    Log.i("Computer Player " + playerID, "Moving" + move);
+                    Log.i("Computer Player " + playerNum, "Moving" + move);
                     sleep(300);
 
                     if (move == 1) {
