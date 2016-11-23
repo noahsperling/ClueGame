@@ -474,7 +474,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                 setSuggestSpinners();
                 roomSpinner.setEnabled(true);
                 weaponSpinner.setEnabled(true);
-                roomSpinner.setEnabled(true);
+                suspectSpinner.setEnabled(true);
 
 
         }
@@ -520,6 +520,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                     suggest.suspect = suspectSelect;
                     Log.i("suggest action sent", " ");
                     game.sendAction(suggest);
+
 
 
                     //need to send in show card action because now the player to their left
