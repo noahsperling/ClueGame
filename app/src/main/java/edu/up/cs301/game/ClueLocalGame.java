@@ -240,7 +240,7 @@ public class ClueLocalGame extends LocalGame {
                             if ((playBoard[x+1][y] == -1 && (curBoard[x+1][y].getTileType() == 0 || curBoard[x+1][y].getIsDoor() || curBoard[x+1][y].getTileType() == 1)) && !curBoard[x+1][y].getTopWall()
                                     && !curBoard[x][y].getBottomWall())
                             {
-                                if (curBoard[x+1][y].getIsDoor() && curBoard[x+1][y].getTileType() == 0)
+                                if (curBoard[x+1][y].getIsDoor() && curBoard[x][y].getTileType() == 0)
                                 {
                                     state.getBoard().setPlayerBoard(x + 1, y, x, y, curPlayerID);
                                     state.setSpacesMoved(state.getSpacesMoved() + 1);
@@ -352,6 +352,7 @@ public class ClueLocalGame extends LocalGame {
                                 {
                                     state.getBoard().setPlayerBoard(x, y - 1, x, y, curPlayerID);
                                     state.setSpacesMoved(state.getSpacesMoved() + 1);
+                                    state.setNewToRoom(curPlayerID, true);
                                     y = y - 1;
                                     inCornerRoom(x, y, curBoard, curPlayerID);
                                     if (state.getSpacesMoved() == state.getDieValue())
