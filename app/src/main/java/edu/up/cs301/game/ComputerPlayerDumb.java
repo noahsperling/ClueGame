@@ -87,11 +87,7 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
                         return;
                     } else if (myState.getNewToRoom(this.playerNum)) {
                         //make suggestion
-                        Card guess1;
-                        Card guess2;
                         Random ranCards = new Random();
-                        int intGuess1 = ranCards.nextInt(21);
-                        int intGuess2 = ranCards.nextInt(21);
 
                         Card[] suspects = {Card.MISS_SCARLET, Card.COL_MUSTARD, Card.MR_GREEN, Card.MRS_PEACOCK, Card.MRS_WHITE, Card.PROF_PLUM};
                         Card[] weapons = {Card.WRENCH, Card.KNIFE, Card.CANDLESTICK, Card.REVOLVER, Card.ROPE, Card.LEAD_PIPE};

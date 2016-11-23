@@ -43,33 +43,33 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
 
             // I just commented it out to try a couple things.
             ClueState myState = (ClueState) info; //cast it
-            if (myState.getCheckCardToSend()[playerNum]) {
-                Log.i("Computer Player " + playerNum, "Showing Card");
+            if(myState.getCheckCardToSend()[playerNum]) {
+                Log.i("Computer Player "+playerNum,"Showing Card");
                 String[] temp = myState.getSuggestCards();
                 Hand tempHand = myState.getCards(playerNum);
                 Card[] tempCards = tempHand.getCards();
                 String[] cardNames = new String[tempHand.getArrayListLength()];
                 ArrayList<String> cards = new ArrayList<String>();
-                for (int i = 0; i < tempHand.getArrayListLength(); i++) {
+                for(int i = 0; i < tempHand.getArrayListLength(); i++) {
                     cardNames[i] = tempCards[i].getName();
                 }
 
-                for (int i = 0; i < 3; i++) {
-                    for (int j = 0; j < cardNames.length; j++) {
-                        if (cardNames[j].equals(temp[i])) {
+                for(int i = 0; i < 3; i++) {
+                    for(int j = 0; j < cardNames.length; j++) {
+                        if(cardNames[j].equals(temp[i])) {
                             cards.add(temp[i]);
                         }
                     }
                 }
                 String[] validCards = new String[cards.size()];
                 cards.toArray(validCards);
-                if (validCards.length == 0) {
+                if(validCards.length == 0) {
                         /*ClueShowCardAction s = new ClueShowCardAction(this);
                         s.setCardToShow(null);
                         game.sendAction(s);
                         //game.sendAction(null);*/
                     game.sendAction(new ClueShowCardAction(this));
-                } else {
+                }else {
                     Random rand1 = new Random();
                     int c = rand1.nextInt(validCards.length);
                     ClueShowCardAction s = new ClueShowCardAction(this);
@@ -79,10 +79,10 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
             }
             if (myState.getTurnId() == playerNum && myState.getPlayerStillInGame(playerNum)) {
                 if (myState.getCanRoll(this.playerNum)) {
-                    Log.i("Computer Player" + playerNum, "Rolling");
+                    Log.i("Computer Player"+playerNum, "Rolling");
                     game.sendAction(new ClueRollAction(this));
                     return;
-                } else if (myState.getNewToRoom(this.playerNum)) {
+                }else if (myState.getNewToRoom(this.playerNum)) {
                     //make suggestion
                     Card guess1;
                     Card guess2;
@@ -90,18 +90,11 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                     int intGuess1 = ranCards.nextInt(21);
                     int intGuess2 = ranCards.nextInt(21);
 
-                    while (myState.getAllCards().get(intGuess1).getType() != Type.WEAPON) {
-                        int temp1 = ranCards.nextInt(21);
-                        intGuess1 = temp1;
-                    }
+                    Card[] suspects = {Card.MISS_SCARLET, Card.COL_MUSTARD, Card.MR_GREEN, Card.MRS_PEACOCK, Card.MRS_WHITE, Card.PROF_PLUM};
+                    Card[] weapons = {Card.WRENCH, Card.KNIFE, Card.CANDLESTICK, Card.REVOLVER, Card.ROPE, Card.LEAD_PIPE};
+                    Random rand = new Random();
 
-                    while (myState.getAllCards().get(intGuess2).getType() != Type.PERSON) {
-                        int temp2 = ranCards.nextInt(21);
-                        intGuess2 = temp2;
-                    }
 
-                    guess1 = myState.getAllCards().get(intGuess1);
-                    guess2 = myState.getAllCards().get(intGuess2);
                     ClueSuggestionAction csa = new ClueSuggestionAction(this);
                     for (int i = 0; i < 26; i++) {
                         for (int j = 0; j < 26; j++) {
@@ -111,15 +104,16 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                             }
                         }
                     }
-                    csa.weapon = guess1.getName();
-                    csa.suspect = guess2.getName();
-                    Log.i("Computer Player " + playerNum, "Suggesting");
+
+                    csa.suspect = suspects[rand.nextInt(6)].getName();
+                    csa.weapon = weapons[rand.nextInt(6)].getName();
+                    Log.i("Computer Player "+playerNum,"Suggesting");
                     game.sendAction(csa);
 
                 } else if (myState.getDieValue() != myState.getSpacesMoved()) {
                     Random rand = new Random();
                     int move = rand.nextInt(5) + 1;
-                    Log.i("Computer Player " + playerNum, "Moving" + move);
+                    Log.i("Computer Player "+playerNum, "Moving"+ move);
                     sleep(300);
 
                     if (move == 1) {
@@ -134,7 +128,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                         game.sendAction(new ClueUsePassagewayAction(this));
                     }
                 } else {
-                    Log.i("Computer Player " + playerNum, "End Turn");
+                    Log.i("Computer Player "+playerNum, "End Turn");
                     game.sendAction(new ClueEndTurnAction(this));
                 }
 
