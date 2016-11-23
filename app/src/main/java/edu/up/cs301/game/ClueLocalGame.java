@@ -434,7 +434,7 @@ public class ClueLocalGame extends LocalGame {
                 }
                 else if (moveAction instanceof ClueSuggestionAction)
                 {
-                    if (curBoard[x][y].getTileType() == 1)
+                    if (curBoard[x][y].getTileType() == 1 && state.getNewToRoom(curPlayerID))
                     {
                         ClueSuggestionAction b = (ClueSuggestionAction) a;
                         String[] suggestionCards = new String[3];
