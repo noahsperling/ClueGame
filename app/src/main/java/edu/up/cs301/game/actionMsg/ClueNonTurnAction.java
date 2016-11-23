@@ -4,6 +4,7 @@ import edu.up.cs301.game.ClueComputerPlayer;
 import edu.up.cs301.game.ClueHumanPlayer;
 import edu.up.cs301.game.CluePlayer;
 import edu.up.cs301.game.ComputerPlayerDumb;
+import edu.up.cs301.game.ComputerPlayerSmart;
 import edu.up.cs301.game.GameComputerPlayer;
 import edu.up.cs301.game.GamePlayer;
 
@@ -20,8 +21,10 @@ public class ClueNonTurnAction extends GameAction
         super(player);
         if(player instanceof ClueHumanPlayer) {
             playerID = ((ClueHumanPlayer)player).getPlayerID();
-        }else if (player instanceof GameComputerPlayer) {
+        }else if (player instanceof ComputerPlayerDumb) {
             playerID = ((ComputerPlayerDumb)player).getPlayerID();
+        }else if(player instanceof ComputerPlayerSmart) {
+            playerID = ((ComputerPlayerSmart)player).getPlayerID();
         }
     }
 
