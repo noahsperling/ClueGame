@@ -60,10 +60,6 @@ public class ClueLocalGame extends LocalGame {
     ClueMoveAction moveAction;
     ClueState state;
     private Random rand;
-    private String[] showCardSpinnerRoom;
-    private String[] showCardSpinnerWeapon;
-    private String[] showCardSpinnerSuspect;
-    public String syncOnMe = "Sync";
 
     public ClueLocalGame(int numPlayerFromTableRows) {
         super();
@@ -74,13 +70,6 @@ public class ClueLocalGame extends LocalGame {
         state = new ClueState(numPlayerFromTableRows,str, 0);
         rand = new Random();
     }
-
-    //@Override
-    //public void start(GamePlayer[] players){
-        //super.start(players);
-        //numPlayers = players.length;
-        //state = new ClueState(numPlayers, playerNames, 0); // needs arguments from startup*/
-    //}
 
     public boolean canMove(int playerID) {
         return true;
