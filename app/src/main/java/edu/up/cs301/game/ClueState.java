@@ -125,7 +125,7 @@ public class ClueState extends GameState {
             suggestCards[i] = null;
         }
 
-        //says that the game isn't oer
+        //says that the game isn't over
         gameOver = false;
 
         //sets up boolean arrays
