@@ -369,6 +369,7 @@ public class ClueLocalGame extends LocalGame {
                                         state.setSpacesMoved(state.getSpacesMoved() + 1);
                                     }
                                     y = y - 1;
+                                    //
                                     return true;
                                 }
                                 else
