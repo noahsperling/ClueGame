@@ -434,6 +434,7 @@ public class ClueLocalGame extends LocalGame {
 
                     }else {
                         state.setGameOver(true);
+                        state.setWinnerIndex(curPlayerID);
                         return true;
                     }
                 }
@@ -622,8 +623,11 @@ public class ClueLocalGame extends LocalGame {
                         sendState.setCards(i, null);
                     }
                 }
+                for(int i = 0; i < 3; i++) {
+                    sendState.setSolution(null);
+                }
             }
-        }else if(p instanceof GameComputerPlayer){
+        }else if(p instanceof ComputerPlayerDumb){
             ComputerPlayerDumb player = (ComputerPlayerDumb)p;
             int playerCount = sendState.getNumPlayers();
             if(player.getPlayerID() == 0) {
@@ -632,6 +636,23 @@ public class ClueLocalGame extends LocalGame {
                         sendState.setNotes(i, null);
                         sendState.setCards(i, null);
                     }
+                }
+                for(int i = 0; i < 3; i++) {
+                    sendState.setSolution(null);
+                }
+            }
+        }else if(p instanceof ComputerPlayerSmart){
+            ComputerPlayerSmart player = (ComputerPlayerSmart)p;
+            int playerCount = sendState.getNumPlayers();
+            if(player.getPlayerID() == 0) {
+                for(int i = 0; i < playerCount; i++) {
+                    if(i != player.getPlayerID()) {
+                        sendState.setNotes(i, null);
+                        sendState.setCards(i, null);
+                    }
+                }
+                for(int i = 0; i < 3; i++) {
+                    sendState.setSolution(null);
                 }
             }
         }
@@ -650,11 +671,46 @@ public class ClueLocalGame extends LocalGame {
         if(!state.getGameOver()) {
             return null;
         }else if(numPlayersLeft == 1){
+            for(int i = 0; i < state.getNumPlayers(); i++) {
+                if(state.getPlayerStillInGame(i)) {
+                    state.setWinnerIndex(i);
+                }
+            }
             state.setGameOver(true);
-            return "Game Over";
+            String gameOverMessage = "Game Over";
+            switch (state.getWinnerIndex()) {
+                case 0: gameOverMessage = "Miss Scarlet won.";
+                    break;
+                case 1: gameOverMessage = "Colonel Mustard won.";
+                    break;
+                case 2: gameOverMessage = "Mrs. White won.";
+                    break;
+                case 3: gameOverMessage = "Mr. Green won";
+                    break;
+                case 4: gameOverMessage = "Mrs. Peacock won.";
+                    break;
+                case 5: gameOverMessage = "Professor Plum won.";
+                    break;
+            }
+            return gameOverMessage;
         }else {
             Log.i("Game", "Over");
-            return "Game over."; //this will be updated in the future with player names
+            String gameOverMessage = "Game Over";
+            switch (state.getWinnerIndex()) {
+                case 0: gameOverMessage = "Miss Scarlet won.";
+                    break;
+                case 1: gameOverMessage = "Colonel Mustard won.";
+                    break;
+                case 2: gameOverMessage = "Mrs. White won.";
+                    break;
+                case 3: gameOverMessage = "Mr. Green won";
+                    break;
+                case 4: gameOverMessage = "Mrs. Peacock won.";
+                    break;
+                case 5: gameOverMessage = "Professor Plum won.";
+                    break;
+            }
+            return gameOverMessage;
         }
     }
 
