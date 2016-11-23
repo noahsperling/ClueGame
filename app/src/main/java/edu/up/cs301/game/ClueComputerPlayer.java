@@ -17,11 +17,11 @@ public class ClueComputerPlayer extends GameComputerPlayer implements GamePlayer
     }
 
     public int getPlayerID() {
-        return playerID;
+        return playerNum;
     }
 
     public void setPlayerID(int newPlayerID) {
-        playerID = newPlayerID;
+        playerNum = newPlayerID;
     }
 
     protected void receiveInfo(GameInfo info) {
