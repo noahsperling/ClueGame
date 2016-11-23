@@ -77,7 +77,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                     game.sendAction(s);
                 }
             }
-            if (myState.getTurnId() == playerID && myState.getPlayerStillInGame(playerID)) {
+            if (myState.getTurnId() == playerNum && myState.getPlayerStillInGame(playerNum)) {
                 if (myState.getCanRoll(this.playerNum)) {
                     Log.i("Computer Player" + playerNum, "Rolling");
                     game.sendAction(new ClueRollAction(this));
@@ -113,7 +113,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                     }
                     csa.weapon = guess1.getName();
                     csa.suspect = guess2.getName();
-                    Log.i("Computer Player " + playerID, "Suggesting");
+                    Log.i("Computer Player " + playerNum, "Suggesting");
                     game.sendAction(csa);
 
                 } else if (myState.getDieValue() != myState.getSpacesMoved()) {
@@ -134,7 +134,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                         game.sendAction(new ClueUsePassagewayAction(this));
                     }
                 } else {
-                    Log.i("Computer Player " + playerID, "End Turn");
+                    Log.i("Computer Player " + playerNum, "End Turn");
                     game.sendAction(new ClueEndTurnAction(this));
                 }
 
