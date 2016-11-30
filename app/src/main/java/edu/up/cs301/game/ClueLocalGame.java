@@ -577,20 +577,21 @@ public class ClueLocalGame extends LocalGame {
                 if(b.playerID == state.getNumPlayers() - 1 && state.getPlayerIDWhoSuggested() != 0) {
                     state.setCheckCardToSend(b.playerID, false);
                     state.setCheckCardToSend(0, true);
+                    return true;
+                }else if(b.playerID == state.getNumPlayers() - 1 && state.getPlayerIDWhoSuggested() == 0) {
+                    state.setCheckCardToSend(b.playerID, false);
                 }else if(state.getPlayerIDWhoSuggested() != b.playerID + 1) {
                     state.setCheckCardToSend(b.playerID, false);
-                    if(b.playerID < 2) {
-                        state.setCheckCardToSend(b.playerID + 1, true);
-                    }else{
-                        state.setCheckCardToSend(0,true);
-                    }
+                    state.setCheckCardToSend(b.playerID + 1, true);
                 }else if(b.playerID == state.getPlayerIDWhoSuggested()-1){
                     state.setCheckCardToSend(b.playerID, false);
+                    return true;
                 }
                 return true;
             }else {
                 state.setCheckCardToSend(b.playerID, false);
                 state.setCardToShow(b.getCardToShow(), state.getPlayerIDWhoSuggested());
+                return true;
             }
 //            int index = ((ClueShowCardAction) a).playerID;
 //

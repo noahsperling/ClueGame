@@ -23,5 +23,6 @@ public class ClueShowCardAction extends ClueNonTurnAction{
 
     public ClueShowCardAction(GamePlayer player){
         super(player);
+        cardToShow = null;
     }
 }
