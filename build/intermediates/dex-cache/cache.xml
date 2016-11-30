@@ -3,12 +3,21 @@
 
     <item
         is-multidex="true"
-        jar="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGame/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jar="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGameRedownload/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="22.0.1"
-        sha1="701d44af1b6a9ad49c3fc164360ae3a756f88a73">
-        <dex dex="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGame/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_638c8ead0b3a160c98cd2a094eaadbc3d9d43a13/classes.dex" />
+        sha1="53128c891fe26f75672522ed1d5b6d52df49a41a">
+        <dex dex="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGameRedownload/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_f5fa1357d12366e289036e8ac0e48db27566873b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGameRedownload/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="22.0.1"
+        sha1="ced0249bfc9b9cbfe8a278691ba41f1674728f34">
+        <dex dex="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGameRedownload/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_d896ac50ecea20a3341efa01d22e93711a7ad738/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -17,16 +26,7 @@
         optimize="true"
         revision="22.0.1"
         sha1="44ec51e9d395a47aab135e5e1b556c0007442156">
-        <dex dex="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGame/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-v4-18.0.0_8e0fca08f5eb1515bf356cf9abc9298b18290ff6/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGame/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="22.0.1"
-        sha1="0f8746b6081cefb224ddeb99d09805185811d760">
-        <dex dex="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGame/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_79d5f6560bc4d2e61887b427fe3d4e90ac2d05eb/classes.dex" />
+        <dex dex="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGameRedownload/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-v4-18.0.0_8e0fca08f5eb1515bf356cf9abc9298b18290ff6/classes.dex" />
     </item>
 
 </items>

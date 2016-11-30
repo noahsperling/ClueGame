@@ -206,6 +206,12 @@
 
                         <TextView
                             android:text="Messages:"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/messageStaticTextView" />
+
+                        <TextView
+                            android:text="Messages:"
                             android:layout_width="match_parent"
                             android:id="@+id/messageTextView"
                             android:textSize="20sp"
@@ -226,14 +232,19 @@
                             android:layout_row="14"
                             android:layout_column="0" />
 
+                        <TextView
+                            android:text="Notes:"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView2" />
+
                         <EditText
                             android:layout_width="match_parent"
                             android:inputType="textMultiLine"
                             android:ems="2"
                             android:id="@+id/editText"
                             android:gravity="top"
-                            android:layout_height="390dp"
-                            android:layout_weight="1.50" />
+                            android:layout_height="326dp" />
 
                     </LinearLayout>
 

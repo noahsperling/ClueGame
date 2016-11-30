@@ -180,9 +180,10 @@ public class ClueLocalGame extends LocalGame {
                                     state.setNewToRoom(curPlayerID, true); //Set the new to room in array to true.
                                     x = x - 1;
                                     inCornerRoom(x, y, curBoard, curPlayerID);
+                                    //Makes it so that the player is able to move around in a room even if they technically have no moves left.
                                     if (state.getSpacesMoved() == state.getDieValue())
                                     {
-                                        state.setSpacesMoved(state.getSpacesMoved() -2);
+                                        state.setSpacesMoved(state.getSpacesMoved() - 1);
                                     }
                                     state.setInRoom(curPlayerID, true);
                                     return true;
@@ -192,6 +193,8 @@ public class ClueLocalGame extends LocalGame {
                                     //If the player is moving around within a room, it will set their new position but will
                                     //not increment the spaces moved.
                                     state.getBoard().setPlayerBoard(x - 1, y, x, y, curPlayerID);
+                                    //In order to prevent the dumb AI from moving around in a room indefinitely,
+                                    //increment their spaces moved.
                                     if (a.getPlayer() instanceof ComputerPlayerDumb)
                                     {
                                         state.setSpacesMoved(state.getSpacesMoved() + 1);
