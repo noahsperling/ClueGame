@@ -518,25 +518,29 @@ public class ClueLocalGame extends LocalGame {
                 }
                 else if (moveAction instanceof ClueEndTurnAction)
                 {
-                    //Change the turnID to the next player and lets the next player roll
-                    state.setNewToRoom(curPlayerID, false); //Once they've ended their turn, they are no longer new to a room.
-                    state.setCanRoll(curPlayerID, false);
-                    if (state.getTurnId() == (state.getNumPlayers() - 1))
+                    //Check to make sure they are not on a door tile(so they can't block the door)
+                    if (!curBoard[x][y].getIsDoor())
                     {
-                        state.setCanRoll(0, true);
-                        state.setTurnID(0);
-                        state.setSpacesMoved(0);
-                        state.setDieValue(0);
-                        return true;
-                    }
-                    else
-                    {
-                        state.setCanRoll(state.getTurnId() + 1, true);
-                        state.setTurnID(state.getTurnId() + 1);
-                        state.setSpacesMoved(0);
-                        state.setDieValue(0);
-                        return true;
+                        //Change the turnID to the next player and lets the next player roll
+                        state.setNewToRoom(curPlayerID, false); //Once they've ended their turn, they are no longer new to a room.
+                        state.setCanRoll(curPlayerID, false);
+                        if (state.getTurnId() == (state.getNumPlayers() - 1))
+                        {
+                            state.setCanRoll(0, true);
+                            state.setTurnID(0);
+                            state.setSpacesMoved(0);
+                            state.setDieValue(0);
+                            return true;
+                        }
+                        else
+                        {
+                            state.setCanRoll(state.getTurnId() + 1, true);
+                            state.setTurnID(state.getTurnId() + 1);
+                            state.setSpacesMoved(0);
+                            state.setDieValue(0);
+                            return true;
 
+                        }
                     }
                 }
             }
