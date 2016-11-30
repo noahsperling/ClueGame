@@ -1,10 +1,7 @@
 package edu.up.cs301.game;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
+
 import android.graphics.Point;
-import android.util.Log;
 
 /**
  * Created by Eric Imperio on 11/8/2016.
@@ -44,41 +41,4 @@ public class Tile {
     public void setRightWall(boolean wall){ rightWall = wall; }
     public void setLeftWall(boolean wall){ leftWall = wall; }
     public Point getLocation(){return location;}
-
-    public void onDraw(Canvas c)
-    {
-        Paint p = new Paint();
-        p.setColor(Color.argb(0,0,0,0));
-        int adjustedX = location.x+((c.getWidth()-(27*Board.TILE_SIZE))/2);
-        int adjustedY = location.y-(Board.TILE_SIZE/2);
-        if(tileType == 0){
-            p.setColor(Color.rgb(245,203,167));
-            c.drawRect(adjustedX,adjustedY,adjustedX+Board.TILE_SIZE,adjustedY+Board.TILE_SIZE,p);
-            p.setColor(Color.BLACK);
-            c.drawLine(adjustedX,adjustedY,adjustedX,adjustedY+Board.TILE_SIZE,p);
-            c.drawLine(adjustedX,adjustedY,adjustedX+Board.TILE_SIZE,adjustedY,p);
-            c.drawLine(adjustedX,adjustedY+Board.TILE_SIZE,adjustedX+Board.TILE_SIZE,adjustedY+Board.TILE_SIZE,p);
-            c.drawLine(adjustedX+Board.TILE_SIZE,adjustedY+Board.TILE_SIZE,adjustedX+Board.TILE_SIZE,adjustedY,p);
-
-        }else if (tileType == 1){
-            p.setColor(room.getColor());
-            c.drawRect(adjustedX,adjustedY,adjustedX+Board.TILE_SIZE,adjustedY+Board.TILE_SIZE,p);
-            p.setColor(Color.BLACK);
-                if(topWall){//top
-                    c.drawRect(adjustedX,adjustedY,adjustedX+Board.TILE_SIZE,adjustedY+(Board.TILE_SIZE/8),p);
-                }
-
-                if(rightWall){//right
-                    c.drawRect(adjustedX+Board.TILE_SIZE-(Board.TILE_SIZE/8),adjustedY,adjustedX+Board.TILE_SIZE,adjustedY+Board.TILE_SIZE,p);
-                }
-
-                if(bottomWall){//bottom
-                    c.drawRect(adjustedX,adjustedY+Board.TILE_SIZE-(Board.TILE_SIZE/8),adjustedX+Board.TILE_SIZE,adjustedY+Board.TILE_SIZE,p);
-                }
-
-                if(leftWall) { //left
-                    c.drawRect(adjustedX, adjustedY, adjustedX + (Board.TILE_SIZE / 8), adjustedY + Board.TILE_SIZE, p);
-                }
-        }
-    }
 }

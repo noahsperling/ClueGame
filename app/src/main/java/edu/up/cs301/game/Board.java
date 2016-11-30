@@ -1,8 +1,5 @@
 package edu.up.cs301.game;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Point;
 
 /**
@@ -371,107 +368,6 @@ public class Board {
         playerBoard[19][1] = 4;
         playerBoard[6][1] = 5;
 
-    }
-
-    /*public void setUpPlayers(int initNumPlayers){
-        switch(initNumPlayers)
-        {
-            case 1: playerBoard[17][1] = 0; //Player 0 starts at mrs.peacocks spot on the board.
-                break;
-            case 2: playerBoard[17][1] = 0;
-                playerBoard[19][1] = 1;
-                break;
-            case 3: playerBoard[17][1] = 0;
-                playerBoard[19][1] = 1;
-                break;
-            case 4: playerBoard[17][1] = 0;
-                playerBoard[19][1] = 1;
-                playerBoard[24][8] = 2;
-                playerBoard[15][25] = 3;
-                break;
-            case 5: playerBoard[17][1] = 0;
-                playerBoard[19][1] = 1;
-                playerBoard[24][8] = 2;
-                playerBoard[15][25] = 3;
-                playerBoard[10][25] = 4;
-                break;
-                playerBoard[24][8] = 2;
-            case 6: playerBoard[17][1] = 0;
-                playerBoard[19][1] = 1;
-                playerBoard[24][8] = 2;
-                playerBoard[15][25] = 3;
-                playerBoard[10][25] = 4;
-                playerBoard[1][6] = 5;
-                break;
-        }
-    }*/
-
-    public void drawPlayer(int playerID, int posX, int posY, Canvas c) {
-        Paint p = new Paint();
-        posX = TILE_SIZE * posX;
-        posY = TILE_SIZE * posY;
-        int adjustedX = (posX+((c.getWidth()-(27*TILE_SIZE))/2)+1);
-        int adjustedY = (posY-(TILE_SIZE/2)+1);
-
-        p.setColor(Color.BLACK);
-        c.drawCircle(((adjustedX) + (TILE_SIZE / 2)), ((adjustedY) + (TILE_SIZE/2)), (TILE_SIZE/2)-2, p);
-        p.setColor(Color.WHITE);
-        switch(playerID) {
-            case 0:
-                p.setColor(Card.MISS_SCARLET.getColor());
-                break;
-            case 1:
-                p.setColor(Card.COL_MUSTARD.getColor());
-                break;
-            case 2:
-                p.setColor(Card.MRS_WHITE.getColor());
-                break;
-            case 3:
-                p.setColor(Card.MR_GREEN.getColor());
-                break;
-            case 4:
-                p.setColor(Card.MRS_PEACOCK.getColor());
-                break;
-            case 5:
-                p.setColor(Card.PROF_PLUM.getColor());
-                break;
-        }
-        c.drawCircle(((adjustedX) + (TILE_SIZE / 2)), ((adjustedY) + (TILE_SIZE/2)), (TILE_SIZE/2)-4, p);
-    }
-
-    public void onDraw(Canvas c){
-        Paint p = new Paint();
-        p.setColor(Color.WHITE);
-        p.setTextSize(30);
-        int adjustedX = ((c.getWidth()-(27*TILE_SIZE))/2)+TILE_SIZE;
-        int adjustedY = TILE_SIZE;
-        for (int i = 0; i<27; i++){
-            for(int j = 0; j<27;j++){
-                if(board[j][i] != null) {
-                    board[j][i].onDraw(c);
-                }
-            }
-        }
-
-        c.drawText(Card.STUDY.getName(),adjustedX+(2.5f*TILE_SIZE),adjustedY+(1.5f*TILE_SIZE),p);
-        c.drawText(Card.HALL.getName(),adjustedX+(11.5f*TILE_SIZE),adjustedY+(3*TILE_SIZE),p);
-        c.drawText(Card.LOUNGE.getName(),adjustedX+(20*TILE_SIZE),adjustedY+(3*TILE_SIZE),p);
-        c.drawText(Card.LIBRARY.getName(),adjustedX+(2*TILE_SIZE),adjustedY+(8*TILE_SIZE),p);
-        c.drawText(Card.BILLIARD_ROOM.getName(),adjustedX+(TILE_SIZE),adjustedY+(14*TILE_SIZE),p);
-        c.drawText(Card.CONSERVATORY.getName(),adjustedX+(TILE_SIZE/2),adjustedY+(21*TILE_SIZE),p);
-        c.drawText(Card.BALLROOM.getName(),adjustedX+(11*TILE_SIZE),adjustedY+(20*TILE_SIZE),p);
-        c.drawText(Card.KITCHEN.getName(), (float) (adjustedX+(19.5*TILE_SIZE)),adjustedY+(20.5f*TILE_SIZE),p);
-        c.drawText(Card.DINING_ROOM.getName(),adjustedX+(18*TILE_SIZE),adjustedY+(12*TILE_SIZE),p);
-        c.drawText("Clue",(c.getWidth()/2)-TILE_SIZE*2,(c.getHeight()/2)-10,p);
-
-        //draw Players
-        for(int i = 0; i < 27; i++) {
-            for(int j = 0; j < 27; j++) {
-                if(playerBoard[j][i] != -1) {
-                    drawPlayer(playerBoard[j][i], i, j, c);
-                }
-            }
-        }
     }
 
     public Tile[][] getBoardArr()

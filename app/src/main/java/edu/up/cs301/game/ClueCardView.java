@@ -32,6 +32,23 @@ public class ClueCardView extends SurfaceView {
         p.setColor(Color.argb(127, 255, 255, 255)); //grey
         canvas.drawRect(0, 0, getWidth(), getHeight(), p);
         super.onDraw(canvas);
-        hand.onDraw(canvas);
+        onDrawHand(canvas);
+    }
+
+    public void onDrawHand(Canvas c){
+        Paint p = new Paint();
+
+        for(int i=0;i<hand.getCards().length;i++) {
+            p.setColor(hand.getCards()[i].getColor());
+            int width = (c.getHeight()*3/4);
+            c.drawRect((width*i), 0, width*(i+1), c.getHeight(), p);
+            p.setTextSize(25);
+            if(Card.ROPE == hand.getCards()[i] || Card.MRS_WHITE == hand.getCards()[i]) {
+                    p.setColor(Color.BLACK);
+            }else {
+                p.setColor(Color.WHITE);
+            }
+            c.drawText(hand.getCards()[i].getName(), (width/2)-(hand.getCards()[i].getName().length()*5)+(width*i), c.getHeight()/2, p);
+        }
     }
 }
