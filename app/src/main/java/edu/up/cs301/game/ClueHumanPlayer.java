@@ -404,7 +404,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             suggestR.setChecked(false);
         }
 
-        messageTextView.setText(recentState.getCardToShow(playerNum));
+        messageTextView.setText("Card Shown: " + recentState.getCardToShow(playerNum));
 
         boardView.updateBoard(recentState.getBoard());
         boardView.invalidate();
