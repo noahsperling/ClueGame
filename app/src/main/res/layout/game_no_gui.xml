@@ -208,7 +208,8 @@
                             android:text="Messages:"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/messageStaticTextView" />
+                            android:id="@+id/messageStaticTextView"
+                            android:textSize="17sp" />
 
                         <TextView
                             android:text="Messages:"
