@@ -1,13 +1,13 @@
 package edu.up.cs301.game;
 
-
-import android.graphics.Point;
+import java.io.Serializable;
 
 /**
  * Created by Eric Imperio on 11/8/2016.
  */
 
-public class Tile {
+public class Tile implements Serializable{
+    private static final long serialVersionUID = 354323253259789895L;
     private int tileType; //0 = hallway, 1 = room
     private boolean isDoor;
     private boolean topWall = false;

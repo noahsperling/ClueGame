@@ -1,9 +1,7 @@
 package edu.up.cs301.game;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Hashtable;
 import java.util.Random;
 
 import edu.up.cs301.game.infoMsg.GameState;
@@ -12,7 +10,7 @@ import edu.up.cs301.game.infoMsg.GameState;
  * Created by Noah on 10/25/2016.
  */
 
-public class ClueState extends GameState {
+public class ClueState extends GameState implements Serializable{
 
     private int turnID;
     private int numPlayers;
@@ -92,8 +90,8 @@ public class ClueState extends GameState {
         for(Card c: Card.values()) {
             allCards.add(c);
         }
-        Collections.shuffle(allCards);
-        Collections.shuffle(allCards); //a second time just to be thorough
+        allCards = shuffle(allCards);
+        allCards = shuffle(allCards); //a second time just to be thorough
 
         //sets up a solution that actually works
         Card[] rooms = {Card.BALLROOM, Card.BILLIARD_ROOM, Card.CONSERVATORY, Card.DINING_ROOM, Card.HALL, Card.KITCHEN, Card.LOUNGE, Card.LIBRARY, Card.STUDY};
@@ -148,6 +146,19 @@ public class ClueState extends GameState {
         canRoll[turnID] = true;
 
         winnerIndex = -1;
+    }
+
+    private ArrayList<Card> shuffle(ArrayList<Card> cards) {
+        Random rand = new Random();
+        ArrayList<Card> rtnCards = cards;
+        for(int i = 0; i<rtnCards.size();i++){
+            int transferToIdx = rand.nextInt(rtnCards.size());
+            Card thisCard = rtnCards.get(i);
+            Card idxCard = rtnCards.get(transferToIdx);
+            rtnCards.set(i, idxCard);
+            rtnCards.set(transferToIdx, thisCard);
+        }
+        return  rtnCards;
     }
 
     public ClueState(ClueState s) {

@@ -1,14 +1,16 @@
 package edu.up.cs301.game;
 
-        import java.util.ArrayList;
+import java.io.Serializable;
+import java.util.ArrayList;
 
 
 /**
  * Created by Noah on 11/13/2016.
  */
 
-public class Hand {
+public class Hand implements Serializable {
     private ArrayList<Card> cards;
+    private static final long serialVersionUID = 274627421961754662L;
 
     public Hand() {
         cards = new ArrayList<Card>();
