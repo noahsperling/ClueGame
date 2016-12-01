@@ -1,12 +1,12 @@
 package edu.up.cs301.game;
 
-import android.graphics.Color;
+import java.io.Serializable;
 
 /**
  * Created by Eric Imperio on 11/8/2016.
  */
 
-public enum Card {
+public enum Card implements Serializable {
     HALL("Hall", Type.ROOM, Color.rgb(247,220,111)), //yellow
     BILLIARD_ROOM("Billiard Room", Type.ROOM, Color.rgb(39,174,96)), //green
     BALLROOM("Ballroom", Type.ROOM, Color.rgb(220,118,51)), //brown
@@ -32,6 +32,7 @@ public enum Card {
     private String name;
     private Type cardType;
     private int color;
+    private static final long serialVersionUID = 45093509329032850L;
 
     Card(String name, Type cardType, int color){
         this.name = name;

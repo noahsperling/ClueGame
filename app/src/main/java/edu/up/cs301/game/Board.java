@@ -1,15 +1,16 @@
 package edu.up.cs301.game;
 
-import android.graphics.Point;
+import java.io.Serializable;
 
 /**
  * Created by Eric Imperio on 11/13/2016.
  */
 
-public class Board {
+public class Board implements Serializable{
     private Tile[][] board = new Tile[27][27];
     private int playerBoard[][] = new int[27][27];
     public static int TILE_SIZE = 39;
+    private static final long serialVersionUID = 43290595034145095L;
 
     public Board(){
         for(int i = 0; i <27; i++){ //buffer
