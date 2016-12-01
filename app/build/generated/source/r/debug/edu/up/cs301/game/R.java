@@ -30,9 +30,31 @@ public final class R {
         public static final int table_row_vert_pad=0x7f090005;
     }
     public static final class drawable {
-        public static final int ic_action_search=0x7f020000;
-        public static final int ic_launcher=0x7f020001;
-        public static final int purple_delete_button=0x7f020002;
+        public static final int ballroom=0x7f020000;
+        public static final int ballroom_room=0x7f020001;
+        public static final int candlestick=0x7f020002;
+        public static final int clue=0x7f020003;
+        public static final int col_mustard=0x7f020004;
+        public static final int conservatory=0x7f020005;
+        public static final int dining_room=0x7f020006;
+        public static final int hall=0x7f020007;
+        public static final int ic_action_search=0x7f020008;
+        public static final int ic_launcher=0x7f020009;
+        public static final int kitchen=0x7f02000a;
+        public static final int knife=0x7f02000b;
+        public static final int lead_pipe=0x7f02000c;
+        public static final int library=0x7f02000d;
+        public static final int lounge=0x7f02000e;
+        public static final int miss_scarlet=0x7f02000f;
+        public static final int mr_green=0x7f020010;
+        public static final int mrs_peacock=0x7f020011;
+        public static final int mrs_white=0x7f020012;
+        public static final int prof_plum=0x7f020013;
+        public static final int purple_delete_button=0x7f020014;
+        public static final int revolver=0x7f020015;
+        public static final int rope=0x7f020016;
+        public static final int study=0x7f020017;
+        public static final int wrench=0x7f020018;
     }
     public static final class id {
         public static final int a=0x7f0c0067;

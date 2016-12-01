@@ -14,6 +14,10 @@ import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import java.io.Serializable;
+import android.graphics.BitmapFactory;
+import android.graphics.Bitmap;
+import android.content.res.Resources;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -128,6 +132,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             boardView.updateBoard(recentState.getBoard());
         }
         cardView = (ClueCardView) myActivity.findViewById(R.id.playerHandView);
+
+        //Bitmap for the PlayerHandView
+        Bitmap b = BitmapFactory.decodeResource(Resources.getSystem(), R.raw.ballroom);
 
         upButton = (Button)myActivity.findViewById(R.id.upButton);
         upButton.setOnClickListener(this);
