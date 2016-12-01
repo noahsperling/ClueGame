@@ -116,18 +116,32 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                     Log.i("Computer Player "+playerNum, "Moving"+ move);
                     sleep(300);
 
-                    if (move == 1) {
+                    if (move == 1)
+                    {
                         game.sendAction(new ClueMoveLeftAction((this)));
-                    } else if (move == 2) {
+                    }
+                    else if (move == 2)
+                    {
                         game.sendAction(new ClueMoveUpAction((this)));
-                    } else if (move == 3) {
+                    }
+                    else if (move == 3)
+                    {
                         game.sendAction(new ClueMoveRightAction((this)));
-                    } else if (move == 4) {
+                    }
+                    else if (move == 4)
+                    {
                         game.sendAction(new ClueMoveDownAction(this));
-                    } else if (move == 5) {
+                    }
+                    else if (move == 5)
+                    {
                         game.sendAction(new ClueUsePassagewayAction(this));
                     }
-                } else {
+
+
+                    //Adding stuff that *might* make the smart AI actually smart...
+
+                }
+                else {
                     Log.i("Computer Player "+playerNum, "End Turn");
                     game.sendAction(new ClueEndTurnAction(this));
                 }
@@ -196,7 +210,9 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                 guess2 = myState.getAllCards().get(intGuess2);
             }*/
 
-        } else {
+        }
+        else
+        {
             return;
         }
 
