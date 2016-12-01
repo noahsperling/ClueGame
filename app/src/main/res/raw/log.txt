@@ -23,8 +23,23 @@ Solution:
         android:layout_height="match_parent"
         android:id="@+id/surfaceView" />
 
-Problem: How to add items to spinners
-Steps Taken: used https://developer.android.com/reference/android/widget/ArrayAdapter.html
-and http://stackoverflow.com/questions/5241660/how-can-i-add-items-to-a-spinner-in-android
-Solution: Cannot set on click listener for spinners. Instead, I created an ArrayAdapter<String>
-and used this adapter for each of the three spinners.
+Problem:
+    How to add items to spinners
+Steps Taken:
+    used https://developer.android.com/reference/android/widget/ArrayAdapter.html
+    http://stackoverflow.com/questions/5241660/how-can-i-add-items-to-a-spinner-in-android
+Solution:
+    Cannot set on click listener for spinners. Instead, I created an ArrayAdapter<String>
+    and used this adapter for each of the three spinners.
+
+Problem:
+    How to draw objects on a canvas
+Steps Taken:
+    Looked at: https://developer.android.com/reference/android/graphics/BitmapFactory.html
+    Advised by Dr. Nuxoll to do something with a BitMapFactory
+    Actually used: http://stackoverflow.com/questions/2172523/draw-object-image-on-canvas
+Solutution:
+    Move all the images into the drawable folder
+    declare new drawable images with each of the cards
+    Declare them all in the constructor of clueCardView
+    Write a bunch of if statements to determine which card is drawn
