@@ -23,6 +23,7 @@ import edu.up.cs301.game.infoMsg.GameInfo;
 public class ComputerPlayerSmart extends GameComputerPlayer {
     //does smart AI stuff
     private boolean[] checkBoxVals = new boolean[21];
+    private Card[] allCards;
 
     public ComputerPlayerSmart(String name) {
         super(name);
@@ -78,7 +79,13 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                 }
             }
             if(!oneChecked) {
+                allCards = new Card[21];
                 int j = 0;
+                for(Card card: Card.values()) {
+                    allCards[j] = card;
+                    j++;
+                }
+                j = 0;
                 for(Card c: Card.values()) {
                     for(int i = 0; i < myState.getCards(playerNum).getArrayListLength(); i++) {
                         if(c.equals(myState.getCards(playerNum).getCards()[i])) {
