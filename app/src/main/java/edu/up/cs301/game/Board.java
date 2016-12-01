@@ -385,5 +385,21 @@ public class Board implements Serializable{
         playerBoard[m][n] = -1;
     }
 
+    public void setPlayerBoard(int[][] playerBoard){
+        for(int i=0;i<27;i++){
+            for(int j=0;j<27;j++){
+                this.playerBoard[j][i] = playerBoard[j][i];
+            }
+        }
+    }
+
+    public void setBoard(Tile[][] tiles){
+        for(int i=0;i<27;i++){
+            for(int j=0;j<27;j++){
+                board[j][i] = tiles[j][i];
+            }
+        }
+    }
+
 
 }
