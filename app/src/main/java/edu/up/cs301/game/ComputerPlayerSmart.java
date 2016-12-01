@@ -22,6 +22,8 @@ import edu.up.cs301.game.infoMsg.GameInfo;
 
 public class ComputerPlayerSmart extends GameComputerPlayer {
     //does smart AI stuff
+    private boolean[] checkBoxVals = new boolean[21];
+
     public ComputerPlayerSmart(String name) {
         super(name);
     }
@@ -37,11 +39,6 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
     @Override
     protected void receiveInfo(GameInfo info) {
         if (info instanceof ClueState) {
-            /*if(((ClueState)info).getTurnId() == playerID) {
-                game.sendAction(new ClueEndTurnAction(this));
-            }*/
-
-            // I just commented it out to try a couple things.
             ClueState myState = (ClueState) info; //cast it
             if(myState.getCheckCardToSend()[playerNum]) {
                 Log.i("Computer Player "+playerNum,"Showing Card");
@@ -64,10 +61,6 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                 String[] validCards = new String[cards.size()];
                 cards.toArray(validCards);
                 if(validCards.length == 0) {
-                        /*ClueShowCardAction s = new ClueShowCardAction(this);
-                        s.setCardToShow(null);
-                        game.sendAction(s);
-                        //game.sendAction(null);*/
                     game.sendAction(new ClueShowCardAction(this));
                 }else {
                     Random rand1 = new Random();
@@ -77,6 +70,24 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                     game.sendAction(s);
                 }
             }
+            boolean oneChecked = false;
+            for(int i = 0; i < 21; i++) {
+                boolean tempChecked = myState.getCheckBox(playerNum, i);
+                if(tempChecked) {
+                    oneChecked = true;
+                }
+            }
+            if(!oneChecked) {
+                int j = 0;
+                for(Card c: Card.values()) {
+                    for(int i = 0; i < myState.getCards(playerNum).getArrayListLength(); i++) {
+                        if(c.equals(myState.getCards(playerNum).getCards()[i])) {
+                            checkBoxVals[j] = true;
+                        }
+                    }
+                    j++;
+                }
+            }
             if (myState.getTurnId() == playerNum && myState.getPlayerStillInGame(playerNum)) {
                 if (myState.getCanRoll(this.playerNum)) {
                     Log.i("Computer Player"+playerNum, "Rolling");
@@ -84,11 +95,6 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                     return;
                 }else if (myState.getNewToRoom(this.playerNum)) {
                     //make suggestion
-                    Card guess1;
-                    Card guess2;
-                    Random ranCards = new Random();
-                    int intGuess1 = ranCards.nextInt(21);
-                    int intGuess2 = ranCards.nextInt(21);
 
                     Card[] suspects = {Card.MISS_SCARLET, Card.COL_MUSTARD, Card.MR_GREEN, Card.MRS_PEACOCK, Card.MRS_WHITE, Card.PROF_PLUM};
                     Card[] weapons = {Card.WRENCH, Card.KNIFE, Card.CANDLESTICK, Card.REVOLVER, Card.ROPE, Card.LEAD_PIPE};
@@ -105,17 +111,20 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                         }
                     }
 
+                    /*
                     csa.suspect = suspects[rand.nextInt(6)].getName();
                     csa.weapon = weapons[rand.nextInt(6)].getName();
+                    */
+
                     Log.i("Computer Player "+playerNum,"Suggesting");
                     game.sendAction(csa);
 
                 } else if (myState.getDieValue() != myState.getSpacesMoved()) {
-                    Random rand = new Random();
-                    int move = rand.nextInt(5) + 1;
-                    Log.i("Computer Player "+playerNum, "Moving"+ move);
-                    sleep(300);
+                    int move = 0;
 
+                    //calculate best move here
+
+                    //still useful to send actual moves once generated
                     if (move == 1) {
                         game.sendAction(new ClueMoveLeftAction((this)));
                     } else if (move == 2) {
@@ -131,71 +140,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                     Log.i("Computer Player "+playerNum, "End Turn");
                     game.sendAction(new ClueEndTurnAction(this));
                 }
-
-
-            }//
-
-
-
-
-            /*Card guess1;
-            Card guess2;
-
-            //return because it is not the AI's turn
-            if (myState.getTurnId() != this.playerID) {
-                return;
             }
-
-            // delay for a second to make opponent think we're thinking
-            sleep(1000);
-
-            //get its hand in case we need to do something with this
-            myState.getCards(this.playerID);
-
-
-            //roll the die
-            //check to see if the player can roll
-            //These actions take in a GamePlayer
-            if (myState.getCanRoll(this.playerID) == true) {
-                game.sendAction(new ClueRollAction(this));
-            }
-
-            //random generator for move actions
-            Random rand = new Random();
-            int move = rand.nextInt(4);
-
-            if (move == 1) {
-                game.sendAction(new ClueMoveLeftAction((this)));
-            }
-            if (move == 2) {
-                game.sendAction(new ClueMoveUpAction((this)));
-            }
-            if (move == 3) {
-                game.sendAction(new ClueMoveRightAction((this)));
-            }
-            if (move == 4) {
-                game.sendAction(new ClueMoveDownAction(this));
-            }
-
-            //if it enters a room, suggest random
-            if (myState.getCanSuggest(this.playerID)) {
-                Random ranCards = new Random();
-
-                int intGuess1 = ranCards.nextInt(21);
-                int intGuess2 = ranCards.nextInt(21);
-
-                while (intGuess1 == intGuess2) {
-                    int temp1 = ranCards.nextInt(21);
-                    int temp2 = ranCards.nextInt(21);
-
-                    intGuess1 = temp1;
-                    intGuess2 = temp2;
-                }
-
-                guess1 = myState.getAllCards().get(intGuess1);
-                guess2 = myState.getAllCards().get(intGuess2);
-            }*/
-
         } else {
             return;
         }
