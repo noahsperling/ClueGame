@@ -580,11 +580,15 @@ public class ClueLocalGame extends LocalGame {
                     return true;
                 }else if(b.playerID == state.getNumPlayers() - 1 && state.getPlayerIDWhoSuggested() == 0) {
                     state.setCheckCardToSend(b.playerID, false);
+                    state.setCardToShow("No card shown.", state.getPlayerIDWhoSuggested());
+                    return true;
                 }else if(state.getPlayerIDWhoSuggested() != b.playerID + 1) {
                     state.setCheckCardToSend(b.playerID, false);
                     state.setCheckCardToSend(b.playerID + 1, true);
+                    return true;
                 }else if(b.playerID == state.getPlayerIDWhoSuggested()-1){
                     state.setCheckCardToSend(b.playerID, false);
+                    state.setCardToShow("No card shown.", state.getPlayerIDWhoSuggested());
                     return true;
                 }
                 return true;
