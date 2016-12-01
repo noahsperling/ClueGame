@@ -13,11 +13,6 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import java.io.Serializable;
-import android.graphics.BitmapFactory;
-import android.graphics.Bitmap;
-import android.content.res.Resources;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -387,6 +382,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             if (corner[playerNum] && !usedPassage[playerNum])
             {
                 secretPassagewayButton.setEnabled(true);
+            }
+            else {
+                secretPassagewayButton.setEnabled(false);
             }
 
         }else if(recentState.getTurnId() == playerNum && !recentState.getPlayerStillInGame(playerNum)){

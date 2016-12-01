@@ -209,7 +209,9 @@ public class ClueState extends GameState implements Serializable{
         dieValue = s.getDieValue();
         spacesMoved = s.getSpacesMoved();
         gameOver = s.getGameOver();
-        board = s.getBoard();
+        board = new Board();
+        board.setBoard(s.getBoard().getBoardArr());
+        board.setPlayerBoard(s.getBoard().getPlayerBoard());
         suggestCards = s.getSuggestCards();
         playerIDWhoSuggested = s.getPlayerIDWhoSuggested();
         checkCardToSend = s.getCheckCardToSend();
