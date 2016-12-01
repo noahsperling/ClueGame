@@ -354,7 +354,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             billiardRoomCheck.setEnabled(false);
             libraryCheck.setEnabled(false);
             studyCheck.setEnabled(false);
-            recentState.setCardToShow("You Lost!", playerNum);
+            recentState.setCardToShow("\n You Lost!", playerNum);
             setSolutionSpinners(recentState.getSolution());
 
         }
