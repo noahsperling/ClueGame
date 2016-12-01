@@ -1,8 +1,6 @@
 package edu.up.cs301.game.actionMsg;
 
-import edu.up.cs301.game.ClueComputerPlayer;
 import edu.up.cs301.game.ClueHumanPlayer;
-import edu.up.cs301.game.ComputerPlayerDumb;
 import edu.up.cs301.game.GameComputerPlayer;
 import edu.up.cs301.game.GamePlayer;
 
