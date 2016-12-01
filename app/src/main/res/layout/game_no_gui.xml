@@ -365,7 +365,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/mustardTextView"
-                    android:layout_row="2"
+                    android:layout_row="3"
                     android:layout_column="0"
                     android:text="Colonel Mustard" />
 
@@ -374,7 +374,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/plumTextVIew"
-                    android:layout_row="3"
+                    android:layout_row="5"
                     android:layout_column="0" />
 
                 <TextView
@@ -382,7 +382,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/mrGreenTextView"
-                    android:layout_row="4"
+                    android:layout_row="2"
                     android:layout_column="0" />
 
                 <TextView
@@ -390,7 +390,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/mrsPeacockTextVIew"
-                    android:layout_row="5"
+                    android:layout_row="4"
                     android:layout_column="0" />
 
                 <TextView
@@ -422,7 +422,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/knifeTextView"
-                    android:layout_row="9"
+                    android:layout_row="10"
                     android:layout_column="0" />
 
                 <TextView
@@ -430,7 +430,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/candlestickTextView"
-                    android:layout_row="10"
+                    android:layout_row="9"
                     android:layout_column="0" />
 
                 <TextView
@@ -438,7 +438,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/revolverTextView"
-                    android:layout_row="11"
+                    android:layout_row="12"
                     android:layout_column="0" />
 
                 <TextView
@@ -446,7 +446,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/ropeTextView"
-                    android:layout_row="12"
+                    android:layout_row="13"
                     android:layout_column="0" />
 
                 <TextView
@@ -454,7 +454,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/leadPipeTextView"
-                    android:layout_row="13"
+                    android:layout_row="11"
                     android:layout_column="0" />
 
                 <TextView
@@ -478,7 +478,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/hallTextView"
-                    android:layout_row="16"
+                    android:layout_row="20"
                     android:layout_column="0" />
 
                 <TextView
@@ -486,7 +486,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/loungeTextView"
-                    android:layout_row="17"
+                    android:layout_row="23"
                     android:layout_column="0" />
 
                 <TextView
@@ -494,7 +494,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/ballRoomTextView"
-                    android:layout_row="18"
+                    android:layout_row="16"
                     android:layout_column="0" />
 
                 <TextView
@@ -502,7 +502,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/kitchenTextView"
-                    android:layout_row="19"
+                    android:layout_row="21"
                     android:layout_column="0" />
 
                 <TextView
@@ -510,14 +510,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/conservatoryTextView"
-                    android:layout_row="20"
+                    android:layout_row="18"
                     android:layout_column="0" />
 
                 <TextView
                     android:text="Study"
                     android:layout_width="wrap_content"
                     android:id="@+id/studyTextView"
-                    android:layout_row="21"
+                    android:layout_row="24"
                     android:layout_column="0"
                     android:layout_height="wrap_content" />
 
@@ -526,7 +526,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/billiardRoomTextView"
-                    android:layout_row="22"
+                    android:layout_row="17"
                     android:layout_column="0" />
 
                 <TextView
@@ -534,7 +534,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/diningRoomTextView"
-                    android:layout_row="23"
+                    android:layout_row="19"
                     android:layout_column="0" />
 
                 <TextView
@@ -542,13 +542,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/libraryTextView"
-                    android:layout_row="24"
+                    android:layout_row="22"
                     android:layout_column="0" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:id="@+id/profPlumCheckBox"
-                    android:layout_row="3"
+                    android:layout_row="5"
                     android:layout_column="1"
                     android:layout_height="20dp" />
 
@@ -556,14 +556,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:id="@+id/mrGreenCheckBox"
-                    android:layout_row="4"
+                    android:layout_row="2"
                     android:layout_column="1" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:id="@+id/mrsPeacockCheckBox"
-                    android:layout_row="5"
+                    android:layout_row="4"
                     android:layout_column="1" />
 
                 <CheckBox
@@ -583,7 +583,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:id="@+id/knifeCheckBox"
-                    android:layout_row="9"
+                    android:layout_row="10"
                     android:layout_column="1"
                     android:layout_height="20dp" />
 
@@ -591,28 +591,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:id="@+id/candlestickCheckBox"
-                    android:layout_row="10"
+                    android:layout_row="9"
                     android:layout_column="1" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:id="@+id/revolverCheckbox"
-                    android:layout_row="11"
-                    android:layout_column="1" />
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:id="@+id/ropeCheckBox"
                     android:layout_row="12"
                     android:layout_column="1" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:id="@+id/leadPipeCheckBox"
+                    android:id="@+id/ropeCheckBox"
                     android:layout_row="13"
+                    android:layout_column="1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:id="@+id/leadPipeCheckBox"
+                    android:layout_row="11"
                     android:layout_column="1" />
 
                 <CheckBox
@@ -626,69 +626,69 @@
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:id="@+id/hallCheckBox"
-                    android:layout_row="16"
-                    android:layout_column="1" />
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:id="@+id/loungeCheckBox"
-                    android:layout_row="17"
-                    android:layout_column="1" />
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:id="@+id/ballRoomCheckBox"
-                    android:layout_row="18"
-                    android:layout_column="1" />
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:id="@+id/kitchenCheckBox"
-                    android:layout_row="19"
-                    android:layout_column="1" />
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="19dp"
-                    android:id="@+id/conservatoryCheckBox"
                     android:layout_row="20"
                     android:layout_column="1" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:id="@+id/studyCheckBox"
-                    android:layout_row="21"
-                    android:layout_column="1" />
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:id="@+id/billiardCheckBox"
-                    android:layout_row="22"
-                    android:layout_column="1" />
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:id="@+id/diningRoomCheckBox"
+                    android:id="@+id/loungeCheckBox"
                     android:layout_row="23"
                     android:layout_column="1" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:id="@+id/libraryCheckBox"
+                    android:id="@+id/ballRoomCheckBox"
+                    android:layout_row="16"
+                    android:layout_column="1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:id="@+id/kitchenCheckBox"
+                    android:layout_row="21"
+                    android:layout_column="1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="19dp"
+                    android:id="@+id/conservatoryCheckBox"
+                    android:layout_row="18"
+                    android:layout_column="1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:id="@+id/studyCheckBox"
                     android:layout_row="24"
                     android:layout_column="1" />
 
                 <CheckBox
                     android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:id="@+id/billiardCheckBox"
+                    android:layout_row="17"
+                    android:layout_column="1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:id="@+id/diningRoomCheckBox"
+                    android:layout_row="19"
+                    android:layout_column="1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:id="@+id/libraryCheckBox"
+                    android:layout_row="22"
+                    android:layout_column="1" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
                     android:id="@+id/colMustardCheckBox"
-                    android:layout_row="2"
+                    android:layout_row="3"
                     android:layout_column="1"
                     android:layout_height="20dp" />
 
