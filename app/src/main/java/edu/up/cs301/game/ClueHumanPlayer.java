@@ -133,9 +133,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         }
         cardView = (ClueCardView) myActivity.findViewById(R.id.playerHandView);
 
-        //Bitmap for the PlayerHandView
-        Bitmap b = BitmapFactory.decodeResource(Resources.getSystem(), R.raw.ballroom);
-
         upButton = (Button)myActivity.findViewById(R.id.upButton);
         upButton.setOnClickListener(this);
         //upButton.setEnabled(false);
