@@ -30,12 +30,23 @@ public class Hand implements Serializable {
         cards.add(c);
     }
 
-    public Card[] getCards() {
-        Card tempCardArray[] = new Card[cards.size()];
-        for(int i = 0; i < cards.size(); i++) {
+    public Card[] getCards(int size) {
+        Card tempCardArray[] = new Card[size];
+        for (int i = 0; i < size; i++) {
             tempCardArray[i] = cards.get(i);
         }
         return tempCardArray;
+    }
+
+    public Card[] getCards() {
+        if(cards != null) {
+            Card tempCardArray[] = new Card[cards.size()];
+            for (int i = 0; i < cards.size(); i++) {
+                tempCardArray[i] = cards.get(i);
+            }
+            return tempCardArray;
+        }
+        return null;
     }
 
     public int getArrayListLength() {

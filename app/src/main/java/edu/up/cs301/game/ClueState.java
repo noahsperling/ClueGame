@@ -1,5 +1,7 @@
 package edu.up.cs301.game;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
@@ -165,64 +167,86 @@ public class ClueState extends GameState implements Serializable{
         turnID = s.turnID;
         numPlayers = s.getNumPlayers();
         playerIDs = new int[numPlayers];
+        dieValue = s.getDieValue();
+        spacesMoved = s.getSpacesMoved();
+        notes = new String[numPlayers];
         playerNames = new String[numPlayers];
         canSuggest = new boolean[numPlayers];
         canRoll = new boolean[numPlayers];
         checkboxes = new boolean[numPlayers][21];
-        cards = new Hand[numPlayers];
-        newToRoom = new boolean[numPlayers];
-        notes = new String[numPlayers];
         cardsPerHand = s.getCardsPerHand();
         cards = new Hand[numPlayers];
-        playerStillInGame = s.playerStillInGame;
-        inCornerRoom = s.getInCornerRoom();
+        solution = s.getSolution();
+        gameOver = s.getGameOver();
+        board = new Board();
+        newToRoom = new boolean[numPlayers];
+        playerStillInGame = new boolean[numPlayers];
+        inCornerRoom = new boolean[numPlayers];
+        suggestCards = new String[3];
+        playerIDWhoSuggested = s.getPlayerIDWhoSuggested();
         cardToShow = new String[numPlayers];
+        checkCardToSend = new boolean[numPlayers];
+        usedPassageway = new boolean[numPlayers];
         inRoom = new boolean[numPlayers];
-
-        for(int i = 0; i < numPlayers; i++) {
-            cardToShow[i] = s.getCardToShow(i);
-        }
-        usedPassageway = s.getUsedPassageway();
-
+        winnerIndex = s.getWinnerIndex();
 
         for(int i = 0; i < numPlayers; i++) {
             playerIDs[i] = s.getPlayerID(i);
+            notes[i] = s.getNotes(i);
             playerNames[i] = s.getPlayerName(i);
             canSuggest[i] = s.getCanSuggest(i);
             canRoll[i] = s.getCanRoll(i);
-            notes[i] = s.getNotes(i);
+            newToRoom[i] = s.getNewToRoom(i);
+            playerStillInGame[i] = s.getPlayerStillInGame(i);
+            inCornerRoom[i] = s.getInCornerRoom(i);
             cardToShow[i] = s.getCardToShow(i);
+            checkCardToSend[i] = s.getCheckCardToSend(i);
+            usedPassageway[i] = s.getUsedPassageway(i);
+            inRoom[i] = s.getInRoom(i);
         }
 
         for(int i = 0; i < numPlayers; i++) {
-            cards[i] = s.getCards(i);
+            cards[i] = new Hand();
+                for (int j = 0; j < cardsPerHand; j++) {
+                    if(s.getCards(i) != null && s.getCards(i).getCards() != null && s.getCards(i).getCards()[j] != null) {
+                        cards[i].addCard(s.getCards(i).getCards()[j]);
+                    }
+                }
         }
 
-        solution = s.getSolution();
-        checkboxes = new boolean[numPlayers][21];
         for(int i = 0; i < numPlayers; i++) {
             for(int j = 0; j < 21; j++) {
                 checkboxes[i][j] = s.getCheckBox(i, j);
             }
         }
 
-        dieValue = s.getDieValue();
-        spacesMoved = s.getSpacesMoved();
-        gameOver = s.getGameOver();
-        board = new Board();
+        for(int i =0;i<3;i++){
+            suggestCards[i] = s.getSuggestCards(i);
+        }
+
+
         board.setBoard(s.getBoard().getBoardArr());
         board.setPlayerBoard(s.getBoard().getPlayerBoard());
-        suggestCards = s.getSuggestCards();
-        playerIDWhoSuggested = s.getPlayerIDWhoSuggested();
-        checkCardToSend = s.getCheckCardToSend();
+    }
 
-        //The commented code below causes an error in computer player dumb
-        for (int i = 0; i < numPlayers; i++)
-        {
-            newToRoom[i] = s.getNewToRoom(i);
-        }
-        inRoom = s.getInRoom();
-        winnerIndex = s.getWinnerIndex();
+    private String getSuggestCards(int i) {
+        return suggestCards[i];
+    }
+
+    private boolean getInRoom(int i) {
+        return inRoom[i];
+    }
+
+    private boolean getUsedPassageway(int i) {
+        return usedPassageway[i];
+    }
+
+    private boolean getCheckCardToSend(int i) {
+        return checkCardToSend[i];
+    }
+
+    private boolean getInCornerRoom(int i) {
+        return inCornerRoom[i];
     }
 
     //getters
