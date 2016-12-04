@@ -5,6 +5,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Random;
 
+import edu.up.cs301.game.actionMsg.ClueAccuseAction;
 import edu.up.cs301.game.actionMsg.ClueEndTurnAction;
 import edu.up.cs301.game.actionMsg.ClueMoveDownAction;
 import edu.up.cs301.game.actionMsg.ClueMoveLeftAction;
@@ -24,6 +25,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
     //does smart AI stuff
     private boolean[] checkBoxVals = new boolean[21];
     private Card[] allCards;
+    private ClueSuggestionAction prevSuggestion = null;
 
     public ComputerPlayerSmart(String name) {
         super(name);
@@ -100,12 +102,35 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                     Log.i("Computer Player"+playerNum, "Rolling");
                     game.sendAction(new ClueRollAction(this));
                     return;
+                }else if(myState.getCardToShow(this.playerNum).equals("No card shown.")) {
+                    ClueAccuseAction caa = new ClueAccuseAction(this);
+                    caa.room = prevSuggestion.room;
+                    caa.suspect = prevSuggestion.suspect;
+                    caa.weapon = prevSuggestion.weapon;
+                    game.sendAction(caa);
+
                 }else if (myState.getNewToRoom(this.playerNum)) {
                     //make suggestion
 
-                    Card[] suspects = {Card.MISS_SCARLET, Card.COL_MUSTARD, Card.MR_GREEN, Card.MRS_PEACOCK, Card.MRS_WHITE, Card.PROF_PLUM};
-                    Card[] weapons = {Card.WRENCH, Card.KNIFE, Card.CANDLESTICK, Card.REVOLVER, Card.ROPE, Card.LEAD_PIPE};
+                    Card[] suspects = {Card.COL_MUSTARD, Card.PROF_PLUM, Card.MR_GREEN, Card.MRS_PEACOCK, Card.MISS_SCARLET, Card.MRS_WHITE};
+                    Card[] weapons = {Card.KNIFE, Card.CANDLESTICK, Card.REVOLVER, Card.ROPE, Card.LEAD_PIPE, Card.WRENCH};
                     Random rand = new Random();
+                    ArrayList<Card> availableSuspects = new ArrayList<Card>();
+                    ArrayList<Card> availableWeapons = new ArrayList<Card>();
+
+                    //add suspects not already known to not be the murderer
+                    for(int i = 0; i < 6; i++) {
+                        if(!checkBoxVals[i]) {
+                            availableSuspects.add(suspects[i]);
+                        }
+                    }
+
+                    //add weapons not already known to not be the murder weapon
+                    for(int i = -5; i < 12; i++) {
+                        if(!checkBoxVals[i]) {
+                            availableWeapons.add(suspects[i]);
+                        }
+                    }
 
 
                     ClueSuggestionAction csa = new ClueSuggestionAction(this);
@@ -118,12 +143,11 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                         }
                     }
 
-                    /*
-                    csa.suspect = suspects[rand.nextInt(6)].getName();
-                    csa.weapon = weapons[rand.nextInt(6)].getName();
-                    */
+                    csa.suspect = availableSuspects.get(rand.nextInt(availableSuspects.size())).getName();
+                    csa.weapon = availableWeapons.get(rand.nextInt(availableWeapons.size())).getName();
 
                     Log.i("Computer Player "+playerNum,"Suggesting");
+                    prevSuggestion = csa;
                     game.sendAction(csa);
 
                 } else if (myState.getDieValue() != myState.getSpacesMoved()) {
