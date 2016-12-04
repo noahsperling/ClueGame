@@ -26,6 +26,9 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
     private boolean[] checkBoxVals = new boolean[21];
     private Card[] allCards;
     private ClueSuggestionAction prevSuggestion = null;
+    private int[][] roomCoordinates = {{12, 5}, {21, 4}, {21, 13}, {21,22}, {12, 22}, {4, 22},
+            {4, 15}, {4, 9}, {4, 3}};
+
 
     public ComputerPlayerSmart(String name) {
         super(name);
@@ -112,8 +115,10 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                 }else if (myState.getNewToRoom(this.playerNum)) {
                     //make suggestion
 
-                    Card[] suspects = {Card.COL_MUSTARD, Card.PROF_PLUM, Card.MR_GREEN, Card.MRS_PEACOCK, Card.MISS_SCARLET, Card.MRS_WHITE};
-                    Card[] weapons = {Card.KNIFE, Card.CANDLESTICK, Card.REVOLVER, Card.ROPE, Card.LEAD_PIPE, Card.WRENCH};
+                    Card[] suspects = {Card.COL_MUSTARD, Card.PROF_PLUM, Card.MR_GREEN,
+                            Card.MRS_PEACOCK, Card.MISS_SCARLET, Card.MRS_WHITE};
+                    Card[] weapons = {Card.KNIFE, Card.CANDLESTICK, Card.REVOLVER, Card.ROPE,
+                            Card.LEAD_PIPE, Card.WRENCH};
                     Random rand = new Random();
                     ArrayList<Card> availableSuspects = new ArrayList<Card>();
                     ArrayList<Card> availableWeapons = new ArrayList<Card>();
@@ -153,7 +158,16 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                 } else if (myState.getDieValue() != myState.getSpacesMoved()) {
                     int move = 0;
 
-                    //calculate best move here
+                    Card[] rooms = {Card.HALL, Card.LOUNGE, Card.DINING_ROOM, Card.KITCHEN, Card.BALLROOM,
+                            Card.CONSERVATORY, Card.BILLIARD_ROOM, Card.LIBRARY, Card.STUDY};
+                    Card roomToMoveTo = null;
+                    Card currentRoom = null; //null if not in a room, set to room if in room
+
+                    for(int i = 0; i < 9; i++) {
+                        //check room coordinates to figure out closest room not checked in checkbox
+                        //array to set roomToMoveTo to most closest room not current room
+                        //also consider passageways
+                    }
 
                     //still useful to send actual moves once generated
                     if (move == 1) {
