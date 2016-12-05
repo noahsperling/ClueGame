@@ -249,11 +249,11 @@ public class ClueState extends GameState implements Serializable{
     }
 
     //getters
-    /*public int[][] getPlayerBoard()
-    {
-        return playerBoard;
-    }
-    */
+//    /*public int[][] getPlayerBoard()
+//    {
+//        return playerBoard;
+//    }
+//    */
 
     public int getTurnId() {
         return turnID;

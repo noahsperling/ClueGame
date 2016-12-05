@@ -1,13 +1,8 @@
 package edu.up.cs301.game;
 
 import android.util.Log;
-import android.widget.ArrayAdapter;
-
-import java.util.ArrayList;
 
 import java.util.Random;
-
-import javax.net.ssl.HandshakeCompletedListener;
 
 import edu.up.cs301.game.actionMsg.ClueAccuseAction;
 import edu.up.cs301.game.actionMsg.ClueCheckAction;
@@ -24,7 +19,6 @@ import edu.up.cs301.game.actionMsg.ClueSuggestionAction;
 import edu.up.cs301.game.actionMsg.ClueUsePassagewayAction;
 import edu.up.cs301.game.actionMsg.ClueWrittenNoteAction;
 import edu.up.cs301.game.actionMsg.GameAction;
-import edu.up.cs301.game.config.GamePlayerType;
 
 import static edu.up.cs301.game.Card.BALLROOM;
 import static edu.up.cs301.game.Card.BILLIARD_ROOM;
@@ -64,9 +58,6 @@ public class ClueLocalGame extends LocalGame {
     public ClueLocalGame(int numPlayerFromTableRows) {
         super();
         String[] str = new String[numPlayerFromTableRows];
-        /*for(int i = 0; i<str.length;i++){
-            str[i] = gamePlayerTypes.get(i).getTypeName();
-        }*/
         state = new ClueState(numPlayerFromTableRows,str, 0);
         rand = new Random();
     }
@@ -556,7 +547,7 @@ public class ClueLocalGame extends LocalGame {
 
     }
 
-    public boolean makeNonTurnAction(ClueNonTurnAction a) { //arguments and maybe just delete
+    public boolean makeNonTurnAction(ClueNonTurnAction a) {
         nonTurnAction = a;
 
         if (nonTurnAction instanceof ClueWrittenNoteAction)
@@ -711,25 +702,25 @@ public class ClueLocalGame extends LocalGame {
         }
     }
 
-    /* not necessary but still here in case
-    private boolean checkTileValid(int x, int y, Board b) {
-        if(b.getBoardArr()[x][y] == null) {
-            return false;
-        }if(b.getBoardArr()[x][y].getTileType() == 0) {
-            return true;
-        }else if(b.getBoardArr()[x][y].getTileType() == 1 && b.getBoardArr()[x][y].getIsDoor()) {
-            return true;
-        }
-        return false;
-    }
-
-    private boolean checkIntValid(int x, int y, int[][] b) {
-        if(b[x][y] == -1) {
-            return true;
-        }else {
-            return false;
-        }
-    }
-    */
+//    /* not necessary but still here in case
+//    private boolean checkTileValid(int x, int y, Board b) {
+//        if(b.getBoardArr()[x][y] == null) {
+//            return false;
+//        }if(b.getBoardArr()[x][y].getTileType() == 0) {
+//            return true;
+//        }else if(b.getBoardArr()[x][y].getTileType() == 1 && b.getBoardArr()[x][y].getIsDoor()) {
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    private boolean checkIntValid(int x, int y, int[][] b) {
+//        if(b[x][y] == -1) {
+//            return true;
+//        }else {
+//            return false;
+//        }
+//    }
+//    */
 
 }

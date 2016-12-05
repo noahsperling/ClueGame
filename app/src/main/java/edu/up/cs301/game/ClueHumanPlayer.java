@@ -874,6 +874,11 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         suspectSpinner.setSelection(suspect);
     }
 
+    /*
+    Method that gets the cards from the player's hand and compares them to the suggestion made by another
+    player. If the cards match, they will be put into one spinner (the room spinner), for them to choose
+    whichever card they want to show to the other player.
+     */
     public void setSendCardSpinners() {
         String[] temp = recentState.getSuggestCards();
         Hand tempHand = recentState.getCards(playerNum);
