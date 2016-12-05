@@ -122,6 +122,7 @@ public class Board implements Serializable{
         board[9][7] = new Tile(1,true,Card.LIBRARY,new Point(7*TILE_SIZE,9*TILE_SIZE));
         board[10][7] = new Tile(1,false,Card.LIBRARY,new Point(7*TILE_SIZE,10*TILE_SIZE));
         board[11][4].setIsDoor(true);
+
         //Library Walls
         for(int i=1;i<7;i++){
             board[7][i].setTopWall(true);
@@ -129,6 +130,7 @@ public class Board implements Serializable{
         }
         board[7][6].setRightWall(true);
         board[11][6].setRightWall(true);
+        board[11][4].setBottomWall(false);
         for(int j=7;j<12;j++){
             if(!board[j][1].getIsDoor()) {
                 board[j][1].setLeftWall(true);
