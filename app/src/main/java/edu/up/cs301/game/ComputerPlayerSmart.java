@@ -26,8 +26,11 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
     private boolean[] checkBoxVals = new boolean[21];
     private Card[] allCards;
     private ClueSuggestionAction prevSuggestion = null;
-    private int[][] roomCoordinates = {{12, 5}, {21, 4}, {21, 13}, {21,22}, {12, 22}, {4, 22},
-            {4, 15}, {4, 9}, {4, 3}};
+    private int[][] doorCoordinates = {{5,10}, {7,12}, {7,13}, {6,18}, {10,18}, {13,17}, {19,20},
+            {21,16}, {18,15}, {18,10}, {21,9}, {20,5}, {16,6}, {13,2}, {9,7}, {4,7}};
+    private Card[] doorRooms = {Card.HALL, Card.HALL, Card.HALL, Card.LOUNGE, Card.DINING_ROOM,
+            Card.DINING_ROOM,Card.KITCHEN, Card.BALLROOM, Card.BALLROOM, Card.BALLROOM, Card.BALLROOM,
+            Card.CONSERVATORY, Card.BILLIARD_ROOM, Card.BILLIARD_ROOM, Card.LIBRARY, Card.STUDY};
 
 
     public ComputerPlayerSmart(String name) {
@@ -131,9 +134,9 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                     }
 
                     //add weapons not already known to not be the murder weapon
-                    for(int i = -5; i < 12; i++) {
+                    for(int i = 6; i < 12; i++) {
                         if(!checkBoxVals[i]) {
-                            availableWeapons.add(suspects[i]);
+                            availableWeapons.add(weapons[i-6]);
                         }
                     }
 
@@ -156,31 +159,117 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                     game.sendAction(csa);
 
                 } else if (myState.getDieValue() != myState.getSpacesMoved()) {
-                    int move = 0;
 
+                    try {
+                        Thread.sleep(100);
+                    }catch(Exception e) {}
                     Card[] rooms = {Card.HALL, Card.LOUNGE, Card.DINING_ROOM, Card.KITCHEN, Card.BALLROOM,
                             Card.CONSERVATORY, Card.BILLIARD_ROOM, Card.LIBRARY, Card.STUDY};
-                    Card roomToMoveTo = null;
+                    int curX = -1;
+                    int curY = -1;
+                    int closestX = 100;
+                    int closestY = 100;
+
                     Card currentRoom = null; //null if not in a room, set to room if in room
 
-                    for(int i = 0; i < 9; i++) {
+                    for (int i = 0; i < 26; i++) {
+                        for (int j = 0; j < 26; j++) {
+                            if (myState.getBoard().getPlayerBoard()[j][i] == playerNum) {
+                                curX = j;
+                                curY = i;
+                                currentRoom = myState.getBoard().getBoardArr()[j][i].getRoom();
+                                break;
+                            }
+                        }
+                    }
+
+                    for(int i = 0; i < 16; i++) {
+                        if (!doorRooms[i].equals(currentRoom)) {
+                            boolean roomChecked = true;
+                            for(int k = 0; k < 9; k++) {
+                                if(rooms[k].equals(doorRooms[i]) && !checkBoxVals[12+k]) {
+                                    roomChecked = false;
+                                }
+                            }
+
+                            //update to dX dY
+                            if ((((closestX- curX) * (closestX - curX)) + ((closestY - curY) * (closestY - curY))) >
+                                    (((doorCoordinates[i][0] - curX) * (doorCoordinates[i][0] - curX)) + ((doorCoordinates[i][1] - curY)
+                                            * (doorCoordinates[i][1] - curY))) && !roomChecked) {
+                                closestX = doorCoordinates[i][0];
+                                closestY = doorCoordinates[i][1];
+                            }
+                        }
+                    }
+
+                    int dX = closestX - curX;
+                    int dY = closestY - curY;
+                    boolean dXNegative = false;
+                    boolean dYNegative = false;
+
+                    if(dX < 0) {dX *= -1; dXNegative = true;}
+                    if(dY < 0) {dY *= -1; dYNegative = true;}
+
+                    if(dX > dY) {
+
+                        if(dYNegative && myState.getBoard().getBoardArr()[curX - 1][curY] != null) {
+                            if(!myState.getBoard().getBoardArr()[curX][curY - 1].getBottomWall()
+                            && !myState.getBoard().getBoardArr()[curX][curY].getTopWall()) {
+                                game.sendAction(new ClueMoveUpAction((this)));
+                                Log.i("Moved", "Up");
+                            }
+                        }else if(!dYNegative && myState.getBoard().getBoardArr()[curX + 1][curY] != null) {
+                            if(!myState.getBoard().getBoardArr()[curX + 1][curY].getTopWall()
+                            && !myState.getBoard().getBoardArr()[curX][curY].getBottomWall()) {
+                                game.sendAction(new ClueMoveDownAction(this));
+                                Log.i("Moved", "Down");
+                            }
+                        }else if(dXNegative && myState.getBoard().getBoardArr()[curX][curY - 1] != null) {
+                            if(!myState.getBoard().getBoardArr()[curX][curY - 1].getRightWall()
+                            && !myState.getBoard().getBoardArr()[curX][curY].getLeftWall()) {
+                                game.sendAction(new ClueMoveLeftAction((this)));
+                                Log.i("Moved", "Left");
+                            }
+                        }else if(!dXNegative && myState.getBoard().getBoardArr()[curX][curY + 1] != null) {
+                            if(!myState.getBoard().getBoardArr()[curX][curY + 1].getLeftWall()
+                            && !myState.getBoard().getBoardArr()[curX][curY].getRightWall()) {
+                                game.sendAction(new ClueMoveRightAction((this)));
+                                Log.i("Moved", "Right");
+                            }
+                        }
+                    }else {
+                        if (dXNegative && myState.getBoard().getBoardArr()[curX][curY - 1] != null) {
+                            if (!myState.getBoard().getBoardArr()[curX][curY - 1].getRightWall()
+                            && !myState.getBoard().getBoardArr()[curX][curY].getLeftWall()) {
+                                game.sendAction(new ClueMoveLeftAction((this)));
+                                Log.i("Moved", "Left");
+                            }
+                        } else if (!dXNegative && myState.getBoard().getBoardArr()[curX][curY + 1] != null) {
+                            if (!myState.getBoard().getBoardArr()[curX][curY + 1].getLeftWall()
+                            && !myState.getBoard().getBoardArr()[curX][curY].getRightWall()) {
+                                game.sendAction(new ClueMoveRightAction((this)));
+                                Log.i("Moved", "Right");
+                            }
+                        } else if (dYNegative && myState.getBoard().getBoardArr()[curX - 1][curY] != null) {
+                            if (!myState.getBoard().getBoardArr()[curX - 1][curY].getBottomWall()
+                            && !myState.getBoard().getBoardArr()[curX][curY].getTopWall()) {
+                                game.sendAction(new ClueMoveUpAction((this)));
+                                Log.i("Moved", "Up");
+                            }
+                        } else if (!dYNegative && myState.getBoard().getBoardArr()[curX + 1][curY] != null) {
+                            if (!myState.getBoard().getBoardArr()[curX + 1][curY].getTopWall()
+                            && !myState.getBoard().getBoardArr()[curX][curY].getBottomWall()) {
+                                game.sendAction(new ClueMoveDownAction(this));
+                                Log.i("Moved", "Down");
+                            }
+                        }
+
+                    }
+
+
                         //check room coordinates to figure out closest room not checked in checkbox
                         //array to set roomToMoveTo to most closest room not current room
                         //also consider passageways
-                    }
-
-                    //still useful to send actual moves once generated
-                    if (move == 1) {
-                        game.sendAction(new ClueMoveLeftAction((this)));
-                    } else if (move == 2) {
-                        game.sendAction(new ClueMoveUpAction((this)));
-                    } else if (move == 3) {
-                        game.sendAction(new ClueMoveRightAction((this)));
-                    } else if (move == 4) {
-                        game.sendAction(new ClueMoveDownAction(this));
-                    } else if (move == 5) {
-                        game.sendAction(new ClueUsePassagewayAction(this));
-                    }
                 } else {
                     Log.i("Computer Player "+playerNum, "End Turn");
                     game.sendAction(new ClueEndTurnAction(this));
