@@ -590,6 +590,7 @@ public class ClueLocalGame extends LocalGame {
                 }
                 else if (moveAction instanceof ClueEndTurnAction)
                 {
+                    Log.i("EndTurn"," "+curPlayerID);
                     //Check to make sure they are not on a door tile(so they can't block the door)
                     if (!curBoard[x][y].getIsDoor())
                     {
@@ -611,8 +612,10 @@ public class ClueLocalGame extends LocalGame {
                             state.setSpacesMoved(0);
                             state.setDieValue(0);
                             return true;
-
                         }
+                    }else if(players[curPlayerID] instanceof ComputerPlayerDumb) {
+                            state.setSpacesMoved(state.getSpacesMoved()-1);
+                            return false;
                     }
                 }
             }
