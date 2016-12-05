@@ -40,6 +40,7 @@ public class ClueState extends GameState implements Serializable{
     private boolean usedPassageway[];
     private boolean[] inRoom;
     private int winnerIndex;
+    private boolean[] onDoorTile;
 
     // to satisfy Serializable interface - IDK if necessary
     private static final long serialVersionUID = 7737393762469851826L;
@@ -77,6 +78,7 @@ public class ClueState extends GameState implements Serializable{
         checkCardToSend = new boolean[numPlayers];
         playerStillInGame = new boolean[numPlayers];
         inRoom = new boolean[numPlayers];
+        onDoorTile = new boolean[numPlayers];
 
         //says that all players are still in the game
         for(int i=0;i<numPlayers;i++){
@@ -188,6 +190,8 @@ public class ClueState extends GameState implements Serializable{
         usedPassageway = new boolean[numPlayers];
         inRoom = new boolean[numPlayers];
         winnerIndex = s.getWinnerIndex();
+        onDoorTile = s.getOnDoorTile();
+
 
         for(int i = 0; i < numPlayers; i++) {
             playerIDs[i] = s.getPlayerID(i);
@@ -373,7 +377,9 @@ public class ClueState extends GameState implements Serializable{
         return checkCardToSend;
     }
 
-    public boolean[] getInRoom () {return inRoom;}
+    public boolean[] getInRoom () { return inRoom; }
+
+    public boolean[] getOnDoorTile() {return onDoorTile; }
 
     public int getWinnerIndex() {
         return winnerIndex;
@@ -468,6 +474,8 @@ public class ClueState extends GameState implements Serializable{
     public void setWinnerIndex(int newWinnerIndex) {
         winnerIndex = newWinnerIndex;
     }
+
+    public void setOnDoorTile(int playerID, boolean onDoor) {onDoorTile[playerID] = onDoor; }
 
     public void setSolution(Card[] newSolution) {
         solution = newSolution;

@@ -168,6 +168,7 @@ public class ClueLocalGame extends LocalGame {
                                     state.getBoard().setPlayerBoard(x - 1, y, x , y, curPlayerID); //Set the new position of the player and set the old position to zero.
                                     state.setSpacesMoved(state.getSpacesMoved() + 1);
                                     state.setUsedPassageway(curPlayerID, false);
+                                    state.setOnDoorTile(curPlayerID, true);
                                     state.setNewToRoom(curPlayerID, true); //Set the new to room in array to true.
                                     x = x - 1;
                                     inCornerRoom(x, y, curBoard, curPlayerID);
@@ -186,11 +187,21 @@ public class ClueLocalGame extends LocalGame {
                                     state.getBoard().setPlayerBoard(x - 1, y, x, y, curPlayerID);
                                     //In order to prevent the dumb AI from moving around in a room indefinitely,
                                     //increment their spaces moved.
+
+
                                     if (a.getPlayer() instanceof ComputerPlayerDumb)
                                     {
                                         state.setSpacesMoved(state.getSpacesMoved() + 1);
                                     }
                                     x = x - 1;
+                                    if (curBoard[x][y].getIsDoor())
+                                    {
+                                        state.setOnDoorTile(curPlayerID, true);
+                                    }
+                                    else
+                                    {
+                                        state.setOnDoorTile(curPlayerID, false);
+                                    }
                                     Log.i("New to room="+state.getNewToRoom(curPlayerID), " ");
                                     return true;
                                 }
@@ -210,6 +221,7 @@ public class ClueLocalGame extends LocalGame {
                                     state.setUsedPassageway(curPlayerID, false);
                                     state.setInRoom(curPlayerID, false);
                                     state.setNewToRoom(curPlayerID, false);
+                                    state.setOnDoorTile(curPlayerID, false);
                                     return true;
                                 }
                             }
@@ -228,6 +240,7 @@ public class ClueLocalGame extends LocalGame {
                                     state.getBoard().setPlayerBoard(x + 1, y, x, y, curPlayerID);
                                     state.setSpacesMoved(state.getSpacesMoved() + 1);
                                     state.setNewToRoom(curPlayerID, true);
+                                    state.setOnDoorTile(curPlayerID, true);
                                     x = x + 1;
                                     inCornerRoom(x, y, curBoard, curPlayerID);
                                     if (state.getSpacesMoved() == state.getDieValue())
@@ -240,11 +253,21 @@ public class ClueLocalGame extends LocalGame {
                                 else if (curBoard[x][y].getTileType() == 1 && curBoard[x+1][y].getTileType() == 1)
                                 {
                                     state.getBoard().setPlayerBoard(x + 1, y, x, y, curPlayerID);
+
+
                                     if (a.getPlayer() instanceof ComputerPlayerDumb)
                                     {
                                         state.setSpacesMoved(state.getSpacesMoved() + 1);
                                     }
                                     x = x + 1;
+                                    if (curBoard[x][y].getIsDoor())
+                                    {
+                                        state.setOnDoorTile(curPlayerID, true);
+                                    }
+                                    else
+                                    {
+                                        state.setOnDoorTile(curPlayerID, false);
+                                    }
                                     return true;
                                 }
                                 else
@@ -263,6 +286,7 @@ public class ClueLocalGame extends LocalGame {
                                     state.setUsedPassageway(curPlayerID, false);
                                     state.setInRoom(curPlayerID, false);
                                     state.setNewToRoom(curPlayerID, false);
+                                    state.setOnDoorTile(curPlayerID, false);
                                     return true;
                                 }
                             }
@@ -283,6 +307,7 @@ public class ClueLocalGame extends LocalGame {
                                     state.getBoard().setPlayerBoard(x, y + 1, x, y, curPlayerID);
                                     state.setSpacesMoved(state.getSpacesMoved() + 1);
                                     state.setNewToRoom(curPlayerID, true);
+                                    state.setOnDoorTile(curPlayerID, true);
                                     y = y + 1;
                                     inCornerRoom(x, y, curBoard, curPlayerID);
                                     if (state.getSpacesMoved() == state.getDieValue())
@@ -295,11 +320,21 @@ public class ClueLocalGame extends LocalGame {
                                 else if (curBoard[x][y].getTileType() == 1 && curBoard[x][y+1].getTileType() == 1)
                                 {
                                     state.getBoard().setPlayerBoard(x, y + 1, x, y, curPlayerID);
+
+
                                     if (a.getPlayer() instanceof ComputerPlayerDumb)
                                     {
                                         state.setSpacesMoved(state.getSpacesMoved() + 1);
                                     }
                                     y = y + 1;
+                                    if (curBoard[x][y].getIsDoor())
+                                    {
+                                        state.setOnDoorTile(curPlayerID, true);
+                                    }
+                                    else
+                                    {
+                                        state.setOnDoorTile(curPlayerID, false);
+                                    }
                                     return true;
                                 }
                                 else
@@ -318,6 +353,7 @@ public class ClueLocalGame extends LocalGame {
                                     state.setUsedPassageway(curPlayerID, false);
                                     state.setInRoom(curPlayerID, false);
                                     state.setNewToRoom(curPlayerID, false);
+                                    state.setOnDoorTile(curPlayerID, false);
                                     return true;
                                 }
                             }
@@ -336,6 +372,7 @@ public class ClueLocalGame extends LocalGame {
                                     state.getBoard().setPlayerBoard(x, y - 1, x, y, curPlayerID);
                                     state.setSpacesMoved(state.getSpacesMoved() + 1);
                                     state.setNewToRoom(curPlayerID, true);
+                                    state.setOnDoorTile(curPlayerID, true);
                                     y = y - 1;
                                     inCornerRoom(x, y, curBoard, curPlayerID);
                                     if (state.getSpacesMoved() == state.getDieValue())
@@ -348,11 +385,21 @@ public class ClueLocalGame extends LocalGame {
                                 else if (curBoard[x][y].getTileType() == 1 && curBoard[x][y-1].getTileType() == 1)
                                 {
                                     state.getBoard().setPlayerBoard(x, y - 1, x, y, curPlayerID);
+
+
                                     if (a.getPlayer() instanceof ComputerPlayerDumb)
                                     {
                                         state.setSpacesMoved(state.getSpacesMoved() + 1);
                                     }
                                     y = y - 1;
+                                    if (curBoard[x][y].getIsDoor())
+                                    {
+                                        state.setOnDoorTile(curPlayerID, true);
+                                    }
+                                    else
+                                    {
+                                        state.setOnDoorTile(curPlayerID, false);
+                                    }
                                     //
                                     return true;
                                 }
@@ -372,6 +419,7 @@ public class ClueLocalGame extends LocalGame {
                                     inCornerRoom(x, y, curBoard, curPlayerID);
                                     state.setUsedPassageway(curPlayerID, false);
                                     state.setInRoom(curPlayerID, false);
+                                    state.setOnDoorTile(curPlayerID, false);
                                     return true;
                                 }
 
@@ -428,41 +476,22 @@ public class ClueLocalGame extends LocalGame {
                 }
                 else if (moveAction instanceof ClueSuggestionAction)
                 {
-                    if (curBoard[x][y].getTileType() == 1 && state.getNewToRoom(curPlayerID))
-                    {
-                        ClueSuggestionAction b = (ClueSuggestionAction) a;
-                        String[] suggestionCards = new String[3];
-                        suggestionCards[0] = b.room;
-                        suggestionCards[1] = b.suspect;
-                        suggestionCards[2] = b.weapon;
-                        state.setSuggestCards(suggestionCards);
-                        state.setPlayerIDWhoSuggested(b.playerID);
-                        if (b.playerID == state.getNumPlayers() - 1) {
-                            state.setCheckCardToSend(0, true);
-                        } else {
-                            state.setCheckCardToSend(b.playerID + 1, true);
+                    if (!curBoard[x][y].getIsDoor()) {
+                        if (curBoard[x][y].getTileType() == 1 && state.getNewToRoom(curPlayerID)) {
+                            ClueSuggestionAction b = (ClueSuggestionAction) a;
+                            String[] suggestionCards = new String[3];
+                            suggestionCards[0] = b.room;
+                            suggestionCards[1] = b.suspect;
+                            suggestionCards[2] = b.weapon;
+                            state.setSuggestCards(suggestionCards);
+                            state.setPlayerIDWhoSuggested(b.playerID);
+                            if (b.playerID == state.getNumPlayers() - 1) {
+                                state.setCheckCardToSend(0, true);
+                            } else {
+                                state.setCheckCardToSend(b.playerID + 1, true);
+                            }
                         }
                     }
-
-//                    state.setNewToRoom(curPlayerID, false); //Once they've ended their turn, they are no longer new to a room.
-//                    state.setCanRoll(curPlayerID, false);
-//                    if (state.getTurnId() == (state.getNumPlayers() - 1))
-//                    {
-//                        state.setCanRoll(0, true);
-//                        state.setTurnID(0);
-//                        state.setSpacesMoved(0);
-//                        state.setDieValue(0);
-//                        return true;
-//                    }
-//                    else
-//                    {
-//                        state.setCanRoll(state.getTurnId() + 1, true);
-//                        state.setTurnID(state.getTurnId() + 1);
-//                        state.setSpacesMoved(0);
-//                        state.setDieValue(0);
-//                        return true;
-//
-//                    }
 
                 }
                 else if (moveAction instanceof ClueUsePassagewayAction)

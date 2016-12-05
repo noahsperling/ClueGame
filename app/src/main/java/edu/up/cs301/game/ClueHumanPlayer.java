@@ -469,6 +469,17 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                 weaponSpinner.setEnabled(true);
                 suspectSpinner.setEnabled(true);
 
+                Log.i("On door: " + recentState.getOnDoorTile()[playerNum], " ");
+                if(recentState.getOnDoorTile()[playerNum])
+                {
+                    Log.i("On door: " + recentState.getOnDoorTile()[playerNum], " ");
+                    submitButton.setEnabled(false);
+                }
+                else
+                {
+                    submitButton.setEnabled(true);
+                }
+
 
         }
         else if (view.getId() == R.id.radioShowCardButton) {
@@ -482,6 +493,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                 accuseR.setChecked(false);
             } else if (view.getId() == R.id.submitButton) {
                 if (suggestR.isChecked() == true) {
+
+
                     int[][] board = recentState.getBoard().getPlayerBoard();
                     int x = 0;
                     int y = 0;
