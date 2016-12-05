@@ -25,6 +25,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
     //does smart AI stuff
     private boolean[] checkBoxVals = new boolean[21];
     private Card[] allCards;
+    private ClueState myState;
     private ClueSuggestionAction prevSuggestion = null;
     private int[][] doorCoordinates = {{5,10}, {7,12}, {7,13}, {6,18}, {10,18}, {13,17}, {19,20},
             {21,16}, {18,15}, {18,10}, {21,9}, {20,5}, {16,6}, {13,2}, {9,7}, {4,7}};
@@ -48,7 +49,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
     @Override
     protected void receiveInfo(GameInfo info) {
         if (info instanceof ClueState) {
-            ClueState myState = (ClueState) info; //cast it
+            myState = (ClueState) info; //cast it
             if(myState.getCheckCardToSend()[playerNum]) {
                 Log.i("Computer Player "+playerNum,"Showing Card");
                 String[] temp = myState.getSuggestCards();
@@ -210,58 +211,48 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                     if(dX < 0) {dX *= -1; dXNegative = true;}
                     if(dY < 0) {dY *= -1; dYNegative = true;}
 
-                    if(dX > dY) {
+                    if(dX <  dY) {
 
-                        if(dYNegative && myState.getBoard().getBoardArr()[curX - 1][curY] != null) {
-                            if(!myState.getBoard().getBoardArr()[curX][curY - 1].getBottomWall()
-                            && !myState.getBoard().getBoardArr()[curX][curY].getTopWall()) {
-                                game.sendAction(new ClueMoveUpAction((this)));
-                                Log.i("Moved", "Up");
-                            }
-                        }else if(!dYNegative && myState.getBoard().getBoardArr()[curX + 1][curY] != null) {
-                            if(!myState.getBoard().getBoardArr()[curX + 1][curY].getTopWall()
-                            && !myState.getBoard().getBoardArr()[curX][curY].getBottomWall()) {
-                                game.sendAction(new ClueMoveDownAction(this));
-                                Log.i("Moved", "Down");
-                            }
-                        }else if(dXNegative && myState.getBoard().getBoardArr()[curX][curY - 1] != null) {
-                            if(!myState.getBoard().getBoardArr()[curX][curY - 1].getRightWall()
-                            && !myState.getBoard().getBoardArr()[curX][curY].getLeftWall()) {
-                                game.sendAction(new ClueMoveLeftAction((this)));
-                                Log.i("Moved", "Left");
-                            }
-                        }else if(!dXNegative && myState.getBoard().getBoardArr()[curX][curY + 1] != null) {
-                            if(!myState.getBoard().getBoardArr()[curX][curY + 1].getLeftWall()
-                            && !myState.getBoard().getBoardArr()[curX][curY].getRightWall()) {
-                                game.sendAction(new ClueMoveRightAction((this)));
-                                Log.i("Moved", "Right");
-                            }
+                        if(dXNegative && checkIfAvailableTile(curX - 1, curY, 3)){
+                            game.sendAction(new ClueMoveUpAction((this)));
+                            Log.i("Moved", "Up");
+                            return;
+                        }
+                        if(!dXNegative && checkIfAvailableTile(curX + 1, curY, 4)) {
+                            game.sendAction(new ClueMoveDownAction(this));
+                            Log.i("Moved", "Down");
+                            return;
+                        }
+                        if(dYNegative && checkIfAvailableTile(curX, curY - 1, 1)) {
+                            game.sendAction(new ClueMoveLeftAction((this)));
+                            Log.i("Moved", "Left");
+                            return;
+                        }
+                        if(dYNegative && checkIfAvailableTile(curX, curY + 1, 2)) {
+                            game.sendAction(new ClueMoveRightAction((this)));
+                            Log.i("Moved", "Right");
+                            return;
                         }
                     }else {
-                        if (dXNegative && myState.getBoard().getBoardArr()[curX][curY - 1] != null) {
-                            if (!myState.getBoard().getBoardArr()[curX][curY - 1].getRightWall()
-                            && !myState.getBoard().getBoardArr()[curX][curY].getLeftWall()) {
-                                game.sendAction(new ClueMoveLeftAction((this)));
-                                Log.i("Moved", "Left");
-                            }
-                        } else if (!dXNegative && myState.getBoard().getBoardArr()[curX][curY + 1] != null) {
-                            if (!myState.getBoard().getBoardArr()[curX][curY + 1].getLeftWall()
-                            && !myState.getBoard().getBoardArr()[curX][curY].getRightWall()) {
-                                game.sendAction(new ClueMoveRightAction((this)));
-                                Log.i("Moved", "Right");
-                            }
-                        } else if (dYNegative && myState.getBoard().getBoardArr()[curX - 1][curY] != null) {
-                            if (!myState.getBoard().getBoardArr()[curX - 1][curY].getBottomWall()
-                            && !myState.getBoard().getBoardArr()[curX][curY].getTopWall()) {
-                                game.sendAction(new ClueMoveUpAction((this)));
-                                Log.i("Moved", "Up");
-                            }
-                        } else if (!dYNegative && myState.getBoard().getBoardArr()[curX + 1][curY] != null) {
-                            if (!myState.getBoard().getBoardArr()[curX + 1][curY].getTopWall()
-                            && !myState.getBoard().getBoardArr()[curX][curY].getBottomWall()) {
-                                game.sendAction(new ClueMoveDownAction(this));
-                                Log.i("Moved", "Down");
-                            }
+                        if(dXNegative && checkIfAvailableTile(curX, curY - 1, 1)) {
+                            game.sendAction(new ClueMoveLeftAction((this)));
+                            Log.i("Moved", "Left");
+                            return;
+                        }
+                        if(dXNegative && checkIfAvailableTile(curX, curY + 1, 2)) {
+                            game.sendAction(new ClueMoveRightAction((this)));
+                            Log.i("Moved", "Right");
+                            return;
+                        }
+                        if(dYNegative && checkIfAvailableTile(curX - 1, curY, 3)){
+                            game.sendAction(new ClueMoveUpAction((this)));
+                            Log.i("Moved", "Up");
+                            return;
+                        }
+                        if(!dYNegative && checkIfAvailableTile(curX + 1, curY, 4)) {
+                            game.sendAction(new ClueMoveDownAction(this));
+                            Log.i("Moved", "Down");
+                            return;
                         }
 
                     }
@@ -282,4 +273,47 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
         //if it enters a room, suggest random
         //if it uses all its moves and does not enter a room, end turn
     }
+
+    //direction 1 = up, 2 = down, 3 = left, 4 = right
+    private boolean checkIfAvailableTile(int x, int y, int direction) {
+        if(myState.getBoard().getBoardArr()[x][y] != null) {
+            if(direction == 1) {
+                if(!myState.getBoard().getBoardArr()[x][y].getBottomWall()) {
+                    if(myState.getBoard().getPlayerBoard()[x][y] == -1) {
+                        if(!myState.getBoard().getBoardArr()[x][y + 1].getTopWall()) {
+                            return true;
+                        }
+                    }
+                }
+            } else if(direction == 2) {
+                if(!myState.getBoard().getBoardArr()[x][y].getTopWall()) {
+                    if(myState.getBoard().getPlayerBoard()[x][y] == -1) {
+                        if(!myState.getBoard().getBoardArr()[x][y - 1].getBottomWall()) {
+                            return true;
+                        }
+                    }
+                }
+            }else if(direction == 3) {
+                if(!myState.getBoard().getBoardArr()[x][y].getRightWall()) {
+                    if(myState.getBoard().getPlayerBoard()[x][y] == -1) {
+                        if(!myState.getBoard().getBoardArr()[x + 1][y].getLeftWall()) {
+                            return true;
+                        }
+                    }
+                }
+            }else if(direction == 4) {
+                if(!myState.getBoard().getBoardArr()[x][y].getLeftWall()) {
+                    if(myState.getBoard().getPlayerBoard()[x][y] == -1) {
+                        if(!myState.getBoard().getBoardArr()[x - 1][y].getRightWall()) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }else {
+            return false;
+        }
+        return false;
+    }
+
 }
