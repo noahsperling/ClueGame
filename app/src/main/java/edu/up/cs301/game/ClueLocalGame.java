@@ -481,12 +481,15 @@ public class ClueLocalGame extends LocalGame {
                             state.setUsedPassageway(curPlayerID, true);
                             state.setCanRoll(curPlayerID, false);
                             state.setNewToRoom(curPlayerID, true);
-
                             return true;
                         }
                         else if (curBoard[x][y].getRoom() == CONSERVATORY)
                         {
-                            state.getBoard().setPlayerBoard(2, 18+curPlayerID, x, y, curPlayerID); //Move Player to lounge
+                            int sum = 18+curPlayerID;
+                            if(sum > 24){
+                                sum = 24;
+                            }
+                            state.getBoard().setPlayerBoard(2, sum, x, y, curPlayerID); //Move Player to lounge
                             state.setUsedPassageway(curPlayerID, true);
                             state.setCanRoll(curPlayerID, false);
                             state.setNewToRoom(curPlayerID, true);
@@ -494,7 +497,11 @@ public class ClueLocalGame extends LocalGame {
                         }
                         else if (curBoard[x][y].getRoom() == STUDY)
                         {
-                            state.getBoard().setPlayerBoard(22, 19+curPlayerID, x, y, curPlayerID); //Move Player to kitchen
+                            int sum = 19+curPlayerID;
+                            if(sum > 24){
+                                sum = 24;
+                            }
+                            state.getBoard().setPlayerBoard(22, sum, x, y, curPlayerID); //Move Player to kitchen
                             state.setUsedPassageway(curPlayerID, true);
                             state.setCanRoll(curPlayerID, false);
                             state.setNewToRoom(curPlayerID, true);
