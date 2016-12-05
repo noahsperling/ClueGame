@@ -275,10 +275,11 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     public void receiveInfo(GameInfo info)
     {
         if(info instanceof ClueState) {
-            recentState = new ClueState((ClueState)info);
-            if(!nameSet) {
+            recentState = new ClueState((ClueState) info);
+            if (!nameSet) {
                 switch (playerNum) {
-                    case 0: playerTextView.setText("You are Miss\n Scarlet.\n");
+                    case 0:
+                        playerTextView.setText("You are Miss\n Scarlet.\n");
                         break;
                     case 1:
                         playerTextView.setText("You are Colonel\n Mustard.\n");
@@ -298,121 +299,118 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                 }
                 nameSet = true;
             }
-        }
 
-        //if another player made a suggestion
-        if(recentState.getCheckCardToSend()[playerNum]) {
-            suggestR.setChecked(false);
-            accuseR.setChecked(false);
-            suggestR.setEnabled(false);
-            accuseR.setEnabled(false);
-            showCardR.setEnabled(true);
-            showCardR.setChecked(true);
+            //if another player made a suggestion
+            if (recentState.getCheckCardToSend()[playerNum]) {
+                suggestR.setChecked(false);
+                accuseR.setChecked(false);
+                suggestR.setEnabled(false);
+                accuseR.setEnabled(false);
+                showCardR.setEnabled(true);
+                showCardR.setChecked(true);
 
-            setSendCardSpinners();
-        }else if(!recentState.getCheckCardToSend()[playerNum]) {
-            suggestR.setEnabled(true);
-            accuseR.setEnabled(true);
-            showCardR.setChecked(false);
-            showCardR.setEnabled(false);
-            setSpinners();
-        }
+                setSendCardSpinners();
+            } else if (!recentState.getCheckCardToSend()[playerNum]) {
+                suggestR.setEnabled(true);
+                accuseR.setEnabled(true);
+                showCardR.setChecked(false);
+                showCardR.setEnabled(false);
+                setSpinners();
+            }
 
-        if(!recentState.getPlayerStillInGame(playerNum)) {
-            //the player is out of the game, so disable all non-essential GUI things
-            endTurnButton.setEnabled(false);
-            rollButton.setEnabled(false);
-            upButton.setEnabled(false);
-            downButton.setEnabled(false);
-            leftButton.setEnabled(false);
-            rightButton.setEnabled(false);
-            secretPassagewayButton.setEnabled(false);
-            //disable and uncheck
-            suggestR.setEnabled(false);
-            accuseR.setEnabled(false);
-            suggestR.setChecked(false);
-            accuseR.setChecked(false);
-            //continue disabling
-            colonelMustardCheck.setEnabled(false);
-            professorPlumCheck.setEnabled(false);
-            mrGreenCheck.setEnabled(false);
-            mrsPeacockCheck.setEnabled(false);
-            missScarletCheck.setEnabled(false);
-            mrsWhiteCheck.setEnabled(false);
-            knifeCheck.setEnabled(false);
-            candlestickCheck.setEnabled(false);
-            revolverCheck.setEnabled(false);
-            ropeCheck.setEnabled(false);
-            leadPipeCheck.setEnabled(false);
-            wrenchCheck.setEnabled(false);
-            hallCheck.setEnabled(false);
-            loungeCheck.setEnabled(false);
-            diningRoomCheck.setEnabled(false);
-            kitchenCheck.setEnabled(false);
-            ballroomCheck.setEnabled(false);
-            conservatoryCheck.setEnabled(false);
-            billiardRoomCheck.setEnabled(false);
-            libraryCheck.setEnabled(false);
-            studyCheck.setEnabled(false);
-            recentState.setCardToShow("\n You Lost!", playerNum);
-            setSolutionSpinners(recentState.getSolution());
-
-        }
-
-        boolean corner[] = recentState.getInCornerRoom();
-        boolean usedPassage[] = recentState.getUsedPassageway();
-        boolean room[] = recentState.getInRoom();
-
-        if(recentState.getTurnId() == playerNum && recentState.getPlayerStillInGame(playerNum)) {
-            accuseR.setEnabled(true);
-            accuseR.setChecked(false);
-            submitButton.setEnabled(true);
-            cancelButton.setEnabled(true);
-            endTurnButton.setEnabled(true);
-            upButton.setEnabled(true);
-            downButton.setEnabled(true);
-            leftButton.setEnabled(true);
-            rightButton.setEnabled(true);
-            if(recentState.getCanRoll(playerNum)) {
-                rollButton.setEnabled(true);
-            }else if(!recentState.getCanRoll(playerNum)) {
+            if (!recentState.getPlayerStillInGame(playerNum)) {
+                //the player is out of the game, so disable all non-essential GUI things
+                endTurnButton.setEnabled(false);
                 rollButton.setEnabled(false);
-            }
-
-            if (corner[playerNum] && !usedPassage[playerNum])
-            {
-                secretPassagewayButton.setEnabled(true);
-            }
-            else {
+                upButton.setEnabled(false);
+                downButton.setEnabled(false);
+                leftButton.setEnabled(false);
+                rightButton.setEnabled(false);
                 secretPassagewayButton.setEnabled(false);
+                //disable and uncheck
+                suggestR.setEnabled(false);
+                accuseR.setEnabled(false);
+                suggestR.setChecked(false);
+                accuseR.setChecked(false);
+                //continue disabling
+                colonelMustardCheck.setEnabled(false);
+                professorPlumCheck.setEnabled(false);
+                mrGreenCheck.setEnabled(false);
+                mrsPeacockCheck.setEnabled(false);
+                missScarletCheck.setEnabled(false);
+                mrsWhiteCheck.setEnabled(false);
+                knifeCheck.setEnabled(false);
+                candlestickCheck.setEnabled(false);
+                revolverCheck.setEnabled(false);
+                ropeCheck.setEnabled(false);
+                leadPipeCheck.setEnabled(false);
+                wrenchCheck.setEnabled(false);
+                hallCheck.setEnabled(false);
+                loungeCheck.setEnabled(false);
+                diningRoomCheck.setEnabled(false);
+                kitchenCheck.setEnabled(false);
+                ballroomCheck.setEnabled(false);
+                conservatoryCheck.setEnabled(false);
+                billiardRoomCheck.setEnabled(false);
+                libraryCheck.setEnabled(false);
+                studyCheck.setEnabled(false);
+                recentState.setCardToShow("\n You Lost!", playerNum);
+                setSolutionSpinners(recentState.getSolution());
+
             }
 
-        }else if(recentState.getTurnId() == playerNum && !recentState.getPlayerStillInGame(playerNum)){
-            endTurnButton.setEnabled(false);
-            game.sendAction(new ClueEndTurnAction(this));
-        }
+            boolean corner[] = recentState.getInCornerRoom();
+            boolean usedPassage[] = recentState.getUsedPassageway();
+            boolean room[] = recentState.getInRoom();
 
-        //suggest and accuse radio buttons handled
-        Log.i("New to room = " +recentState.getNewToRoom(playerNum), " ");
-        Log.i("Room = " + room[playerNum], " ");
-        if (room[playerNum] && recentState.getNewToRoom(playerNum)) {
-            Log.i("Got to suggest if", " ");
-            suggestR.setEnabled(true);
-            suggestR.setChecked(false);
-        }
-        else{
-            Log.i("Got to suggest else", " ");
-            suggestR.setEnabled(false);
-            suggestR.setChecked(false);
-        }
+            if (recentState.getTurnId() == playerNum && recentState.getPlayerStillInGame(playerNum)) {
+                accuseR.setEnabled(true);
+                accuseR.setChecked(false);
+                submitButton.setEnabled(true);
+                cancelButton.setEnabled(true);
+                endTurnButton.setEnabled(true);
+                upButton.setEnabled(true);
+                downButton.setEnabled(true);
+                leftButton.setEnabled(true);
+                rightButton.setEnabled(true);
+                if (recentState.getCanRoll(playerNum)) {
+                    rollButton.setEnabled(true);
+                } else if (!recentState.getCanRoll(playerNum)) {
+                    rollButton.setEnabled(false);
+                }
 
-        messageTextView.setText("Card Shown: " + recentState.getCardToShow(playerNum));
+                if (corner[playerNum] && !usedPassage[playerNum]) {
+                    secretPassagewayButton.setEnabled(true);
+                } else {
+                    secretPassagewayButton.setEnabled(false);
+                }
 
-        boardView.updateBoard(recentState.getBoard());
-        boardView.invalidate();
-        cardView.updateCards(recentState.getCards(playerNum));
-        cardView.invalidate();
-        numberOfMovesLeft.setText(recentState.getDieValue()-recentState.getSpacesMoved()+"");
+            } else if (recentState.getTurnId() == playerNum && !recentState.getPlayerStillInGame(playerNum)) {
+                endTurnButton.setEnabled(false);
+                game.sendAction(new ClueEndTurnAction(this));
+            }
+
+            //suggest and accuse radio buttons handled
+            Log.i("New to room = " + recentState.getNewToRoom(playerNum), " ");
+            Log.i("Room = " + room[playerNum], " ");
+            if (room[playerNum] && recentState.getNewToRoom(playerNum)) {
+                Log.i("Got to suggest if", " ");
+                suggestR.setEnabled(true);
+                suggestR.setChecked(false);
+            } else {
+                Log.i("Got to suggest else", " " + this.getPlayerID());
+                suggestR.setEnabled(false);
+                suggestR.setChecked(false);
+            }
+
+            messageTextView.setText("Card Shown: " + recentState.getCardToShow(playerNum));
+
+            boardView.updateBoard(recentState.getBoard());
+            boardView.invalidate();
+            cardView.updateCards(recentState.getCards(playerNum));
+            cardView.invalidate();
+            numberOfMovesLeft.setText(recentState.getDieValue() - recentState.getSpacesMoved() + "");
+        }
     }
 
     public void onClick(View view)

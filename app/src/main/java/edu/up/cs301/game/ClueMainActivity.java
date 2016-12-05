@@ -1,6 +1,7 @@
 package edu.up.cs301.game;
 
 import android.content.pm.ActivityInfo;
+import android.util.Log;
 
 import java.util.ArrayList;
 

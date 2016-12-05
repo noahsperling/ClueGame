@@ -46,7 +46,6 @@ public class ClueState extends GameState implements Serializable{
 
 
     public ClueState(int initNumPlayers, String initPlayerNames[], int initTurnID) {
-
         //sets up initial integer values
         turnID = initTurnID;
         dieValue = 0;
@@ -208,7 +207,7 @@ public class ClueState extends GameState implements Serializable{
         for(int i = 0; i < numPlayers; i++) {
             cards[i] = new Hand();
                 for (int j = 0; j < cardsPerHand; j++) {
-                    if(s.getCards(i) != null && s.getCards(i).getCards() != null && s.getCards(i).getCards()[j] != null) {
+                    if(s.getCards(i) != null && s.getCards(i).getCards() != null && s.getCards(i).getCards().length > j && s.getCards(i).getCards()[j] != null) {
                         cards[i].addCard(s.getCards(i).getCards()[j]);
                     }
                 }

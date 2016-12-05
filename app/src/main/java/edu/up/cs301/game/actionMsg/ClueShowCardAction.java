@@ -7,7 +7,7 @@ import edu.up.cs301.game.GamePlayer;
  */
 
 public class ClueShowCardAction extends ClueNonTurnAction{
-    private static final long serialVersionUID = 30672024L;
+    private static final long serialVersionUID = 389087760672024L;
 
     private String cardToShow;
 
