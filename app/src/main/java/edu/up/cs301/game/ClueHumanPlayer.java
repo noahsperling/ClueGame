@@ -403,6 +403,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             leftButton.setEnabled(false);
             rightButton.setEnabled(false);
             rollButton.setEnabled(false);
+            secretPassagewayButton.setEnabled(false);
 
         }
 
