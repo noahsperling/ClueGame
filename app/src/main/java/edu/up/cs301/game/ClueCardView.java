@@ -88,14 +88,14 @@ public class ClueCardView extends SurfaceView {
     public void onDrawHand(Canvas c)
     {
         int width = c.getHeight()*5/6;
-        int height = c.getHeight()+25;
+        int height = c.getHeight()+20;
         for (int i = 0; i < hand.getCards().length; i++)
         {
             if (hand.getCards()[i].getType() == Type.ROOM)
             {
                 if (hand.getCards()[i].getName().equals("Ballroom"))
                 {
-                    cardBallroomImage.setBounds(0+(i*width), 0, width*(i+1), height); //left top right bottom
+                    cardBallroomImage.setBounds(0+((i)*width), 0, width*(i+1 ), height); //left top right bottom
                     cardBallroomImage.draw(c);
                 }
                 else if (hand.getCards()[i].getName().equals("Conservatory"))

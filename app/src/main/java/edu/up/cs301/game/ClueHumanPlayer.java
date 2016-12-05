@@ -390,6 +390,21 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             endTurnButton.setEnabled(false);
             game.sendAction(new ClueEndTurnAction(this));
         }
+        else if(recentState.getTurnId() != playerNum && recentState.getPlayerStillInGame(playerNum))
+        {
+
+            accuseR.setEnabled(false);
+            accuseR.setChecked(false);
+            submitButton.setEnabled(true);
+            cancelButton.setEnabled(true);
+            endTurnButton.setEnabled(false);
+            upButton.setEnabled(false);
+            downButton.setEnabled(false);
+            leftButton.setEnabled(false);
+            rightButton.setEnabled(false);
+            rollButton.setEnabled(false);
+
+        }
 
             //suggest and accuse radio buttons handled
             Log.i("New to room = " + recentState.getNewToRoom(playerNum), " ");
@@ -818,6 +833,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         roomSpinner.setAdapter(roomAdapter);
         weaponSpinner.setAdapter(weaponAdapter);
         suspectSpinner.setAdapter(suspectAdapter);
+
+        submitButton.setEnabled(true);
 
     }
     /*
