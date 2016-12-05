@@ -24,9 +24,7 @@ public class ClueComputerPlayer extends GameComputerPlayer implements GamePlayer
         playerNum = newPlayerID;
     }
 
-    protected void receiveInfo(GameInfo info) {
-
-    }
+    protected void receiveInfo(GameInfo info) {}
 
     public boolean[] getCheckBoxArray() {
         boolean temp[] = new boolean[21];

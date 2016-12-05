@@ -4,18 +4,15 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import edu.up.cs301.game.actionMsg.ClueAccuseAction;
 import edu.up.cs301.game.actionMsg.ClueCheckAction;
@@ -30,10 +27,7 @@ import edu.up.cs301.game.actionMsg.ClueSuggestionAction;
 import edu.up.cs301.game.actionMsg.ClueUsePassagewayAction;
 import edu.up.cs301.game.actionMsg.ClueWrittenNoteAction;
 import edu.up.cs301.game.infoMsg.GameInfo;
-import edu.up.cs301.game.infoMsg.GameOverInfo;
 
-import static edu.up.cs301.game.R.id.editText;
-import static edu.up.cs301.game.R.id.noteLayout;
 
 /**
  * Created by Noah on 11/8/2016.
@@ -128,6 +122,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         }
         cardView = (ClueCardView) myActivity.findViewById(R.id.playerHandView);
 
+        //GUI button/spinner/radio button declarations, listeners and default configurations
+
         upButton = (Button)myActivity.findViewById(R.id.upButton);
         upButton.setOnClickListener(this);
         //upButton.setEnabled(false);
@@ -135,17 +131,14 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
         downButton = (Button)myActivity.findViewById(R.id.downButton);
         downButton.setOnClickListener(this);
-        //downButton.setEnabled(false);
         downButton.setEnabled(true);
 
         leftButton = (Button)myActivity.findViewById(R.id.leftButton);
         leftButton.setOnClickListener(this);
-        //leftButton.setEnabled(false);
         leftButton.setEnabled(true);
 
         rightButton = (Button)myActivity.findViewById(R.id.rightButton);
         rightButton.setOnClickListener(this);
-        //rightButton.setEnabled(false);
         rightButton.setEnabled(true);
 
         endTurnButton = (Button)myActivity.findViewById(R.id.endTurnButton);
@@ -183,14 +176,12 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
         //spinners
         roomSpinner = (Spinner)myActivity.findViewById(R.id.roomSpinner);
-//        roomSpinner.setAdapter(roomAdapter);
 
         weaponSpinner = (Spinner)myActivity.findViewById(R.id.weaponSpinner);
-//        weaponSpinner.setAdapter(weaponAdapter);
 
         suspectSpinner = (Spinner)myActivity.findViewById(R.id.suspectSpinner);
-//        suspectSpinner.setAdapter(suspectAdapter);
 
+        //Set up the spinners with the default configuration with all of the rooms, weapons and suspects
         setSpinners();
 
         //CheckBoxes!!
@@ -257,23 +248,27 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         studyCheck = (CheckBox)myActivity.findViewById(R.id.studyCheckBox);
         studyCheck.setOnClickListener(this);
 
+        //Text view for moves left, displayed above move arrows
         numberOfMovesLeft = (TextView)myActivity.findViewById(R.id.numberOfMovesTextView);
         numberOfMovesLeft.setText(0+"");
 
+        //Text view that displays what cards are shown to the player above the secret passageway button
         messageTextView = (TextView)myActivity.findViewById(R.id.messageTextView);
         messageTextView.setText("");
 
+        //Text view that says who you are, displayed above the checkboxes
         playerTextView = (TextView)myActivity.findViewById(R.id.playerTextView);
         playerTextView.setText("You are a human\n player with a \nundetermined name.");
 
+        //Editable text box below the end turn button
         notesGUI = (EditText)myActivity.findViewById(R.id.editText);
         notesGUI.setOnClickListener(this);
-
     }
 
     @Override
     public void receiveInfo(GameInfo info)
     {
+        //Display the correct character for the human player
         if(info instanceof ClueState) {
             recentState = new ClueState((ClueState)info);
             if(!nameSet) {
@@ -363,6 +358,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         boolean usedPassage[] = recentState.getUsedPassageway();
         boolean room[] = recentState.getInRoom();
 
+        // initial set up for human player's turn
         if(recentState.getTurnId() == playerNum && recentState.getPlayerStillInGame(playerNum)) {
             accuseR.setEnabled(true);
             accuseR.setChecked(false);
@@ -379,6 +375,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                 rollButton.setEnabled(false);
             }
 
+            //if the player is in a corner room and has not used the secret passageway, enable the button
+            //If the player has already used the secret passageway, disable the button
             if (corner[playerNum] && !usedPassage[playerNum])
             {
                 secretPassagewayButton.setEnabled(true);
@@ -418,11 +416,11 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     public void onClick(View view)
     {
         //Move player actions
-        if (game == null)
-        {
-            return;
-        }
+        if (game == null) {return;}
 
+            //Send the appropriate actions for whatever is touched on the GUI
+
+            //Roll and move buttons
             if (view == upButton) {
                 ClueMoveUpAction up = new ClueMoveUpAction(this);
                 game.sendAction(up);
@@ -494,15 +492,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                     Log.i("suggest action sent", " ");
                     game.sendAction(suggest);
 
-
-                    //need to send in show card action because now the player to their left
-                    //has to choose from the spinners and stuff?
-                    //set the showcard radio button to enabled/is checked true for the next player.
-                    //then if that player has no cards, then go to the next player.
-                    //if the player has a card, then they submit it and it the info shows up on the player who
-                    //suggested GUI in a textview somewhere obvious
-
-                    //does this need to sent in as info?
                     ClueShowCardAction showCard = new ClueShowCardAction(this);
                     showCardR.setEnabled(true);
                     showCardR.setChecked(false);
@@ -529,22 +518,19 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                     Log.i("accuse action sent", " ");
                     game.sendAction(accuse);
                 } else if (showCardR.isChecked() == true) {
-                    //disable the other radio buttons then re-enable?
                     showCardR.setEnabled(false);
                     showCardR.setChecked(false);
                     ClueShowCardAction showCard = new ClueShowCardAction(this);
 
                 //use only one spinner for all the cards that can be shown
                 String showCardString = roomSpinner.getSelectedItem().toString();
-
                 showCard.setCardToShow(showCardString);
-
                 game.sendAction(showCard);
-
-
                 }
-                //might have to add show card radio button?? have a text view saying it you need to pick a card to display
-            } else if (view == secretPassagewayButton) {
+
+            }
+            //secret passageway button
+            else if (view == secretPassagewayButton) {
                 ClueUsePassagewayAction passageway = new ClueUsePassagewayAction(this);
                 game.sendAction(passageway);
                 secretPassagewayButton.setEnabled(false);
@@ -575,6 +561,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             }
 
         //CheckBoxes
+            //Once a checkbox is checked, set the corresponding boolean array elements to true or false
         else if (view == colonelMustardCheck)
         {
             if(!checkBoxBool[0]) {
@@ -814,9 +801,11 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         }
         return temp;
     }
-    public void setSpinners(){
-        //where the spinner for show cards will have to created and sent in appropriately
 
+    /*
+    Method that sets the initial spinners with all of the rooms, weapons, and suspects
+     */
+    public void setSpinners(){
         String[] roomItems = new String[]{Card.BALLROOM.getName(),Card.BILLIARD_ROOM.getName(), Card.CONSERVATORY.getName(),
                 Card.DINING_ROOM.getName(), Card.HALL.getName(), Card.KITCHEN.getName(), Card.LIBRARY.getName(), Card.LOUNGE.getName(), Card.STUDY.getName()};
         String[] weaponItems = new String[]{Card.CANDLESTICK.getName(), Card.KNIFE.getName(), Card.LEAD_PIPE.getName(), Card.REVOLVER.getName(), Card.ROPE.getName(),Card.WRENCH.getName()};
@@ -830,7 +819,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         suspectSpinner.setAdapter(suspectAdapter);
 
     }
-
+    /*
+    Method that sets the spinners with all of the weapons and suspects and the room spinner is set to the current room
+     */
     public void setSuggestSpinners() {
         String[] roomItems = new String[]{"Current Room"};
         String[] weaponItems = new String[]{Card.CANDLESTICK.getName(), Card.KNIFE.getName(), Card.LEAD_PIPE.getName(), Card.REVOLVER.getName(), Card.ROPE.getName(), Card.WRENCH.getName()};
@@ -844,6 +835,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         suspectSpinner.setAdapter(suspectAdapter);
     }
 
+    /*
+    Method that sets the spinners to display the solution when a player accuses
+     */
     private void setSolutionSpinners(Card[] solution) {
         String[] roomItems = new String[]{Card.BALLROOM.getName(),Card.BILLIARD_ROOM.getName(), Card.CONSERVATORY.getName(),
                 Card.DINING_ROOM.getName(), Card.HALL.getName(), Card.KITCHEN.getName(), Card.LIBRARY.getName(), Card.LOUNGE.getName(), Card.STUDY.getName()};
