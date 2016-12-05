@@ -419,7 +419,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                 suggestR.setChecked(false);
             }
 
-        messageTextView.setText("Card Shown: " + recentState.getCardToShow(playerNum));
+            messageTextView.setText("Card Shown: " + recentState.getCardToShow(playerNum));
 
             boardView.updateBoard(recentState.getBoard());
             boardView.invalidate();
@@ -551,10 +551,10 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                     showCardR.setChecked(false);
                     ClueShowCardAction showCard = new ClueShowCardAction(this);
 
-                //use only one spinner for all the cards that can be shown
-                String showCardString = roomSpinner.getSelectedItem().toString();
-                showCard.setCardToShow(showCardString);
-                game.sendAction(showCard);
+                    //use only one spinner for all the cards that can be shown
+                    String showCardString = roomSpinner.getSelectedItem().toString();
+                    showCard.setCardToShow(showCardString);
+                    game.sendAction(showCard);
                 }
 
             }
