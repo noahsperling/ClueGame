@@ -24,7 +24,10 @@ import edu.up.cs301.game.infoMsg.GameInfo;
 public class ComputerPlayerSmart extends GameComputerPlayer {
     //does smart AI stuff
     private boolean[] checkBoxVals = new boolean[21];
-    private Card[] allCards;
+    private Card[] allCards = {Card.COL_MUSTARD, Card.PROF_PLUM, Card.MR_GREEN, Card.MRS_PEACOCK, Card.MISS_SCARLET,
+            Card.MRS_WHITE, Card.KNIFE, Card.CANDLESTICK, Card.REVOLVER, Card.ROPE, Card.LEAD_PIPE,
+            Card.WRENCH, Card.HALL, Card.LOUNGE, Card.DINING_ROOM, Card.KITCHEN, Card.BALLROOM,
+            Card.CONSERVATORY, Card.BILLIARD_ROOM, Card.LIBRARY, Card.STUDY};
     private ClueState myState;
     private ClueSuggestionAction prevSuggestion = null;
     private int[][] doorCoordinates = {{5,10}, {7,12}, {7,13}, {6,18}, {10,18}, {13,17}, {19,20},
@@ -32,10 +35,12 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
     private Card[] doorRooms = {Card.HALL, Card.HALL, Card.HALL, Card.LOUNGE, Card.DINING_ROOM,
             Card.DINING_ROOM,Card.KITCHEN, Card.BALLROOM, Card.BALLROOM, Card.BALLROOM, Card.BALLROOM,
             Card.CONSERVATORY, Card.BILLIARD_ROOM, Card.BILLIARD_ROOM, Card.LIBRARY, Card.STUDY};
+    private boolean handChecked;
 
 
     public ComputerPlayerSmart(String name) {
         super(name);
+        handChecked = false;
     }
 
     public int getPlayerID() {
@@ -50,6 +55,21 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
     protected void receiveInfo(GameInfo info) {
         if (info instanceof ClueState) {
             myState = (ClueState) info; //cast it
+            if(!handChecked) {
+                for(int j = 0; j < 21; j++) {
+                    for(int i = 0; i < myState.getCards(playerNum).getArrayListLength(); i++) {
+                        if(myState.getCards(playerNum).getCards()[i].equals(allCards[j])) {
+                            checkBoxVals[j] = true;
+                        }
+                    }
+                }
+            }
+            //check card shown in boolean array if card is shown
+            for(int i = 0; i < 21;i++) {
+                if(allCards[i].getName().equals(myState.getCardToShow(playerNum))) {
+                    checkBoxVals[i] = true;
+                }
+            }
             if(myState.getCheckCardToSend()[playerNum]) {
                 Log.i("Computer Player "+playerNum,"Showing Card");
                 String[] temp = myState.getSuggestCards();
@@ -78,30 +98,6 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                     ClueShowCardAction s = new ClueShowCardAction(this);
                     s.setCardToShow(validCards[c]);
                     game.sendAction(s);
-                }
-            }
-            boolean oneChecked = false;
-            for(int i = 0; i < 21; i++) {
-                boolean tempChecked = myState.getCheckBox(playerNum, i);
-                if(tempChecked) {
-                    oneChecked = true;
-                }
-            }
-            if(!oneChecked) {
-                allCards = new Card[21];
-                int j = 0;
-                for(Card card: Card.values()) {
-                    allCards[j] = card;
-                    j++;
-                }
-                j = 0;
-                for(Card c: Card.values()) {
-                    for(int i = 0; i < myState.getCards(playerNum).getArrayListLength(); i++) {
-                        if(c.equals(myState.getCards(playerNum).getCards()[i])) {
-                            checkBoxVals[j] = true;
-                        }
-                    }
-                    j++;
                 }
             }
             if (myState.getTurnId() == playerNum && myState.getPlayerStillInGame(playerNum)) {
@@ -143,11 +139,12 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
 
 
                     ClueSuggestionAction csa = new ClueSuggestionAction(this);
+                    outerLoop:
                     for (int i = 0; i < 26; i++) {
                         for (int j = 0; j < 26; j++) {
                             if (myState.getBoard().getPlayerBoard()[j][i] == playerNum) {
                                 csa.room = myState.getBoard().getBoardArr()[j][i].getRoom().getName();
-                                break;
+                                break outerLoop;
                             }
                         }
                     }
@@ -171,28 +168,30 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
 
                     Card currentRoom = null; //null if not in a room, set to room if in room
 
+                    loop:
                     for (int i = 0; i < 26; i++) {
                         for (int j = 0; j < 26; j++) {
                             if (myState.getBoard().getPlayerBoard()[j][i] == playerNum) {
                                 curY = j;
                                 curX = i;
                                 currentRoom = myState.getBoard().getBoardArr()[j][i].getRoom();
-                                break;
+                                break loop;
                             }
                         }
                     }
 
-                    for(int i = 0; i < 16; i++) {
+
+                    for (int i = 0; i < 16; i++) {
                         if (!doorRooms[i].equals(currentRoom)) {
                             boolean roomChecked = true;
-                            for(int k = 0; k < 9; k++) {
-                                if(rooms[k].equals(doorRooms[i]) && !checkBoxVals[12+k]) {
+                            for (int k = 0; k < 9; k++) {
+                                if (rooms[k].equals(doorRooms[i]) && !checkBoxVals[12 + k]) {
                                     roomChecked = false;
                                 }
                             }
 
                             //update to dX dY
-                            if ((((closestX- curX) * (closestX - curX)) + ((closestY - curY) * (closestY - curY))) >
+                            if ((((closestX - curX) * (closestX - curX)) + ((closestY - curY) * (closestY - curY))) >
                                     (((doorCoordinates[i][0] - curY) * (doorCoordinates[i][0] - curY)) + ((doorCoordinates[i][1] - curX)
                                             * (doorCoordinates[i][1] - curX))) && !roomChecked) {
                                 closestY = doorCoordinates[i][0];
@@ -201,6 +200,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                         }
                     }
 
+
                     int dX = closestX - curX;
                     int dY = closestY - curY;
                     boolean dXNegative = false;
@@ -208,7 +208,8 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
 
                     if(dX < 0) {dX *= -1; dXNegative = true;}
                     if(dY < 0) {dY *= -1; dYNegative = true;}
-                    //TODO: When smart AI is in a room it will no longer move. Suggestions dont always seem to work either.
+
+                    //TODO: When smart AI is in a room it will no longer move. Suggestions don't always seem to work either.
                     if(myState.getBoard().getBoardArr()[curY][curX].getTileType() == 0) {
                         if (dX > dY) {
                             Log.i("Computer Player" + playerNum, "Dx > Dy");
