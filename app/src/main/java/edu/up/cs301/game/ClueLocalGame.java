@@ -208,12 +208,9 @@ public class ClueLocalGame extends LocalGame {
                                 }
                                 else //Otherwise they're moving to a hallway.
                                 {
-                                    if (state.getNewToRoom(curPlayerID))
+                                    if (state.getNewToRoom(curPlayerID) && curBoard[x][y].getTileType() == 1)
                                     {
-                                        if (curBoard[x][y].getTileType() == 1)
-                                        {
-                                            return true;
-                                        }
+                                        return true;
                                     }
                                     state.getBoard().setPlayerBoard(x - 1, y, x, y, curPlayerID); //Set the new position of the player and set the old position to zero.
                                     state.setSpacesMoved(state.getSpacesMoved() + 1);
@@ -241,6 +238,7 @@ public class ClueLocalGame extends LocalGame {
                                 {
                                     state.getBoard().setPlayerBoard(x + 1, y, x, y, curPlayerID);
                                     state.setSpacesMoved(state.getSpacesMoved() + 1);
+                                    state.setUsedPassageway(curPlayerID, false);
                                     state.setNewToRoom(curPlayerID, true);
                                     state.setCanSuggest(curPlayerID, true);
                                     state.setOnDoorTile(curPlayerID, true);
@@ -275,12 +273,9 @@ public class ClueLocalGame extends LocalGame {
                                 }
                                 else
                                 {
-                                    if (state.getNewToRoom(curPlayerID))
+                                    if (state.getNewToRoom(curPlayerID) && curBoard[x][y].getTileType() == 1)
                                     {
-                                        if (curBoard[x][y].getTileType() == 1)
-                                        {
-                                            return true;
-                                        }
+                                        return true;
                                     }
                                     state.getBoard().setPlayerBoard(x + 1, y, x, y, curPlayerID);
                                     state.setSpacesMoved(state.getSpacesMoved() + 1);
@@ -310,6 +305,7 @@ public class ClueLocalGame extends LocalGame {
                                 {
                                     state.getBoard().setPlayerBoard(x, y + 1, x, y, curPlayerID);
                                     state.setSpacesMoved(state.getSpacesMoved() + 1);
+                                    state.setUsedPassageway(curPlayerID, false);
                                     state.setNewToRoom(curPlayerID, true);
                                     state.setCanSuggest(curPlayerID, true);
                                     state.setOnDoorTile(curPlayerID, true);
@@ -344,12 +340,9 @@ public class ClueLocalGame extends LocalGame {
                                 }
                                 else
                                 {
-                                    if (state.getNewToRoom(curPlayerID))
+                                    if (state.getNewToRoom(curPlayerID) && curBoard[x][y].getTileType() == 1)
                                     {
-                                        if (curBoard[x][y].getTileType() == 1)
-                                        {
-                                            return true;
-                                        }
+                                        return true;
                                     }
                                     state.getBoard().setPlayerBoard(x, y + 1, x, y, curPlayerID);
                                     state.setSpacesMoved(state.getSpacesMoved() + 1);
@@ -377,6 +370,7 @@ public class ClueLocalGame extends LocalGame {
                                 {
                                     state.getBoard().setPlayerBoard(x, y - 1, x, y, curPlayerID);
                                     state.setSpacesMoved(state.getSpacesMoved() + 1);
+                                    state.setUsedPassageway(curPlayerID, false);
                                     state.setNewToRoom(curPlayerID, true);
                                     state.setCanSuggest(curPlayerID, true);
                                     state.setOnDoorTile(curPlayerID, true);
@@ -412,12 +406,9 @@ public class ClueLocalGame extends LocalGame {
                                 }
                                 else
                                 {
-                                    if (state.getNewToRoom(curPlayerID))
+                                    if (state.getNewToRoom(curPlayerID) && curBoard[x][y].getTileType() == 1)
                                     {
-                                        if (curBoard[x][y].getTileType() == 1)
-                                        {
-                                            return true;
-                                        }
+                                        return true;
                                     }
                                     state.getBoard().setPlayerBoard(x, y - 1, x, y, curPlayerID);
                                     state.setSpacesMoved(state.getSpacesMoved() + 1);
@@ -496,7 +487,9 @@ public class ClueLocalGame extends LocalGame {
                             state.setCanSuggest(b.playerID, false);
                             if (b.playerID == state.getNumPlayers() - 1) {
                                 state.setCheckCardToSend(0, true);
-                            } else {
+                            }
+                            else
+                            {
                                 state.setCheckCardToSend(b.playerID + 1, true);
                             }
 
