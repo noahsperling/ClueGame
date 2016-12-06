@@ -427,7 +427,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             }
 
             messageTextView.setText("Card: " + recentState.getCardToShow(playerNum));
-            message2TextView.setText("Shown By: " + recentState.getPlayerWhoShowedCard());
+            message2TextView.setText("Shown By: " + setPlayerWhoShowedCardName(recentState.getPlayerWhoShowedCard()));
 
             boardView.updateBoard(recentState.getBoard());
             boardView.invalidate();
@@ -729,6 +729,24 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             temp[i] = checkBoxBool[i];
         }
         return temp;
+    }
+
+    public String setPlayerWhoShowedCardName (int playerID) {
+        if (playerID == 0) {
+            return "Miss Scarlet";
+        } else if (playerID == 1) {
+            return "Col. Mustard";
+        } else if (playerID == 2) {
+            return "Mrs. White";
+        } else if (playerID == 3) {
+            return "Mr. Green";
+        } else if (playerID == 4) {
+            return "Mrs. Peacock";
+        } else if (playerID == 5) {
+            return "Prof. Plum";
+        } else {
+            return "";
+        }
     }
 
     /*

@@ -638,7 +638,6 @@ public class ClueLocalGame extends LocalGame {
             return true;
         } else if (nonTurnAction instanceof ClueShowCardAction) {
             ClueShowCardAction b = (ClueShowCardAction)a;
-            state.setPlayerWhoShowedCard(b.playerID);
             if(b.getCardToShow() == null) {
                 if(b.playerID == state.getNumPlayers() - 1 && state.getPlayerIDWhoSuggested() != 0) {
                     state.setCheckCardToSend(b.playerID, false);
@@ -701,7 +700,7 @@ public class ClueLocalGame extends LocalGame {
             }else {
                 state.setCheckCardToSend(b.playerID, false);
                 state.setCardToShow(b.getCardToShow(), state.getPlayerIDWhoSuggested());
-//                state.setPlayerWhoShowedCard("");
+                state.setPlayerWhoShowedCard(b.playerID);
 
                 state.setNewToRoom(state.getPlayerIDWhoSuggested(), false); //Once they've ended their turn, they are no longer new to a room.
                 state.setCanRoll(state.getPlayerIDWhoSuggested(), false);

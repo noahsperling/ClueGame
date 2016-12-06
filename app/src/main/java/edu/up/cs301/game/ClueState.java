@@ -37,7 +37,7 @@ public class ClueState extends GameState implements Serializable{
     private int playerIDWhoSuggested;
     private String[] cardToShow;
     private boolean[] checkCardToSend;
-    private String playerWhoShowedCard = "";
+    private int playerWhoShowedCard = -1;
     private boolean usedPassageway[];
     private boolean[] inRoom;
     private int winnerIndex;
@@ -379,7 +379,7 @@ public class ClueState extends GameState implements Serializable{
         return checkCardToSend;
     }
 
-    public String getPlayerWhoShowedCard() { return playerWhoShowedCard;}
+    public int getPlayerWhoShowedCard() { return playerWhoShowedCard;}
 
     public boolean[] getInRoom () { return inRoom; }
 
@@ -465,23 +465,7 @@ public class ClueState extends GameState implements Serializable{
         checkCardToSend[playerID] = value;
     }
 
-    public void setPlayerWhoShowedCard (int playerID) {playerWhoShowedCard = "";}
-//    if (playerID == 0) {
-//        playerWhoShowedCard = "Miss Scarlet";
-//    } else if (playerID == 1) {
-//        playerWhoShowedCard = "Col. Mustard";
-//    } else if (playerID == 2) {
-//        playerWhoShowedCard = "Mrs. White";
-//    } else if (playerID == 3) {
-//        playerWhoShowedCard = "Mr. Green";
-//    } else if (playerID == 4) {
-//        playerWhoShowedCard = "Mrs. Peacock";
-//    } else if (playerID == 5) {
-//        playerWhoShowedCard = "Prof. Plum";
-//    } else {
-//        playerWhoShowedCard = "";
-//    }
-
+    public void setPlayerWhoShowedCard (int playerID) {playerWhoShowedCard = playerID;}
 
     public void setGameOver(boolean newGameOver) {
         gameOver = newGameOver;
