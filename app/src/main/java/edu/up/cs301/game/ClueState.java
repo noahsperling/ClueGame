@@ -465,23 +465,22 @@ public class ClueState extends GameState implements Serializable{
         checkCardToSend[playerID] = value;
     }
 
-    public void setPlayerWhoShowedCard (int playerID) {
-        if (playerID == 0) {
-            playerWhoShowedCard = "Miss Scarlet";
-        } else if (playerID == 1) {
-            playerWhoShowedCard = "Col. Mustard";
-        } else if (playerID == 2) {
-            playerWhoShowedCard = "Mrs. White";
-        } else if (playerID == 3) {
-            playerWhoShowedCard = "Mr. Green";
-        } else if (playerID == 4) {
-            playerWhoShowedCard = "Mrs. Peacock";
-        } else if (playerID == 5) {
-            playerWhoShowedCard = "Prof. Plum";
-        } else {
-            playerWhoShowedCard = "";
-        }
-    }
+    public void setPlayerWhoShowedCard (int playerID) {playerWhoShowedCard = "";}
+//    if (playerID == 0) {
+//        playerWhoShowedCard = "Miss Scarlet";
+//    } else if (playerID == 1) {
+//        playerWhoShowedCard = "Col. Mustard";
+//    } else if (playerID == 2) {
+//        playerWhoShowedCard = "Mrs. White";
+//    } else if (playerID == 3) {
+//        playerWhoShowedCard = "Mr. Green";
+//    } else if (playerID == 4) {
+//        playerWhoShowedCard = "Mrs. Peacock";
+//    } else if (playerID == 5) {
+//        playerWhoShowedCard = "Prof. Plum";
+//    } else {
+//        playerWhoShowedCard = "";
+//    }
 
 
     public void setGameOver(boolean newGameOver) {
