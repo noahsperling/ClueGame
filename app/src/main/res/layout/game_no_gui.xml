@@ -218,6 +218,13 @@
                             android:layout_height="wrap_content"
                             android:textSize="16sp" />
 
+                        <TextView
+                            android:text="Messages:"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/message2TextView"
+                            android:textSize="15sp" />
+
                         <Button
                             android:text="SECRET PASSAGEWAY"
                             android:layout_width="match_parent"
@@ -245,7 +252,7 @@
                             android:ems="2"
                             android:id="@+id/editText"
                             android:gravity="top"
-                            android:layout_height="326dp" />
+                            android:layout_height="315dp" />
 
                     </LinearLayout>
 

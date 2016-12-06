@@ -12,6 +12,8 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 import edu.up.cs301.game.actionMsg.ClueAccuseAction;
@@ -53,6 +55,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     private Button rollButton;
     private TextView numberOfMovesLeft;
     private TextView messageTextView;
+    private TextView message2TextView;
     private TextView playerTextView;
     private Button cancelButton;
     private Button submitButton;
@@ -257,6 +260,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         messageTextView = (TextView)myActivity.findViewById(R.id.messageTextView);
         messageTextView.setText("");
 
+        message2TextView = (TextView)myActivity.findViewById(R.id.message2TextView);
+        message2TextView.setText("");
+
         //Text view that says who you are, displayed above the checkboxes
         playerTextView = (TextView)myActivity.findViewById(R.id.playerTextView);
         playerTextView.setText("You are a human\n player with a \nundetermined name.");
@@ -420,7 +426,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                 suggestR.setChecked(false);
             }
 
-            messageTextView.setText("Card Shown: " + recentState.getCardToShow(playerNum));
+            messageTextView.setText("Card: " + recentState.getCardToShow(playerNum));
+            message2TextView.setText("Shown By: " + recentState.getPlayerWhoShowedCard());
 
             boardView.updateBoard(recentState.getBoard());
             boardView.invalidate();

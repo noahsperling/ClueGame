@@ -37,6 +37,7 @@ public class ClueState extends GameState implements Serializable{
     private int playerIDWhoSuggested;
     private String[] cardToShow;
     private boolean[] checkCardToSend;
+    private String playerWhoShowedCard;
     private boolean usedPassageway[];
     private boolean[] inRoom;
     private int winnerIndex;
@@ -53,6 +54,7 @@ public class ClueState extends GameState implements Serializable{
         spacesMoved = 0;
         numPlayers = initNumPlayers;
         playerIDWhoSuggested = -1;
+        playerWhoShowedCard = "";
 
         //tells the game how many cards to try and give each player
         if(numPlayers == 3) {
@@ -191,6 +193,7 @@ public class ClueState extends GameState implements Serializable{
         inRoom = new boolean[numPlayers];
         winnerIndex = s.getWinnerIndex();
         onDoorTile = s.getOnDoorTile();
+        playerWhoShowedCard = s.getPlayerWhoShowedCard();
 
 
         for(int i = 0; i < numPlayers; i++) {
@@ -377,6 +380,8 @@ public class ClueState extends GameState implements Serializable{
         return checkCardToSend;
     }
 
+    public String getPlayerWhoShowedCard() { return playerWhoShowedCard;}
+
     public boolean[] getInRoom () { return inRoom; }
 
     public boolean[] getOnDoorTile() {return onDoorTile; }
@@ -460,6 +465,8 @@ public class ClueState extends GameState implements Serializable{
     public void setCheckCardToSend(int playerID, boolean value) {
         checkCardToSend[playerID] = value;
     }
+
+    public void setPlayerWhoShowedCard (String playerID) { playerWhoShowedCard = "" + playerID;}
 
     public void setGameOver(boolean newGameOver) {
         gameOver = newGameOver;
