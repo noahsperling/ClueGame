@@ -539,6 +539,34 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
     //direction 1 = left, 2 = up, 3 = right, 4 = down
     private boolean checkIfAvailableTile(int x, int y, int direction) {
         Log.i("Computer Player" + playerNum, "X: "+x+" Y: "+y+" Dir: "+direction);
+
+        //check to make sure that the AI doesn't get stuck moving back and forth between two squares
+        if(direction == 1) {
+            if(prevMov2 != null) {
+                if(prevMov2 instanceof ClueMoveLeftAction && prevMov1 instanceof ClueMoveRightAction) {
+                    return false;
+                }
+            }
+        }else if (direction == 2) {
+            if(prevMov2 != null) {
+                if(prevMov2 instanceof ClueMoveUpAction && prevMov1 instanceof ClueMoveDownAction) {
+                    return false;
+                }
+            }
+        }else if(direction == 3) {
+            if(prevMov2 != null) {
+                if(prevMov2 instanceof ClueMoveRightAction && prevMov1 instanceof ClueMoveLeftAction) {
+                    return false;
+                }
+            }
+        }else if(direction == 4) {
+            if(prevMov2 != null) {
+                if(prevMov2 instanceof ClueMoveDownAction && prevMov1 instanceof ClueMoveUpAction) {
+                    return false;
+                }
+            }
+        }
+
         if(myState.getBoard().getBoardArr()[y][x] != null) {
             if(direction == 1) { //Move Left
                 if(!myState.getBoard().getBoardArr()[y][x].getLeftWall()) {
