@@ -638,8 +638,7 @@ public class ClueLocalGame extends LocalGame {
             return true;
         } else if (nonTurnAction instanceof ClueShowCardAction) {
             ClueShowCardAction b = (ClueShowCardAction)a;
-            state.setPlayerWhoShowedCard("" + b.playerID);
-            Log.i("player who showed card" + b.playerID,"");
+            state.setPlayerWhoShowedCard(b.playerID);
             if(b.getCardToShow() == null) {
                 if(b.playerID == state.getNumPlayers() - 1 && state.getPlayerIDWhoSuggested() != 0) {
                     state.setCheckCardToSend(b.playerID, false);

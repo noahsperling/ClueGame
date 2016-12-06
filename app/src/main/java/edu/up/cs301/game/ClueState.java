@@ -37,7 +37,7 @@ public class ClueState extends GameState implements Serializable{
     private int playerIDWhoSuggested;
     private String[] cardToShow;
     private boolean[] checkCardToSend;
-    private String playerWhoShowedCard;
+    private String playerWhoShowedCard = "";
     private boolean usedPassageway[];
     private boolean[] inRoom;
     private int winnerIndex;
@@ -54,7 +54,6 @@ public class ClueState extends GameState implements Serializable{
         spacesMoved = 0;
         numPlayers = initNumPlayers;
         playerIDWhoSuggested = -1;
-        playerWhoShowedCard = "";
 
         //tells the game how many cards to try and give each player
         if(numPlayers == 3) {
@@ -213,11 +212,11 @@ public class ClueState extends GameState implements Serializable{
 
         for(int i = 0; i < numPlayers; i++) {
             cards[i] = new Hand();
-                for (int j = 0; j < cardsPerHand; j++) {
-                    if(s.getCards(i) != null && s.getCards(i).getCards() != null && s.getCards(i).getCards().length > j && s.getCards(i).getCards()[j] != null) {
-                        cards[i].addCard(s.getCards(i).getCards()[j]);
-                    }
+            for (int j = 0; j < cardsPerHand; j++) {
+                if(s.getCards(i) != null && s.getCards(i).getCards() != null && s.getCards(i).getCards().length > j && s.getCards(i).getCards()[j] != null) {
+                    cards[i].addCard(s.getCards(i).getCards()[j]);
                 }
+            }
         }
 
         for(int i = 0; i < numPlayers; i++) {
@@ -466,7 +465,24 @@ public class ClueState extends GameState implements Serializable{
         checkCardToSend[playerID] = value;
     }
 
-    public void setPlayerWhoShowedCard (String playerID) { playerWhoShowedCard = "" + playerID;}
+    public void setPlayerWhoShowedCard (int playerID) {
+        if (playerID == 0) {
+            playerWhoShowedCard = "Miss Scarlet";
+        } else if (playerID == 1) {
+            playerWhoShowedCard = "Col. Mustard";
+        } else if (playerID == 2) {
+            playerWhoShowedCard = "Mrs. White";
+        } else if (playerID == 3) {
+            playerWhoShowedCard = "Mr. Green";
+        } else if (playerID == 4) {
+            playerWhoShowedCard = "Mrs. Peacock";
+        } else if (playerID == 5) {
+            playerWhoShowedCard = "Prof. Plum";
+        } else {
+            playerWhoShowedCard = "";
+        }
+    }
+
 
     public void setGameOver(boolean newGameOver) {
         gameOver = newGameOver;
