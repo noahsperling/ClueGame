@@ -370,22 +370,44 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             boolean room[] = recentState.getInRoom();
 
         // initial set up for human player's turn
-        if(recentState.getTurnId() == playerNum && recentState.getPlayerStillInGame(playerNum)) {
+        if(recentState.getTurnId() == playerNum && recentState.getPlayerStillInGame(playerNum))
+        {
+            if (showCardR.isEnabled())
+            {
+                accuseR.setEnabled(false);
+                accuseR.setChecked(false);
+                submitButton.setEnabled(true);
+                cancelButton.setEnabled(true);
+                endTurnButton.setEnabled(false);
+                upButton.setEnabled(false);
+                downButton.setEnabled(false);
+                leftButton.setEnabled(false);
+                rightButton.setEnabled(false);
 
-            accuseR.setEnabled(true);
-            accuseR.setChecked(false);
-            submitButton.setEnabled(true);
-            cancelButton.setEnabled(true);
-            endTurnButton.setEnabled(true);
-            upButton.setEnabled(true);
-            downButton.setEnabled(true);
-            leftButton.setEnabled(true);
-            rightButton.setEnabled(true);
-            if(recentState.getCanRoll(playerNum)) {
-                rollButton.setEnabled(true);
-            }else if(!recentState.getCanRoll(playerNum)) {
-                rollButton.setEnabled(false);
+                if(recentState.getCanRoll(playerNum)) {
+                    rollButton.setEnabled(true);
+                }else if(!recentState.getCanRoll(playerNum)) {
+                    rollButton.setEnabled(false);
+                }
             }
+            else {
+                accuseR.setEnabled(true);
+                accuseR.setChecked(false);
+                submitButton.setEnabled(true);
+                cancelButton.setEnabled(true);
+                endTurnButton.setEnabled(true);
+                upButton.setEnabled(true);
+                downButton.setEnabled(true);
+                leftButton.setEnabled(true);
+                rightButton.setEnabled(true);
+
+                if(recentState.getCanRoll(playerNum)) {
+                    rollButton.setEnabled(true);
+                }else if(!recentState.getCanRoll(playerNum)) {
+                    rollButton.setEnabled(false);
+                }
+            }
+
 
             //if the player is in a corner room and has not used the secret passageway, enable the button
             //If the player has already used the secret passageway, disable the button
