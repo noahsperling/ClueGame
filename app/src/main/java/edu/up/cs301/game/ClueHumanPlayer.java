@@ -792,7 +792,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
         for (int i = 0; i < suggestCards.length-1; i++) {
             if (suggestCards[i] == null) {
-                return suggestCardsText = " ";
+                return suggestCardsText = "Suggestion: ";
             }
         }
         String card1 = suggestCards[0];
