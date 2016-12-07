@@ -746,7 +746,7 @@ public class ClueLocalGame extends LocalGame {
                 numPlayersLeft++;
             }
         }
-        if(!state.getGameOver()) {
+        if(numPlayersLeft != 1 && !state.getGameOver()) {
             return null;
         }else if(numPlayersLeft == 1){
             for(int i = 0; i < state.getNumPlayers(); i++) {
