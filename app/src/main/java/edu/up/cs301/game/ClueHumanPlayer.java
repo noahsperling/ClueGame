@@ -538,6 +538,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                     suggestR.setEnabled(false);
                     suggestR.setChecked(false);
                     accuseR.setEnabled(false);
+                    accuseR.setChecked(false);
 
                     //ClueEndTurnAction end = new ClueEndTurnAction(this);
                     endTurnButton.setEnabled(false);
