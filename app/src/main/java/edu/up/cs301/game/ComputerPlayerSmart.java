@@ -266,10 +266,6 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                     if (myState.getBoard().getBoardArr()[curY][curX].getTileType() == 0 ||
                             (myState.getBoard().getBoardArr()[curY][curX].getTileType() == 1
                                     && !myState.getBoard().getBoardArr()[curY][curX].getIsDoor())) {
-
-                        if(curX == 18 && curY == 19){
-                            Log.i("Computer Smart"+playerNum,""+isThereADoor(curX,curY)+" "+dX+" "+dY+" "+isThereAWall(curX,curY));
-                        }
                         if (dX == 0 && isThereAWall(curX, curY) && !isThereADoor(curX,curY)) {
                             int dir = 0;
                             if (prevMov1 instanceof ClueMoveLeftAction) {
@@ -280,10 +276,6 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                 dir = 3;
                             } else if (prevMov1 instanceof ClueMoveDownAction) {
                                 dir = 4;
-                            }
-
-                            if(playerNum == 3) {
-                                Log.i("Computer Player 3",""+closestX+" "+closestY);
                             }
 
                             if (checkIfAvailableTile(curX, curY, dir)) {
@@ -309,6 +301,24 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                         game.sendAction(c);
                                         Log.i("Computer Player" + playerNum + " Moved", "Right");
                                         return;
+                                    } else if(checkIfAvailableTile(curX, curY, 2)){
+                                        ClueMoveUpAction c = new ClueMoveUpAction(this);
+                                        prevMov2 = prevMov1;
+                                        prevMov1 = c;
+                                        numMoves++;
+                                        game.sendAction(c);
+                                        Log.i("Computer Player" + playerNum + " Moved", "Up");
+                                        return;
+                                    } else if(checkIfAvailableTile(curX, curY, 4)){
+                                        ClueMoveDownAction c = new ClueMoveDownAction(this);
+                                        prevMov2 = prevMov1;
+                                        prevMov1 = c;
+                                        numMoves++;
+                                        game.sendAction(c);
+                                        Log.i("Computer Player" + playerNum + " Moved", "Down");
+                                        return;
+                                    } else {
+                                        game.sendAction(new ClueEndTurnAction(this));
                                     }
                             }
                         } else if (dY == 0 && isThereAWall(curX, curY) && !isThereADoor(curX,curY)) {
@@ -346,6 +356,24 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Down");
                                     return;
+                                }else if (checkIfAvailableTile(curX, curY, 1)) {
+                                    ClueMoveLeftAction c = new ClueMoveLeftAction(this);
+                                    prevMov2 = prevMov1;
+                                    prevMov1 = c;
+                                    numMoves++;
+                                    game.sendAction(c);
+                                    Log.i("Computer Player" + playerNum + " Moved", "Left");
+                                    return;
+                                } else if (checkIfAvailableTile(curX, curY, 3)) {
+                                    ClueMoveRightAction c = new ClueMoveRightAction(this);
+                                    prevMov2 = prevMov1;
+                                    prevMov1 = c;
+                                    numMoves++;
+                                    game.sendAction(c);
+                                    Log.i("Computer Player" + playerNum + " Moved", "Right");
+                                    return;
+                                } else {
+                                    game.sendAction(new ClueEndTurnAction(this));
                                 }
                             }
                         } else if (dX > dY) {
@@ -383,6 +411,8 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Left");
                                     return;
+                                } else {
+                                    game.sendAction(new ClueEndTurnAction(this));
                                 }
                             } else if (dXNegative && !dYNegative) {
                                 if (checkIfAvailableTile(curX, curY, 1)) {
@@ -417,6 +447,8 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Right");
                                     return;
+                                } else {
+                                    game.sendAction(new ClueEndTurnAction(this));
                                 }
                             } else if (!dXNegative && dYNegative) {
                                 if (checkIfAvailableTile(curX, curY, 3)) {
@@ -451,6 +483,8 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Left");
                                     return;
+                                } else {
+                                    game.sendAction(new ClueEndTurnAction(this));
                                 }
                             } else if (dXNegative && dYNegative) {
                                 if (checkIfAvailableTile(curX, curY, 1)) {
@@ -485,6 +519,8 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Right");
                                     return;
+                                } else {
+                                    game.sendAction(new ClueEndTurnAction(this));
                                 }
                             }
                         } else {
@@ -523,6 +559,8 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                         game.sendAction(c);
                                         Log.i("Computer Player" + playerNum + " Moved", "Up");
                                         return;
+                                    }else {
+                                        game.sendAction(new ClueEndTurnAction(this));
                                     }
                                 } else if (!dXNegative && dYNegative) {
                                     if (checkIfAvailableTile(curX, curY, 2)) {
@@ -557,6 +595,8 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                         game.sendAction(c);
                                         Log.i("Computer Player" + playerNum + " Moved", "Down");
                                         return;
+                                    }else {
+                                        game.sendAction(new ClueEndTurnAction(this));
                                     }
                                 } else if (dXNegative && !dYNegative) {
                                     if (checkIfAvailableTile(curX, curY, 4)) {
@@ -591,6 +631,8 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                         game.sendAction(c);
                                         Log.i("Computer Player" + playerNum + " Moved", "Up");
                                         return;
+                                    }else {
+                                        game.sendAction(new ClueEndTurnAction(this));
                                     }
                                 } else if (dXNegative && dYNegative) {
                                     if (checkIfAvailableTile(curX, curY, 2)) {
@@ -625,6 +667,8 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                         game.sendAction(c);
                                         Log.i("Computer Player" + playerNum + " Moved", "Down");
                                         return;
+                                    }else {
+                                        game.sendAction(new ClueEndTurnAction(this));
                                     }
                                 }
                             }
@@ -666,6 +710,8 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                             game.sendAction(c);
                             Log.i("Computer Player" + playerNum + " Moved", "Right");
                             return;
+                        }else {
+                            game.sendAction(new ClueEndTurnAction(this));
                         }
                     }else if(myState.getBoard().getBoardArr()[curY][curX].getIsDoor() &&
                             !myState.getCanSuggest(playerNum)) {
@@ -728,6 +774,8 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                 game.sendAction(c);
                                 Log.i("Computer Player" + playerNum + " Moved", "Left");
                                 return;
+                            }else {
+                                game.sendAction(new ClueEndTurnAction(this));
                             }
                         }
                     }

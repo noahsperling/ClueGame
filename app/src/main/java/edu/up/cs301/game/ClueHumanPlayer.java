@@ -383,6 +383,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             //if the player needs to show a card, allow them only to choose the card and submit it
             if (showCardR.isEnabled())
             {
+                suggestR.setEnabled(false);
+                suggestR.setChecked(false);
                 accuseR.setEnabled(false);
                 accuseR.setChecked(false);
                 submitButton.setEnabled(true);
@@ -454,7 +456,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             //suggest and accuse radio buttons handled
             //Log.i("New to room = " + recentState.getNewToRoom(playerNum), " ");
             //Log.i("Room = " + room[playerNum], " ");
-            if (room[playerNum] && recentState.getNewToRoom(playerNum)) {
+            if (room[playerNum] && recentState.getNewToRoom(playerNum) && !showCardR.isEnabled()) {
                 //Log.i("Got to suggest if", " ");
                 suggestR.setEnabled(true);
                 suggestR.setChecked(false);
