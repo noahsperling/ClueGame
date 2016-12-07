@@ -204,7 +204,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                             }
                         }
                     }
-                    if(myState.getBoard().getBoardArr()[curY][curX].getTileType() == 1){
+                    if(myState.getBoard().getBoardArr()[curY][curX].getTileType() == 1 && !myState.getCanSuggest(playerNum)){
                         int destX = closestX;
                         int destY = closestY;
                         for(int j = 0; j < doorCoordinates.length; j++) {
@@ -234,8 +234,9 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
 
                     //TODO: When smart AI is in a room it will no longer move. Suggestions don't always seem to work either.
                     if(myState.getBoard().getBoardArr()[curY][curX].getTileType() == 0 ||
-                            (myState.getBoard().getBoardArr()[curY][curX].getTileType() == 1 &&
-                                    !myState.getCanSuggest(playerNum))) {
+                        (myState.getBoard().getBoardArr()[curY][curX].getTileType() == 1 &&
+                        !myState.getCanSuggest(playerNum)
+                        && !myState.getBoard().getBoardArr()[curY][curX].getIsDoor())) {
                         if (dX > dY) {
                             Log.i("Computer Player" + playerNum, "dX > dY");
                             if(!dXNegative && !dYNegative) {
@@ -359,41 +360,6 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     return;
                                 }
                             }
-
-                            /*
-                            if (dXNegative && checkIfAvailableTile(curX, curY, 1)) { //Move Left
-                                ClueMoveLeftAction c = new ClueMoveLeftAction(this);
-                                prevMov2 = prevMov1;
-                                prevMov1 = c;
-                                game.sendAction(c);
-                                Log.i("Computer Player" + playerNum + " Moved", "Left");
-                                return;
-                            }
-                            if (!dXNegative && checkIfAvailableTile(curX, curY, 3)) { //Move Right
-                                ClueMoveRightAction c = new ClueMoveRightAction(this);
-                                prevMov2 = prevMov1;
-                                prevMov1 = c;
-                                game.sendAction(c);
-                                Log.i("Computer Player" + playerNum + " Moved", "Right");
-                                return;
-                            }
-                            if (dYNegative && checkIfAvailableTile(curX, curY, 2)) { //Move Up
-                                ClueMoveUpAction c = new ClueMoveUpAction(this);
-                                prevMov2 = prevMov1;
-                                prevMov1 = c;
-                                game.sendAction(c);
-                                Log.i("Computer Player" + playerNum + " Moved", "Up");
-                                return;
-                            }
-                            if (!dYNegative && checkIfAvailableTile(curX, curY, 4)) { //Move Down
-                                ClueMoveDownAction c = new ClueMoveDownAction(this);
-                                prevMov2 = prevMov1;
-                                prevMov1 = c;
-                                game.sendAction(c);
-                                Log.i("Computer Player" + playerNum + " Moved", "Down");
-                                return;
-                            }
-                            */
                         } else {
                             Log.i("Computer Player" + playerNum, "dY >= dX");
 
@@ -548,6 +514,41 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                         }
                         if (MoveOffDoor(curX, curY, 3)) { //Move Right
                             ClueMoveRightAction c = new ClueMoveRightAction(this);
+                            prevMov2 = prevMov1;
+                            prevMov1 = c;
+                            game.sendAction(c);
+                            Log.i("Computer Player" + playerNum + " Moved", "Right");
+                            return;
+                        }
+                    }else if(myState.getBoard().getBoardArr()[curY][curX].getIsDoor() &&
+                            !myState.getCanSuggest(playerNum)) {
+                        Log.i("Computer Player" + playerNum, "Room");
+                        if (MoveOffDoor(curX, curY, 2)) { //Move Up
+                            ClueMoveDownAction c = new ClueMoveDownAction(this);
+                            prevMov2 = prevMov1;
+                            prevMov1 = c;
+                            game.sendAction(c);
+                            Log.i("Computer Player" + playerNum + " Moved", "Up");
+                            return;
+                        }
+                        if (MoveOffDoor(curX, curY, 4)) { //Move Down
+                            ClueMoveUpAction c = new ClueMoveUpAction(this);
+                            prevMov2 = prevMov1;
+                            prevMov1 = c;
+                            game.sendAction(c);
+                            Log.i("Computer Player" + playerNum + " Moved", "Down");
+                            return;
+                        }
+                        if (MoveOffDoor(curX, curY, 1)) { //Move Left
+                            ClueMoveRightAction c = new ClueMoveRightAction(this);
+                            prevMov2 = prevMov1;
+                            prevMov1 = c;
+                            game.sendAction(c);
+                            Log.i("Computer Player" + playerNum + " Moved", "Left");
+                            return;
+                        }
+                        if (MoveOffDoor(curX, curY, 3)) { //Move Right
+                            ClueMoveLeftAction c = new ClueMoveLeftAction(this);
                             prevMov2 = prevMov1;
                             prevMov1 = c;
                             game.sendAction(c);
