@@ -90,10 +90,6 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
                     String[] validCards = new String[cards.size()];
                     cards.toArray(validCards);
                     if (validCards.length == 0) {
-                        /*ClueShowCardAction s = new ClueShowCardAction(this);
-                        s.setCardToShow(null);
-                        game.sendAction(s);
-                        //game.sendAction(null);*/
                         game.sendAction(new ClueShowCardAction(this));
                         return;
                     } else {

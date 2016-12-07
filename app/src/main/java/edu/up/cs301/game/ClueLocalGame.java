@@ -177,7 +177,7 @@ public class ClueLocalGame extends LocalGame {
                                     //Makes it so that the player is able to move around in a room even if they technically have no moves left.
                                     if (state.getSpacesMoved() == state.getDieValue())
                                     {
-                                        state.setSpacesMoved(state.getSpacesMoved() - 1);
+                                        state.setSpacesMoved(state.getSpacesMoved() - 2);
                                     }
                                     state.setInRoom(curPlayerID, true);
                                     return true;
@@ -195,6 +195,7 @@ public class ClueLocalGame extends LocalGame {
                                     {
                                         state.setSpacesMoved(state.getSpacesMoved() + 1);
                                     }
+
                                     x = x - 1;
                                     if (curBoard[x][y].getIsDoor())
                                     {
@@ -213,6 +214,7 @@ public class ClueLocalGame extends LocalGame {
                                     {
                                         return true;
                                     }
+
                                     state.getBoard().setPlayerBoard(x - 1, y, x, y, curPlayerID); //Set the new position of the player and set the old position to zero.
                                     state.setSpacesMoved(state.getSpacesMoved() + 1);
                                     x = x - 1;
