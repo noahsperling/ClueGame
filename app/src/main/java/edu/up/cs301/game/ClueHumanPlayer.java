@@ -388,6 +388,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                 submitButton.setEnabled(true);
                 cancelButton.setEnabled(true);
                 endTurnButton.setEnabled(false);
+                secretPassagewayButton.setEnabled(false);
                 upButton.setEnabled(false);
                 downButton.setEnabled(false);
                 leftButton.setEnabled(false);
@@ -427,6 +428,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                 secretPassagewayButton.setEnabled(true);
             }
             else {
+                secretPassagewayButton.setEnabled(false);
+            }
+            if(recentState.getCheckCardToSend()[playerNum]) {
                 secretPassagewayButton.setEnabled(false);
             }
         }else if(recentState.getTurnId() == playerNum && !recentState.getPlayerStillInGame(playerNum) && !notSent){
