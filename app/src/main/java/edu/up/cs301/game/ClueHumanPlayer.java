@@ -798,7 +798,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         String card1 = suggestCards[0];
         String card2 = suggestCards[1];
         String card3 = suggestCards[2];
-        suggestCardsText = "Suggestion: \n" + card1 + "\n" + card2 + "\n" + card3;
+        suggestCardsText = "Suggestion: \n" + "   - " + card1 + "\n" + "   - " + card2 + "\n" + "   - " + card3;
         return suggestCardsText;
     }
 
