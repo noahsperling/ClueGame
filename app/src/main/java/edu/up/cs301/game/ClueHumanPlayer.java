@@ -58,6 +58,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     private TextView numberOfMovesLeft;
     private TextView messageTextView;
     private TextView message2TextView;
+    private TextView suggestionTextView;
     private TextView playerTextView;
     private Button cancelButton;
     private Button submitButton;
@@ -266,6 +267,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         message2TextView = (TextView)myActivity.findViewById(R.id.message2TextView);
         message2TextView.setText("");
 
+        suggestionTextView = (TextView)myActivity.findViewById((R.id.suggestionTextView));
+        suggestionTextView.setText("");
+
         //Text view that says who you are, displayed above the checkboxes
         playerTextView = (TextView)myActivity.findViewById(R.id.playerTextView);
         playerTextView.setText("You are a human\n player with a \nundetermined name.");
@@ -458,6 +462,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
             messageTextView.setText("Card: " + recentState.getCardToShow(playerNum));
             message2TextView.setText("Shown By: " + setPlayerWhoShowedCardName(recentState.getPlayerWhoShowedCard()));
+
+            suggestionTextView.setText(setSuggestionText(recentState.getPlayerIDWhoSuggested()));
 
             boardView.updateBoard(recentState.getBoard());
             boardView.invalidate();
@@ -778,6 +784,22 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         } else {
             return "";
         }
+    }
+
+    public String setSuggestionText (int playerID) {
+        String[] suggestCards = recentState.getSuggestCards();
+        String suggestCardsText;
+
+        for (int i = 0; i < suggestCards.length-1; i++) {
+            if (suggestCards[i] == null) {
+                return suggestCardsText = " ";
+            }
+        }
+        String card1 = suggestCards[0];
+        String card2 = suggestCards[1];
+        String card3 = suggestCards[2];
+        suggestCardsText = "Suggestion: \n" + card1 + "\n" + card2 + "\n" + card3;
+        return suggestCardsText;
     }
 
     /*
