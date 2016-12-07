@@ -71,7 +71,7 @@ public class ClueLocalGame extends LocalGame {
     {
         if (state.getSpacesMoved() < state.getDieValue())
         {
-           return true;
+            return true;
         }
         else
         {
@@ -493,7 +493,10 @@ public class ClueLocalGame extends LocalGame {
                 }
                 else if (moveAction instanceof ClueSuggestionAction)
                 {
+                    //make sure they are not on a door tile when they suggest to prevent the player
+                    //from ending their turn on a door tile
                     if (!curBoard[x][y].getIsDoor()) {
+                        //check if they are on a room tile and they are new to room
                         if (curBoard[x][y].getTileType() == 1 && state.getNewToRoom(curPlayerID)) {
                             ClueSuggestionAction b = (ClueSuggestionAction) a;
                             String[] suggestionCards = new String[3];
@@ -506,31 +509,97 @@ public class ClueLocalGame extends LocalGame {
                             state.setCanSuggest(b.playerID, false);
                             state.setCanRoll(b.playerID, false);
                             state.setHasSuggested(b.playerID, true);
+
+                            //move the player in the suggestion into the room as well next to the player
+                            //only if they are still in the game
+                            if (state.getPlayerStillInGame(b.playerID)) {
+                                String[] tempCards = state.getSuggestCards();
+
+                                //check if the player to move is still in the game
+                                if (tempCards[1].equals(MISS_SCARLET.getName())) {
+                                    state.setPlayerInSuggestion(0);
+                                }
+                                else if (tempCards[1].equals(COL_MUSTARD.getName())) {
+                                    state.setPlayerInSuggestion(1);
+                                }
+                                else if (tempCards[1].equals(MRS_WHITE.getName())) {
+                                    state.setPlayerInSuggestion(2);
+                                }
+                                else if (tempCards[1].equals(MR_GREEN.getName())) {
+                                    state.setPlayerInSuggestion(3);
+                                }
+                                else if (tempCards[1].equals(MRS_PEACOCK.getName())){
+                                    state.setPlayerInSuggestion(4);
+                                }
+                                else if (tempCards[1].equals(PROF_PLUM.getName())) {
+                                    state.setPlayerInSuggestion(5);
+                                }
+                                else {
+                                    state.setPlayerInSuggestion(-1);
+                                }
+
+                                //if a player was in the suggestion, pull them into the room
+                                if (state.getPlayerInSuggestion() != -1) {
+                                    String moveToRoom = " ";
+                                    int currentX = 1;
+                                    int currentY = 1;
+                                    for (int i = 0; i < 26; i++) {
+                                        for (int j = 0; j < 26; j++) {
+
+                                            if (state.getBoard().getPlayerBoard()[j][i] == b.playerID) {
+
+                                                moveToRoom = state.getBoard().getBoardArr()[j][i].getRoom().getName();
+                                            }
+                                            if (state.getBoard().getPlayerBoard()[j][i] == state.getPlayerInSuggestion()) {
+                                                currentX = i;
+                                                currentY = j;
+                                            }
+                                        }
+                                     }
+
+                                    loop1:
+                                    for (int i = 0; i < 26; i++) {
+                                        for (int j = 0; j < 26; j++) {
+                                            //find first available tile in the room to place the player
+                                            if (state.getBoard().getBoardArr()[j][i] != null && state.getBoard().getBoardArr()[j][i].getRoom() != null&& state.getBoard().getBoardArr()[j][i].getRoom().getName().equals(moveToRoom) && state.getBoard().getPlayerBoard()[j][i] == - 1) {
+                                                state.getBoard().setPlayerBoard(j, i,currentY, currentX, state.getPlayerInSuggestion());
+                                                break loop1;
+                                            }
+                                        }
+                                    }
+//                                    state.getBoard().setPlayerBoard(moveToY, moveToX,currentY, currentX, state.getPlayerInSuggestion());
+                                }
+                             }
+
+
+
+
+
                             if (b.playerID == state.getNumPlayers() - 1) {
                                 state.setCheckCardToSend(0, true);
                             } else {
                                 state.setCheckCardToSend(b.playerID + 1, true);
                             }
 
-                                if (state.getTurnId() == (state.getNumPlayers() - 1))
-                                {
-                                    state.setCanRoll(0, false);
-                                    state.setCanSuggest(0, false);
-                                    state.setTurnID(0);
-                                    state.setSpacesMoved(0);
-                                    state.setDieValue(0);
-                                    return true;
-                                }
-                                else
-                                {
-                                    state.setCanRoll(state.getTurnId() + 1, false);
-                                    state.setCanSuggest(state.getTurnId()+1,false);
-                                    state.setTurnID(state.getTurnId() + 1);
-                                    state.setSpacesMoved(0);
-                                    state.setDieValue(0);
-                                    return true;
+                            if (state.getTurnId() == (state.getNumPlayers() - 1))
+                            {
+                                state.setCanRoll(0, false);
+                                state.setCanSuggest(0, false);
+                                state.setTurnID(0);
+                                state.setSpacesMoved(0);
+                                state.setDieValue(0);
+                                return true;
+                            }
+                            else
+                            {
+                                state.setCanRoll(state.getTurnId() + 1, false);
+                                state.setCanSuggest(state.getTurnId()+1,false);
+                                state.setTurnID(state.getTurnId() + 1);
+                                state.setSpacesMoved(0);
+                                state.setDieValue(0);
+                                return true;
 
-                                }
+                            }
                         }
 
                         return false;
@@ -652,8 +721,8 @@ public class ClueLocalGame extends LocalGame {
                         }
                     }
                     else if(players[curPlayerID] instanceof ComputerPlayerDumb) {
-                            state.setSpacesMoved(state.getSpacesMoved()-1);
-                            return false;
+                        state.setSpacesMoved(state.getSpacesMoved()-1);
+                        return false;
                     }
 
                 }else if (moveAction instanceof ClueShowCardAction) { //Might not work
@@ -786,8 +855,8 @@ public class ClueLocalGame extends LocalGame {
             }
             return true;
         }
-            return false;
-        }
+        return false;
+    }
 
     @Override
     public void sendUpdatedStateTo(GamePlayer p) {
@@ -795,30 +864,30 @@ public class ClueLocalGame extends LocalGame {
         if(p instanceof ClueHumanPlayer) {
             ClueHumanPlayer player = (ClueHumanPlayer)p;
             int playerCount = sendState.getNumPlayers();
-                for(int i = 0; i < playerCount; i++) {
-                    if(i != player.getPlayerID()) {
-                        sendState.setNotes(i, null);
-                        sendState.setCards(i, null);
-                    }
+            for(int i = 0; i < playerCount; i++) {
+                if(i != player.getPlayerID()) {
+                    sendState.setNotes(i, null);
+                    sendState.setCards(i, null);
                 }
+            }
         }else if(p instanceof ComputerPlayerDumb){
             ComputerPlayerDumb player = (ComputerPlayerDumb)p;
             int playerCount = sendState.getNumPlayers();
-                for(int i = 0; i < playerCount; i++) {
-                    if(i != player.getPlayerID()) {
-                        sendState.setNotes(i, null);
-                        sendState.setCards(i, null);
-                    }
+            for(int i = 0; i < playerCount; i++) {
+                if(i != player.getPlayerID()) {
+                    sendState.setNotes(i, null);
+                    sendState.setCards(i, null);
                 }
+            }
         }else if(p instanceof ComputerPlayerSmart){
             ComputerPlayerSmart player = (ComputerPlayerSmart)p;
             int playerCount = sendState.getNumPlayers();
-                for(int i = 0; i < playerCount; i++) {
-                    if(i != player.getPlayerID()) {
-                        sendState.setNotes(i, null);
-                        sendState.setCards(i, null);
-                    }
+            for(int i = 0; i < playerCount; i++) {
+                if(i != player.getPlayerID()) {
+                    sendState.setNotes(i, null);
+                    sendState.setCards(i, null);
                 }
+            }
         }
 
         p.sendInfo(sendState);
