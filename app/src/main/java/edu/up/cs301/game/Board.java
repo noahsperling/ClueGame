@@ -382,9 +382,11 @@ public class Board implements Serializable{
         return playerBoard;
     }
 
-    public void setPlayerBoard(int x, int y, int m, int n, int playerID) {
-        playerBoard[x][y] = playerID;
+    public void setPlayerBoard(int x, int y, int m, int n, int playerID)
+    {
         playerBoard[m][n] = -1;
+        playerBoard[x][y] = playerID;
+
     }
 
     public void setPlayerBoard(int[][] playerBoard){
