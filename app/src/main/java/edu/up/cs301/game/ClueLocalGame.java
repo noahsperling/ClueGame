@@ -653,6 +653,7 @@ public class ClueLocalGame extends LocalGame {
                         }else if(b.playerID == state.getPlayerIDWhoSuggested()-1){
                             state.setCheckCardToSend(b.playerID, false);
                             state.setCardToShow("No card shown.", state.getPlayerIDWhoSuggested());
+                            state.setPlayerWhoShowedCard(-1);
 
                             state.setNewToRoom(state.getPlayerIDWhoSuggested(), false); //Once they've ended their turn, they are no longer new to a room.
                             state.setCanRoll(state.getPlayerIDWhoSuggested(), false);

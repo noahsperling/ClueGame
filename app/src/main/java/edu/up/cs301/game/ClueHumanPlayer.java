@@ -372,6 +372,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         // initial set up for human player's turn
         if(recentState.getTurnId() == playerNum && recentState.getPlayerStillInGame(playerNum))
         {
+            //if the player needs to show a card, allow them only to choose the card and submit it
             if (showCardR.isEnabled())
             {
                 accuseR.setEnabled(false);
@@ -390,6 +391,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                     rollButton.setEnabled(false);
                 }
             }
+            //if the player does not need to show a card, let them continue regular gameplay with
+            //the appropriate buttons enabled
             else {
                 accuseR.setEnabled(true);
                 accuseR.setChecked(false);
