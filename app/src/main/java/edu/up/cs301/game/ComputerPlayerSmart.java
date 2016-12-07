@@ -212,8 +212,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                 if(closestX == destX && closestY == destY) {
                                     closestX = doorCoordinates[j][1];
                                     closestY = doorCoordinates[j][0];
-                                }
-                                if((((destX - closestX) * (destX -closestX)) + ((destY - closestY) * (destY - closestY))) >
+                                }else if((((destX - closestX) * (destX -closestX)) + ((destY - closestY) * (destY - closestY))) >
                                 (((destX - doorCoordinates[j][1]) * (destX - doorCoordinates[j][1])) + ((destY - doorCoordinates[j][0])
                                 * (destY - doorCoordinates[j][0])))) {
                                     closestX = doorCoordinates[j][1];
