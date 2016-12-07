@@ -644,6 +644,14 @@ public class ClueLocalGame extends LocalGame {
                             state.setSpacesMoved(0);
                             state.setDieValue(0);
                             state.setTurnID(state.getPlayerIDWhoSuggested());
+//                            if (state.getPlayerIDWhoSuggested() == state.getNumPlayers()-1)
+//                            {
+//                                state.setTurnID(0);
+//                            }
+//                            else
+//                            {
+//                                state.setTurnID(state.getPlayerIDWhoSuggested() + 1);
+//                            }
 
                             return true;
 
@@ -671,6 +679,14 @@ public class ClueLocalGame extends LocalGame {
                             state.setCanSuggest(state.getPlayerIDWhoSuggested(), false);
                             state.setSpacesMoved(0);
                             state.setDieValue(0);
+//                            if (state.getPlayerIDWhoSuggested() == state.getNumPlayers()-1)
+//                            {
+//                                state.setTurnID(0);
+//                            }
+//                            else
+//                            {
+//                                state.setTurnID(state.getPlayerIDWhoSuggested() + 1);
+//                            }
                             state.setTurnID(b.playerID+1);
                             return true;
                         }
@@ -688,6 +704,15 @@ public class ClueLocalGame extends LocalGame {
                         state.setSpacesMoved(0);
                         state.setDieValue(0);
                         state.setTurnID(state.getPlayerIDWhoSuggested());
+//                        if (state.getPlayerIDWhoSuggested() == state.getNumPlayers()-1)
+//                        {
+//                            state.setTurnID(0);
+//                        }
+//                        else
+//                        {
+//                            state.setTurnID(state.getPlayerIDWhoSuggested() + 1);
+//                        }
+
                         return true;
                     }
 
