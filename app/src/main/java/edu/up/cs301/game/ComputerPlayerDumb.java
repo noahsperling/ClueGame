@@ -185,7 +185,7 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
                             }
                         }
 
-                        for (int i = 12; i < 21; i++) {
+                        for (int i = 0; i < 9; i++) {
                             if (!checkbox[i + 12]) {
                                 room = i;
                             }

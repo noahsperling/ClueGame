@@ -93,6 +93,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     private Activity myActivity;
 
     private int layoutID;
+    private boolean notSent = false;
 
     public ClueHumanPlayer(String initName, int initID)
     {
@@ -304,8 +305,49 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                 nameSet = true;
             }
 
+            if(!recentState.getPlayerStillInGame(playerNum)) {
+                //the player is out of the game, so disable all non-essential GUI things
+                endTurnButton.setEnabled(false);
+                rollButton.setEnabled(false);
+                upButton.setEnabled(false);
+                downButton.setEnabled(false);
+                leftButton.setEnabled(false);
+                rightButton.setEnabled(false);
+                secretPassagewayButton.setEnabled(false);
+                //disable and uncheck
+                suggestR.setEnabled(false);
+                accuseR.setEnabled(false);
+                suggestR.setChecked(false);
+                accuseR.setChecked(false);
+                //continue disabling
+                colonelMustardCheck.setEnabled(false);
+                professorPlumCheck.setEnabled(false);
+                mrGreenCheck.setEnabled(false);
+                mrsPeacockCheck.setEnabled(false);
+                missScarletCheck.setEnabled(false);
+                mrsWhiteCheck.setEnabled(false);
+                knifeCheck.setEnabled(false);
+                candlestickCheck.setEnabled(false);
+                revolverCheck.setEnabled(false);
+                ropeCheck.setEnabled(false);
+                leadPipeCheck.setEnabled(false);
+                wrenchCheck.setEnabled(false);
+                hallCheck.setEnabled(false);
+                loungeCheck.setEnabled(false);
+                diningRoomCheck.setEnabled(false);
+                kitchenCheck.setEnabled(false);
+                ballroomCheck.setEnabled(false);
+                conservatoryCheck.setEnabled(false);
+                billiardRoomCheck.setEnabled(false);
+                libraryCheck.setEnabled(false);
+                studyCheck.setEnabled(false);
+                recentState.setCardToShow("\n You Lost!", playerNum);
+                setSolutionSpinners(recentState.getSolution());
+            }
+
         //if another player made a suggestion
         if(recentState.getCheckCardToSend()[playerNum]) {
+            notSent = true;
             suggestR.setChecked(false);
             accuseR.setChecked(false);
             suggestR.setEnabled(false);
@@ -322,46 +364,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             setSpinners();
         }
 
-        if(!recentState.getPlayerStillInGame(playerNum)) {
-            //the player is out of the game, so disable all non-essential GUI things
-            endTurnButton.setEnabled(false);
-            rollButton.setEnabled(false);
-            upButton.setEnabled(false);
-            downButton.setEnabled(false);
-            leftButton.setEnabled(false);
-            rightButton.setEnabled(false);
-            secretPassagewayButton.setEnabled(false);
-            //disable and uncheck
-            suggestR.setEnabled(false);
-            accuseR.setEnabled(false);
-            suggestR.setChecked(false);
-            accuseR.setChecked(false);
-            //continue disabling
-            colonelMustardCheck.setEnabled(false);
-            professorPlumCheck.setEnabled(false);
-            mrGreenCheck.setEnabled(false);
-            mrsPeacockCheck.setEnabled(false);
-            missScarletCheck.setEnabled(false);
-            mrsWhiteCheck.setEnabled(false);
-            knifeCheck.setEnabled(false);
-            candlestickCheck.setEnabled(false);
-            revolverCheck.setEnabled(false);
-            ropeCheck.setEnabled(false);
-            leadPipeCheck.setEnabled(false);
-            wrenchCheck.setEnabled(false);
-            hallCheck.setEnabled(false);
-            loungeCheck.setEnabled(false);
-            diningRoomCheck.setEnabled(false);
-            kitchenCheck.setEnabled(false);
-            ballroomCheck.setEnabled(false);
-            conservatoryCheck.setEnabled(false);
-            billiardRoomCheck.setEnabled(false);
-            libraryCheck.setEnabled(false);
-            studyCheck.setEnabled(false);
-            recentState.setCardToShow("\n You Lost!", playerNum);
-            setSolutionSpinners(recentState.getSolution());
-
-            }
 
             boolean corner[] = recentState.getInCornerRoom();
             boolean usedPassage[] = recentState.getUsedPassageway();
@@ -394,7 +396,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             else {
                 secretPassagewayButton.setEnabled(false);
             }
-        }else if(recentState.getTurnId() == playerNum && !recentState.getPlayerStillInGame(playerNum)){
+        }else if(recentState.getTurnId() == playerNum && !recentState.getPlayerStillInGame(playerNum) && !notSent){
             endTurnButton.setEnabled(false);
             //sleep(300);
             game.sendAction(new ClueEndTurnAction(this));
@@ -532,7 +534,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                     //Log.i("suggest action sent", " ");
                     game.sendAction(suggest);
 
-                    ClueShowCardAction showCard = new ClueShowCardAction(this);
                     showCardR.setEnabled(true);
                     showCardR.setChecked(false);
                     suggestR.setEnabled(false);
@@ -567,6 +568,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                     String showCardString = roomSpinner.getSelectedItem().toString();
                     showCard.setCardToShow(showCardString);
                     game.sendAction(showCard);
+                    notSent = false;
                 }
 
             }
@@ -852,6 +854,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
         if(validCards.length == 0) {
             game.sendAction(new ClueShowCardAction(this));
+            notSent = false;
         }else {
             ArrayAdapter<String> roomAdapter = new ArrayAdapter<String>(myActivity, android.R.layout.simple_spinner_dropdown_item, validCards);
             roomSpinner.setAdapter(roomAdapter);
