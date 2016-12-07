@@ -142,7 +142,7 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
                         Random rand = new Random();
                         int move = rand.nextInt(5) + 1;
                         Log.i("Computer Player " + playerNum, "Moving " + move);
-                        //sleep(300);
+                        sleep(300);
 
                         if (move == 1) {
                             game.sendAction(new ClueMoveLeftAction((this)));
