@@ -27,7 +27,7 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
     private boolean[] checkbox = new boolean[21];
     Card[] suspects = {Card.COL_MUSTARD, Card.PROF_PLUM, Card.MR_GREEN, Card.MRS_PEACOCK, Card.MISS_SCARLET, Card.MRS_WHITE};
     Card[] weapons = {Card.KNIFE, Card.CANDLESTICK, Card.REVOLVER, Card.ROPE, Card.LEAD_PIPE, Card.WRENCH};
-    Card[] rooms = {Card.LOUNGE,Card.DINING_ROOM,Card.KITCHEN,Card.BALLROOM,Card.CONSERVATORY,Card.BILLIARD_ROOM,Card.LIBRARY,Card.STUDY};
+    Card[] rooms = {Card.HALL,Card.LOUNGE,Card.DINING_ROOM,Card.KITCHEN,Card.BALLROOM,Card.CONSERVATORY,Card.BILLIARD_ROOM,Card.LIBRARY,Card.STUDY};
     private int numTrue;
     private boolean handChecked = false;
     private String lastCard = "";
@@ -136,6 +136,9 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
                         csa.suspect = suspects[rand.nextInt(6)].getName();
                         csa.weapon = weapons[rand.nextInt(6)].getName();
                         Log.i("Computer Player " + playerNum, "Suggesting: "+ csa.room+". "+csa.suspect+". "+csa.weapon);
+                        for (int i = 0; i < 21; i++) {
+                            Log.i("Computer Player " + playerNum, i + ": " + checkbox[i]);
+                        }
                         game.sendAction(csa);
                         return;
 
@@ -166,11 +169,9 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
                     } else if (numTrue == 18) {
                         Log.i("Computer Player " + playerNum, "Accusing");
 
-                        if (playerNum == 1) {
                             for (int i = 0; i < 21; i++) {
                                 Log.i("Computer Player " + playerNum, i + ": " + checkbox[i]);
                             }
-                        }
 
                         int suspect = 0;
                         int weapon = 0;

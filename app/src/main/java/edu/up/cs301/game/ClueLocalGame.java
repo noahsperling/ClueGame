@@ -363,7 +363,7 @@ public class ClueLocalGame extends LocalGame {
                     }
                     else if (moveAction instanceof ClueMoveLeftAction)
                     {
-                        if(curBoard[x][y-1] != null) {
+                        if(x >= 0 && y >= 1 && curBoard[x][y-1] != null) {
                             if ((playBoard[x][y-1] == -1 && (curBoard[x][y-1].getTileType() == 0 || curBoard[x][y-1].getIsDoor() || curBoard[x][y-1].getTileType() == 1)) && !curBoard[x][y-1].getRightWall()
                                     && !curBoard[x][y].getLeftWall())
                             {
@@ -615,9 +615,7 @@ public class ClueLocalGame extends LocalGame {
                             state.setSpacesMoved(state.getSpacesMoved()-1);
                             return false;
                     }
-                }
-
-                else if (moveAction instanceof ClueShowCardAction) { //Might not work
+                }else if (moveAction instanceof ClueShowCardAction) { //Might not work
                     ClueShowCardAction b = (ClueShowCardAction)a;
                     state.setPlayerWhoShowedCard(b.playerID); //sent the id of the player who suggested
                     if(b.getCardToShow() == null) {
