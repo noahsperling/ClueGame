@@ -618,6 +618,11 @@ public class ClueLocalGame extends LocalGame {
                 }else if (moveAction instanceof ClueShowCardAction) { //Might not work
                     ClueShowCardAction b = (ClueShowCardAction)a;
                     state.setPlayerWhoShowedCard(b.playerID); //sent the id of the player who suggested
+                    for (int i = 0; i < state.getNumPlayers(); i++)
+                    {
+                        state.setCardToShow(" ", i);
+                    }
+
                     if(b.getCardToShow() == null) {
                         if(b.playerID == state.getNumPlayers() - 1 && state.getPlayerIDWhoSuggested() != 0) {
                             state.setCheckCardToSend(b.playerID, false);
