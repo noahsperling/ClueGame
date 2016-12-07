@@ -5,19 +5,16 @@ import android.util.Log;
 import java.util.Random;
 
 import edu.up.cs301.game.actionMsg.ClueAccuseAction;
-import edu.up.cs301.game.actionMsg.ClueCheckAction;
 import edu.up.cs301.game.actionMsg.ClueEndTurnAction;
 import edu.up.cs301.game.actionMsg.ClueMoveAction;
 import edu.up.cs301.game.actionMsg.ClueMoveDownAction;
 import edu.up.cs301.game.actionMsg.ClueMoveLeftAction;
 import edu.up.cs301.game.actionMsg.ClueMoveRightAction;
 import edu.up.cs301.game.actionMsg.ClueMoveUpAction;
-import edu.up.cs301.game.actionMsg.ClueNonTurnAction;
 import edu.up.cs301.game.actionMsg.ClueRollAction;
 import edu.up.cs301.game.actionMsg.ClueShowCardAction;
 import edu.up.cs301.game.actionMsg.ClueSuggestionAction;
 import edu.up.cs301.game.actionMsg.ClueUsePassagewayAction;
-import edu.up.cs301.game.actionMsg.ClueWrittenNoteAction;
 import edu.up.cs301.game.actionMsg.GameAction;
 
 import static edu.up.cs301.game.Card.BALLROOM;
@@ -50,7 +47,6 @@ import static edu.up.cs301.game.Type.WEAPON;
 
 public class ClueLocalGame extends LocalGame {
 
-    ClueNonTurnAction nonTurnAction;
     ClueMoveAction moveAction;
     ClueState state;
     private Random rand;
@@ -831,30 +827,7 @@ public class ClueLocalGame extends LocalGame {
             }
             return false;
         }
-        else if(a instanceof ClueNonTurnAction)//If it's not a move action
-        {
-            return makeNonTurnAction((ClueNonTurnAction)a);
-        }
 
-        return false;
-    }
-
-    public boolean makeNonTurnAction(ClueNonTurnAction a) {
-        nonTurnAction = a;
-
-        if (nonTurnAction instanceof ClueWrittenNoteAction)
-        {
-            ClueWrittenNoteAction written = (ClueWrittenNoteAction)nonTurnAction;
-            state.setNotes(written.playerID, written.note);
-            return true;
-
-        } else if (nonTurnAction instanceof ClueCheckAction) {
-            int index = ((ClueCheckAction) a).playerID;
-            for (int i = 0; i < ((ClueCheckAction) a).getCheckbox().length; i++) {
-                state.setCheckBox(index, i, ((ClueCheckAction) a).getCheckbox()[i]);
-            }
-            return true;
-        }
         return false;
     }
 

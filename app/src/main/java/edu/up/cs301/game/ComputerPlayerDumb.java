@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import edu.up.cs301.game.actionMsg.ClueAccuseAction;
-import edu.up.cs301.game.actionMsg.ClueCheckAction;
 import edu.up.cs301.game.actionMsg.ClueEndTurnAction;
 import edu.up.cs301.game.actionMsg.ClueMoveDownAction;
 import edu.up.cs301.game.actionMsg.ClueMoveLeftAction;
@@ -209,70 +208,48 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
     }
 
     private void checkbox(String card) {
-        ClueCheckAction cca = new ClueCheckAction(this);
         if (card.equals(Card.COL_MUSTARD.getName())) {
             this.checkbox[0] = true;
-            game.sendAction(cca);
         } else if (card.equals(Card.PROF_PLUM.getName())) {
             this.checkbox[1] = true;
-            game.sendAction(cca);
         } else if (card.equals(Card.MR_GREEN.getName())) {
             this.checkbox[2] = true;
-            game.sendAction(cca);
         } else if (card.equals(Card.MRS_PEACOCK.getName())) {
             this.checkbox[3] = true;
-            game.sendAction(cca);
         } else if (card.equals(Card.MISS_SCARLET.getName())) {
             this.checkbox[4] = true;
-            game.sendAction(cca);
         } else if (card.equals(Card.MRS_WHITE.getName())) {
             this.checkbox[5] = true;
-            game.sendAction(cca);
         } else if (card.equals(Card.KNIFE.getName())) {
             this.checkbox[6] = true;
-            game.sendAction(cca);
         } else if (card.equals(Card.CANDLESTICK.getName())) {
             this.checkbox[7] = true;
-            game.sendAction(cca);
         } else if (card.equals(Card.REVOLVER.getName())) {
             this.checkbox[8] = true;
-            game.sendAction(cca);
         } else if (card.equals(Card.ROPE.getName())) {
             this.checkbox[9] = true;
-            game.sendAction(cca);
         } else if (card.equals(Card.LEAD_PIPE.getName())) {
             this.checkbox[10] = true;
-            game.sendAction(cca);
         } else if (card.equals(Card.WRENCH.getName())) {
             this.checkbox[11] = true;
-            game.sendAction(cca);
         } else if (card.equals(Card.HALL.getName())) {
             this.checkbox[12] = true;
-            game.sendAction(cca);
         } else if (card.equals(Card.LOUNGE.getName())) {
             this.checkbox[13] = true;
-            game.sendAction(cca);
         } else if (card.equals(Card.DINING_ROOM.getName())) {
             this.checkbox[14] = true;
-            game.sendAction(cca);
         } else if (card.equals(Card.KITCHEN.getName())) {
             this.checkbox[15] = true;
-            game.sendAction(cca);
         } else if (card.equals(Card.BALLROOM.getName())) {
             this.checkbox[16] = true;
-            game.sendAction(cca);
         } else if (card.equals(Card.CONSERVATORY.getName())) {
             this.checkbox[17] = true;
-            game.sendAction(cca);
         } else if (card.equals(Card.BILLIARD_ROOM.getName())) {
             this.checkbox[18] = true;
-            game.sendAction(cca);
         } else if (card.equals(Card.LIBRARY.getName())) {
             this.checkbox[19] = true;
-            game.sendAction(cca);
         } else if (card.equals(Card.STUDY.getName())) {
             this.checkbox[20] = true;
-            game.sendAction(cca);
         }
     }
 
