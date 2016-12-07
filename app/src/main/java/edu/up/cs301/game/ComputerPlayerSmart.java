@@ -194,6 +194,23 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                         }
                     }
 
+                    if(currentRoom == Card.STUDY){
+                        if(!checkBoxVals[15] && !myState.getUsedPassageway()[playerNum]){
+                           game.sendAction(new ClueUsePassagewayAction(this));
+                        }
+                    }else if(currentRoom == Card.KITCHEN){
+                        if(!checkBoxVals[20] && !myState.getUsedPassageway()[playerNum]){
+                            game.sendAction(new ClueUsePassagewayAction(this));
+                        }
+                    }else if(currentRoom == Card.LOUNGE){
+                        if(!checkBoxVals[17] && !myState.getUsedPassageway()[playerNum]){
+                            game.sendAction(new ClueUsePassagewayAction(this));
+                        }
+                    }else if(currentRoom == Card.CONSERVATORY){
+                        if(!checkBoxVals[13] && !myState.getUsedPassageway()[playerNum]){
+                            game.sendAction(new ClueUsePassagewayAction(this));
+                        }
+                    }
 
                     for (int i = 0; i < doorCoordinates.length; i++) {
                         if (!doorRooms[i].equals(currentRoom)) {

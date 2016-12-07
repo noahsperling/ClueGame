@@ -47,7 +47,7 @@ public class ClueState extends GameState implements Serializable{
 
     // to satisfy Serializable interface - IDK if necessary
     private static final long serialVersionUID = 7737393762469851826L;
-    private boolean[] canDoStuff;
+    private boolean[] pulledIn;
 
 
     public ClueState(int initNumPlayers, String initPlayerNames[], int initTurnID) {
@@ -85,6 +85,7 @@ public class ClueState extends GameState implements Serializable{
         inRoom = new boolean[numPlayers];
         onDoorTile = new boolean[numPlayers];
         hasSuggested = new boolean[numPlayers];
+        pulledIn = new boolean[numPlayers];
 
         //says that all players are still in the game
         for(int i=0;i<numPlayers;i++){
@@ -164,6 +165,7 @@ public class ClueState extends GameState implements Serializable{
             for(int j = 0; j < 21; j++) {
                 checkboxes[i][j] = false;
             }
+            pulledIn[i] = false;
         }
         //turnID is the same value as the playerID, which is the same as the index in the array
         canRoll[turnID] = true;
@@ -214,6 +216,7 @@ public class ClueState extends GameState implements Serializable{
         playerWhoShowedCard = s.getPlayerWhoShowedCard();
         hasSuggested = s.getHasSuggested();
         playerInSuggestion = s.getPlayerInSuggestion();
+        pulledIn = new boolean[numPlayers];
 
 
         for(int i = 0; i < numPlayers; i++) {
@@ -230,6 +233,7 @@ public class ClueState extends GameState implements Serializable{
             usedPassageway[i] = s.getUsedPassageway(i);
             inRoom[i] = s.getInRoom(i);
             hasSuggested[i] = s.getPlayerHasSuggested(i);
+            pulledIn[i] = s.getPulledIn(i);
         }
 
         for(int i = 0; i < numPlayers; i++) {
@@ -521,4 +525,12 @@ public class ClueState extends GameState implements Serializable{
     public void setHasSuggested (int playerID, boolean suggested) {hasSuggested[playerID] = suggested;}
 
     public void setPlayerInSuggestion (int playerID) {playerInSuggestion = playerID;}
+
+    public boolean getPulledIn(int playerID) {
+        return pulledIn[playerID];
+    }
+
+    public void setPulledIn(int playerID, boolean b) {
+        pulledIn[playerID] = b;
+    }
 }
