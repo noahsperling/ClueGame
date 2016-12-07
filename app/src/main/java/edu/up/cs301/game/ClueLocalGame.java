@@ -631,7 +631,7 @@ public class ClueLocalGame extends LocalGame {
                         }else if(b.playerID == state.getNumPlayers() - 1 && state.getPlayerIDWhoSuggested() == 0) {
                             for (int i = 0; i < state.getNumPlayers(); i++)
                             {
-                                state.setCardToShow("No card shown", i);
+                                state.setCardToShow("No card shown.", i);
                             }
 
                             state.setCheckCardToSend(b.playerID, false);
@@ -659,7 +659,7 @@ public class ClueLocalGame extends LocalGame {
                         }else if(b.playerID == state.getPlayerIDWhoSuggested()-1){
                             for (int i = 0; i < state.getNumPlayers(); i++)
                             {
-                                state.setCardToShow("No card shown", i);
+                                state.setCardToShow("No card shown.", i);
                             }
 
                             state.setCheckCardToSend(b.playerID, false);
@@ -677,7 +677,7 @@ public class ClueLocalGame extends LocalGame {
                     }else {
                         for (int i = 0; i < state.getNumPlayers(); i++)
                         {
-                            state.setCardToShow(" ", i);
+                            state.setCardToShow("Card was shown.", i);
                         }
 
                         state.setCheckCardToSend(b.playerID, false);
