@@ -163,7 +163,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
 
                 } else if (myState.getDieValue() != myState.getSpacesMoved() || myState.getOnDoorTile()[playerNum]) {
                     Log.i("Computer Player" + playerNum+ " Moving", " ");
-                    sleep(300);
+                    sleep(005);
                     Card[] rooms = {Card.HALL, Card.LOUNGE, Card.DINING_ROOM, Card.KITCHEN, Card.BALLROOM,
                             Card.CONSERVATORY, Card.BILLIARD_ROOM, Card.LIBRARY, Card.STUDY};
                     int curX = -1;
@@ -208,7 +208,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                         int destX = closestX;
                         int destY = closestY;
                         for(int j = 0; j < doorCoordinates.length; j++) {
-                            if(doorRooms[j].equals(myState.getBoard().getBoardArr()[curX][curY].getRoom())) {
+                            if(doorRooms[j].equals(currentRoom)) {
                                 if(closestX == destX && closestY == destY) {
                                     closestX = doorCoordinates[j][1];
                                     closestY = doorCoordinates[j][0];
@@ -520,6 +520,38 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                     }else if(myState.getBoard().getBoardArr()[curY][curX].getIsDoor() &&
                             !myState.getCanSuggest(playerNum)) {
                         Log.i("Computer Player" + playerNum, "Room");
+
+                        if(myState.getBoard().getBoardArr()[curY + 1][curX].getTileType() != 1) {
+                            ClueMoveDownAction c = new ClueMoveDownAction(this);
+                            prevMov2 = prevMov1;
+                            prevMov1 = c;
+                            game.sendAction(c);
+                            Log.i("Computer Player" + playerNum + " Moved", "Down");
+                            return;
+                        }else if(myState.getBoard().getBoardArr()[curY -1][curX].getTileType() != 1) {
+                            ClueMoveUpAction c = new ClueMoveUpAction(this);
+                            prevMov2 = prevMov1;
+                            prevMov1 = c;
+                            game.sendAction(c);
+                            Log.i("Computer Player" + playerNum + " Moved", "Up");
+                            return;
+                        }else if(myState.getBoard().getBoardArr()[curY][curX - 1].getTileType() != 1) {
+                            ClueMoveLeftAction c = new ClueMoveLeftAction(this);
+                            prevMov2 = prevMov1;
+                            prevMov1 = c;
+                            game.sendAction(c);
+                            Log.i("Computer Player" + playerNum + " Moved", "Left");
+                            return;
+                        }else {
+                            ClueMoveRightAction c = new ClueMoveRightAction(this);
+                            prevMov2 = prevMov1;
+                            prevMov1 = c;
+                            game.sendAction(c);
+                            Log.i("Computer Player" + playerNum + " Moved", "Right");
+                            return;
+                        }
+                        //messed up
+                        /*
                         if (MoveOffDoor(curX, curY, 2)) { //Move Up
                             ClueMoveDownAction c = new ClueMoveDownAction(this);
                             prevMov2 = prevMov1;
@@ -552,6 +584,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                             Log.i("Computer Player" + playerNum + " Moved", "Right");
                             return;
                         }
+                        */
                     }
 
                         //check room coordinates to figure out closest room not checked in checkbox
