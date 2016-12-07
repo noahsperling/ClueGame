@@ -2,31 +2,13 @@
 <items version="2" >
 
     <item
-        is-multidex="true"
-        jar="C:\Users\theem\Documents\GitHub\assignment-1-noahsperling\ClueGame\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="22.0.1"
-        sha1="f415494a7fb5263c0814bb2ad1e70baee4483d35">
-        <dex dex="C:\Users\theem\Documents\GitHub\assignment-1-noahsperling\ClueGame\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_f0f2bcac08dc6125ba4ff0e78280dd0038a9cc8f\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\theem\Documents\GitHub\assignment-1-noahsperling\ClueGame\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="22.0.1"
-        sha1="99ee9563b92dda958cdf50b83ceee7cbccc530ef">
-        <dex dex="C:\Users\theem\Documents\GitHub\assignment-1-noahsperling\ClueGame\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_7b366ae6563687a13bf8de5d4b9b5149ee38596e\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\theem\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-v4\18.0.0\support-v4-18.0.0.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\Noah\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-v4\18.0.0\support-v4-18.0.0.jar"
+        jumboMode="false"
         optimize="true"
         revision="22.0.1"
         sha1="44ec51e9d395a47aab135e5e1b556c0007442156">
-        <dex dex="C:\Users\theem\Documents\GitHub\assignment-1-noahsperling\ClueGame\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-v4-18.0.0_250dad91f4f791ecc4700ac1700dba57fd3e1d99\classes.dex" />
+        <dex dex="C:\Users\Noah\Documents\GitHub\ClueGame\app\build\intermediates\pre-dexed\debug\support-v4-18.0.0_8bc1164a1bc3e0c19434b7b3fbcea02500b9471c.jar" />
     </item>
 
 </items>

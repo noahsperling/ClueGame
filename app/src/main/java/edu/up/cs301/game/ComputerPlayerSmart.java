@@ -518,40 +518,6 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     return;
                                 }
                             }
-                            /*
-                            if (dYNegative && checkIfAvailableTile(curX, curY, 2)) { //Move Up
-                                ClueMoveUpAction c = new ClueMoveUpAction(this);
-                                prevMov2 = prevMov1;
-                                prevMov1 = c;
-                                game.sendAction(c);
-                                Log.i("Computer Player" + playerNum + " Moved", "Up");
-                                return;
-                            }
-                            if (!dYNegative && checkIfAvailableTile(curX, curY, 4)) { //Move Down
-                                ClueMoveDownAction c = new ClueMoveDownAction(this);
-                                prevMov2 = prevMov1;
-                                prevMov1 = c;
-                                game.sendAction(c);
-                                Log.i("Computer Player" + playerNum + " Moved", "Down");
-                                return;
-                            }
-                            if (dXNegative && checkIfAvailableTile(curX, curY, 1)) { //Move Left
-                                ClueMoveLeftAction c = new ClueMoveLeftAction(this);
-                                prevMov2 = prevMov1;
-                                prevMov1 = c;
-                                game.sendAction(c);
-                                Log.i("Computer Player" + playerNum + " Moved", "Left");
-                                return;
-                            }
-                            if (!dXNegative && checkIfAvailableTile(curX, curY, 3)) { //Move Right
-                                ClueMoveRightAction c = new ClueMoveRightAction(this);
-                                prevMov2 = prevMov1;
-                                prevMov1 = c;
-                                game.sendAction(c);
-                                Log.i("Computer Player" + playerNum + " Moved", "Right");
-                                return;
-                            }
-                            */
                         }
                     }else if(myState.getBoard().getBoardArr()[curY][curX].getIsDoor() &&
                             myState.getCanSuggest(playerNum)){
