@@ -418,7 +418,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
 
             //if the player is in a corner room and has not used the secret passageway, enable the button
             //If the player has already used the secret passageway, disable the button
-            if (corner[playerNum] && !usedPassage[playerNum])
+            if (corner[playerNum] && !usedPassage[playerNum] && recentState.getPlayerHasSuggested(playerNum) == false)
             {
                 secretPassagewayButton.setEnabled(true);
             }
@@ -537,7 +537,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                 accuseR.setChecked(false);
             } else if (view.getId() == R.id.submitButton) {
                 if (suggestR.isChecked() == true) {
-
 
                     int[][] board = recentState.getBoard().getPlayerBoard();
                     int x = 0;

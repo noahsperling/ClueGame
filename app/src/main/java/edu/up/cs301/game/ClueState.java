@@ -42,6 +42,7 @@ public class ClueState extends GameState implements Serializable{
     private boolean[] inRoom;
     private int winnerIndex;
     private boolean[] onDoorTile;
+    private boolean hasSuggested[];
 
     // to satisfy Serializable interface - IDK if necessary
     private static final long serialVersionUID = 7737393762469851826L;
@@ -81,6 +82,7 @@ public class ClueState extends GameState implements Serializable{
         playerStillInGame = new boolean[numPlayers];
         inRoom = new boolean[numPlayers];
         onDoorTile = new boolean[numPlayers];
+        hasSuggested = new boolean[numPlayers];
 
         //says that all players are still in the game
         for(int i=0;i<numPlayers;i++){
@@ -208,6 +210,7 @@ public class ClueState extends GameState implements Serializable{
         winnerIndex = s.getWinnerIndex();
         onDoorTile = s.getOnDoorTile();
         playerWhoShowedCard = s.getPlayerWhoShowedCard();
+        hasSuggested = s.getHasSuggested();
 
 
         for(int i = 0; i < numPlayers; i++) {
@@ -223,6 +226,7 @@ public class ClueState extends GameState implements Serializable{
             checkCardToSend[i] = s.getCheckCardToSend(i);
             usedPassageway[i] = s.getUsedPassageway(i);
             inRoom[i] = s.getInRoom(i);
+            hasSuggested[i] = s.getPlayerHasSuggested(i);
         }
 
         for(int i = 0; i < numPlayers; i++) {
@@ -406,6 +410,10 @@ public class ClueState extends GameState implements Serializable{
         return winnerIndex;
     }
 
+    public boolean getPlayerHasSuggested (int playerID) { return hasSuggested[playerID];}
+
+    public boolean[] getHasSuggested () { return hasSuggested;}
+
     //setters
     public void setNewToRoom(int playerID, boolean newTo)
     {
@@ -503,5 +511,7 @@ public class ClueState extends GameState implements Serializable{
     public void setSolution(Card[] newSolution) {
         solution = newSolution;
     }
+
+    public void setHasSuggested (int playerID, boolean suggested) {hasSuggested[playerID] = suggested;}
 
 }
