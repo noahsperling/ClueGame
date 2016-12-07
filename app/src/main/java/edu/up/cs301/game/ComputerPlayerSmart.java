@@ -39,6 +39,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
     private boolean handChecked;
     private ClueMoveAction prevMov1;
     private ClueMoveAction prevMov2;
+    private int numMoves;
 
 
     public ComputerPlayerSmart(String name) {
@@ -46,6 +47,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
         handChecked = false;
         prevMov1 = null;
         prevMov2 = null;
+        numMoves = 0;
     }
 
     public int getPlayerID() {
@@ -74,6 +76,9 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                 if(allCards[i].getName().equals(myState.getCardToShow(playerNum))) {
                     checkBoxVals[i] = true;
                 }
+            }
+            if(myState.getTurnId() != playerNum) {
+                numMoves = 0;
             }
             if(myState.getCheckCardToSend()[playerNum]) {
                 Log.i("Computer Player "+playerNum,"Showing Card");
@@ -161,9 +166,10 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                     prevSuggestion = csa;
                     game.sendAction(csa);
 
-                } else if (myState.getDieValue() != myState.getSpacesMoved() || myState.getOnDoorTile()[playerNum]) {
+                } else if ((myState.getDieValue() != myState.getSpacesMoved() && numMoves < 8 )||
+                    myState.getOnDoorTile()[playerNum]) {
                     Log.i("Computer Player" + playerNum+ " Moving", " ");
-                    sleep(005);
+                    sleep(100);
                     Card[] rooms = {Card.HALL, Card.LOUNGE, Card.DINING_ROOM, Card.KITCHEN, Card.BALLROOM,
                             Card.CONSERVATORY, Card.BILLIARD_ROOM, Card.LIBRARY, Card.STUDY};
                     int curX = -1;
@@ -241,6 +247,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveRightAction c = new ClueMoveRightAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Right");
                                     return;
@@ -248,6 +255,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveDownAction c = new ClueMoveDownAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Down");
                                     return;
@@ -255,6 +263,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveUpAction c = new ClueMoveUpAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Up");
                                     return;
@@ -262,6 +271,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveLeftAction c = new ClueMoveLeftAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Left");
                                     return;
@@ -271,6 +281,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveLeftAction c = new ClueMoveLeftAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Left");
                                     return;
@@ -278,6 +289,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveDownAction c = new ClueMoveDownAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Down");
                                     return;
@@ -285,6 +297,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveUpAction c = new ClueMoveUpAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Up");
                                     return;
@@ -292,6 +305,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveRightAction c = new ClueMoveRightAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Right");
                                     return;
@@ -301,6 +315,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveRightAction c = new ClueMoveRightAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Right");
                                     return;
@@ -308,6 +323,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveUpAction c = new ClueMoveUpAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Up");
                                     return;
@@ -315,6 +331,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveDownAction c = new ClueMoveDownAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Down");
                                     return;
@@ -322,6 +339,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveLeftAction c = new ClueMoveLeftAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Left");
                                     return;
@@ -331,6 +349,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveLeftAction c = new ClueMoveLeftAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Left");
                                     return;
@@ -338,6 +357,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveUpAction c = new ClueMoveUpAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Up");
                                     return;
@@ -345,6 +365,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveDownAction c = new ClueMoveDownAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Down");
                                     return;
@@ -352,6 +373,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveRightAction c = new ClueMoveRightAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Right");
                                     return;
@@ -365,6 +387,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveDownAction c = new ClueMoveDownAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Down");
                                     return;
@@ -372,6 +395,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveRightAction c = new ClueMoveRightAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Right");
                                     return;
@@ -379,6 +403,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveLeftAction c = new ClueMoveLeftAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Left");
                                     return;
@@ -386,6 +411,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveUpAction c = new ClueMoveUpAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Up");
                                     return;
@@ -395,6 +421,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveUpAction c = new ClueMoveUpAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Up");
                                     return;
@@ -402,6 +429,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveRightAction c = new ClueMoveRightAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Right");
                                     return;
@@ -409,6 +437,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveLeftAction c = new ClueMoveLeftAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Left");
                                     return;
@@ -416,6 +445,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveDownAction c = new ClueMoveDownAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Down");
                                     return;
@@ -425,6 +455,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveDownAction c = new ClueMoveDownAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Down");
                                     return;
@@ -432,6 +463,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveLeftAction c = new ClueMoveLeftAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Left");
                                     return;
@@ -439,6 +471,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveRightAction c = new ClueMoveRightAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Right");
                                     return;
@@ -446,6 +479,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveUpAction c = new ClueMoveUpAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Up");
                                     return;
@@ -455,6 +489,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveUpAction c = new ClueMoveUpAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Up");
                                     return;
@@ -462,6 +497,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveLeftAction c = new ClueMoveLeftAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Left");
                                     return;
@@ -469,6 +505,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveRightAction c = new ClueMoveRightAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Right");
                                     return;
@@ -476,6 +513,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     ClueMoveDownAction c = new ClueMoveDownAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
+                                    numMoves++;
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Down");
                                     return;
@@ -489,6 +527,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                             ClueMoveUpAction c = new ClueMoveUpAction(this);
                             prevMov2 = prevMov1;
                             prevMov1 = c;
+                            numMoves++;
                             game.sendAction(c);
                             Log.i("Computer Player" + playerNum + " Moved", "Up");
                             return;
@@ -497,6 +536,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                             ClueMoveDownAction c = new ClueMoveDownAction(this);
                             prevMov2 = prevMov1;
                             prevMov1 = c;
+                            numMoves++;
                             game.sendAction(c);
                             Log.i("Computer Player" + playerNum + " Moved", "Down");
                             return;
@@ -505,6 +545,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                             ClueMoveLeftAction c = new ClueMoveLeftAction(this);
                             prevMov2 = prevMov1;
                             prevMov1 = c;
+                            numMoves++;
                             game.sendAction(c);
                             Log.i("Computer Player" + playerNum + " Moved", "Left");
                             return;
@@ -513,6 +554,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                             ClueMoveRightAction c = new ClueMoveRightAction(this);
                             prevMov2 = prevMov1;
                             prevMov1 = c;
+                            numMoves++;
                             game.sendAction(c);
                             Log.i("Computer Player" + playerNum + " Moved", "Right");
                             return;
@@ -521,24 +563,30 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                             !myState.getCanSuggest(playerNum)) {
                         Log.i("Computer Player" + playerNum, "Room");
 
-                        if(myState.getBoard().getBoardArr()[curY + 1][curX].getTileType() != 1) {
+                        if(myState.getBoard().getBoardArr()[curY + 1][curX].getTileType() != 1 &&
+                            checkIfAvailableTile(curX, curY, 4)) {
                             ClueMoveDownAction c = new ClueMoveDownAction(this);
                             prevMov2 = prevMov1;
                             prevMov1 = c;
+                            numMoves++;
                             game.sendAction(c);
                             Log.i("Computer Player" + playerNum + " Moved", "Down");
                             return;
-                        }else if(myState.getBoard().getBoardArr()[curY -1][curX].getTileType() != 1) {
+                        }else if(myState.getBoard().getBoardArr()[curY - 1][curX].getTileType() != 1 &&
+                            checkIfAvailableTile(curX, curY, 2)) {
                             ClueMoveUpAction c = new ClueMoveUpAction(this);
                             prevMov2 = prevMov1;
                             prevMov1 = c;
+                            numMoves++;
                             game.sendAction(c);
                             Log.i("Computer Player" + playerNum + " Moved", "Up");
                             return;
-                        }else if(myState.getBoard().getBoardArr()[curY][curX - 1].getTileType() != 1) {
+                        }else if(myState.getBoard().getBoardArr()[curY][curX - 1].getTileType() != 1 &&
+                            checkIfAvailableTile(curX, curY, 1)) {
                             ClueMoveLeftAction c = new ClueMoveLeftAction(this);
                             prevMov2 = prevMov1;
                             prevMov1 = c;
+                            numMoves++;
                             game.sendAction(c);
                             Log.i("Computer Player" + playerNum + " Moved", "Left");
                             return;
@@ -546,6 +594,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                             ClueMoveRightAction c = new ClueMoveRightAction(this);
                             prevMov2 = prevMov1;
                             prevMov1 = c;
+                            numMoves++;
                             game.sendAction(c);
                             Log.i("Computer Player" + playerNum + " Moved", "Right");
                             return;
