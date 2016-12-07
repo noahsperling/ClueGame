@@ -172,7 +172,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                 } else if ((myState.getDieValue() != myState.getSpacesMoved() && numMoves < 8 )||
                     myState.getOnDoorTile()[playerNum]) {
                     Log.i("Computer Player" + playerNum+ " Moving", " ");
-                    sleep(100);
+                    sleep(1000);
                     Card[] rooms = {Card.HALL, Card.LOUNGE, Card.DINING_ROOM, Card.KITCHEN, Card.BALLROOM,
                             Card.CONSERVATORY, Card.BILLIARD_ROOM, Card.LIBRARY, Card.STUDY};
                     int curX = -1;
