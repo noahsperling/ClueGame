@@ -566,12 +566,14 @@ public class ClueLocalGame extends LocalGame {
                                             //find first available tile in the room to place the player
                                             if (state.getBoard().getBoardArr()[j][i] != null && state.getBoard().getBoardArr()[j][i].getRoom() != null && state.getBoard().getBoardArr()[j][i].getRoom().getName().equals(moveToRoom) && state.getBoard().getPlayerBoard()[j][i] == - 1 && !state.getBoard().getBoardArr()[j][i].getIsDoor()) {
                                                 state.getBoard().setPlayerBoard(j, i,currentY, currentX, state.getPlayerInSuggestion());
-                                                state.setCanSuggest(state.getPlayerInSuggestion(),true);
-                                                state.setNewToRoom(state.getPlayerInSuggestion(),true);
-                                                state.setUsedPassageway(state.getPlayerInSuggestion(), false);
-                                                inCornerRoom(j, i, curBoard, state.getPlayerInSuggestion());
-                                                state.setOnDoorTile(state.getPlayerInSuggestion(), false);
-                                                state.setPulledIn(state.getPlayerInSuggestion(), true);
+                                                if(state.getPlayerInSuggestion() < state.getNumPlayers()) {
+                                                    state.setCanSuggest(state.getPlayerInSuggestion(), true);
+                                                    state.setNewToRoom(state.getPlayerInSuggestion(), true);
+                                                    state.setUsedPassageway(state.getPlayerInSuggestion(), false);
+                                                    inCornerRoom(j, i, curBoard, state.getPlayerInSuggestion());
+                                                    state.setOnDoorTile(state.getPlayerInSuggestion(), false);
+                                                    state.setPulledIn(state.getPlayerInSuggestion(), true);
+                                                }
                                                 break loop1;
                                             }
                                         }
