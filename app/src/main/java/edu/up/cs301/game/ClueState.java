@@ -43,6 +43,7 @@ public class ClueState extends GameState implements Serializable{
     private int winnerIndex;
     private boolean[] onDoorTile;
     private boolean hasSuggested[];
+    private int playerInSuggestion;
 
     // to satisfy Serializable interface - IDK if necessary
     private static final long serialVersionUID = 7737393762469851826L;
@@ -56,6 +57,7 @@ public class ClueState extends GameState implements Serializable{
         spacesMoved = 0;
         numPlayers = initNumPlayers;
         playerIDWhoSuggested = -1;
+        playerInSuggestion = -1;
 
         //tells the game how many cards to try and give each player
         if(numPlayers == 3) {
@@ -211,6 +213,7 @@ public class ClueState extends GameState implements Serializable{
         onDoorTile = s.getOnDoorTile();
         playerWhoShowedCard = s.getPlayerWhoShowedCard();
         hasSuggested = s.getHasSuggested();
+        playerInSuggestion = s.getPlayerInSuggestion();
 
 
         for(int i = 0; i < numPlayers; i++) {
@@ -414,6 +417,9 @@ public class ClueState extends GameState implements Serializable{
 
     public boolean[] getHasSuggested () { return hasSuggested;}
 
+    public int getPlayerInSuggestion () {return playerInSuggestion;}
+
+
     //setters
     public void setNewToRoom(int playerID, boolean newTo)
     {
@@ -514,4 +520,5 @@ public class ClueState extends GameState implements Serializable{
 
     public void setHasSuggested (int playerID, boolean suggested) {hasSuggested[playerID] = suggested;}
 
+    public void setPlayerInSuggestion (int playerID) {playerInSuggestion = playerID;}
 }
