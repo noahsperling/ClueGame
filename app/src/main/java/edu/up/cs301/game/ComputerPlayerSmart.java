@@ -32,10 +32,10 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
     private ClueState myState;
     private ClueSuggestionAction prevSuggestion = null;
     private int[][] doorCoordinates = {{5,10}, {7,12}, {7,13}, {6,18}, {10,18}, {13,17}, {19,20},
-            {21,16}, {18,15}, {18,10}, {21,9}, {20,5}, {16,6}, {13,2}, {9,7}, {4,7}};
+            {21,16}, {18,15}, {18,10}, {21,9}, {20,5}, {16,6}, {13,2}, {11,4}, {9,7}, {4,7}};
     private Card[] doorRooms = {Card.HALL, Card.HALL, Card.HALL, Card.LOUNGE, Card.DINING_ROOM,
             Card.DINING_ROOM,Card.KITCHEN, Card.BALLROOM, Card.BALLROOM, Card.BALLROOM, Card.BALLROOM,
-            Card.CONSERVATORY, Card.BILLIARD_ROOM, Card.BILLIARD_ROOM, Card.LIBRARY, Card.STUDY};
+            Card.CONSERVATORY, Card.BILLIARD_ROOM, Card.BILLIARD_ROOM, Card.LIBRARY, Card.LIBRARY, Card.STUDY};
     private boolean handChecked;
     private ClueMoveAction prevMov1;
     private ClueMoveAction prevMov2;
@@ -231,10 +231,8 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                     if(dX < 0) {dX *= -1; dXNegative = true;}
                     if(dY < 0) {dY *= -1; dYNegative = true;}
 
-                    //TODO: When smart AI is in a room it will no longer move. Suggestions don't always seem to work either.
                     if(myState.getBoard().getBoardArr()[curY][curX].getTileType() == 0 ||
-                        (myState.getBoard().getBoardArr()[curY][curX].getTileType() == 1 &&
-                        !myState.getCanSuggest(playerNum)
+                        (myState.getBoard().getBoardArr()[curY][curX].getTileType() == 1
                         && !myState.getBoard().getBoardArr()[curY][curX].getIsDoor())) {
                         if (dX > dY) {
                             Log.i("Computer Player" + playerNum, "dX > dY");
