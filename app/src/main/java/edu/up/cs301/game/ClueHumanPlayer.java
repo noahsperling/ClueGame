@@ -30,6 +30,8 @@ import edu.up.cs301.game.actionMsg.ClueUsePassagewayAction;
 import edu.up.cs301.game.actionMsg.ClueWrittenNoteAction;
 import edu.up.cs301.game.infoMsg.GameInfo;
 
+import static android.os.SystemClock.sleep;
+
 
 /**
  * Created by Noah on 11/8/2016.
@@ -394,6 +396,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
             }
         }else if(recentState.getTurnId() == playerNum && !recentState.getPlayerStillInGame(playerNum)){
             endTurnButton.setEnabled(false);
+            //sleep(300);
             game.sendAction(new ClueEndTurnAction(this));
         }
         else if(recentState.getTurnId() != playerNum && recentState.getPlayerStillInGame(playerNum))
@@ -847,7 +850,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
         cards.toArray(validCards);
 
         if(validCards.length == 0) {
-            game.sendAction(new ClueShowCardAction(null));
+            game.sendAction(new ClueShowCardAction(this));
         }else {
             ArrayAdapter<String> roomAdapter = new ArrayAdapter<String>(myActivity, android.R.layout.simple_spinner_dropdown_item, validCards);
             roomSpinner.setAdapter(roomAdapter);

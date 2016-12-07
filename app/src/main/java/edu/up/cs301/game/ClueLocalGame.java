@@ -54,6 +54,7 @@ public class ClueLocalGame extends LocalGame {
     ClueMoveAction moveAction;
     ClueState state;
     private Random rand;
+    public static String sync = "V";
 
     public ClueLocalGame(int numPlayerFromTableRows) {
         super();
@@ -484,22 +485,19 @@ public class ClueLocalGame extends LocalGame {
                             suggestionCards[2] = b.weapon;
                             state.setSuggestCards(suggestionCards);
                             state.setPlayerIDWhoSuggested(b.playerID);
+                            state.setNewToRoom(b.playerID, false);
                             state.setCanSuggest(b.playerID, false);
+                            state.setCanRoll(b.playerID, false);
                             if (b.playerID == state.getNumPlayers() - 1) {
                                 state.setCheckCardToSend(0, true);
-                            }
-                            else
-                            {
+                            } else {
                                 state.setCheckCardToSend(b.playerID + 1, true);
                             }
 
-                            if (a.getPlayer() instanceof ClueComputerPlayer)
-                            {
-                                state.setNewToRoom(curPlayerID, false); //Once they've ended their turn, they are no longer new to a room.
-                                state.setCanRoll(curPlayerID, false);
                                 if (state.getTurnId() == (state.getNumPlayers() - 1))
                                 {
-                                    state.setCanRoll(0, true);
+                                    state.setCanRoll(0, false);
+                                    state.setCanSuggest(0, false);
                                     state.setTurnID(0);
                                     state.setSpacesMoved(0);
                                     state.setDieValue(0);
@@ -507,18 +505,20 @@ public class ClueLocalGame extends LocalGame {
                                 }
                                 else
                                 {
-                                    state.setCanRoll(state.getTurnId() + 1, true);
+                                    state.setCanRoll(state.getTurnId() + 1, false);
+                                    state.setCanSuggest(state.getTurnId()+1,false);
                                     state.setTurnID(state.getTurnId() + 1);
                                     state.setSpacesMoved(0);
                                     state.setDieValue(0);
                                     return true;
 
                                 }
-                            }
-
-                            return true;
                         }
+
+                        return false;
                     }
+
+                    return false;
                 }
                 else if (moveAction instanceof ClueUsePassagewayAction)
                 {
@@ -583,13 +583,17 @@ public class ClueLocalGame extends LocalGame {
                 }
                 else if (moveAction instanceof ClueEndTurnAction)
                 {
-                    Log.i("EndTurn"," "+curPlayerID);
+                    if(state.getTurnId() != moveAction.playerID){
+                        return false;
+                    }
+
                     //Check to make sure they are not on a door tile(so they can't block the door)
                     if (!curBoard[x][y].getIsDoor())
                     {
                         //Change the turnID to the next player and lets the next player roll
                         state.setNewToRoom(curPlayerID, false); //Once they've ended their turn, they are no longer new to a room.
                         state.setCanRoll(curPlayerID, false);
+                        state.setCanSuggest(curPlayerID, false);
                         if (state.getTurnId() == (state.getNumPlayers() - 1))
                         {
                             state.setCanRoll(0, true);
@@ -610,15 +614,74 @@ public class ClueLocalGame extends LocalGame {
                             state.setSpacesMoved(state.getSpacesMoved()-1);
                             return false;
                     }
+                }else if (moveAction instanceof ClueShowCardAction) { //Might not work
+                    ClueShowCardAction b = (ClueShowCardAction)a;
+                    if(b.getCardToShow() == null) {
+                        if(b.playerID == state.getNumPlayers() - 1 && state.getPlayerIDWhoSuggested() != 0) {
+                            state.setCheckCardToSend(b.playerID, false);
+                            state.setCheckCardToSend(0, true);
+                            state.setCanRoll(0, false);
+                            state.setCanSuggest(0,false);
+                            state.setSpacesMoved(0);
+                            state.setDieValue(0);
+                            state.setTurnID(0);
+                            return true;
+                        }else if(b.playerID == state.getNumPlayers() - 1 && state.getPlayerIDWhoSuggested() == 0) {
+                            state.setCheckCardToSend(b.playerID, false);
+                            state.setCardToShow("No card shown.", state.getPlayerIDWhoSuggested());
+
+                            state.setNewToRoom(state.getPlayerIDWhoSuggested(), false); //Once they've ended their turn, they are no longer new to a room.
+                            state.setCanRoll(state.getPlayerIDWhoSuggested(), false);
+                            state.setCanSuggest(state.getPlayerIDWhoSuggested(), false);
+                            state.setSpacesMoved(0);
+                            state.setDieValue(0);
+                            state.setTurnID(state.getPlayerIDWhoSuggested());
+                            return true;
+
+                        }else if(state.getPlayerIDWhoSuggested() != b.playerID + 1) {
+                            state.setCheckCardToSend(b.playerID, false);
+                            state.setCheckCardToSend(b.playerID + 1, true);
+                            state.setCanRoll(b.playerID + 1, false);
+                            state.setCanSuggest(b.playerID + 1,false);
+                            state.setSpacesMoved(0);
+                            state.setDieValue(0);
+                            state.setTurnID(b.playerID+1);
+                            return true;
+                        }else if(b.playerID == state.getPlayerIDWhoSuggested()-1){
+                            state.setCheckCardToSend(b.playerID, false);
+                            state.setCardToShow("No card shown.", state.getPlayerIDWhoSuggested());
+
+                            state.setNewToRoom(state.getPlayerIDWhoSuggested(), false); //Once they've ended their turn, they are no longer new to a room.
+                            state.setCanRoll(state.getPlayerIDWhoSuggested(), false);
+                            state.setCanSuggest(state.getPlayerIDWhoSuggested(), false);
+                            state.setSpacesMoved(0);
+                            state.setDieValue(0);
+                            state.setTurnID(b.playerID+1);
+                            return true;
+                        }
+                    }else {
+                        state.setCheckCardToSend(b.playerID, false);
+                        state.setCardToShow(b.getCardToShow(), state.getPlayerIDWhoSuggested());
+                        state.setNewToRoom(state.getPlayerIDWhoSuggested(), false); //Once they've ended their turn, they are no longer new to a room.
+                        state.setCanRoll(state.getPlayerIDWhoSuggested(), false);
+                        state.setCanSuggest(state.getPlayerIDWhoSuggested(), false);
+                        state.setSpacesMoved(0);
+                        state.setDieValue(0);
+                        state.setTurnID(state.getPlayerIDWhoSuggested());
+                        return true;
+                    }
+
+                    return false;
                 }
             }
+            return false;
         }
-        else //If it's not a move action
+        else if(a instanceof ClueNonTurnAction)//If it's not a move action
         {
             return makeNonTurnAction((ClueNonTurnAction)a);
         }
-        return false;
 
+        return false;
     }
 
     public boolean makeNonTurnAction(ClueNonTurnAction a) {
@@ -636,113 +699,8 @@ public class ClueLocalGame extends LocalGame {
                 state.setCheckBox(index, i, ((ClueCheckAction) a).getCheckbox()[i]);
             }
             return true;
-        } else if (nonTurnAction instanceof ClueShowCardAction) {
-            ClueShowCardAction b = (ClueShowCardAction)a;
-            if(b.getCardToShow() == null) {
-                if(b.playerID == state.getNumPlayers() - 1 && state.getPlayerIDWhoSuggested() != 0) {
-                    state.setCheckCardToSend(b.playerID, false);
-                    state.setCheckCardToSend(0, true);
-                    return true;
-                }else if(b.playerID == state.getNumPlayers() - 1 && state.getPlayerIDWhoSuggested() == 0) {
-                    state.setCheckCardToSend(b.playerID, false);
-                    state.setCardToShow("No card shown.", state.getPlayerIDWhoSuggested());
-
-                    state.setNewToRoom(state.getPlayerIDWhoSuggested(), false); //Once they've ended their turn, they are no longer new to a room.
-                    state.setCanRoll(state.getPlayerIDWhoSuggested(), false);
-
-                    if (state.getTurnId() == (state.getNumPlayers() - 1))
-                    {
-                        state.setCanRoll(0, true);
-                        state.setTurnID(0);
-                        state.setSpacesMoved(0);
-                        state.setDieValue(0);
-                        return true;
-                    }
-                    else
-                    {
-                        state.setCanRoll(state.getTurnId() + 1, true);
-                        state.setTurnID(state.getTurnId() + 1);
-                        state.setSpacesMoved(0);
-                        state.setDieValue(0);
-                        return true;
-
-                    }
-
-                }else if(state.getPlayerIDWhoSuggested() != b.playerID + 1) {
-                    state.setCheckCardToSend(b.playerID, false);
-                    state.setCheckCardToSend(b.playerID + 1, true);
-                    return true;
-                }else if(b.playerID == state.getPlayerIDWhoSuggested()-1){
-                    state.setCheckCardToSend(b.playerID, false);
-                    state.setCardToShow("No card shown.", state.getPlayerIDWhoSuggested());
-
-                    state.setNewToRoom(state.getPlayerIDWhoSuggested(), false); //Once they've ended their turn, they are no longer new to a room.
-                    state.setCanRoll(state.getPlayerIDWhoSuggested(), false);
-                    if (state.getTurnId() == (state.getNumPlayers() - 1))
-                    {
-                        state.setCanRoll(0, true);
-                        state.setTurnID(0);
-                        state.setSpacesMoved(0);
-                        state.setDieValue(0);
-                        return true;
-                    }
-                    else
-                    {
-                        state.setCanRoll(state.getTurnId() + 1, true);
-                        state.setTurnID(state.getTurnId() + 1);
-                        state.setSpacesMoved(0);
-                        state.setDieValue(0);
-                        return true;
-
-                    }
-                }
-                return true;
-            }else {
-                state.setCheckCardToSend(b.playerID, false);
-                state.setCardToShow(b.getCardToShow(), state.getPlayerIDWhoSuggested());
-                state.setPlayerWhoShowedCard(b.playerID);
-
-                state.setNewToRoom(state.getPlayerIDWhoSuggested(), false); //Once they've ended their turn, they are no longer new to a room.
-                state.setCanRoll(state.getPlayerIDWhoSuggested(), false);
-                if (state.getTurnId() == (state.getNumPlayers() - 1))
-                {
-                    state.setCanRoll(0, true);
-                    state.setTurnID(0);
-                    state.setSpacesMoved(0);
-                    state.setDieValue(0);
-                    return true;
-                }
-                else
-                {
-                    state.setCanRoll(state.getTurnId() + 1, true);
-                    state.setTurnID(state.getTurnId() + 1);
-                    state.setSpacesMoved(0);
-                    state.setDieValue(0);
-                    return true;
-
-                }
-
-
-                //return true;
-            }
-
-//            int index = ((ClueShowCardAction) a).playerID;
-//
-//            for (int i = 0; i < state.getNumPlayers(); i++) {
-//                if (index < state.getNumPlayers()) {
-//                    //change spinners for the show card action to contain the hands the next player has in their hand
-//                    Hand currentPlayerHand = state.getCards(index);
-//                    Card[] playerCards = currentPlayerHand.getCards();
-//                    int playerCardsNumber = state.getCardsPerHand();
-//
-//                    //go through the players hand and get the cards that match the suggestion
-//                    for (int j = 0; j < playerCardsNumber; j++) {
-//                       if (playerCards[j].equals())
-//                    }
-//                }
-//            }
         }
-            return true;
+            return false;
         }
 
     @Override
@@ -751,36 +709,30 @@ public class ClueLocalGame extends LocalGame {
         if(p instanceof ClueHumanPlayer) {
             ClueHumanPlayer player = (ClueHumanPlayer)p;
             int playerCount = sendState.getNumPlayers();
-            if(player.getPlayerID() == 0) {
                 for(int i = 0; i < playerCount; i++) {
                     if(i != player.getPlayerID()) {
                         sendState.setNotes(i, null);
                         sendState.setCards(i, null);
                     }
                 }
-            }
         }else if(p instanceof ComputerPlayerDumb){
             ComputerPlayerDumb player = (ComputerPlayerDumb)p;
             int playerCount = sendState.getNumPlayers();
-            if(player.getPlayerID() == 0) {
                 for(int i = 0; i < playerCount; i++) {
                     if(i != player.getPlayerID()) {
                         sendState.setNotes(i, null);
                         sendState.setCards(i, null);
                     }
                 }
-            }
         }else if(p instanceof ComputerPlayerSmart){
             ComputerPlayerSmart player = (ComputerPlayerSmart)p;
             int playerCount = sendState.getNumPlayers();
-            if(player.getPlayerID() == 0) {
                 for(int i = 0; i < playerCount; i++) {
                     if(i != player.getPlayerID()) {
                         sendState.setNotes(i, null);
                         sendState.setCards(i, null);
                     }
                 }
-            }
         }
 
         p.sendInfo(sendState);

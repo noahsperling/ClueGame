@@ -45,6 +45,7 @@ public class ClueState extends GameState implements Serializable{
 
     // to satisfy Serializable interface - IDK if necessary
     private static final long serialVersionUID = 7737393762469851826L;
+    private boolean[] canDoStuff;
 
 
     public ClueState(int initNumPlayers, String initPlayerNames[], int initTurnID) {
