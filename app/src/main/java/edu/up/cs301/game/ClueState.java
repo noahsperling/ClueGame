@@ -114,14 +114,28 @@ public class ClueState extends GameState implements Serializable{
         board = new Board();
 
         //put cards in players hands
-        for(int i = 0; i < numPlayers; i++) {
-            for(int j = 0; j < cardsPerHand; j++) {
-                if(allCards.size() != 0) {
-                    int index = allCards.size() - 1;
-                    cards[i].addCard(allCards.get(index));
-                    allCards.remove(index);
-                }
+//        for(int i = 0; i < numPlayers; i++) {
+//            for(int j = 0; j < cardsPerHand; j++) {
+//                if(allCards.size() != 0) {
+//                    int index = allCards.size() - 1;
+//                    cards[i].addCard(allCards.get(index));
+//                    allCards.remove(index);
+//                }
+//            }
+//        }
+
+        int k = 0;
+        while (allCards.size() != 0)
+        {
+            int index = allCards.size() - 1;
+            cards[k].addCard(allCards.get(index));
+            allCards.remove(index);
+            if (k == numPlayers-1)
+            {
+                k = 0;
+                continue;
             }
+            k++;
         }
 
         for(int i = 0; i < 3; i++) {
@@ -219,6 +233,8 @@ public class ClueState extends GameState implements Serializable{
                 }
             }
         }
+
+
 
         for(int i = 0; i < numPlayers; i++) {
             for(int j = 0; j < 21; j++) {
