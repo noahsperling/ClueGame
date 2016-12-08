@@ -1,8 +1,6 @@
 package edu.up.cs301.game;
 
 import android.app.Activity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -11,8 +9,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -28,14 +24,12 @@ import edu.up.cs301.game.actionMsg.ClueSuggestionAction;
 import edu.up.cs301.game.actionMsg.ClueUsePassagewayAction;
 import edu.up.cs301.game.infoMsg.GameInfo;
 
-import static android.os.SystemClock.sleep;
-
 
 /**
  * Created by Noah on 11/8/2016.
  */
 
-public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View.OnClickListener{
+public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View.OnClickListener{
 
     private boolean nameSet;
 
@@ -559,11 +553,11 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
                             }
                         }
                     }
-                    if(recentState.getBoard().getBoardArr()[y][x].getRoom() == null){
+                    if(recentState.getBoard().getBoard()[y][x].getRoom() == null){
                         return;
                     }
 
-                    String roomSelect = recentState.getBoard().getBoardArr()[y][x].getRoom().getName();
+                    String roomSelect = recentState.getBoard().getBoard()[y][x].getRoom().getName();
                     String weaponSelect = weaponSpinner.getSelectedItem().toString();
                     String suspectSelect = suspectSpinner.getSelectedItem().toString();
 
@@ -733,21 +727,22 @@ public class ClueHumanPlayer extends GameHumanPlayer implements GamePlayer, View
     }
 
     public String setPlayerWhoShowedCardName (int playerID) {
-        if (playerID == 0) {
-            return "Miss Scarlet";
-        } else if (playerID == 1) {
-            return "Col. Mustard";
-        } else if (playerID == 2) {
-            return "Mrs. White";
-        } else if (playerID == 3) {
-            return "Mr. Green";
-        } else if (playerID == 4) {
-            return "Mrs. Peacock";
-        } else if (playerID == 5) {
-            return "Prof. Plum";
-        } else {
-            return "";
+        switch(playerID){
+            case 0:
+                return "Miss Scarlet";
+            case 1:
+                return "Col. Mustard";
+            case 2:
+                return "Mrs. White";
+            case 3:
+                return "Mr. Green";
+            case 4:
+                return "Mrs. Peacock";
+            case 5:
+                return "Prof. Plum";
         }
+
+        return "";
     }
 
     public String setSuggestionText (int playerID) {

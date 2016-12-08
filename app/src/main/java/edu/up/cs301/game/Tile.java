@@ -16,6 +16,7 @@ public class Tile implements Serializable{
     private boolean leftWall = false;
     private Card room; //A Room from the Card enum in which the tile belongs to.
     private Point location;
+
     public Tile(int tileType, boolean isDoor, Card room,Point location){
         this.tileType = tileType;
         this.isDoor = isDoor;

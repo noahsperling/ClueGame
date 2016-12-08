@@ -21,7 +21,7 @@ import edu.up.cs301.game.infoMsg.GameInfo;
  * Created by Langley on 11/17/2016.
  */
 
-public class ComputerPlayerDumb extends GameComputerPlayer {
+public class ComputerPlayerDumb extends ClueComputerPlayer {
 
     private boolean[] checkbox = new boolean[21];
     Card[] suspects = {Card.COL_MUSTARD, Card.PROF_PLUM, Card.MR_GREEN, Card.MRS_PEACOCK, Card.MISS_SCARLET, Card.MRS_WHITE};
@@ -122,7 +122,7 @@ public class ComputerPlayerDumb extends GameComputerPlayer {
                         for (int i = 0; i < 26; i++) {
                             for (int j = 0; j < 26; j++) {
                                 if (myState.getBoard().getPlayerBoard()[j][i] == playerNum) {
-                                    csa.room = myState.getBoard().getBoardArr()[j][i].getRoom().getName();
+                                    csa.room = myState.getBoard().getBoard()[j][i].getRoom().getName();
                                     break loop;
                                 }
                             }

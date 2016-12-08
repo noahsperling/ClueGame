@@ -22,7 +22,7 @@ import edu.up.cs301.game.infoMsg.GameInfo;
  * Created by Noah on 11/8/2016.
  */
 
-public class ComputerPlayerSmart extends GameComputerPlayer {
+public class ComputerPlayerSmart extends ClueComputerPlayer {
     //does smart AI stuff
     private boolean[] checkBoxVals = new boolean[21];
     private Card[] allCards = {Card.COL_MUSTARD, Card.PROF_PLUM, Card.MR_GREEN, Card.MRS_PEACOCK, Card.MISS_SCARLET,
@@ -155,7 +155,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                     for (int i = 0; i < 26; i++) {
                         for (int j = 0; j < 26; j++) {
                             if (myState.getBoard().getPlayerBoard()[j][i] == playerNum) {
-                                csa.room = myState.getBoard().getBoardArr()[j][i].getRoom().getName();
+                                csa.room = myState.getBoard().getBoard()[j][i].getRoom().getName();
                                 break outerLoop;
                             }
                         }
@@ -188,7 +188,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                             if (myState.getBoard().getPlayerBoard()[j][i] == playerNum) {
                                 curY = j;
                                 curX = i;
-                                currentRoom = myState.getBoard().getBoardArr()[j][i].getRoom();
+                                currentRoom = myState.getBoard().getBoard()[j][i].getRoom();
                                 break loop;
                             }
                         }
@@ -230,7 +230,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                             }
                         }
                     }
-                    if(myState.getBoard().getBoardArr()[curY][curX].getTileType() == 1 && !myState.getCanSuggest(playerNum)){
+                    if(curX >= 0 && curY >= 0 && myState.getBoard().getBoard()[curY][curX].getTileType() == 1 && !myState.getCanSuggest(playerNum)){
                         int destX = closestX;
                         int destY = closestY;
                         for(int j = 0; j < doorCoordinates.length; j++) {
@@ -263,9 +263,9 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                         dYNegative = true;
                     }
 
-                    if (myState.getBoard().getBoardArr()[curY][curX].getTileType() == 0 ||
-                            (myState.getBoard().getBoardArr()[curY][curX].getTileType() == 1
-                                    && !myState.getBoard().getBoardArr()[curY][curX].getIsDoor())) {
+                    if (myState.getBoard().getBoard()[curY][curX].getTileType() == 0 ||
+                            (myState.getBoard().getBoard()[curY][curX].getTileType() == 1
+                                    && !myState.getBoard().getBoard()[curY][curX].getIsDoor())) {
                         if (dX == 0 && isThereAWall(curX, curY) && !isThereADoor(curX,curY)) {
                             int dir = 0;
                             if (prevMov1 instanceof ClueMoveLeftAction) {
@@ -672,7 +672,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                                     }
                                 }
                             }
-                        } else if(myState.getBoard().getBoardArr()[curY][curX].getIsDoor() &&
+                        } else if(myState.getBoard().getBoard()[curY][curX].getIsDoor() &&
                             myState.getCanSuggest(playerNum)){
                         Log.i("Computer Player" + playerNum, "Room");
                         if (MoveOffDoor(curX, curY, 2)) { //Move Up
@@ -713,11 +713,11 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                         }else {
                             game.sendAction(new ClueEndTurnAction(this));
                         }
-                    }else if(myState.getBoard().getBoardArr()[curY][curX].getIsDoor() &&
+                    }else if(myState.getBoard().getBoard()[curY][curX].getIsDoor() &&
                             !myState.getCanSuggest(playerNum)) {
                         Log.i("Computer Player" + playerNum, "Room");
 
-                        if (myState.getBoard().getBoardArr()[curY + 1][curX].getTileType() != 1 && checkIfAvailableTile(curX, curY, 4)) {
+                        if (myState.getBoard().getBoard()[curY + 1][curX].getTileType() != 1 && checkIfAvailableTile(curX, curY, 4)) {
                             ClueMoveDownAction c = new ClueMoveDownAction(this);
                             prevMov2 = prevMov1;
                             prevMov1 = c;
@@ -725,7 +725,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                             game.sendAction(c);
                             Log.i("Computer Player" + playerNum + " Moved", "Down");
                             return;
-                        } else if (myState.getBoard().getBoardArr()[curY - 1][curX].getTileType() != 1 && checkIfAvailableTile(curX, curY, 2)) {
+                        } else if (myState.getBoard().getBoard()[curY - 1][curX].getTileType() != 1 && checkIfAvailableTile(curX, curY, 2)) {
                             ClueMoveUpAction c = new ClueMoveUpAction(this);
                             prevMov2 = prevMov1;
                             prevMov1 = c;
@@ -733,7 +733,7 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
                             game.sendAction(c);
                             Log.i("Computer Player" + playerNum + " Moved", "Up");
                             return;
-                        } else if (myState.getBoard().getBoardArr()[curY][curX - 1].getTileType() != 1 && checkIfAvailableTile(curX, curY, 1)) {
+                        } else if (myState.getBoard().getBoard()[curY][curX - 1].getTileType() != 1 && checkIfAvailableTile(curX, curY, 1)) {
                             ClueMoveLeftAction c = new ClueMoveLeftAction(this);
                             prevMov2 = prevMov1;
                             prevMov1 = c;
@@ -797,13 +797,13 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
     }
 
     private boolean isThereADoor(int curX, int curY) {
-            if (myState.getBoard().getBoardArr()[curY+1][curX] != null &&  myState.getBoard().getBoardArr()[curY + 1][curX].getIsDoor()) {
+            if (myState.getBoard().getBoard()[curY+1][curX] != null &&  myState.getBoard().getBoard()[curY + 1][curX].getIsDoor()) {
                 return true;
-            } else if (myState.getBoard().getBoardArr()[curY-1][curX] != null && myState.getBoard().getBoardArr()[curY - 1][curX].getIsDoor()) {
+            } else if (myState.getBoard().getBoard()[curY-1][curX] != null && myState.getBoard().getBoard()[curY - 1][curX].getIsDoor()) {
                 return true;
-            } else if (myState.getBoard().getBoardArr()[curY][curX+1] != null && myState.getBoard().getBoardArr()[curY][curX + 1].getIsDoor()) {
+            } else if (myState.getBoard().getBoard()[curY][curX+1] != null && myState.getBoard().getBoard()[curY][curX + 1].getIsDoor()) {
                 return true;
-            } else if (myState.getBoard().getBoardArr()[curY][curX-1] != null && myState.getBoard().getBoardArr()[curY][curX - 1].getIsDoor()) {
+            } else if (myState.getBoard().getBoard()[curY][curX-1] != null && myState.getBoard().getBoard()[curY][curX - 1].getIsDoor()) {
                 return true;
             }
 
@@ -811,21 +811,21 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
     }
 
     private boolean isThereAWall(int curX, int curY) {
-            if (myState.getBoard().getBoardArr()[curY][curX].getTopWall()) {
+            if (myState.getBoard().getBoard()[curY][curX].getTopWall()) {
                 return true;
-            } else if (myState.getBoard().getBoardArr()[curY][curX].getBottomWall()) {
+            } else if (myState.getBoard().getBoard()[curY][curX].getBottomWall()) {
                 return true;
-            } else if (myState.getBoard().getBoardArr()[curY][curX].getRightWall()) {
+            } else if (myState.getBoard().getBoard()[curY][curX].getRightWall()) {
                 return true;
-            } else if (myState.getBoard().getBoardArr()[curY][curX].getLeftWall()) {
+            } else if (myState.getBoard().getBoard()[curY][curX].getLeftWall()) {
                 return true;
-            } else if (myState.getBoard().getBoardArr()[curY+1][curX] != null && myState.getBoard().getBoardArr()[curY + 1][curX].getTopWall()) {
+            } else if (myState.getBoard().getBoard()[curY+1][curX] != null && myState.getBoard().getBoard()[curY + 1][curX].getTopWall()) {
                 return true;
-            } else if (myState.getBoard().getBoardArr()[curY-1][curX] != null && myState.getBoard().getBoardArr()[curY - 1][curX].getBottomWall()) {
+            } else if (myState.getBoard().getBoard()[curY-1][curX] != null && myState.getBoard().getBoard()[curY - 1][curX].getBottomWall()) {
                 return true;
-            } else if (myState.getBoard().getBoardArr()[curY][curX+1] != null && myState.getBoard().getBoardArr()[curY][curX + 1].getLeftWall()) {
+            } else if (myState.getBoard().getBoard()[curY][curX+1] != null && myState.getBoard().getBoard()[curY][curX + 1].getLeftWall()) {
                 return true;
-            } else if (myState.getBoard().getBoardArr()[curY][curX-1] != null && myState.getBoard().getBoardArr()[curY][curX - 1].getRightWall()) {
+            } else if (myState.getBoard().getBoard()[curY][curX-1] != null && myState.getBoard().getBoard()[curY][curX - 1].getRightWall()) {
                 return true;
             }
 
@@ -835,35 +835,35 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
     //direction 1 = left, 2 = up, 3 = right, 4 = down
     private boolean MoveOffDoor(int x, int y, int direction) {
         Log.i("Computer Player" + playerNum, "Move off Door X: "+x+" Y: "+y+" Dir: "+direction);
-        if(myState.getBoard().getBoardArr()[y][x] != null) {
+        if(myState.getBoard().getBoard()[y][x] != null) {
             if(direction == 1) { //Move Left
-                if(!myState.getBoard().getBoardArr()[y][x].getLeftWall()) {
+                if(!myState.getBoard().getBoard()[y][x].getLeftWall()) {
                     if(myState.getBoard().getPlayerBoard()[y][x - 1] == -1) {
-                        if(myState.getBoard().getBoardArr()[y][x - 1] != null && !myState.getBoard().getBoardArr()[y][x - 1].getRightWall() && myState.getBoard().getBoardArr()[y][x - 1].getTileType() == 1) {
+                        if(myState.getBoard().getBoard()[y][x - 1] != null && !myState.getBoard().getBoard()[y][x - 1].getRightWall() && myState.getBoard().getBoard()[y][x - 1].getTileType() == 1) {
                             return true;
                         }
                     }
                 }
             } else if(direction == 2) { //Move up
-                if(!myState.getBoard().getBoardArr()[y][x].getTopWall()) {
+                if(!myState.getBoard().getBoard()[y][x].getTopWall()) {
                     if(myState.getBoard().getPlayerBoard()[y - 1][x] == -1) {
-                        if(myState.getBoard().getBoardArr()[y - 1][x] != null && !myState.getBoard().getBoardArr()[y - 1][x].getBottomWall() && myState.getBoard().getBoardArr()[y - 1][x].getTileType() == 1) {
+                        if(myState.getBoard().getBoard()[y - 1][x] != null && !myState.getBoard().getBoard()[y - 1][x].getBottomWall() && myState.getBoard().getBoard()[y - 1][x].getTileType() == 1) {
                             return true;
                         }
                     }
                 }
             }else if(direction == 3) { //move right
-                if(!myState.getBoard().getBoardArr()[y][x].getRightWall()) {
+                if(!myState.getBoard().getBoard()[y][x].getRightWall()) {
                     if(myState.getBoard().getPlayerBoard()[y][x + 1] == -1) {
-                        if(myState.getBoard().getBoardArr()[y][x + 1] != null && !myState.getBoard().getBoardArr()[y][x + 1].getLeftWall() && myState.getBoard().getBoardArr()[y][x + 1].getTileType() == 1) {
+                        if(myState.getBoard().getBoard()[y][x + 1] != null && !myState.getBoard().getBoard()[y][x + 1].getLeftWall() && myState.getBoard().getBoard()[y][x + 1].getTileType() == 1) {
                             return true;
                         }
                     }
                 }
             }else if(direction == 4) { //move down
-                if(!myState.getBoard().getBoardArr()[y][x].getBottomWall() && myState.getBoard().getBoardArr()[y][x - 1].getTileType() == 1) {
+                if(!myState.getBoard().getBoard()[y][x].getBottomWall() && myState.getBoard().getBoard()[y][x - 1].getTileType() == 1) {
                     if(myState.getBoard().getPlayerBoard()[y + 1][x] == -1) {
-                        if(myState.getBoard().getBoardArr()[y + 1][x] != null && !myState.getBoard().getBoardArr()[y + 1][x].getTopWall() && myState.getBoard().getBoardArr()[y + 1][x].getTileType() == 1) {
+                        if(myState.getBoard().getBoard()[y + 1][x] != null && !myState.getBoard().getBoard()[y + 1][x].getTopWall() && myState.getBoard().getBoard()[y + 1][x].getTileType() == 1) {
                             return true;
                         }
                     }
@@ -907,51 +907,51 @@ public class ComputerPlayerSmart extends GameComputerPlayer {
             }
         }
 
-        if(myState.getBoard().getBoardArr()[y][x] != null) {
+        if(myState.getBoard().getBoard()[y][x] != null) {
             if(direction == 1) { //Move Left
-                if(!myState.getBoard().getBoardArr()[y][x].getLeftWall()) {
-                    if(myState.getBoard().getBoardArr()[y ][x-1] != null) {
-                        Log.i("Computer Smart" + playerNum, "Left Wall: " + myState.getBoard().getBoardArr()[y][x].getLeftWall() + " Right Wall" + myState.getBoard().getBoardArr()[y][x-1].getRightWall() +
-                                " Player: " + myState.getBoard().getPlayerBoard()[y][x - 1] + " Null: " + myState.getBoard().getBoardArr()[y][x - 1]);
+                if(!myState.getBoard().getBoard()[y][x].getLeftWall()) {
+                    if(myState.getBoard().getBoard()[y ][x-1] != null) {
+                        Log.i("Computer Smart" + playerNum, "Left Wall: " + myState.getBoard().getBoard()[y][x].getLeftWall() + " Right Wall" + myState.getBoard().getBoard()[y][x-1].getRightWall() +
+                                " Player: " + myState.getBoard().getPlayerBoard()[y][x - 1] + " Null: " + myState.getBoard().getBoard()[y][x - 1]);
                     }
                     if(myState.getBoard().getPlayerBoard()[y][x - 1] == -1) {
-                        if(myState.getBoard().getBoardArr()[y][x - 1] != null && !myState.getBoard().getBoardArr()[y][x - 1].getRightWall()) {
+                        if(myState.getBoard().getBoard()[y][x - 1] != null && !myState.getBoard().getBoard()[y][x - 1].getRightWall()) {
                             return true;
                         }
                     }
                 }
             } else if(direction == 2) { //Move up
-                if(!myState.getBoard().getBoardArr()[y][x].getTopWall()) {
-                    if(myState.getBoard().getBoardArr()[y-1][x] != null) {
-                        Log.i("Computer Smart" + playerNum, "Top Wall: " + myState.getBoard().getBoardArr()[y][x].getTopWall() + " Bottom Wall" + myState.getBoard().getBoardArr()[y - 1][x].getBottomWall() +
-                                " Player: " + myState.getBoard().getPlayerBoard()[y - 1][x] + " Null: " + myState.getBoard().getBoardArr()[y - 1][x]);
+                if(!myState.getBoard().getBoard()[y][x].getTopWall()) {
+                    if(myState.getBoard().getBoard()[y-1][x] != null) {
+                        Log.i("Computer Smart" + playerNum, "Top Wall: " + myState.getBoard().getBoard()[y][x].getTopWall() + " Bottom Wall" + myState.getBoard().getBoard()[y - 1][x].getBottomWall() +
+                                " Player: " + myState.getBoard().getPlayerBoard()[y - 1][x] + " Null: " + myState.getBoard().getBoard()[y - 1][x]);
                     }
                     if(myState.getBoard().getPlayerBoard()[y - 1][x] == -1) {
-                        if(myState.getBoard().getBoardArr()[y - 1][x] != null && !myState.getBoard().getBoardArr()[y - 1][x].getBottomWall()) {
+                        if(myState.getBoard().getBoard()[y - 1][x] != null && !myState.getBoard().getBoard()[y - 1][x].getBottomWall()) {
                             return true;
                         }
                     }
                 }
             }else if(direction == 3) { //move right
-                if(!myState.getBoard().getBoardArr()[y][x].getRightWall()) {
-                    if(myState.getBoard().getBoardArr()[y ][x+1] != null) {
-                        Log.i("Computer Smart" + playerNum, "Left Wall: " + myState.getBoard().getBoardArr()[y][x+1].getLeftWall() + " Right Wall" + myState.getBoard().getBoardArr()[y ][x].getRightWall() +
-                                " Player: " + myState.getBoard().getPlayerBoard()[y][x + 1] + " Null: " + myState.getBoard().getBoardArr()[y][x + 1]);
+                if(!myState.getBoard().getBoard()[y][x].getRightWall()) {
+                    if(myState.getBoard().getBoard()[y ][x+1] != null) {
+                        Log.i("Computer Smart" + playerNum, "Left Wall: " + myState.getBoard().getBoard()[y][x+1].getLeftWall() + " Right Wall" + myState.getBoard().getBoard()[y ][x].getRightWall() +
+                                " Player: " + myState.getBoard().getPlayerBoard()[y][x + 1] + " Null: " + myState.getBoard().getBoard()[y][x + 1]);
                     }
                     if(myState.getBoard().getPlayerBoard()[y][x + 1] == -1) {
-                        if(myState.getBoard().getBoardArr()[y][x + 1] != null && !myState.getBoard().getBoardArr()[y][x + 1].getLeftWall()) {
+                        if(myState.getBoard().getBoard()[y][x + 1] != null && !myState.getBoard().getBoard()[y][x + 1].getLeftWall()) {
                             return true;
                         }
                     }
                 }
             }else if(direction == 4) { //move down
-                if(!myState.getBoard().getBoardArr()[y][x].getBottomWall()) {
-                    if(myState.getBoard().getBoardArr()[y+1][x] != null) {
-                        Log.i("Computer Smart" + playerNum, "Top Wall: " + myState.getBoard().getBoardArr()[y+1][x].getTopWall() + " Bottom Wall" + myState.getBoard().getBoardArr()[y][x].getBottomWall() +
-                                " Player: " + myState.getBoard().getPlayerBoard()[y + 1][x] + " Null: " + myState.getBoard().getBoardArr()[y + 1][x]);
+                if(!myState.getBoard().getBoard()[y][x].getBottomWall()) {
+                    if(myState.getBoard().getBoard()[y+1][x] != null) {
+                        Log.i("Computer Smart" + playerNum, "Top Wall: " + myState.getBoard().getBoard()[y+1][x].getTopWall() + " Bottom Wall" + myState.getBoard().getBoard()[y][x].getBottomWall() +
+                                " Player: " + myState.getBoard().getPlayerBoard()[y + 1][x] + " Null: " + myState.getBoard().getBoard()[y + 1][x]);
                     }
                     if(myState.getBoard().getPlayerBoard()[y + 1][x] == -1) {
-                        if(myState.getBoard().getBoardArr()[y + 1][x] != null && !myState.getBoard().getBoardArr()[y + 1][x].getTopWall()) {
+                        if(myState.getBoard().getBoard()[y + 1][x] != null && !myState.getBoard().getBoard()[y + 1][x].getTopWall()) {
                             return true;
                         }
                     }

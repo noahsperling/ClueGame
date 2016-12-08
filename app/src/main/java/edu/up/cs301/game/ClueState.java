@@ -1,7 +1,5 @@
 package edu.up.cs301.game;
 
-import android.util.Log;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
@@ -258,7 +256,7 @@ public class ClueState extends GameState implements Serializable{
         }
 
 
-        board.setBoard(s.getBoard().getBoardArr());
+        board.setBoard(s.getBoard().getBoard());
         board.setPlayerBoard(s.getBoard().getPlayerBoard());
     }
 
