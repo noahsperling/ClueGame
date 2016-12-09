@@ -3,7 +3,6 @@ package edu.up.cs301.game;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-
 /**
  * Created by Noah on 11/13/2016.
  */
@@ -17,6 +16,7 @@ public class Hand implements Serializable {
     }
 
     public Hand(Hand h) {
+        //If the hand is not already created, create the hand
         if(h != null) {
             cards = new ArrayList<Card>(h.getArrayListLength());
             Card tempCards[] = h.getCards();
@@ -26,18 +26,16 @@ public class Hand implements Serializable {
         }
     }
 
+    /*
+    Method that adds a card
+     */
     public void addCard(Card c) {
         cards.add(c);
     }
 
-    public Card[] getCards(int size) {
-        Card tempCardArray[] = new Card[size];
-        for (int i = 0; i < size; i++) {
-            tempCardArray[i] = cards.get(i);
-        }
-        return tempCardArray;
-    }
-
+    /*
+    Getter that goes through the card array and returns the array of cards
+     */
     public Card[] getCards() {
         if(cards != null) {
             Card tempCardArray[] = new Card[cards.size()];
@@ -49,6 +47,9 @@ public class Hand implements Serializable {
         return null;
     }
 
+    /*
+    Getter that returns the size of the card array
+     */
     public int getArrayListLength() {
         return cards.size();
     }
