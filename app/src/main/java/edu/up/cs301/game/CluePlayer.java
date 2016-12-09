@@ -5,5 +5,6 @@ package edu.up.cs301.game;
  */
 
 public interface CluePlayer extends GamePlayer {
+    //returns playerID
     int getPlayerID();
 }
