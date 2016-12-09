@@ -22,7 +22,7 @@ import edu.up.cs301.game.infoMsg.GameInfo;
  * Created by Noah on 11/8/2016.
  */
 
-public class ComputerPlayerSmart extends ClueComputerPlayer {
+public class ClueComputerPlayerSmart extends ClueComputerPlayer {
     //does smart AI stuff
     private boolean[] checkBoxVals = new boolean[21];
     private Card[] allCards = {Card.COL_MUSTARD, Card.PROF_PLUM, Card.MR_GREEN, Card.MRS_PEACOCK, Card.MISS_SCARLET,
@@ -42,7 +42,7 @@ public class ComputerPlayerSmart extends ClueComputerPlayer {
     private int numMoves;
 
 
-    public ComputerPlayerSmart(String name) {
+    public ClueComputerPlayerSmart(String name) {
         super(name);
         handChecked = false;
         prevMov1 = null;

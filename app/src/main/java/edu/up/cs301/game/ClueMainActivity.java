@@ -35,12 +35,12 @@ public class ClueMainActivity extends GameMainActivity {
         });
         playerTypes.add(new GamePlayerType("Computer Player (dumb)") {
             public GamePlayer createPlayer(String name) {
-                return new ComputerPlayerDumb(name);
+                return new ClueComputerPlayerDumb(name);
             }
         });
         playerTypes.add(new GamePlayerType("Computer Player (smart)") {
             public GamePlayer createPlayer(String name) {
-                return new ComputerPlayerSmart(name);
+                return new ClueComputerPlayerSmart(name);
             }
         });
 

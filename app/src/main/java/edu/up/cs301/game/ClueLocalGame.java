@@ -176,7 +176,7 @@ public class ClueLocalGame extends LocalGame {
                                     //increment their spaces moved.
 
 
-                                    if (a.getPlayer() instanceof ComputerPlayerDumb)
+                                    if (a.getPlayer() instanceof ClueComputerPlayerDumb)
                                     {
                                         state.setSpacesMoved(state.getSpacesMoved() + 1);
                                     }
@@ -245,7 +245,7 @@ public class ClueLocalGame extends LocalGame {
                                     state.getBoard().setPlayerOnBoard(x + 1, y, x, y, curPlayerID);
 
 
-                                    if (a.getPlayer() instanceof ComputerPlayerDumb)
+                                    if (a.getPlayer() instanceof ClueComputerPlayerDumb)
                                     {
                                         state.setSpacesMoved(state.getSpacesMoved() + 1);
                                     }
@@ -314,7 +314,7 @@ public class ClueLocalGame extends LocalGame {
                                     state.getBoard().setPlayerOnBoard(x, y + 1, x, y, curPlayerID);
 
 
-                                    if (a.getPlayer() instanceof ComputerPlayerDumb)
+                                    if (a.getPlayer() instanceof ClueComputerPlayerDumb)
                                     {
                                         state.setSpacesMoved(state.getSpacesMoved() + 1);
                                     }
@@ -381,7 +381,7 @@ public class ClueLocalGame extends LocalGame {
                                     state.getBoard().setPlayerOnBoard(x, y - 1, x, y, curPlayerID);
 
 
-                                    if (a.getPlayer() instanceof ComputerPlayerDumb)
+                                    if (a.getPlayer() instanceof ClueComputerPlayerDumb)
                                     {
                                         state.setSpacesMoved(state.getSpacesMoved() + 1);
                                     }
@@ -720,7 +720,7 @@ public class ClueLocalGame extends LocalGame {
                             return true;
                         }
                     }
-                    else if(players[curPlayerID] instanceof ComputerPlayerDumb) {
+                    else if(players[curPlayerID] instanceof ClueComputerPlayerDumb) {
                         state.setSpacesMoved(state.getSpacesMoved()-1);
                         return false;
                     }
@@ -847,8 +847,8 @@ public class ClueLocalGame extends LocalGame {
                     sendState.setCards(i, null);
                 }
             }
-        }else if(p instanceof ComputerPlayerDumb){
-            ComputerPlayerDumb player = (ComputerPlayerDumb)p;
+        }else if(p instanceof ClueComputerPlayerDumb){
+            ClueComputerPlayerDumb player = (ClueComputerPlayerDumb)p;
             int playerCount = sendState.getNumPlayers();
             for(int i = 0; i < playerCount; i++) {
                 if(i != player.getPlayerID()) {
@@ -856,8 +856,8 @@ public class ClueLocalGame extends LocalGame {
                     sendState.setCards(i, null);
                 }
             }
-        }else if(p instanceof ComputerPlayerSmart){
-            ComputerPlayerSmart player = (ComputerPlayerSmart)p;
+        }else if(p instanceof ClueComputerPlayerSmart){
+            ClueComputerPlayerSmart player = (ClueComputerPlayerSmart)p;
             int playerCount = sendState.getNumPlayers();
             for(int i = 0; i < playerCount; i++) {
                 if(i != player.getPlayerID()) {

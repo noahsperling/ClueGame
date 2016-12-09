@@ -2,31 +2,13 @@
 <items version="2" >
 
     <item
-        is-multidex="true"
-        jar="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGameRedownload/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="22.0.1"
-        sha1="375f37a8243059913cf75064792279ad13455bca">
-        <dex dex="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGameRedownload/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_f5fa1357d12366e289036e8ac0e48db27566873b/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGameRedownload/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="22.0.1"
-        sha1="3eb080316cccd3cd11ff31198ad0b8decad68006">
-        <dex dex="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGameRedownload/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_d896ac50ecea20a3341efa01d22e93711a7ad738/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/Paige/Library/Android/sdk/extras/android/m2repository/com/android/support/support-v4/18.0.0/support-v4-18.0.0.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\Noah\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-v4\18.0.0\support-v4-18.0.0.jar"
+        jumboMode="false"
         optimize="true"
         revision="22.0.1"
         sha1="44ec51e9d395a47aab135e5e1b556c0007442156">
-        <dex dex="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGameRedownload/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-v4-18.0.0_8e0fca08f5eb1515bf356cf9abc9298b18290ff6/classes.dex" />
+        <dex dex="C:\Users\Noah\Documents\GitHub\ClueGame\app\build\intermediates\pre-dexed\debug\support-v4-18.0.0_8bc1164a1bc3e0c19434b7b3fbcea02500b9471c.jar" />
     </item>
 
 </items>
