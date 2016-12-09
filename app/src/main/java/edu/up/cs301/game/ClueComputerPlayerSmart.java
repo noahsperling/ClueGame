@@ -23,22 +23,30 @@ import edu.up.cs301.game.infoMsg.GameInfo;
  */
 
 public class ClueComputerPlayerSmart extends ClueComputerPlayer {
-    //does smart AI stuff
+    //checkboxes for the AI to keep track of known cards
     private boolean[] checkBoxVals = new boolean[21];
+    //an array of all the cards in the order of the checkboxes
     private Card[] allCards = {Card.COL_MUSTARD, Card.PROF_PLUM, Card.MR_GREEN, Card.MRS_PEACOCK, Card.MISS_SCARLET,
             Card.MRS_WHITE, Card.KNIFE, Card.CANDLESTICK, Card.REVOLVER, Card.ROPE, Card.LEAD_PIPE,
             Card.WRENCH, Card.HALL, Card.LOUNGE, Card.DINING_ROOM, Card.KITCHEN, Card.BALLROOM,
             Card.CONSERVATORY, Card.BILLIARD_ROOM, Card.LIBRARY, Card.STUDY};
+    //the most recently received copy of the state
     private ClueState myState;
+    //the previous suggestion made
     private ClueSuggestionAction prevSuggestion = null;
+    //the coordinates of all the doors on the board
     private int[][] doorCoordinates = {{5,10}, {7,12}, {7,13}, {6,18}, {10,18}, {13,17}, {19,20},
             {21,16}, {18,15}, {18,10}, {21,9}, {20,5}, {16,6}, {13,2}, {11,4}, {9,7}, {4,7}};
+    //the rooms that correspond to the doors in the previous array
     private Card[] doorRooms = {Card.HALL, Card.HALL, Card.HALL, Card.LOUNGE, Card.DINING_ROOM,
             Card.DINING_ROOM,Card.KITCHEN, Card.BALLROOM, Card.BALLROOM, Card.BALLROOM, Card.BALLROOM,
             Card.CONSERVATORY, Card.BILLIARD_ROOM, Card.BILLIARD_ROOM, Card.LIBRARY, Card.LIBRARY, Card.STUDY};
+    //whether or not the hand has been checked off in the checkbox array
     private boolean handChecked;
+    //the previous two moves - used to help prevent getting stuck
     private ClueMoveAction prevMov1;
     private ClueMoveAction prevMov2;
+    //the number of moves made in the current turn
     private int numMoves;
 
 
@@ -62,6 +70,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
     protected void receiveInfo(GameInfo info) {
         if (info instanceof ClueState) {
             myState = (ClueState) info; //cast it
+            //checks cards in the hand if not already done so
             if(!handChecked) {
                 for(int j = 0; j < 21; j++) {
                     for(int i = 0; i < myState.getCards(playerNum).getArrayListLength(); i++) {
@@ -77,9 +86,11 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                     checkBoxVals[i] = true;
                 }
             }
+            //if it's the AIs turn, set numMoves to zero
             if(myState.getTurnId() != playerNum) {
                 numMoves = 0;
             }
+            //if the AI needs to show a card, shows a card
             if(myState.getCheckCardToSend()[playerNum]) {
                 Log.i("Computer Player "+playerNum,"Showing Card");
                 String[] temp = myState.getSuggestCards();
@@ -111,11 +122,13 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                     game.sendAction(s);
                     return;
                 }
+            //if the AI is still in the game and it is the AIs turn
             }else if (myState.getTurnId() == playerNum && myState.getPlayerStillInGame(playerNum)) {
                 if (myState.getCanRoll(this.playerNum)) {
                     Log.i("Computer Player"+playerNum, "Rolling");
                     game.sendAction(new ClueRollAction(this));
                     return;
+                //if the previous suggestion was not contested
                 }else if(myState.getCardToShow(this.playerNum).equals("No card shown.")) {
                     ClueAccuseAction caa = new ClueAccuseAction(this);
                     caa.room = prevSuggestion.room;
@@ -123,15 +136,15 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                     caa.weapon = prevSuggestion.weapon;
                     game.sendAction(caa);
                     return;
-
+                //if the AI can suggest, it will
                 } else if (myState.getCanSuggest(this.playerNum) && !myState.getOnDoorTile()[playerNum] && myState.getInRoom()[playerNum]) {
-                    //make suggestion
-
+                    //sets up arrays of the suspects and weapons
                     Card[] suspects = {Card.COL_MUSTARD, Card.PROF_PLUM, Card.MR_GREEN,
                             Card.MRS_PEACOCK, Card.MISS_SCARLET, Card.MRS_WHITE};
                     Card[] weapons = {Card.KNIFE, Card.CANDLESTICK, Card.REVOLVER, Card.ROPE,
                             Card.LEAD_PIPE, Card.WRENCH};
                     Random rand = new Random();
+                    //store the cards that aren't already known to not be in the solution
                     ArrayList<Card> availableSuspects = new ArrayList<Card>();
                     ArrayList<Card> availableWeapons = new ArrayList<Card>();
 
@@ -149,8 +162,9 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                         }
                     }
 
-
+                    //the suggestion to send to the LocalGame
                     ClueSuggestionAction csa = new ClueSuggestionAction(this);
+                    //sets the room for the suggestion
                     outerLoop:
                     for (int i = 0; i < 26; i++) {
                         for (int j = 0; j < 26; j++) {
@@ -161,27 +175,36 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                         }
                     }
 
+                    //sets the suspect and weapon in the suggestion
                     csa.suspect = availableSuspects.get(rand.nextInt(availableSuspects.size())).getName();
                     csa.weapon = availableWeapons.get(rand.nextInt(availableWeapons.size())).getName();
 
+                    //sets the previous suggestion, sends the action to the state, sends a log message
+                    //and returns
                     Log.i("Computer Player "+playerNum,"Suggesting");
                     prevSuggestion = csa;
                     game.sendAction(csa);
                     return;
 
+                //if the player can move
                 } else if ((myState.getDieValue() != myState.getSpacesMoved() && numMoves < 8 )||
                     myState.getOnDoorTile()[playerNum]) {
                     Log.i("Computer Player" + playerNum+ " Moving", " ");
+                    //waits for a bit
                     sleep(300);
+                    //an array of the rooms
                     Card[] rooms = {Card.HALL, Card.LOUNGE, Card.DINING_ROOM, Card.KITCHEN, Card.BALLROOM,
                             Card.CONSERVATORY, Card.BILLIARD_ROOM, Card.LIBRARY, Card.STUDY};
+                    //the space the AI is at and the one to move to
                     int curX = -1;
                     int curY = -1;
                     int closestX = 100;
                     int closestY = 100;
 
+                    //the room the player is currently in
                     Card currentRoom = null; //null if not in a room, set to room if in room
 
+                    //sets the current location
                     loop:
                     for (int i = 0; i < 26; i++) {
                         for (int j = 0; j < 26; j++) {
@@ -194,6 +217,8 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                         }
                     }
 
+                    //if in a corner room and haven't checked off the room at the other end of
+                    //the passageway
                     if(currentRoom == Card.STUDY){
                         if(!checkBoxVals[15] && !myState.getUsedPassageway()[playerNum]){
                            game.sendAction(new ClueUsePassagewayAction(this));
@@ -212,6 +237,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                         }
                     }
 
+                    //calculates where to move to
                     for (int i = 0; i < doorCoordinates.length; i++) {
                         if (!doorRooms[i].equals(currentRoom)) {
                             boolean roomChecked = true;
@@ -230,6 +256,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                             }
                         }
                     }
+                    //if the AI is in the room and
                     if(curX >= 0 && curY >= 0 && myState.getBoard().getBoard()[curY][curX].getTileType() == 1 && !myState.getCanSuggest(playerNum)){
                         int destX = closestX;
                         int destY = closestY;
@@ -248,12 +275,15 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                         }
                     }
 
-
+                    //calculates how far the AI wants to move in the x and y directions
                     int dX = closestX - curX;
                     int dY = closestY - curY;
+
+                    //if dX and dY are negative
                     boolean dXNegative = false;
                     boolean dYNegative = false;
 
+                    //make dX and dY positive for easier comparison
                     if (dX < 0) {
                         dX *= -1;
                         dXNegative = true;
@@ -263,6 +293,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                         dYNegative = true;
                     }
 
+                    //calculates the most logical move to make
                     if (myState.getBoard().getBoard()[curY][curX].getTileType() == 0 ||
                             (myState.getBoard().getBoard()[curY][curX].getTileType() == 1
                                     && !myState.getBoard().getBoard()[curY][curX].getIsDoor())) {
@@ -796,6 +827,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
         //if it uses all its moves and does not enter a room, end turn
     }
 
+    //checks to see if there is a door near the AI
     private boolean isThereADoor(int curX, int curY) {
             if (myState.getBoard().getBoard()[curY+1][curX] != null &&  myState.getBoard().getBoard()[curY + 1][curX].getIsDoor()) {
                 return true;
@@ -810,6 +842,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
             return false;
     }
 
+    //checks to see if there is a wall near the AI including the current tile
     private boolean isThereAWall(int curX, int curY) {
             if (myState.getBoard().getBoard()[curY][curX].getTopWall()) {
                 return true;
@@ -832,6 +865,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
             return false;
     }
 
+    //moves the AI off of a door tile
     //direction 1 = left, 2 = up, 3 = right, 4 = down
     private boolean MoveOffDoor(int x, int y, int direction) {
         Log.i("Computer Player" + playerNum, "Move off Door X: "+x+" Y: "+y+" Dir: "+direction);
@@ -876,6 +910,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
         return false;
     }
 
+    //checks to see if moving to the tile to the passed in direction of the current tile is valid
     //direction 1 = left, 2 = up, 3 = right, 4 = down
     private boolean checkIfAvailableTile(int x, int y, int direction) {
         Log.i("Computer Player" + playerNum, "X: "+x+" Y: "+y+" Dir: "+direction);
