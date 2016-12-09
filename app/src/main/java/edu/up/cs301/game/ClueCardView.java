@@ -16,6 +16,7 @@ import android.view.SurfaceView;
 public class ClueCardView extends SurfaceView {
 
     private Hand hand = new Hand();
+    //Creates a drawable for each card image
     private Drawable cardBallroomImage;
     private Drawable cardCandlestickImage;
     private Drawable cardColMustardImage;
@@ -42,6 +43,7 @@ public class ClueCardView extends SurfaceView {
     {
         super(context, attributeSet);
 
+        //Creates a resource for each drawable card image
         cardBallroomImage = context.getResources().getDrawable(R.drawable.ballroom);
         cardCandlestickImage = context.getResources().getDrawable(R.drawable.candlestick);
         cardColMustardImage = context.getResources().getDrawable(R.drawable.col_mustard);
@@ -76,154 +78,135 @@ public class ClueCardView extends SurfaceView {
     @Override
     public void onDraw(Canvas canvas)
     {
+        //draws the canvas for the cards
         Paint p = new Paint();
         p.setColor(Color.argb(127, 255, 255, 255)); //grey
         canvas.drawRect(0, 0, getWidth(), getHeight(), p);
         super.onDraw(canvas);
-        onDrawHand(canvas);
+        onDrawHand(canvas); //Draws all the cards in a players hand
     }
 
     public void onDrawHand(Canvas c)
     {
-        int width = c.getHeight()*5/6;
-        int height = c.getHeight()+20;
-        for (int i = 0; i < hand.getCards().length; i++)
+        int width = c.getHeight()*5/6; //Sets the width of the card drawn
+        int height = c.getHeight()+20; //Sets the height of the card drawn
+        for (int i = 0; i < hand.getCards().length; i++) //Loops through the hand of a player
         {
-            if (hand.getCards()[i].getType() == Type.ROOM)
+            if (hand.getCards()[i].getType() == Type.ROOM) //If it is a room card
             {
                 if (hand.getCards()[i].getName().equals("Ballroom"))
                 {
                     cardBallroomImage.setBounds(0+((i)*width), 0, width*(i+1 ), height); //left top right bottom
-                    cardBallroomImage.draw(c);
+                    cardBallroomImage.draw(c); //Draw the card
                 }
                 else if (hand.getCards()[i].getName().equals("Conservatory"))
                 {
                     cardConservatoryImage.setBounds(0+(i*width), 0, width*(i+1), height); //left top right bottom
-                    cardConservatoryImage.draw(c);
+                    cardConservatoryImage.draw(c); //Draw the card
                 }
                 else if (hand.getCards()[i].getName().equals("Billiard Room"))
                 {
                     cardBilliardRoomImage.setBounds(0+(i*width), 0, width*(i+1), height); //left top right bottom
-                    cardBilliardRoomImage.draw(c);
+                    cardBilliardRoomImage.draw(c); //Draw the card
                 }
                 else if (hand.getCards()[i].getName().equals("Library"))
                 {
                     cardLibraryImage.setBounds(0+(i*width), 0, width*(i+1), height); //left top right bottom
-                    cardLibraryImage.draw(c);
+                    cardLibraryImage.draw(c); //Draw the card
                 }
                 else if (hand.getCards()[i].getName().equals("Study"))
                 {
                     cardStudyImage.setBounds(0+(i*width), 0, width*(i+1), height); //left top right bottom
-                    cardStudyImage.draw(c);
+                    cardStudyImage.draw(c); //Draw the card
                 }
                 else if (hand.getCards()[i].getName().equals("Hall"))
                 {
                     cardHallImage.setBounds(0+(i*width), 0, width*(i+1), height); //left top right bottom
-                    cardHallImage.draw(c);
+                    cardHallImage.draw(c); //Draw the card
                 }
                 else if (hand.getCards()[i].getName().equals("Lounge"))
                 {
                     cardLoungeImage.setBounds(0+(i*width), 0, width*(i+1), height); //left top right bottom
-                    cardLoungeImage.draw(c);
+                    cardLoungeImage.draw(c); //Draw the card
                 }
                 else if (hand.getCards()[i].getName().equals("Dining Room"))
                 {
                     cardDiningRoomImage.setBounds(0+(i*width), 0, width*(i+1), height); //left top right bottom
-                    cardDiningRoomImage.draw(c);
+                    cardDiningRoomImage.draw(c); //Draw the card
                 }
                 else if (hand.getCards()[i].getName().equals("Kitchen"))
                 {
                     cardKitchenImage.setBounds(0+(i*width), 0, width*(i+1), height); //left top right bottom
-                    cardKitchenImage.draw(c);
+                    cardKitchenImage.draw(c); //Draw the card
                 }
             }
-            else if (hand.getCards()[i].getType() == Type.PERSON)
+            else if (hand.getCards()[i].getType() == Type.PERSON) //If it is a person card
             {
                 if (hand.getCards()[i].getName().equals("Col. Mustard"))
                 {
                     cardColMustardImage.setBounds(0+(i*width), 0, width*(i+1), height); //left top right bottom
-                    cardColMustardImage.draw(c);
+                    cardColMustardImage.draw(c); //Draw the card
                 }
                 else if (hand.getCards()[i].getName().equals("Prof. Plum"))
                 {
                     cardProfPlumImage.setBounds(0+(i*width), 0, width*(i+1), height); //left top right bottom
-                    cardProfPlumImage.draw(c);
+                    cardProfPlumImage.draw(c); //Draw the card
                 }
                 else if (hand.getCards()[i].getName().equals("Mr. Green"))
                 {
                     cardMrGreenImage.setBounds(0+(i*width), 0, width*(i+1), height); //left top right bottom
-                    cardMrGreenImage.draw(c);
+                    cardMrGreenImage.draw(c); //Draw the card
                 }
                 else if (hand.getCards()[i].getName().equals("Mrs. Peacock"))
                 {
                     cardMrsPeacockImage.setBounds(0+(i*width), 0, width*(i+1), height); //left top right bottom
-                    cardMrsPeacockImage.draw(c);
+                    cardMrsPeacockImage.draw(c); //Draw the card
                 }
                 else if (hand.getCards()[i].getName().equals("Miss Scarlet"))
                 {
                     cardMissScarletImage.setBounds(0+(i*width), 0, width*(i+1), height); //left top right bottom
-                    cardMissScarletImage.draw(c);
+                    cardMissScarletImage.draw(c); //Draw the card
                 }
                 else if (hand.getCards()[i].getName().equals("Mrs. White"))
                 {
                     cardMrsWhiteImage.setBounds(0+(i*width), 0, width*(i+1), height); //left top right bottom
-                    cardMrsWhiteImage.draw(c);
+                    cardMrsWhiteImage.draw(c); //Draw the card
                 }
             }
-            else if (hand.getCards()[i].getType() == Type.WEAPON)
+            else if (hand.getCards()[i].getType() == Type.WEAPON) //If it is a weapon card
             {
                 if (hand.getCards()[i].getName().equals("Knife"))
                 {
                     cardKnifeImage.setBounds(0+(i*width), 0, width*(i+1), height); //left top right bottom
-                    cardKnifeImage.draw(c);
+                    cardKnifeImage.draw(c); //draw the card
                 }
                 else if (hand.getCards()[i].getName().equals("Candlestick"))
                 {
                     cardCandlestickImage.setBounds(0+(i*width), 0, width*(i+1), height); //left top right bottom
-                    cardCandlestickImage.draw(c);
+                    cardCandlestickImage.draw(c); //Draw the card
                 }
                 else if (hand.getCards()[i].getName().equals("Revolver"))
                 {
                     cardRevolverImage.setBounds(0+(i*width), 0, width*(i+1), height); //left top right bottom
-                    cardRevolverImage.draw(c);
+                    cardRevolverImage.draw(c); //Draw the card
                 }
                 else if (hand.getCards()[i].getName().equals("Rope"))
                 {
                     cardRopeImage.setBounds(0+(i*width), 0, width*(i+1), height); //left top right bottom
-                    cardRopeImage.draw(c);
+                    cardRopeImage.draw(c); //Draw the card
                 }
                 else if (hand.getCards()[i].getName().equals("Lead Pipe"))
                 {
                     cardLeadPipeImage.setBounds(0+(i*width), 0, width*(i+1), height); //left top right bottom
-                    cardLeadPipeImage.draw(c);
+                    cardLeadPipeImage.draw(c); //Draw the card
                 }
                 else if (hand.getCards()[i].getName().equals("Wrench"))
                 {
                     cardWrenchImage.setBounds(0+(i*width), 0, width*(i+1), height); //left top right bottom
-                    cardWrenchImage.draw(c);
+                    cardWrenchImage.draw(c); //Draw the card
                 }
             }
 
         }
-        //cardKitchenImage.setBounds(0+(1*(c.getHeight()*3/4)), 0, (c.getHeight()*3/4)*(1), c.getHeight()); //left top right bottom
-        //cardKitchenImage.draw(c);
-
-        //cardBallroomImage.setBounds(0, 0, c.getHeight()*3/4, c.getHeight()); //left top right bottom
-        //cardBallroomImage.draw(c);
-
-//       Paint p = new Paint();
-////
-//        for(int i=0;i<hand.getCards().length;i++) {
-//            p.setColor(hand.getCards()[i].getColor());
-//            int Width = (c.getHeight()*3/4);
-//            //c.drawRect((Width*i), 0, Width*(i+1), c.getHeight(), p);
-//            p.setTextSize(25);
-//            if(Card.ROPE == hand.getCards()[i] || Card.MRS_WHITE == hand.getCards()[i]) {
-//                    p.setColor(Color.BLACK);
-//            }else {
-//                p.setColor(Color.WHITE);
-//            }
-//            c.drawText(hand.getCards()[i].getName(), (Width/2)-(hand.getCards()[i].getName().length()*5)+(Width*i), c.getHeight()/2, p);
-//        }
     }
 }
