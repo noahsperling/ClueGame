@@ -253,13 +253,18 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
         numberOfMovesLeft = (TextView)myActivity.findViewById(R.id.numberOfMovesTextView);
         numberOfMovesLeft.setText(0+"");
 
-        //Text view that displays what cards are shown to the player above the secret passageway button
+        //Text view that displays what card is shown to the player who made the suggestion above the secret passageway button
+        //For other players, it will say that a card was shown, but not say what specific card was shown, but it would say who showed the card
+        //If no card is shown, it will say no card was shown
         messageTextView = (TextView)myActivity.findViewById(R.id.messageTextView);
         messageTextView.setText("");
 
+        //Text view that displays who showed the card. The person is displayed for everyone, unless
+        //no card was shown. In that case, no name will appear
         message2TextView = (TextView)myActivity.findViewById(R.id.message2TextView);
         message2TextView.setText("");
 
+        //Text view that displays the suggestion that was made. This is visible for all players
         suggestionTextView = (TextView)myActivity.findViewById((R.id.suggestionTextView));
         suggestionTextView.setText("");
 
@@ -275,7 +280,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
     @Override
     public void receiveInfo(GameInfo info)
     {
-        //Display the correct character for the human player
+        //Assign and display the correct character for the human player
+        //This is displayed in the playerTextView
         if(info instanceof ClueState) {
             recentState = new ClueState((ClueState)info);
             if(!nameSet) {
@@ -302,6 +308,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
                 nameSet = true;
             }
 
+            //Check to see if the player is NOT in the game
             if(!recentState.getPlayerStillInGame(playerNum)) {
                 //the player is out of the game, so disable all non-essential GUI things
                 endTurnButton.setEnabled(false);
@@ -338,142 +345,161 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
                 billiardRoomCheck.setEnabled(false);
                 libraryCheck.setEnabled(false);
                 studyCheck.setEnabled(false);
-                recentState.setCardToShow("\n You Lost!", playerNum);
-                setSolutionSpinners(recentState.getSolution());
+                recentState.setCardToShow("\n You Lost!", playerNum); //display You Lost! on the messageTextView
+                setSolutionSpinners(recentState.getSolution()); //set the spinners to the solution so the player can see what they should have accused
             }
 
-        //if another player made a suggestion
-        if(recentState.getCheckCardToSend()[playerNum]) {
-            notSent = true;
-            suggestR.setChecked(false);
-            accuseR.setChecked(false);
-            suggestR.setEnabled(false);
-            accuseR.setEnabled(false);
-            showCardR.setEnabled(true);
-            showCardR.setChecked(true);
+            //If statement that handles the GUI when a player needs to show a card after a suggestion is made
+            //Set notSent variable to true and then disable all the radio buttons except the showCard and set the appropriate spinners
+            //that include cards in the player hand that match the cards in the suggestion
+            if(recentState.getCheckCardToSend()[playerNum]) {
+                notSent = true;
+                suggestR.setChecked(false);
+                accuseR.setChecked(false);
+                suggestR.setEnabled(false);
+                accuseR.setEnabled(false);
+                showCardR.setEnabled(true);
+                showCardR.setChecked(true);
 
-            setSendCardSpinners();
-        }else if(!recentState.getCheckCardToSend()[playerNum] && recentState.getPlayerStillInGame(playerNum)) {
-            suggestR.setEnabled(true);
-            accuseR.setEnabled(true);
-            showCardR.setChecked(false);
-            showCardR.setEnabled(false);
-            setSpinners();
-        }else if(!recentState.getCheckCardToSend()[playerNum] && !recentState.getPlayerStillInGame(playerNum)) {
-            suggestR.setEnabled(false);
-            accuseR.setEnabled(false);
-            showCardR.setChecked(false);
-            showCardR.setEnabled(false);
-            setSpinners();
-        }
+                setSendCardSpinners();
+            }
+            //If it is not a player's turn to show a card, enable the regular GUI radio buttons to continue play
+            // and disable the showCard radio button, and set the spinners to default with all the possibilities
+            else if(!recentState.getCheckCardToSend()[playerNum] && recentState.getPlayerStillInGame(playerNum)) {
+                suggestR.setEnabled(true);
+                accuseR.setEnabled(true);
+                showCardR.setChecked(false);
+                showCardR.setEnabled(false);
+                setSpinners();
+            }
+            //If they are not in the game anymore and it is not their turn to show a card, disable everything
+            //and set the spinners to default with all the possibilities
+            else if(!recentState.getCheckCardToSend()[playerNum] && !recentState.getPlayerStillInGame(playerNum)) {
+                suggestR.setEnabled(false);
+                accuseR.setEnabled(false);
+                showCardR.setChecked(false);
+                showCardR.setEnabled(false);
+                setSpinners();
+            }
 
-
+            //Boolean arrays from the recent state
             boolean corner[] = recentState.getInCornerRoom();
             boolean usedPassage[] = recentState.getUsedPassageway();
             boolean room[] = recentState.getInRoom();
 
-        // initial set up for human player's turn
-        if(recentState.getTurnId() == playerNum && recentState.getPlayerStillInGame(playerNum))
-        {
-            //if the player needs to show a card, allow them only to choose the card and submit it
-            if (showCardR.isEnabled())
+            //Initial set up for human player's turn
+            //Make sure it is the player's turn and they are still in the game
+            if(recentState.getTurnId() == playerNum && recentState.getPlayerStillInGame(playerNum))
             {
-                suggestR.setEnabled(false);
-                suggestR.setChecked(false);
+                //If the player needs to show a card, allow them only to choose the card and submit it
+                if (showCardR.isEnabled())
+                {
+                    suggestR.setEnabled(false);
+                    suggestR.setChecked(false);
+                    accuseR.setEnabled(false);
+                    accuseR.setChecked(false);
+                    submitButton.setEnabled(true);
+                    cancelButton.setEnabled(true);
+                    endTurnButton.setEnabled(false);
+                    secretPassagewayButton.setEnabled(false);
+                    upButton.setEnabled(false);
+                    downButton.setEnabled(false);
+                    leftButton.setEnabled(false);
+                    rightButton.setEnabled(false);
+
+                    if(recentState.getCanRoll(playerNum)) {
+                        rollButton.setEnabled(true);
+                    }else if(!recentState.getCanRoll(playerNum)) {
+                        rollButton.setEnabled(false);
+                    }
+                }
+                //If the player does not need to show a card, let them continue regular gameplay with
+                //the appropriate buttons enabled
+                else {
+                    accuseR.setEnabled(true);
+                    accuseR.setChecked(false);
+                    submitButton.setEnabled(true);
+                    cancelButton.setEnabled(true);
+                    endTurnButton.setEnabled(true);
+                    upButton.setEnabled(true);
+                    downButton.setEnabled(true);
+                    leftButton.setEnabled(true);
+                    rightButton.setEnabled(true);
+
+                    if(recentState.getCanRoll(playerNum)) {
+                        rollButton.setEnabled(true);
+                    }else if(!recentState.getCanRoll(playerNum)) {
+                        rollButton.setEnabled(false);
+                    }
+                }
+
+                //If the player is in a corner room and has not used the secret passageway, enable the button
+                //If the player has already used the secret passageway, disable the button
+                if (corner[playerNum] && !usedPassage[playerNum] && recentState.getPlayerHasSuggested(playerNum) == false)
+                {
+                    secretPassagewayButton.setEnabled(true);
+                }
+                else {
+                    secretPassagewayButton.setEnabled(false);
+                }
+                //If the player needs to show a card, disable the secret passageway button
+                if(recentState.getCheckCardToSend()[playerNum]) {
+                    secretPassagewayButton.setEnabled(false);
+                }
+            }
+            //If it is the player's turn, but they are not in the game, just end their turn (basically skip them)
+            else if(recentState.getTurnId() == playerNum && !recentState.getPlayerStillInGame(playerNum) && !notSent){
+                endTurnButton.setEnabled(false);
+                game.sendAction(new ClueEndTurnAction(this));
+            }
+            //If it is not their turn and they are in the game, disable all GUI features
+            else if(recentState.getTurnId() != playerNum && recentState.getPlayerStillInGame(playerNum))
+            {
                 accuseR.setEnabled(false);
                 accuseR.setChecked(false);
                 submitButton.setEnabled(true);
                 cancelButton.setEnabled(true);
                 endTurnButton.setEnabled(false);
-                secretPassagewayButton.setEnabled(false);
                 upButton.setEnabled(false);
                 downButton.setEnabled(false);
                 leftButton.setEnabled(false);
                 rightButton.setEnabled(false);
-
-                if(recentState.getCanRoll(playerNum)) {
-                    rollButton.setEnabled(true);
-                }else if(!recentState.getCanRoll(playerNum)) {
-                    rollButton.setEnabled(false);
-                }
-            }
-            //if the player does not need to show a card, let them continue regular gameplay with
-            //the appropriate buttons enabled
-            else {
-                accuseR.setEnabled(true);
-                accuseR.setChecked(false);
-                submitButton.setEnabled(true);
-                cancelButton.setEnabled(true);
-                endTurnButton.setEnabled(true);
-                upButton.setEnabled(true);
-                downButton.setEnabled(true);
-                leftButton.setEnabled(true);
-                rightButton.setEnabled(true);
-
-                if(recentState.getCanRoll(playerNum)) {
-                    rollButton.setEnabled(true);
-                }else if(!recentState.getCanRoll(playerNum)) {
-                    rollButton.setEnabled(false);
-                }
-            }
-
-
-            //if the player is in a corner room and has not used the secret passageway, enable the button
-            //If the player has already used the secret passageway, disable the button
-            if (corner[playerNum] && !usedPassage[playerNum] && recentState.getPlayerHasSuggested(playerNum) == false)
-            {
-                secretPassagewayButton.setEnabled(true);
-            }
-            else {
+                rollButton.setEnabled(false);
                 secretPassagewayButton.setEnabled(false);
+
             }
-            if(recentState.getCheckCardToSend()[playerNum]) {
-                secretPassagewayButton.setEnabled(false);
-            }
-        }else if(recentState.getTurnId() == playerNum && !recentState.getPlayerStillInGame(playerNum) && !notSent){
-            endTurnButton.setEnabled(false);
-            //sleep(300);
-            game.sendAction(new ClueEndTurnAction(this));
-        }
-        else if(recentState.getTurnId() != playerNum && recentState.getPlayerStillInGame(playerNum))
-        {
 
-            accuseR.setEnabled(false);
-            accuseR.setChecked(false);
-            submitButton.setEnabled(true);
-            cancelButton.setEnabled(true);
-            endTurnButton.setEnabled(false);
-            upButton.setEnabled(false);
-            downButton.setEnabled(false);
-            leftButton.setEnabled(false);
-            rightButton.setEnabled(false);
-            rollButton.setEnabled(false);
-            secretPassagewayButton.setEnabled(false);
-
-        }
-
-            //suggest and accuse radio buttons handled
             //Log.i("New to room = " + recentState.getNewToRoom(playerNum), " ");
             //Log.i("Room = " + room[playerNum], " ");
+
+            //If a player was in a room, was new to the room and the show card radio wasn't enabled,
+            //then set the suggest to true
             if (room[playerNum] && recentState.getNewToRoom(playerNum) && !showCardR.isEnabled()) {
                 //Log.i("Got to suggest if", " ");
                 suggestR.setEnabled(true);
                 suggestR.setChecked(false);
-            } else {
+            }
+            //If they are not, then the player cannot suggest
+            else {
                 //Log.i("Got to suggest else", " " + this.getPlayerID());
                 suggestR.setEnabled(false);
                 suggestR.setChecked(false);
             }
 
+            //Text view that gets the card that was shown and displays it
             messageTextView.setText("Card: " + recentState.getCardToShow(playerNum));
+            //Text view that gets the player who showed the card and displays it
             message2TextView.setText("Shown By: " + setPlayerWhoShowedCardName(recentState.getPlayerWhoShowedCard()));
-
+            //Text view that gets the suggestion and displays it
             suggestionTextView.setText(setSuggestionText(recentState.getPlayerIDWhoSuggested()));
 
+            //updates the board
             boardView.updateBoard(recentState.getBoard());
             boardView.invalidate();
+            //Updates the cards
             cardView.updateCards(recentState.getCards(playerNum));
             cardView.invalidate();
+            //Updates the remaining moves a player has
             numberOfMovesLeft.setText(recentState.getDieValue() - recentState.getSpacesMoved() + "");
         }
     }
@@ -483,157 +509,157 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
         //Move player actions
         if (game == null) {return;}
 
-            //Send the appropriate actions for whatever is touched on the GUI
+        //Send the appropriate actions for whatever is touched on the GUI
 
-            //Roll and move buttons
-            if (view == upButton) {
-                ClueMoveUpAction up = new ClueMoveUpAction(this);
-                game.sendAction(up);
-            } else if (view == downButton) {
-                ClueMoveDownAction down = new ClueMoveDownAction(this);
-                game.sendAction(down);
-            } else if (view == leftButton) {
-                ClueMoveLeftAction left = new ClueMoveLeftAction(this);
-                game.sendAction(left);
-            } else if (view == rightButton) {
-                ClueMoveRightAction right = new ClueMoveRightAction(this);
-                game.sendAction(right);
-            } else if (view == rollButton) {
-                ClueRollAction roll = new ClueRollAction(this);
-                rollButton.setEnabled(false);
-                game.sendAction(roll);
-            }
+        //Roll and move buttons
+        if (view == upButton) {
+            ClueMoveUpAction up = new ClueMoveUpAction(this);
+            game.sendAction(up);
+        } else if (view == downButton) {
+            ClueMoveDownAction down = new ClueMoveDownAction(this);
+            game.sendAction(down);
+        } else if (view == leftButton) {
+            ClueMoveLeftAction left = new ClueMoveLeftAction(this);
+            game.sendAction(left);
+        } else if (view == rightButton) {
+            ClueMoveRightAction right = new ClueMoveRightAction(this);
+            game.sendAction(right);
+        } else if (view == rollButton) {
+            ClueRollAction roll = new ClueRollAction(this);
+            rollButton.setEnabled(false);
+            game.sendAction(roll);
+        }
 
-            //for radio buttons
-            else if (view.getId() == R.id.radioAccuseButton) {
-                suggestR.setChecked(false);
-                accuseR.setChecked(true);
-                setSpinners();
-            } else if (view.getId() == R.id.radioSuggestButton) {
-                suggestR.setChecked(true);
-                accuseR.setChecked(false);
-                showCardR.setChecked(false);
-                setSuggestSpinners();
-                roomSpinner.setEnabled(true);
-                weaponSpinner.setEnabled(true);
-                suspectSpinner.setEnabled(true);
+        //for radio buttons
+        else if (view.getId() == R.id.radioAccuseButton) {
+            suggestR.setChecked(false);
+            accuseR.setChecked(true);
+            setSpinners();
+        } else if (view.getId() == R.id.radioSuggestButton) {
+            suggestR.setChecked(true);
+            accuseR.setChecked(false);
+            showCardR.setChecked(false);
+            setSuggestSpinners();
+            roomSpinner.setEnabled(true);
+            weaponSpinner.setEnabled(true);
+            suspectSpinner.setEnabled(true);
 
+            //Log.i("On door: " + recentState.getOnDoorTile()[playerNum], " ");
+            if(recentState.getOnDoorTile()[playerNum])
+            {
                 //Log.i("On door: " + recentState.getOnDoorTile()[playerNum], " ");
-                if(recentState.getOnDoorTile()[playerNum])
-                {
-                    //Log.i("On door: " + recentState.getOnDoorTile()[playerNum], " ");
-                    submitButton.setEnabled(false);
-                }
-                else
-                {
-                    submitButton.setEnabled(true);
-                }
+                submitButton.setEnabled(false);
+            }
+            else
+            {
+                submitButton.setEnabled(true);
+            }
 
 
         }
         else if (view.getId() == R.id.radioShowCardButton) {
-                setSpinners();
+            setSpinners();
         }
         //no showCardR onclick listener because it is just to show the user that they need to choose
         //cards in the spinners to show a card to a player who has made a suggestion
 
-            else if (view.getId() == R.id.cancelButton) {
-                suggestR.setChecked(false);
-                accuseR.setChecked(false);
-            } else if (view.getId() == R.id.submitButton) {
-                if (suggestR.isChecked() == true) {
+        else if (view.getId() == R.id.cancelButton) {
+            suggestR.setChecked(false);
+            accuseR.setChecked(false);
+        } else if (view.getId() == R.id.submitButton) {
+            if (suggestR.isChecked() == true) {
 
-                    int[][] board = recentState.getBoard().getPlayerBoard();
-                    int x = 0;
-                    int y = 0;
-                    for(int i=0;i<27;i++){
-                        for(int j=0;j<27;j++){
-                            if(board[j][i] == playerNum){
-                                x = i;
-                                y = j;
-                            }
+                int[][] board = recentState.getBoard().getPlayerBoard();
+                int x = 0;
+                int y = 0;
+                for(int i=0;i<27;i++){
+                    for(int j=0;j<27;j++){
+                        if(board[j][i] == playerNum){
+                            x = i;
+                            y = j;
                         }
                     }
-                    if(recentState.getBoard().getBoard()[y][x].getRoom() == null){
-                        return;
-                    }
+                }
+                if(recentState.getBoard().getBoard()[y][x].getRoom() == null){
+                    return;
+                }
 
-                    String roomSelect = recentState.getBoard().getBoard()[y][x].getRoom().getName();
-                    String weaponSelect = weaponSpinner.getSelectedItem().toString();
-                    String suspectSelect = suspectSpinner.getSelectedItem().toString();
+                String roomSelect = recentState.getBoard().getBoard()[y][x].getRoom().getName();
+                String weaponSelect = weaponSpinner.getSelectedItem().toString();
+                String suspectSelect = suspectSpinner.getSelectedItem().toString();
 
-                    ClueSuggestionAction suggest = new ClueSuggestionAction(this);
-                    suggest.room = roomSelect;
-                    suggest.weapon = weaponSelect;
-                    suggest.suspect = suspectSelect;
-                    //Log.i("suggest action sent", " ");
-                    game.sendAction(suggest);
+                ClueSuggestionAction suggest = new ClueSuggestionAction(this);
+                suggest.room = roomSelect;
+                suggest.weapon = weaponSelect;
+                suggest.suspect = suspectSelect;
+                //Log.i("suggest action sent", " ");
+                game.sendAction(suggest);
 
-                    showCardR.setEnabled(true);
-                    showCardR.setChecked(false);
-                    suggestR.setEnabled(false);
-                    suggestR.setChecked(false);
-                    accuseR.setEnabled(false);
-                    accuseR.setChecked(false);
+                showCardR.setEnabled(true);
+                showCardR.setChecked(false);
+                suggestR.setEnabled(false);
+                suggestR.setChecked(false);
+                accuseR.setEnabled(false);
+                accuseR.setChecked(false);
 
-                    //ClueEndTurnAction end = new ClueEndTurnAction(this);
-                    endTurnButton.setEnabled(false);
-                    //game.sendAction(end);
+                //ClueEndTurnAction end = new ClueEndTurnAction(this);
+                endTurnButton.setEnabled(false);
+                //game.sendAction(end);
 
                 //arraylist to array
 
-                } else if (accuseR.isChecked() == true) {
-                    String roomSelect = roomSpinner.getSelectedItem().toString();
-                    String weaponSelect = weaponSpinner.getSelectedItem().toString();
-                    String suspectSelect = suspectSpinner.getSelectedItem().toString();
+            } else if (accuseR.isChecked() == true) {
+                String roomSelect = roomSpinner.getSelectedItem().toString();
+                String weaponSelect = weaponSpinner.getSelectedItem().toString();
+                String suspectSelect = suspectSpinner.getSelectedItem().toString();
 
-                    ClueAccuseAction accuse = new ClueAccuseAction(this);
-                    accuse.room = roomSelect;
-                    accuse.weapon = weaponSelect;
-                    accuse.suspect = suspectSelect;
-                    accuseR.setEnabled(false);
-                    //Log.i("accuse action sent", " ");
-                    game.sendAction(accuse);
-                } else if (showCardR.isChecked() == true) {
-                    showCardR.setEnabled(false);
-                    showCardR.setChecked(false);
-                    ClueShowCardAction showCard = new ClueShowCardAction(this);
-
-                    //use only one spinner for all the cards that can be shown
-                    String showCardString = roomSpinner.getSelectedItem().toString();
-                    showCard.setCardToShow(showCardString);
-                    game.sendAction(showCard);
-                    notSent = false;
-                }
-
-            }
-            //secret passageway button
-            else if (view == secretPassagewayButton) {
-                ClueUsePassagewayAction passageway = new ClueUsePassagewayAction(this);
-                game.sendAction(passageway);
-                secretPassagewayButton.setEnabled(false);
-            }
-
-            //end turn button
-            else if (view == endTurnButton) {
-                ClueEndTurnAction endTurn = new ClueEndTurnAction(this);
-                //Log.i("You clicked End Turn", "YAY");
-                endTurnButton.setEnabled(false);
-                rollButton.setEnabled(false);
-                secretPassagewayButton.setEnabled(false);
-                suggestR.setEnabled(false);
+                ClueAccuseAction accuse = new ClueAccuseAction(this);
+                accuse.room = roomSelect;
+                accuse.weapon = weaponSelect;
+                accuse.suspect = suspectSelect;
                 accuseR.setEnabled(false);
-                submitButton.setEnabled(false);
-                cancelButton.setEnabled(false);
-                upButton.setEnabled(false);
-                downButton.setEnabled(false);
-                leftButton.setEnabled(false);
-                rightButton.setEnabled(false);
-                game.sendAction(endTurn);
+                //Log.i("accuse action sent", " ");
+                game.sendAction(accuse);
+            } else if (showCardR.isChecked() == true) {
+                showCardR.setEnabled(false);
+                showCardR.setChecked(false);
+                ClueShowCardAction showCard = new ClueShowCardAction(this);
+
+                //use only one spinner for all the cards that can be shown
+                String showCardString = roomSpinner.getSelectedItem().toString();
+                showCard.setCardToShow(showCardString);
+                game.sendAction(showCard);
+                notSent = false;
             }
+
+        }
+        //secret passageway button
+        else if (view == secretPassagewayButton) {
+            ClueUsePassagewayAction passageway = new ClueUsePassagewayAction(this);
+            game.sendAction(passageway);
+            secretPassagewayButton.setEnabled(false);
+        }
+
+        //end turn button
+        else if (view == endTurnButton) {
+            ClueEndTurnAction endTurn = new ClueEndTurnAction(this);
+            //Log.i("You clicked End Turn", "YAY");
+            endTurnButton.setEnabled(false);
+            rollButton.setEnabled(false);
+            secretPassagewayButton.setEnabled(false);
+            suggestR.setEnabled(false);
+            accuseR.setEnabled(false);
+            submitButton.setEnabled(false);
+            cancelButton.setEnabled(false);
+            upButton.setEnabled(false);
+            downButton.setEnabled(false);
+            leftButton.setEnabled(false);
+            rightButton.setEnabled(false);
+            game.sendAction(endTurn);
+        }
 
         //CheckBoxes
-            //Once a checkbox is checked, set the corresponding boolean array elements to true or false
+        //Once a checkbox is checked, set the corresponding boolean array elements to true or false
         else if (view == colonelMustardCheck)
         {
             checkBoxBool[0] = !checkBoxBool[0];
@@ -671,48 +697,48 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
         } else if (view == candlestickCheck) {
             checkBoxBool[7] = !checkBoxBool[7];
             candlestickCheck.setChecked(checkBoxBool[7]);
-            } else if (view == revolverCheck) {
-                checkBoxBool[8] = !checkBoxBool[8];
-                revolverCheck.setChecked(checkBoxBool[8]);
-            } else if (view == ropeCheck) {
-                checkBoxBool[9] = !checkBoxBool[9];
-                ropeCheck.setChecked(checkBoxBool[9]);
-            } else if (view == leadPipeCheck) {
-                checkBoxBool[10] = !checkBoxBool[10];
-                leadPipeCheck.setChecked(checkBoxBool[10]);
-            } else if (view == wrenchCheck) {
-                checkBoxBool[11] = !checkBoxBool[11];
-                wrenchCheck.setChecked(checkBoxBool[11]);
-            } else if (view == hallCheck) {
-                checkBoxBool[12] = !checkBoxBool[12];
-                hallCheck.setChecked(checkBoxBool[12]);
-            } else if (view == loungeCheck) {
-                checkBoxBool[13] = !checkBoxBool[13];
-                loungeCheck.setChecked(checkBoxBool[13]);
-            } else if (view == diningRoomCheck) {
-                checkBoxBool[14] = !checkBoxBool[14];
-                diningRoomCheck.setChecked(checkBoxBool[14]);
-            } else if (view == kitchenCheck) {
-                checkBoxBool[15] = !checkBoxBool[15];
-                kitchenCheck.setChecked(checkBoxBool[15]);
-            } else if (view == ballroomCheck) {
-                checkBoxBool[16] = !checkBoxBool[16];
-                ballroomCheck.setChecked(checkBoxBool[16]);
-            } else if (view == conservatoryCheck) {
-                checkBoxBool[17] = !checkBoxBool[17];
-                conservatoryCheck.setChecked(checkBoxBool[17]);
-            } else if (view == billiardRoomCheck) {
-                checkBoxBool[18] = !checkBoxBool[18];
-                billiardRoomCheck.setChecked(checkBoxBool[18]);
-            } else if (view == libraryCheck) {
-                checkBoxBool[19] = !checkBoxBool[19];
-                libraryCheck.setChecked(checkBoxBool[19]);
-            } else if (view == studyCheck) {
-                checkBoxBool[20] = !checkBoxBool[20];
-                studyCheck.setChecked(checkBoxBool[20]);
-            } else {
-                return;
-            }
+        } else if (view == revolverCheck) {
+            checkBoxBool[8] = !checkBoxBool[8];
+            revolverCheck.setChecked(checkBoxBool[8]);
+        } else if (view == ropeCheck) {
+            checkBoxBool[9] = !checkBoxBool[9];
+            ropeCheck.setChecked(checkBoxBool[9]);
+        } else if (view == leadPipeCheck) {
+            checkBoxBool[10] = !checkBoxBool[10];
+            leadPipeCheck.setChecked(checkBoxBool[10]);
+        } else if (view == wrenchCheck) {
+            checkBoxBool[11] = !checkBoxBool[11];
+            wrenchCheck.setChecked(checkBoxBool[11]);
+        } else if (view == hallCheck) {
+            checkBoxBool[12] = !checkBoxBool[12];
+            hallCheck.setChecked(checkBoxBool[12]);
+        } else if (view == loungeCheck) {
+            checkBoxBool[13] = !checkBoxBool[13];
+            loungeCheck.setChecked(checkBoxBool[13]);
+        } else if (view == diningRoomCheck) {
+            checkBoxBool[14] = !checkBoxBool[14];
+            diningRoomCheck.setChecked(checkBoxBool[14]);
+        } else if (view == kitchenCheck) {
+            checkBoxBool[15] = !checkBoxBool[15];
+            kitchenCheck.setChecked(checkBoxBool[15]);
+        } else if (view == ballroomCheck) {
+            checkBoxBool[16] = !checkBoxBool[16];
+            ballroomCheck.setChecked(checkBoxBool[16]);
+        } else if (view == conservatoryCheck) {
+            checkBoxBool[17] = !checkBoxBool[17];
+            conservatoryCheck.setChecked(checkBoxBool[17]);
+        } else if (view == billiardRoomCheck) {
+            checkBoxBool[18] = !checkBoxBool[18];
+            billiardRoomCheck.setChecked(checkBoxBool[18]);
+        } else if (view == libraryCheck) {
+            checkBoxBool[19] = !checkBoxBool[19];
+            libraryCheck.setChecked(checkBoxBool[19]);
+        } else if (view == studyCheck) {
+            checkBoxBool[20] = !checkBoxBool[20];
+            studyCheck.setChecked(checkBoxBool[20]);
+        } else {
+            return;
+        }
     }
 
     public int getPlayerID() {
