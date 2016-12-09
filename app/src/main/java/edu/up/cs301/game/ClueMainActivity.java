@@ -64,8 +64,10 @@ public class ClueMainActivity extends GameMainActivity {
         //Set the remote data with the remote player as a type 0 player
         defaultConfig.setRemoteData("Remote Player", "", 0);
 
+        //Set the game player types
         gamePlayerTypes = playerTypes;
 
+        //Return the default configuration for setup
         return defaultConfig;
     }
 

@@ -54,7 +54,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
     private Spinner weaponSpinner;
     private Spinner suspectSpinner;
     //TextViews
-    private TextView numberOfMovesLeft;
+    private TextView numberOfMovesLeft; //message view for the number of moves left that the player can use to move their piece
     private TextView messageTextView; //message view for the card that is shown
     private TextView message2TextView; //message view for the who showed the card
     private TextView suggestionTextView; //message view for what cards were in the suggestion
@@ -280,7 +280,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
     @Override
     public void receiveInfo(GameInfo info)
     {
-        //Assign and display the correct character for the human player
+        //Assign and display the correct character for the human player if the name is not set already
         //This is displayed in the playerTextView
         if(info instanceof ClueState) {
             recentState = new ClueState((ClueState)info);
@@ -392,6 +392,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
             if(recentState.getTurnId() == playerNum && recentState.getPlayerStillInGame(playerNum))
             {
                 //If the player needs to show a card, allow them only to choose the card and submit it
+                //Only allow them to submit the card they want to show
+
                 if (showCardR.isEnabled())
                 {
                     suggestR.setEnabled(false);
@@ -504,9 +506,12 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
         }
     }
 
+    /*
+    Method that handles what happens when something on the GUI is clicked
+     */
     public void onClick(View view)
     {
-        //Move player actions
+        //Check to see if the game is null, if it is, return
         if (game == null) {return;}
 
         //Send the appropriate actions for whatever is touched on the GUI
@@ -531,11 +536,17 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
         }
 
         //for radio buttons
+        //If it is the accuse radio, uncheck the others
+        //Set the spinners for all possibilities
         else if (view.getId() == R.id.radioAccuseButton) {
             suggestR.setChecked(false);
             accuseR.setChecked(true);
+            showCardR.setChecked(false);
             setSpinners();
-        } else if (view.getId() == R.id.radioSuggestButton) {
+        }
+        //If it is the suggest radio, make sure the others aren't checked
+        //Enable all the spinners for them to choose from
+        else if (view.getId() == R.id.radioSuggestButton) {
             suggestR.setChecked(true);
             accuseR.setChecked(false);
             showCardR.setChecked(false);
@@ -544,6 +555,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
             weaponSpinner.setEnabled(true);
             suspectSpinner.setEnabled(true);
 
+            //If they are on a door tile, do not let them submit a suggestion
+            //This will prevent a player from ending their turn on a door tile and blocking the entrance of the room
             //Log.i("On door: " + recentState.getOnDoorTile()[playerNum], " ");
             if(recentState.getOnDoorTile()[playerNum])
             {
@@ -557,18 +570,21 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
 
 
         }
+        //If the showCard radio is clicked, set the spinners for the showCard procedure
         else if (view.getId() == R.id.radioShowCardButton) {
             setSpinners();
         }
-        //no showCardR onclick listener because it is just to show the user that they need to choose
-        //cards in the spinners to show a card to a player who has made a suggestion
-
+        //If the cancel button is pressed, uncheck the suggest and accuse radios
         else if (view.getId() == R.id.cancelButton) {
             suggestR.setChecked(false);
             accuseR.setChecked(false);
-        } else if (view.getId() == R.id.submitButton) {
+        }
+        //If the submit button is pressed, check three cases: If it was the suggest, accuse or showCard button that was checked
+        else if (view.getId() == R.id.submitButton) {
+            //If the suggest radio is checked
             if (suggestR.isChecked() == true) {
 
+                //Go through the board and get the position of the player
                 int[][] board = recentState.getBoard().getPlayerBoard();
                 int x = 0;
                 int y = 0;
@@ -584,17 +600,22 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
                     return;
                 }
 
+                //Set the spinners appropriately for a suggestion
+                //The room is the current room, the weapon and suspect options are all available
                 String roomSelect = recentState.getBoard().getBoard()[y][x].getRoom().getName();
                 String weaponSelect = weaponSpinner.getSelectedItem().toString();
                 String suspectSelect = suspectSpinner.getSelectedItem().toString();
 
+                //Create new clue suggest action
                 ClueSuggestionAction suggest = new ClueSuggestionAction(this);
+                //Set the suggested room, weapon and suspect to the strings and send suggest action to the game
                 suggest.room = roomSelect;
                 suggest.weapon = weaponSelect;
                 suggest.suspect = suspectSelect;
                 //Log.i("suggest action sent", " ");
                 game.sendAction(suggest);
 
+                //Enable only the show card
                 showCardR.setEnabled(true);
                 showCardR.setChecked(false);
                 suggestR.setEnabled(false);
@@ -605,14 +626,16 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
                 //ClueEndTurnAction end = new ClueEndTurnAction(this);
                 endTurnButton.setEnabled(false);
                 //game.sendAction(end);
-
-                //arraylist to array
-
-            } else if (accuseR.isChecked() == true) {
+            }
+            //If the accuse radio is checked
+            else if (accuseR.isChecked() == true) {
+                //All spinner options are available for selection
                 String roomSelect = roomSpinner.getSelectedItem().toString();
                 String weaponSelect = weaponSpinner.getSelectedItem().toString();
                 String suspectSelect = suspectSpinner.getSelectedItem().toString();
 
+                //Send clue accuse action and set the accuse room, weapon and suspect strings and send the action to the game
+                //Disable the accuse radio so the player can't use it again
                 ClueAccuseAction accuse = new ClueAccuseAction(this);
                 accuse.room = roomSelect;
                 accuse.weapon = weaponSelect;
@@ -620,12 +643,18 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
                 accuseR.setEnabled(false);
                 //Log.i("accuse action sent", " ");
                 game.sendAction(accuse);
-            } else if (showCardR.isChecked() == true) {
+            }
+            //If the show card is checked
+            else if (showCardR.isChecked() == true) {
+                //Disable the show card and send in a show card
+                //Disable the showCard radio so the player can't use it again
                 showCardR.setEnabled(false);
                 showCardR.setChecked(false);
                 ClueShowCardAction showCard = new ClueShowCardAction(this);
 
-                //use only one spinner for all the cards that can be shown
+                //Use only one spinner (Room spinner, the first spinner) for all the cards that can be shown
+                //Send a showCard action to the game
+                //Set the notSent to false
                 String showCardString = roomSpinner.getSelectedItem().toString();
                 showCard.setCardToShow(showCardString);
                 game.sendAction(showCard);
@@ -633,14 +662,16 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
             }
 
         }
-        //secret passageway button
+        //If the secret passageway button is pressed, send in a secretPassagewayAction, send it to the game, and disable it
+        //to prevent the player from using it again
         else if (view == secretPassagewayButton) {
             ClueUsePassagewayAction passageway = new ClueUsePassagewayAction(this);
             game.sendAction(passageway);
             secretPassagewayButton.setEnabled(false);
         }
 
-        //end turn button
+        //If the end turn button is pressed, send in an endTurn action
+        //Disable all the GUI buttons and send the endTurn action to the game
         else if (view == endTurnButton) {
             ClueEndTurnAction endTurn = new ClueEndTurnAction(this);
             //Log.i("You clicked End Turn", "YAY");
@@ -741,10 +772,16 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
         }
     }
 
+    /*
+    Getter that gets the player ID
+     */
     public int getPlayerID() {
         return playerNum;
     }
 
+    /*
+    Getter that gets the boolean array of checkboxes
+     */
     public boolean[] getCheckBoxArray() {
         boolean temp[] = new boolean[21];
         for(int i = 0; i < 21; i++) {
@@ -753,6 +790,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
         return temp;
     }
 
+    /*
+    Method that returns the string of the player who showed the card
+     */
     public String setPlayerWhoShowedCardName (int playerID) {
         switch(playerID){
             case 0:
@@ -769,10 +809,14 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
                 return "Prof. Plum";
         }
 
-        return "";
+        return ""; //if it is none of these, return an empty string
     }
 
+    /*
+    Method that sets the text to display in the suggestionTextView
+     */
     public String setSuggestionText (int playerID) {
+        //Need the cards suggested from the state
         String[] suggestCards = recentState.getSuggestCards();
         String suggestCardsText;
 
@@ -781,15 +825,18 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
                 return suggestCardsText = "Suggestion: ";
             }
         }
+        //Get the three cards in the suggestion
         String card1 = suggestCards[0];
         String card2 = suggestCards[1];
         String card3 = suggestCards[2];
+        //Set the text, returning after each card is printed for spacing
         suggestCardsText = "Suggestion: \n" + "   - " + card1 + "\n" + "   - " + card2 + "\n" + "   - " + card3;
         return suggestCardsText;
     }
 
     /*
     Method that sets the initial spinners with all of the rooms, weapons, and suspects
+    Uses adapters to allow the items to be put into the spinners
      */
     public void setSpinners(){
         String[] roomItems = new String[]{Card.BALLROOM.getName(),Card.BILLIARD_ROOM.getName(), Card.CONSERVATORY.getName(),
@@ -805,7 +852,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
         suspectSpinner.setAdapter(suspectAdapter);
 
         submitButton.setEnabled(true);
-
     }
     /*
     Method that sets the spinners with all of the weapons and suspects and the room spinner is set to the current room
@@ -885,10 +931,12 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
         String[] validCards = new String[cards.size()];
         cards.toArray(validCards);
 
+        //If there are cards to put into the room spinner, put them into the room spinner and disable the other spinners
         if(validCards.length == 0) {
             game.sendAction(new ClueShowCardAction(this));
             notSent = false;
-        }else {
+        }
+        else {
             ArrayAdapter<String> roomAdapter = new ArrayAdapter<String>(myActivity, android.R.layout.simple_spinner_dropdown_item, validCards);
             roomSpinner.setAdapter(roomAdapter);
             weaponSpinner.setEnabled(false);
