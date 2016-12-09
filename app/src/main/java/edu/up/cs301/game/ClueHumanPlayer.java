@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
 import edu.up.cs301.game.actionMsg.ClueAccuseAction;
@@ -30,34 +29,39 @@ import edu.up.cs301.game.infoMsg.GameInfo;
  */
 
 public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View.OnClickListener{
-
-    private boolean nameSet;
-
+    //State
     private ClueState recentState;
-    private boolean checkBoxBool[];
+    //Booleans
+    private boolean checkBoxBool[]; //Boolean array that keeps track of if the checkboxes are checked or not
+    private boolean nameSet; //Boolean that determines whether or not the player has been assigned their player name (Which will be displayed on the GUI)
+    //Move Buttons
+    private Button rollButton;
     private Button upButton;
     private Button downButton;
     private Button leftButton;
     private Button rightButton;
+    //Buttons
     private Button endTurnButton;
-    private RadioButton suggestR;
-    private RadioButton showCardR;
-    private RadioButton accuseR;
-    private Spinner roomSpinner;
-    private Spinner weaponSpinner;
-    private Spinner suspectSpinner;
-    private Button rollButton;
-    private TextView numberOfMovesLeft;
-    private TextView messageTextView;
-    private TextView message2TextView;
-    private TextView suggestionTextView;
-    private TextView playerTextView;
     private Button cancelButton;
     private Button submitButton;
     private Button secretPassagewayButton;
+    //RadioButtons
+    private RadioButton suggestR;
+    private RadioButton showCardR;
+    private RadioButton accuseR;
+    //Spinners
+    private Spinner roomSpinner;
+    private Spinner weaponSpinner;
+    private Spinner suspectSpinner;
+    //TextViews
+    private TextView numberOfMovesLeft;
+    private TextView messageTextView; //message view for the card that is shown
+    private TextView message2TextView; //message view for the who showed the card
+    private TextView suggestionTextView; //message view for what cards were in the suggestion
+    private TextView playerTextView; //message view to display which character you are
+    //Edit text for notes
     private EditText notesGUI;
-
-    //Check Boxes!!
+    //Check Boxes
     private CheckBox colonelMustardCheck;
     private CheckBox professorPlumCheck;
     private CheckBox mrGreenCheck;
@@ -79,23 +83,22 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
     private CheckBox billiardRoomCheck;
     private CheckBox libraryCheck;
     private CheckBox studyCheck;
-
+    //Board and card views
     private ClueBoardView boardView;
     private ClueCardView cardView;
-
+    //Activity
     private Activity myActivity;
 
     private int layoutID;
-    private boolean notSent = false;
+    private boolean notSent = false; //Suggestion boolean for the human player - either a suggestion was sent or not
 
     public ClueHumanPlayer(String initName, int initID)
     {
         super(initName);
 
-        //Set boolean array to false initially!  When they are checked they will be set to true.
-        checkBoxBool = new boolean[21];
+        checkBoxBool = new boolean[21]; //Set boolean array to false initially. When they are checked they will be set to true.
         layoutID = initID;
-        nameSet = false;
+        nameSet = false; //The player is not assigned a character yet
     }
 
     @Override
@@ -115,17 +118,18 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
     public void setAsGui(GameMainActivity g) {
         myActivity = g;
         g.setContentView(layoutID);
+        //Declaration for the board view
         boardView = (ClueBoardView) myActivity.findViewById(R.id.boardView);
+        //If the recent state is not null, update the board
         if(recentState != null) {
             boardView.updateBoard(recentState.getBoard());
         }
+        //Declaration for the card view
         cardView = (ClueCardView) myActivity.findViewById(R.id.playerHandView);
 
         //GUI button/spinner/radio button declarations, listeners and default configurations
-
         upButton = (Button)myActivity.findViewById(R.id.upButton);
         upButton.setOnClickListener(this);
-        //upButton.setEnabled(false);
         upButton.setEnabled(true);
 
         downButton = (Button)myActivity.findViewById(R.id.downButton);
@@ -175,16 +179,13 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
 
         //spinners
         roomSpinner = (Spinner)myActivity.findViewById(R.id.roomSpinner);
-
         weaponSpinner = (Spinner)myActivity.findViewById(R.id.weaponSpinner);
-
         suspectSpinner = (Spinner)myActivity.findViewById(R.id.suspectSpinner);
-//        suspectSpinner.setAdapter(suspectAdapter);
 
         //Set up the spinners with the default configuration with all of the rooms, weapons and suspects
         setSpinners();
 
-        //CheckBoxes!!
+        //CheckBoxes
         colonelMustardCheck = (CheckBox)myActivity.findViewById(R.id.colMustardCheckBox);
         colonelMustardCheck.setOnClickListener(this);
 

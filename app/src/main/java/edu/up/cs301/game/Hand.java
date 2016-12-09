@@ -11,6 +11,7 @@ public class Hand implements Serializable {
     private ArrayList<Card> cards;
     private static final long serialVersionUID = 274627421961754662L;
 
+    //Create array list for the hands
     public Hand() {
         cards = new ArrayList<Card>();
     }

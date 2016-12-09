@@ -38,8 +38,6 @@ public class ClueCardView extends SurfaceView {
     private Drawable cardWrenchImage;
     private Drawable cardBilliardRoomImage;
 
-
-
     public ClueCardView(Context context, AttributeSet attributeSet)
     {
         super(context, attributeSet);

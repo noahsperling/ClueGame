@@ -9,9 +9,8 @@ Steps Taken:
 Solution:
     It compiles so it might actually work.
 
-
 Problem:
-    Implemnenting SurfaceView
+    Implementing SurfaceView
 Steps taken:
     searched surfaceview android draw on it.
     Found:
@@ -38,8 +37,15 @@ Steps Taken:
     Looked at: https://developer.android.com/reference/android/graphics/BitmapFactory.html
     Advised by Dr. Nuxoll to do something with a BitMapFactory
     Actually used: http://stackoverflow.com/questions/2172523/draw-object-image-on-canvas
-Solutution:
+Solution:
     Move all the images into the drawable folder
     declare new drawable images with each of the cards
     Declare them all in the constructor of clueCardView
     Write a bunch of if statements to determine which card is drawn
+
+Problem:
+    Color was not serializable.
+Steps Taken:
+    Looked up code.
+Solution:
+    Code was taken from Java API.
