@@ -12,36 +12,37 @@ import edu.up.cs301.game.infoMsg.GameState;
 
 public class ClueState extends GameState implements Serializable{
 
-    private int turnID;
-    private int numPlayers;
+    //instance variables
+    private int turnID; //the ID of the player whose turn it is
+    private int numPlayers; //the number of players in the game
     private int playerIDs[]; //starts at 0, then 1, 2, 3, 4, 5 if there are enough players
-    private int dieValue;
-    private int spacesMoved;
-    private String notes[];
-    private String playerNames[];
-    private boolean canSuggest[];
-    private boolean canRoll[];
-    private boolean checkboxes[][];
-    private int cardsPerHand;
-    private Hand cards[];
-    private Card solution[] = new Card[3];
-    private ArrayList<Card> allCards = new ArrayList<Card>();
-    private boolean gameOver;
-    private Board board;
-    private boolean newToRoom[];
-    private boolean playerStillInGame[];
-    private boolean inCornerRoom[];
-    private String[] suggestCards;
-    private int playerIDWhoSuggested;
-    private String[] cardToShow;
-    private boolean[] checkCardToSend;
-    private int playerWhoShowedCard = -1;
-    private boolean usedPassageway[];
-    private boolean[] inRoom;
-    private int winnerIndex;
-    private boolean[] onDoorTile;
-    private boolean hasSuggested[];
-    private int playerInSuggestion;
+    private int dieValue; //the value of the die after the current players' roll
+    private int spacesMoved; //the number of spaces the player whose turn it is moved
+    private String notes[]; //stores the notes of the players
+    private String playerNames[]; //the names of all the players
+    private boolean canSuggest[]; //stores whether or not each players can make a suggestion
+    private boolean canRoll[]; //stores whether or not each player can make a suggestion
+    private boolean checkboxes[][]; //the checkboxes for each player
+    private int cardsPerHand; //the max number of cards a player should be able to have in their hand
+    private Hand cards[]; //the cards for each player
+    private Card solution[] = new Card[3]; //the murderer, suspect, and weapon the players try to figure out
+    private ArrayList<Card> allCards = new ArrayList<Card>(); //all the cards, used in the constructor
+    private boolean gameOver; //whether or not the game is over
+    private Board board; //the board itself
+    private boolean newToRoom[]; //whether or not a player entered a room for the first time the current turn
+    private boolean playerStillInGame[]; //whether or not each player is still in the game
+    private boolean inCornerRoom[]; //whether or not each player is in a corner room
+    private String[] suggestCards; //the cards in the most recent suggestion
+    private int playerIDWhoSuggested; //the player that made the most recent suggestion
+    private String[] cardToShow; //the most recent card shown to all players
+    private boolean[] checkCardToSend; //whether or not a player needs to send a card
+    private int playerWhoShowedCard = -1; //the playerID of the player who showed a card most recently
+    private boolean usedPassageway[]; //whether or not each player has used a passageway the most recent turn
+    private boolean[] inRoom; //whether or not each player is in a room
+    private int winnerIndex; //the playerID of the winner
+    private boolean[] onDoorTile; //whether or not each player is on a door tile
+    private boolean hasSuggested[]; //whether or not each player has suggested the most recent turn
+    private int playerInSuggestion; //the player who was suggested to be the murdered most recently
 
     // to satisfy Serializable interface - IDK if necessary
     private static final long serialVersionUID = 7737393762469851826L;
@@ -93,15 +94,20 @@ public class ClueState extends GameState implements Serializable{
         for(int i =0; i < numPlayers;i++){
             cards[i] = new Hand();
         }
+
+        //makes
         notes = new String[numPlayers];
 
+        //makes an ArrayList of all cards
         for(Card c: Card.values()) {
             allCards.add(c);
         }
-        allCards = shuffle(allCards);
-        allCards = shuffle(allCards); //a second time just to be thorough
 
-        //sets up a solution that actually works
+        //shuffle cards before dealing
+        allCards = shuffle(allCards);
+        allCards = shuffle(allCards);
+
+        //sets up a solution for the players to figure out
         Card[] rooms = {Card.BALLROOM, Card.BILLIARD_ROOM, Card.CONSERVATORY, Card.DINING_ROOM, Card.HALL, Card.KITCHEN, Card.LOUNGE, Card.LIBRARY, Card.STUDY};
         Card[] suspects = {Card.MISS_SCARLET, Card.COL_MUSTARD, Card.MR_GREEN, Card.MRS_PEACOCK, Card.MRS_WHITE, Card.PROF_PLUM};
         Card[] weapons = {Card.WRENCH, Card.KNIFE, Card.CANDLESTICK, Card.REVOLVER, Card.ROPE, Card.LEAD_PIPE};
@@ -116,17 +122,7 @@ public class ClueState extends GameState implements Serializable{
         //creates board, which stores board tiles and player locations
         board = new Board();
 
-        //put cards in players hands
-//        for(int i = 0; i < numPlayers; i++) {
-//            for(int j = 0; j < cardsPerHand; j++) {
-//                if(allCards.size() != 0) {
-//                    int index = allCards.size() - 1;
-//                    cards[i].addCard(allCards.get(index));
-//                    allCards.remove(index);
-//                }
-//            }
-//        }
-
+        //puts remaining cards in players' hands
         int k = 0;
         while (allCards.size() != 0)
         {
@@ -141,6 +137,7 @@ public class ClueState extends GameState implements Serializable{
             k++;
         }
 
+        //sets suggestion cards to null, as a suggestion has not ben made yet
         for(int i = 0; i < 3; i++) {
             suggestCards[i] = null;
         }
@@ -168,9 +165,11 @@ public class ClueState extends GameState implements Serializable{
         //turnID is the same value as the playerID, which is the same as the index in the array
         canRoll[turnID] = true;
 
+        //sets the index of the winner to -1, will be changed when a player wins
         winnerIndex = -1;
     }
 
+    //shuffles all the cards before they are dealt
     private ArrayList<Card> shuffle(ArrayList<Card> cards) {
         Random rand = new Random();
         ArrayList<Card> rtnCards = cards;
@@ -184,7 +183,9 @@ public class ClueState extends GameState implements Serializable{
         return  rtnCards;
     }
 
+    //copy constructor
     public ClueState(ClueState s) {
+        //sets variables in new ClueState
         turnID = s.turnID;
         numPlayers = s.getNumPlayers();
         playerIDs = new int[numPlayers];
@@ -216,7 +217,7 @@ public class ClueState extends GameState implements Serializable{
         playerInSuggestion = s.getPlayerInSuggestion();
         pulledIn = new boolean[numPlayers];
 
-
+        //sets variables in arrays with a length of numPlayers
         for(int i = 0; i < numPlayers; i++) {
             playerIDs[i] = s.getPlayerID(i);
             notes[i] = s.getNotes(i);
@@ -234,6 +235,7 @@ public class ClueState extends GameState implements Serializable{
             pulledIn[i] = s.getPulledIn(i);
         }
 
+        //copies players' hands
         for(int i = 0; i < numPlayers; i++) {
             cards[i] = new Hand();
             for (int j = 0; j < cardsPerHand; j++) {
@@ -243,19 +245,19 @@ public class ClueState extends GameState implements Serializable{
             }
         }
 
-
-
+        //copies checkboxes
         for(int i = 0; i < numPlayers; i++) {
             for(int j = 0; j < 21; j++) {
                 checkboxes[i][j] = s.getCheckBox(i, j);
             }
         }
 
+        //copies suggestion cards
         for(int i =0;i<3;i++){
             suggestCards[i] = s.getSuggestCards(i);
         }
 
-
+        //copies board
         board.setBoard(s.getBoard().getBoard());
         board.setPlayerBoard(s.getBoard().getPlayerBoard());
     }
@@ -281,12 +283,6 @@ public class ClueState extends GameState implements Serializable{
     }
 
     //getters
-//    /*public int[][] getPlayerBoard()
-//    {
-//        return playerBoard;
-//    }
-//    */
-
     public int getTurnId() {
         return turnID;
     }
@@ -340,10 +336,6 @@ public class ClueState extends GameState implements Serializable{
         return new Hand(cards[index]);
     }
 
-    public ArrayList<Card> getAllCards() {
-        return allCards;
-    }
-
     public int getCardsPerHand() {
         return cardsPerHand;
     }
@@ -361,11 +353,6 @@ public class ClueState extends GameState implements Serializable{
             return null;
         }
 
-    }
-
-    public boolean[] getNewToRoom()
-    {
-        return newToRoom;
     }
 
     public boolean getNewToRoom(int playerID){ return newToRoom[playerID];}
@@ -394,11 +381,6 @@ public class ClueState extends GameState implements Serializable{
 
     public boolean getPlayerStillInGame(int playerID){
         return playerStillInGame[playerID];
-    }
-
-    public boolean[] getPlayerStillInGame()
-    {
-        return playerStillInGame;
     }
 
     public boolean[] getCheckCardToSend() {
@@ -532,3 +514,4 @@ public class ClueState extends GameState implements Serializable{
         pulledIn[playerID] = b;
     }
 }
+
