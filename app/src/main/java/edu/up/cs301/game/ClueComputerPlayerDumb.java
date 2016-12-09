@@ -21,7 +21,7 @@ import edu.up.cs301.game.infoMsg.GameInfo;
  * Created by Langley on 11/17/2016.
  */
 
-public class ComputerPlayerDumb extends ClueComputerPlayer {
+public class ClueComputerPlayerDumb extends ClueComputerPlayer {
 
     private boolean[] checkbox = new boolean[21];
     Card[] suspects = {Card.COL_MUSTARD, Card.PROF_PLUM, Card.MR_GREEN, Card.MRS_PEACOCK, Card.MISS_SCARLET, Card.MRS_WHITE};
@@ -31,7 +31,7 @@ public class ComputerPlayerDumb extends ClueComputerPlayer {
     private boolean handChecked = false;
     private String lastCard = "";
 
-    public ComputerPlayerDumb(String name){
+    public ClueComputerPlayerDumb(String name){
         super(name);
         for(int i = 0; i < 21; i++){
             checkbox[i] = false;
