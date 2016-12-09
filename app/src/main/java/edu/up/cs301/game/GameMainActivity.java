@@ -23,7 +23,6 @@ import android.widget.TabHost;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import edu.up.cs301.game.config.GameConfig;
 import edu.up.cs301.game.config.GamePlayerType;
@@ -240,7 +239,7 @@ View.OnClickListener {
 			else {
 				// if there is no GUI player, set the layout to be one
 				// with a "no GUI" message
-				setContentView(R.layout.game_no_gui);
+				setContentView(R.layout.game_clue_gui);
 			}
 		}
 	}//onConfigurationChanged
@@ -322,7 +321,7 @@ View.OnClickListener {
 		}
 		else {
 			// set the layout to be one with a "no GUI" message
-			setContentView(R.layout.game_no_gui);
+			setContentView(R.layout.game_clue_gui);
 		}
 
 		// mark the configuration as being completed

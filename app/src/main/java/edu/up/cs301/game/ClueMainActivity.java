@@ -1,7 +1,6 @@
 package edu.up.cs301.game;
 
 import android.content.pm.ActivityInfo;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -31,7 +30,7 @@ public class ClueMainActivity extends GameMainActivity {
 
         playerTypes.add(new GamePlayerType("Human Player") {
             public GamePlayer createPlayer(String name) {
-                return new ClueHumanPlayer(name, R.layout.game_no_gui);
+                return new ClueHumanPlayer(name, R.layout.game_clue_gui);
             }
         });
         playerTypes.add(new GamePlayerType("Computer Player (dumb)") {
