@@ -22,6 +22,11 @@ import edu.up.cs301.game.infoMsg.GameInfo;
  * Created by Noah on 11/8/2016.
  */
 
+/*
+* An AI player that tries to collect as much information as possible as fast as possible to win.
+* It makes moves towards the closest room that it doesn't know isn't the location of the murder,
+* and suggests weapons and suspects it has yet to know about.
+*/
 public class ClueComputerPlayerSmart extends ClueComputerPlayer {
     //checkboxes for the AI to keep track of known cards
     private boolean[] checkBoxVals = new boolean[21];
