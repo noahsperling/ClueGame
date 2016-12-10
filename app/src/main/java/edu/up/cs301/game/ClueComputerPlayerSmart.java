@@ -48,7 +48,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
     private ClueMoveAction prevMov2;
     //the number of moves made in the current turn
     private int numMoves;
-
+    private static final int LEFT = 1, UP = 2, RIGHT = 3, DOWN = 4;
 
     public ClueComputerPlayerSmart(String name) {
         super(name);
@@ -300,13 +300,13 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                         if (dX == 0 && isThereAWall(curX, curY) && !isThereADoor(curX,curY)) {
                             int dir = 0;
                             if (prevMov1 instanceof ClueMoveLeftAction) {
-                                dir = 1;
+                                dir = LEFT;
                             } else if (prevMov1 instanceof ClueMoveUpAction) {
-                                dir = 2;
+                                dir = UP;
                             } else if (prevMov1 instanceof ClueMoveRightAction) {
-                                dir = 3;
+                                dir = RIGHT;
                             } else if (prevMov1 instanceof ClueMoveDownAction) {
-                                dir = 4;
+                                dir = DOWN;
                             }
 
                             if (checkIfAvailableTile(curX, curY, dir)) {
@@ -316,7 +316,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                 Log.i("Computer Player" + playerNum + " Moved", "Previous Move");
                                 return;
                             } else {
-                                    if (checkIfAvailableTile(curX, curY, 1)) {
+                                    if (checkIfAvailableTile(curX, curY, LEFT)) {
                                         ClueMoveLeftAction c = new ClueMoveLeftAction(this);
                                         prevMov2 = prevMov1;
                                         prevMov1 = c;
@@ -324,7 +324,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                         game.sendAction(c);
                                         Log.i("Computer Player" + playerNum + " Moved", "Left");
                                         return;
-                                    } else if (checkIfAvailableTile(curX, curY, 3)) {
+                                    } else if (checkIfAvailableTile(curX, curY, RIGHT)) {
                                         ClueMoveRightAction c = new ClueMoveRightAction(this);
                                         prevMov2 = prevMov1;
                                         prevMov1 = c;
@@ -332,7 +332,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                         game.sendAction(c);
                                         Log.i("Computer Player" + playerNum + " Moved", "Right");
                                         return;
-                                    } else if(checkIfAvailableTile(curX, curY, 2)){
+                                    } else if(checkIfAvailableTile(curX, curY, UP)){
                                         ClueMoveUpAction c = new ClueMoveUpAction(this);
                                         prevMov2 = prevMov1;
                                         prevMov1 = c;
@@ -340,7 +340,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                         game.sendAction(c);
                                         Log.i("Computer Player" + playerNum + " Moved", "Up");
                                         return;
-                                    } else if(checkIfAvailableTile(curX, curY, 4)){
+                                    } else if(checkIfAvailableTile(curX, curY, DOWN)){
                                         ClueMoveDownAction c = new ClueMoveDownAction(this);
                                         prevMov2 = prevMov1;
                                         prevMov1 = c;
@@ -371,7 +371,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                 Log.i("Computer Player" + playerNum + " Moved", "Previous Move");
                                 return;
                             } else {
-                                if (checkIfAvailableTile(curX, curY, 2)) {
+                                if (checkIfAvailableTile(curX, curY, UP)) {
                                     ClueMoveUpAction c = new ClueMoveUpAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
@@ -379,7 +379,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Up");
                                     return;
-                                } else if (checkIfAvailableTile(curX, curY, 4)) {
+                                } else if (checkIfAvailableTile(curX, curY, DOWN)) {
                                     ClueMoveDownAction c = new ClueMoveDownAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
@@ -387,7 +387,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Down");
                                     return;
-                                }else if (checkIfAvailableTile(curX, curY, 1)) {
+                                }else if (checkIfAvailableTile(curX, curY, LEFT)) {
                                     ClueMoveLeftAction c = new ClueMoveLeftAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
@@ -395,7 +395,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Left");
                                     return;
-                                } else if (checkIfAvailableTile(curX, curY, 3)) {
+                                } else if (checkIfAvailableTile(curX, curY, RIGHT)) {
                                     ClueMoveRightAction c = new ClueMoveRightAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
@@ -410,7 +410,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                         } else if (dX > dY) {
                             Log.i("Computer Player" + playerNum, "dX > dY");
                             if (!dXNegative && !dYNegative) {
-                                if (checkIfAvailableTile(curX, curY, 3)) {
+                                if (checkIfAvailableTile(curX, curY, RIGHT)) {
                                     ClueMoveRightAction c = new ClueMoveRightAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
@@ -418,7 +418,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Right");
                                     return;
-                                } else if (checkIfAvailableTile(curX, curY, 4)) {
+                                } else if (checkIfAvailableTile(curX, curY, DOWN)) {
                                     ClueMoveDownAction c = new ClueMoveDownAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
@@ -426,7 +426,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Down");
                                     return;
-                                } else if (checkIfAvailableTile(curX, curY, 2)) {
+                                } else if (checkIfAvailableTile(curX, curY, UP)) {
                                     ClueMoveUpAction c = new ClueMoveUpAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
@@ -434,7 +434,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Up");
                                     return;
-                                } else if (checkIfAvailableTile(curX, curY, 1)) {
+                                } else if (checkIfAvailableTile(curX, curY, LEFT)) {
                                     ClueMoveLeftAction c = new ClueMoveLeftAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
@@ -446,7 +446,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                     game.sendAction(new ClueEndTurnAction(this));
                                 }
                             } else if (dXNegative && !dYNegative) {
-                                if (checkIfAvailableTile(curX, curY, 1)) {
+                                if (checkIfAvailableTile(curX, curY, LEFT)) {
                                     ClueMoveLeftAction c = new ClueMoveLeftAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
@@ -454,7 +454,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Left");
                                     return;
-                                } else if (checkIfAvailableTile(curX, curY, 4)) {
+                                } else if (checkIfAvailableTile(curX, curY, DOWN)) {
                                     ClueMoveDownAction c = new ClueMoveDownAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
@@ -462,7 +462,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Down");
                                     return;
-                                } else if (checkIfAvailableTile(curX, curY, 2)) {
+                                } else if (checkIfAvailableTile(curX, curY, UP)) {
                                     ClueMoveUpAction c = new ClueMoveUpAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
@@ -470,7 +470,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Up");
                                     return;
-                                } else if (checkIfAvailableTile(curX, curY, 3)) {
+                                } else if (checkIfAvailableTile(curX, curY, RIGHT)) {
                                     ClueMoveRightAction c = new ClueMoveRightAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
@@ -482,7 +482,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                     game.sendAction(new ClueEndTurnAction(this));
                                 }
                             } else if (!dXNegative && dYNegative) {
-                                if (checkIfAvailableTile(curX, curY, 3)) {
+                                if (checkIfAvailableTile(curX, curY, RIGHT)) {
                                     ClueMoveRightAction c = new ClueMoveRightAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
@@ -490,7 +490,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Right");
                                     return;
-                                } else if (checkIfAvailableTile(curX, curY, 2)) {
+                                } else if (checkIfAvailableTile(curX, curY, UP)) {
                                     ClueMoveUpAction c = new ClueMoveUpAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
@@ -498,7 +498,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Up");
                                     return;
-                                } else if (checkIfAvailableTile(curX, curY, 4)) {
+                                } else if (checkIfAvailableTile(curX, curY, DOWN)) {
                                     ClueMoveDownAction c = new ClueMoveDownAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
@@ -506,7 +506,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Down");
                                     return;
-                                } else if (checkIfAvailableTile(curX, curY, 1)) {
+                                } else if (checkIfAvailableTile(curX, curY, LEFT)) {
                                     ClueMoveLeftAction c = new ClueMoveLeftAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
@@ -518,7 +518,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                     game.sendAction(new ClueEndTurnAction(this));
                                 }
                             } else if (dXNegative && dYNegative) {
-                                if (checkIfAvailableTile(curX, curY, 1)) {
+                                if (checkIfAvailableTile(curX, curY, LEFT)) {
                                     ClueMoveLeftAction c = new ClueMoveLeftAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
@@ -526,7 +526,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Left");
                                     return;
-                                } else if (checkIfAvailableTile(curX, curY, 2)) {
+                                } else if (checkIfAvailableTile(curX, curY, UP)) {
                                     ClueMoveUpAction c = new ClueMoveUpAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
@@ -534,7 +534,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Up");
                                     return;
-                                } else if (checkIfAvailableTile(curX, curY, 4)) {
+                                } else if (checkIfAvailableTile(curX, curY, DOWN)) {
                                     ClueMoveDownAction c = new ClueMoveDownAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
@@ -542,7 +542,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                     game.sendAction(c);
                                     Log.i("Computer Player" + playerNum + " Moved", "Down");
                                     return;
-                                } else if (checkIfAvailableTile(curX, curY, 3)) {
+                                } else if (checkIfAvailableTile(curX, curY, RIGHT)) {
                                     ClueMoveRightAction c = new ClueMoveRightAction(this);
                                     prevMov2 = prevMov1;
                                     prevMov1 = c;
@@ -558,7 +558,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                             Log.i("Computer Player" + playerNum, "dY >= dX");
 
                                 if (!dXNegative && !dYNegative) {
-                                    if (checkIfAvailableTile(curX, curY, 4)) {
+                                    if (checkIfAvailableTile(curX, curY, DOWN)) {
                                         ClueMoveDownAction c = new ClueMoveDownAction(this);
                                         prevMov2 = prevMov1;
                                         prevMov1 = c;
@@ -566,7 +566,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                         game.sendAction(c);
                                         Log.i("Computer Player" + playerNum + " Moved", "Down");
                                         return;
-                                    } else if (checkIfAvailableTile(curX, curY, 3)) {
+                                    } else if (checkIfAvailableTile(curX, curY, RIGHT)) {
                                         ClueMoveRightAction c = new ClueMoveRightAction(this);
                                         prevMov2 = prevMov1;
                                         prevMov1 = c;
@@ -574,7 +574,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                         game.sendAction(c);
                                         Log.i("Computer Player" + playerNum + " Moved", "Right");
                                         return;
-                                    } else if (checkIfAvailableTile(curX, curY, 1)) {
+                                    } else if (checkIfAvailableTile(curX, curY, LEFT)) {
                                         ClueMoveLeftAction c = new ClueMoveLeftAction(this);
                                         prevMov2 = prevMov1;
                                         prevMov1 = c;
@@ -582,7 +582,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                         game.sendAction(c);
                                         Log.i("Computer Player" + playerNum + " Moved", "Left");
                                         return;
-                                    } else if (checkIfAvailableTile(curX, curY, 2)) {
+                                    } else if (checkIfAvailableTile(curX, curY, UP)) {
                                         ClueMoveUpAction c = new ClueMoveUpAction(this);
                                         prevMov2 = prevMov1;
                                         prevMov1 = c;
@@ -594,7 +594,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                         game.sendAction(new ClueEndTurnAction(this));
                                     }
                                 } else if (!dXNegative && dYNegative) {
-                                    if (checkIfAvailableTile(curX, curY, 2)) {
+                                    if (checkIfAvailableTile(curX, curY, UP)) {
                                         ClueMoveUpAction c = new ClueMoveUpAction(this);
                                         prevMov2 = prevMov1;
                                         prevMov1 = c;
@@ -602,7 +602,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                         game.sendAction(c);
                                         Log.i("Computer Player" + playerNum + " Moved", "Up");
                                         return;
-                                    } else if (checkIfAvailableTile(curX, curY, 3)) {
+                                    } else if (checkIfAvailableTile(curX, curY, RIGHT)) {
                                         ClueMoveRightAction c = new ClueMoveRightAction(this);
                                         prevMov2 = prevMov1;
                                         prevMov1 = c;
@@ -610,7 +610,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                         game.sendAction(c);
                                         Log.i("Computer Player" + playerNum + " Moved", "Right");
                                         return;
-                                    } else if (checkIfAvailableTile(curX, curY, 1)) {
+                                    } else if (checkIfAvailableTile(curX, curY, LEFT)) {
                                         ClueMoveLeftAction c = new ClueMoveLeftAction(this);
                                         prevMov2 = prevMov1;
                                         prevMov1 = c;
@@ -618,7 +618,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                         game.sendAction(c);
                                         Log.i("Computer Player" + playerNum + " Moved", "Left");
                                         return;
-                                    } else if (checkIfAvailableTile(curX, curY, 4)) {
+                                    } else if (checkIfAvailableTile(curX, curY, DOWN)) {
                                         ClueMoveDownAction c = new ClueMoveDownAction(this);
                                         prevMov2 = prevMov1;
                                         prevMov1 = c;
@@ -630,7 +630,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                         game.sendAction(new ClueEndTurnAction(this));
                                     }
                                 } else if (dXNegative && !dYNegative) {
-                                    if (checkIfAvailableTile(curX, curY, 4)) {
+                                    if (checkIfAvailableTile(curX, curY, DOWN)) {
                                         ClueMoveDownAction c = new ClueMoveDownAction(this);
                                         prevMov2 = prevMov1;
                                         prevMov1 = c;
@@ -638,7 +638,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                         game.sendAction(c);
                                         Log.i("Computer Player" + playerNum + " Moved", "Down");
                                         return;
-                                    } else if (checkIfAvailableTile(curX, curY, 1)) {
+                                    } else if (checkIfAvailableTile(curX, curY, LEFT)) {
                                         ClueMoveLeftAction c = new ClueMoveLeftAction(this);
                                         prevMov2 = prevMov1;
                                         prevMov1 = c;
@@ -646,7 +646,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                         game.sendAction(c);
                                         Log.i("Computer Player" + playerNum + " Moved", "Left");
                                         return;
-                                    } else if (checkIfAvailableTile(curX, curY, 3)) {
+                                    } else if (checkIfAvailableTile(curX, curY, RIGHT)) {
                                         ClueMoveRightAction c = new ClueMoveRightAction(this);
                                         prevMov2 = prevMov1;
                                         prevMov1 = c;
@@ -654,7 +654,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                         game.sendAction(c);
                                         Log.i("Computer Player" + playerNum + " Moved", "Right");
                                         return;
-                                    } else if (checkIfAvailableTile(curX, curY, 2)) {
+                                    } else if (checkIfAvailableTile(curX, curY, UP)) {
                                         ClueMoveUpAction c = new ClueMoveUpAction(this);
                                         prevMov2 = prevMov1;
                                         prevMov1 = c;
@@ -666,7 +666,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                         game.sendAction(new ClueEndTurnAction(this));
                                     }
                                 } else if (dXNegative && dYNegative) {
-                                    if (checkIfAvailableTile(curX, curY, 2)) {
+                                    if (checkIfAvailableTile(curX, curY, UP)) {
                                         ClueMoveUpAction c = new ClueMoveUpAction(this);
                                         prevMov2 = prevMov1;
                                         prevMov1 = c;
@@ -674,7 +674,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                         game.sendAction(c);
                                         Log.i("Computer Player" + playerNum + " Moved", "Up");
                                         return;
-                                    } else if (checkIfAvailableTile(curX, curY, 1)) {
+                                    } else if (checkIfAvailableTile(curX, curY, LEFT)) {
                                         ClueMoveLeftAction c = new ClueMoveLeftAction(this);
                                         prevMov2 = prevMov1;
                                         prevMov1 = c;
@@ -682,7 +682,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                         game.sendAction(c);
                                         Log.i("Computer Player" + playerNum + " Moved", "Left");
                                         return;
-                                    } else if (checkIfAvailableTile(curX, curY, 3)) {
+                                    } else if (checkIfAvailableTile(curX, curY, RIGHT)) {
                                         ClueMoveRightAction c = new ClueMoveRightAction(this);
                                         prevMov2 = prevMov1;
                                         prevMov1 = c;
@@ -690,7 +690,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                         game.sendAction(c);
                                         Log.i("Computer Player" + playerNum + " Moved", "Right");
                                         return;
-                                    } else if (checkIfAvailableTile(curX, curY, 4)) {
+                                    } else if (checkIfAvailableTile(curX, curY, DOWN)) {
                                         ClueMoveDownAction c = new ClueMoveDownAction(this);
                                         prevMov2 = prevMov1;
                                         prevMov1 = c;
@@ -706,7 +706,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                         } else if(myState.getBoard().getBoard()[curY][curX].getIsDoor() &&
                             myState.getCanSuggest(playerNum)){
                         Log.i("Computer Player" + playerNum, "Room");
-                        if (MoveOffDoor(curX, curY, 2)) { //Move Up
+                        if (MoveOffDoor(curX, curY, UP)) { //Move Up
                             ClueMoveUpAction c = new ClueMoveUpAction(this);
                             prevMov2 = prevMov1;
                             prevMov1 = c;
@@ -715,7 +715,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                             Log.i("Computer Player" + playerNum + " Moved", "Up");
                             return;
                         }
-                        if (MoveOffDoor(curX, curY, 4)) { //Move Down
+                        if (MoveOffDoor(curX, curY, DOWN)) { //Move Down
                             ClueMoveDownAction c = new ClueMoveDownAction(this);
                             prevMov2 = prevMov1;
                             prevMov1 = c;
@@ -724,7 +724,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                             Log.i("Computer Player" + playerNum + " Moved", "Down");
                             return;
                         }
-                        if (MoveOffDoor(curX, curY, 1)) { //Move Left
+                        if (MoveOffDoor(curX, curY, LEFT)) { //Move Left
                             ClueMoveLeftAction c = new ClueMoveLeftAction(this);
                             prevMov2 = prevMov1;
                             prevMov1 = c;
@@ -733,7 +733,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                             Log.i("Computer Player" + playerNum + " Moved", "Left");
                             return;
                         }
-                        if (MoveOffDoor(curX, curY, 3)) { //Move Right
+                        if (MoveOffDoor(curX, curY, RIGHT)) { //Move Right
                             ClueMoveRightAction c = new ClueMoveRightAction(this);
                             prevMov2 = prevMov1;
                             prevMov1 = c;
@@ -748,7 +748,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                             !myState.getCanSuggest(playerNum)) {
                         Log.i("Computer Player" + playerNum, "Room");
 
-                        if (myState.getBoard().getBoard()[curY + 1][curX].getTileType() != 1 && checkIfAvailableTile(curX, curY, 4)) {
+                        if (myState.getBoard().getBoard()[curY + 1][curX].getTileType() != 1 && checkIfAvailableTile(curX, curY, DOWN)) {
                             ClueMoveDownAction c = new ClueMoveDownAction(this);
                             prevMov2 = prevMov1;
                             prevMov1 = c;
@@ -756,7 +756,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                             game.sendAction(c);
                             Log.i("Computer Player" + playerNum + " Moved", "Down");
                             return;
-                        } else if (myState.getBoard().getBoard()[curY - 1][curX].getTileType() != 1 && checkIfAvailableTile(curX, curY, 2)) {
+                        } else if (myState.getBoard().getBoard()[curY - 1][curX].getTileType() != 1 && checkIfAvailableTile(curX, curY, UP)) {
                             ClueMoveUpAction c = new ClueMoveUpAction(this);
                             prevMov2 = prevMov1;
                             prevMov1 = c;
@@ -764,7 +764,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                             game.sendAction(c);
                             Log.i("Computer Player" + playerNum + " Moved", "Up");
                             return;
-                        } else if (myState.getBoard().getBoard()[curY][curX - 1].getTileType() != 1 && checkIfAvailableTile(curX, curY, 1)) {
+                        } else if (myState.getBoard().getBoard()[curY][curX - 1].getTileType() != 1 && checkIfAvailableTile(curX, curY, LEFT)) {
                             ClueMoveLeftAction c = new ClueMoveLeftAction(this);
                             prevMov2 = prevMov1;
                             prevMov1 = c;
@@ -772,7 +772,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                             game.sendAction(c);
                             Log.i("Computer Player" + playerNum + " Moved", "Left");
                             return;
-                        }else if(checkIfAvailableTile(curX,curY, 3)) {
+                        }else if(checkIfAvailableTile(curX,curY, RIGHT)) {
                             ClueMoveRightAction c = new ClueMoveRightAction(this);
                             prevMov2 = prevMov1;
                             prevMov1 = c;
@@ -781,7 +781,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                             Log.i("Computer Player" + playerNum + " Moved", "Right");
                             return;
                         }else{
-                            if (checkIfAvailableTile(curX, curY, 4)) {
+                            if (checkIfAvailableTile(curX, curY, DOWN)) {
                                 ClueMoveDownAction c = new ClueMoveDownAction(this);
                                 prevMov2 = prevMov1;
                                 prevMov1 = c;
@@ -789,7 +789,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                 game.sendAction(c);
                                 Log.i("Computer Player" + playerNum + " Moved", "Down");
                                 return;
-                            } else if (checkIfAvailableTile(curX, curY, 2)) {
+                            } else if (checkIfAvailableTile(curX, curY, UP)) {
                                 ClueMoveUpAction c = new ClueMoveUpAction(this);
                                 prevMov2 = prevMov1;
                                 prevMov1 = c;
@@ -797,7 +797,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                                 game.sendAction(c);
                                 Log.i("Computer Player" + playerNum + " Moved", "Up");
                                 return;
-                            } else if (checkIfAvailableTile(curX, curY, 1)) {
+                            } else if (checkIfAvailableTile(curX, curY, LEFT)) {
                                 ClueMoveLeftAction c = new ClueMoveLeftAction(this);
                                 prevMov2 = prevMov1;
                                 prevMov1 = c;
@@ -870,7 +870,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
     private boolean MoveOffDoor(int x, int y, int direction) {
         Log.i("Computer Player" + playerNum, "Move off Door X: "+x+" Y: "+y+" Dir: "+direction);
         if(myState.getBoard().getBoard()[y][x] != null) {
-            if(direction == 1) { //Move Left
+            if(direction == LEFT) { //Move Left
                 if(!myState.getBoard().getBoard()[y][x].getLeftWall()) {
                     if(myState.getBoard().getPlayerBoard()[y][x - 1] == -1) {
                         if(myState.getBoard().getBoard()[y][x - 1] != null && !myState.getBoard().getBoard()[y][x - 1].getRightWall() && myState.getBoard().getBoard()[y][x - 1].getTileType() == 1) {
@@ -878,7 +878,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                         }
                     }
                 }
-            } else if(direction == 2) { //Move up
+            } else if(direction == UP) { //Move up
                 if(!myState.getBoard().getBoard()[y][x].getTopWall()) {
                     if(myState.getBoard().getPlayerBoard()[y - 1][x] == -1) {
                         if(myState.getBoard().getBoard()[y - 1][x] != null && !myState.getBoard().getBoard()[y - 1][x].getBottomWall() && myState.getBoard().getBoard()[y - 1][x].getTileType() == 1) {
@@ -886,7 +886,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                         }
                     }
                 }
-            }else if(direction == 3) { //move right
+            }else if(direction == RIGHT) { //move right
                 if(!myState.getBoard().getBoard()[y][x].getRightWall()) {
                     if(myState.getBoard().getPlayerBoard()[y][x + 1] == -1) {
                         if(myState.getBoard().getBoard()[y][x + 1] != null && !myState.getBoard().getBoard()[y][x + 1].getLeftWall() && myState.getBoard().getBoard()[y][x + 1].getTileType() == 1) {
@@ -894,7 +894,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                         }
                     }
                 }
-            }else if(direction == 4) { //move down
+            }else if(direction == DOWN) { //move down
                 if(!myState.getBoard().getBoard()[y][x].getBottomWall() && myState.getBoard().getBoard()[y][x - 1].getTileType() == 1) {
                     if(myState.getBoard().getPlayerBoard()[y + 1][x] == -1) {
                         if(myState.getBoard().getBoard()[y + 1][x] != null && !myState.getBoard().getBoard()[y + 1][x].getTopWall() && myState.getBoard().getBoard()[y + 1][x].getTileType() == 1) {
@@ -916,25 +916,25 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
         Log.i("Computer Player" + playerNum, "X: "+x+" Y: "+y+" Dir: "+direction);
 
         //check to make sure that the AI doesn't get stuck moving back and forth between two squares
-        if(direction == 1) {
+        if(direction == LEFT) {
             if(prevMov2 != null) {
                 if(prevMov2 instanceof ClueMoveLeftAction && prevMov1 instanceof ClueMoveRightAction) {
                     return false;
                 }
             }
-        }else if (direction == 2) {
+        }else if (direction == UP) {
             if(prevMov2 != null) {
                 if(prevMov2 instanceof ClueMoveUpAction && prevMov1 instanceof ClueMoveDownAction) {
                     return false;
                 }
             }
-        }else if(direction == 3) {
+        }else if(direction == RIGHT) {
             if(prevMov2 != null) {
                 if(prevMov2 instanceof ClueMoveRightAction && prevMov1 instanceof ClueMoveLeftAction) {
                     return false;
                 }
             }
-        }else if(direction == 4) {
+        }else if(direction == DOWN) {
             if(prevMov2 != null) {
                 if(prevMov2 instanceof ClueMoveDownAction && prevMov1 instanceof ClueMoveUpAction) {
                     return false;
@@ -943,7 +943,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
         }
 
         if(myState.getBoard().getBoard()[y][x] != null) {
-            if(direction == 1) { //Move Left
+            if(direction == LEFT) { //Move Left
                 if(!myState.getBoard().getBoard()[y][x].getLeftWall()) {
                     if(myState.getBoard().getBoard()[y ][x-1] != null) {
                         Log.i("Computer Smart" + playerNum, "Left Wall: " + myState.getBoard().getBoard()[y][x].getLeftWall() + " Right Wall" + myState.getBoard().getBoard()[y][x-1].getRightWall() +
@@ -955,7 +955,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                         }
                     }
                 }
-            } else if(direction == 2) { //Move up
+            } else if(direction == UP) { //Move up
                 if(!myState.getBoard().getBoard()[y][x].getTopWall()) {
                     if(myState.getBoard().getBoard()[y-1][x] != null) {
                         Log.i("Computer Smart" + playerNum, "Top Wall: " + myState.getBoard().getBoard()[y][x].getTopWall() + " Bottom Wall" + myState.getBoard().getBoard()[y - 1][x].getBottomWall() +
@@ -967,7 +967,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                         }
                     }
                 }
-            }else if(direction == 3) { //move right
+            }else if(direction == RIGHT) { //move right
                 if(!myState.getBoard().getBoard()[y][x].getRightWall()) {
                     if(myState.getBoard().getBoard()[y ][x+1] != null) {
                         Log.i("Computer Smart" + playerNum, "Left Wall: " + myState.getBoard().getBoard()[y][x+1].getLeftWall() + " Right Wall" + myState.getBoard().getBoard()[y ][x].getRightWall() +
@@ -979,7 +979,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                         }
                     }
                 }
-            }else if(direction == 4) { //move down
+            }else if(direction == DOWN) { //move down
                 if(!myState.getBoard().getBoard()[y][x].getBottomWall()) {
                     if(myState.getBoard().getBoard()[y+1][x] != null) {
                         Log.i("Computer Smart" + playerNum, "Top Wall: " + myState.getBoard().getBoard()[y+1][x].getTopWall() + " Bottom Wall" + myState.getBoard().getBoard()[y][x].getBottomWall() +
