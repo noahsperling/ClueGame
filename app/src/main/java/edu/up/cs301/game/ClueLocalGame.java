@@ -32,6 +32,11 @@ import static edu.up.cs301.game.Type.WEAPON;
 
 /**
  * Created by Noah on 10/25/2016.
+ *
+ * This class is like the rule book keeper for the game.  It checks if a player
+ * can make a legal move, and if so performs that move.  It also checks to see
+ * if the game is over and if so, who has won.
+ *
  */
 
 public class ClueLocalGame extends LocalGame
@@ -42,6 +47,7 @@ public class ClueLocalGame extends LocalGame
     private Random rand;
     public static String sync = "V";
 
+    //Constructor
     public ClueLocalGame(int numPlayerFromTableRows)
     {
         super();
@@ -133,7 +139,6 @@ public class ClueLocalGame extends LocalGame
             int x = 0; //Create current position variables
             int y = 0;
             int curPlayerID = ((ClueMoveAction) a).playerID; //The ID of the player who made the action
-            //player = (CluePlayer)a.getPlayer();
             playBoard = state.getBoard().getPlayerBoard(); //Get the current player board so we know where all the players are
             curBoard = (state.getBoard()).getBoard(); //Get the current board w/tiles
 
@@ -163,8 +168,6 @@ public class ClueLocalGame extends LocalGame
                         state.setDieValue(numRolled);
                         state.setCanRoll(curPlayerID, false);
                         return true;
-
-                        //Set roll button to disabled here?  or maybe do that when it is pressed?
                     }
                 }
                 else if (movePlayer(curPlayerID))
@@ -174,8 +177,8 @@ public class ClueLocalGame extends LocalGame
                         //Makes sure the player's next move would not be to another player's current
                         //position on the board.  Also checks to make sure their next position is in the hallway
                         //or through a door.
-
-                        if(curBoard[x-1][y] != null) {
+                        if(curBoard[x-1][y] != null)  //Checks to make sure the tile the player wants to move to is not null
+                        {
                             if ((playBoard[x-1][y] == -1 && (curBoard[x-1][y].getTileType() == 0 || curBoard[x-1][y].getIsDoor() || curBoard[x-1][y].getTileType() == 1)) && !curBoard[x-1][y].getBottomWall()
                                     && !curBoard[x][y].getTopWall())
                             {
@@ -237,7 +240,8 @@ public class ClueLocalGame extends LocalGame
                     }
                     else if (moveAction instanceof ClueMoveDownAction)
                     {
-                        if(curBoard[x+1][y] != null) {
+                        if(curBoard[x+1][y] != null) //Checks to make sure the tile the player wants to move to is not null
+                        {
                             if ((playBoard[x+1][y] == -1 && (curBoard[x+1][y].getTileType() == 0 || curBoard[x+1][y].getIsDoor() || curBoard[x+1][y].getTileType() == 1)) && !curBoard[x+1][y].getTopWall()
                                     && !curBoard[x][y].getBottomWall())
                             {
@@ -301,7 +305,8 @@ public class ClueLocalGame extends LocalGame
                     }
                     else if (moveAction instanceof ClueMoveRightAction)
                     {
-                        if(curBoard[x][y+1] != null) {
+                        if(curBoard[x][y+1] != null) //Checks to make sure the tile the player wants to move to is not null
+                        {
                             if((playBoard[x][y+1] == -1 && (curBoard[x][y+1].getTileType() == 0 || curBoard[x][y+1].getIsDoor() || curBoard[x][y+1].getTileType() == 1)) && !curBoard[x][y+1].getLeftWall()
                                     && !curBoard[x][y].getRightWall())
                             {
@@ -365,7 +370,8 @@ public class ClueLocalGame extends LocalGame
                     }
                     else if (moveAction instanceof ClueMoveLeftAction)
                     {
-                        if(x >= 0 && y >= 1 && curBoard[x][y-1] != null) {
+                        if(x >= 0 && y >= 1 && curBoard[x][y-1] != null) //Checks to make sure the tile the player wants to move to is not null
+                        {
                             if ((playBoard[x][y-1] == -1 && (curBoard[x][y-1].getTileType() == 0 || curBoard[x][y-1].getIsDoor() || curBoard[x][y-1].getTileType() == 1)) && !curBoard[x][y-1].getRightWall()
                                     && !curBoard[x][y].getLeftWall())
                             {
@@ -421,7 +427,6 @@ public class ClueLocalGame extends LocalGame
                                     setStateVariablesMove(curPlayerID, x, y-1, x, y, false, false, false, false, false);
                                     return true;
                                 }
-
                             }
                         }
                         else
@@ -632,6 +637,7 @@ public class ClueLocalGame extends LocalGame
                                 state.setCheckCardToSend(b.playerID + 1, true);
                             }
 
+                            //Set some variables in the state after card has been sent
                             if (state.getTurnId() == (state.getNumPlayers() - 1)) //If the player who showed the card is the last player
                             {
                                 //Make it so that the player who showed the card can't move
