@@ -354,12 +354,15 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
             //that include cards in the player hand that match the cards in the suggestion
             if(recentState.getCheckCardToSend()[playerNum]) {
                 notSent = true;
-                suggestR.setChecked(false);
-                accuseR.setChecked(false);
                 suggestR.setEnabled(false);
+                suggestR.setChecked(false);
                 accuseR.setEnabled(false);
+                accuseR.setChecked(false);
                 showCardR.setEnabled(true);
                 showCardR.setChecked(true);
+                roomSpinner.setEnabled(true);
+                weaponSpinner.setEnabled(false);
+                suspectSpinner.setEnabled(false);
 
                 setSendCardSpinners();
             }
@@ -393,33 +396,33 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
             {
                 //If the player needs to show a card, allow them only to choose the card and submit it
                 //Only allow them to submit the card they want to show
-
                 if (showCardR.isEnabled())
                 {
                     suggestR.setEnabled(false);
                     suggestR.setChecked(false);
                     accuseR.setEnabled(false);
                     accuseR.setChecked(false);
-                    submitButton.setEnabled(true);
-                    cancelButton.setEnabled(true);
+                    submitButton.setEnabled(true); //Only true
+                    cancelButton.setEnabled(false);
                     endTurnButton.setEnabled(false);
                     secretPassagewayButton.setEnabled(false);
                     upButton.setEnabled(false);
                     downButton.setEnabled(false);
                     leftButton.setEnabled(false);
                     rightButton.setEnabled(false);
-
-                    if(recentState.getCanRoll(playerNum)) {
-                        rollButton.setEnabled(true);
-                    }else if(!recentState.getCanRoll(playerNum)) {
-                        rollButton.setEnabled(false);
-                    }
+                    roomSpinner.setEnabled(true);
+//
+//                    if(recentState.getCanRoll(playerNum)) {
+//                        rollButton.setEnabled(true);
+//                    }else if(!recentState.getCanRoll(playerNum)) {
+//                        rollButton.setEnabled(false);
+//                    }
                 }
                 //If the player does not need to show a card, let them continue regular gameplay with
                 //the appropriate buttons enabled
                 else {
                     accuseR.setEnabled(true);
-                    accuseR.setChecked(false);
+                    accuseR.setChecked(false); //only false
                     submitButton.setEnabled(true);
                     cancelButton.setEnabled(true);
                     endTurnButton.setEnabled(true);
@@ -451,16 +454,23 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
             }
             //If it is the player's turn, but they are not in the game, just end their turn (basically skip them)
             else if(recentState.getTurnId() == playerNum && !recentState.getPlayerStillInGame(playerNum) && !notSent){
+                weaponSpinner.setEnabled(false);
+                suspectSpinner.setEnabled(false);
+                cancelButton.setEnabled(false);
+                submitButton.setEnabled(false);
                 endTurnButton.setEnabled(false);
                 game.sendAction(new ClueEndTurnAction(this));
+                roomSpinner.setEnabled(false);
+                weaponSpinner.setEnabled(false);
+                suspectSpinner.setEnabled(false);
             }
             //If it is not their turn and they are in the game, disable all GUI features
             else if(recentState.getTurnId() != playerNum && recentState.getPlayerStillInGame(playerNum))
             {
                 accuseR.setEnabled(false);
                 accuseR.setChecked(false);
-                submitButton.setEnabled(true);
-                cancelButton.setEnabled(true);
+                submitButton.setEnabled(false);
+                cancelButton.setEnabled(false);
                 endTurnButton.setEnabled(false);
                 upButton.setEnabled(false);
                 downButton.setEnabled(false);
@@ -468,6 +478,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
                 rightButton.setEnabled(false);
                 rollButton.setEnabled(false);
                 secretPassagewayButton.setEnabled(false);
+                roomSpinner.setEnabled(false);
+                weaponSpinner.setEnabled(false);
+                suspectSpinner.setEnabled(false);
 
             }
 
@@ -616,6 +629,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
                 game.sendAction(suggest);
 
                 //Enable only the show card
+                roomSpinner.setEnabled(true);
+                submitButton.setEnabled(true);
                 showCardR.setEnabled(true);
                 showCardR.setChecked(false);
                 suggestR.setEnabled(false);
@@ -686,6 +701,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
             downButton.setEnabled(false);
             leftButton.setEnabled(false);
             rightButton.setEnabled(false);
+            roomSpinner.setEnabled(false);
+            weaponSpinner.setEnabled(false);
+            suspectSpinner.setEnabled(false);
             game.sendAction(endTurn);
         }
 
