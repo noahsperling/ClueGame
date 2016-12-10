@@ -642,10 +642,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
                 submitButton.setEnabled(true);
                 showCardR.setEnabled(true);
                 showCardR.setChecked(false);
-                suggestR.setEnabled(false);
-                suggestR.setChecked(false);
-                accuseR.setEnabled(false);
-                accuseR.setChecked(false);
+                disableAndUncheckSuggestAndAccuse();
 
                 //ClueEndTurnAction end = new ClueEndTurnAction(this);
                 endTurnButton.setEnabled(false);
@@ -699,17 +696,11 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
         else if (view == endTurnButton) {
             ClueEndTurnAction endTurn = new ClueEndTurnAction(this);
             //Log.i("You clicked End Turn", "YAY");
-            endTurnButton.setEnabled(false);
-            rollButton.setEnabled(false);
-            secretPassagewayButton.setEnabled(false);
+            disableActionButtons();
             suggestR.setEnabled(false);
             accuseR.setEnabled(false);
             submitButton.setEnabled(false);
             cancelButton.setEnabled(false);
-            upButton.setEnabled(false);
-            downButton.setEnabled(false);
-            leftButton.setEnabled(false);
-            rightButton.setEnabled(false);
             roomSpinner.setEnabled(false);
             weaponSpinner.setEnabled(false);
             suspectSpinner.setEnabled(false);
