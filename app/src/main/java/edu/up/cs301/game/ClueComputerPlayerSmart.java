@@ -109,16 +109,15 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                         }
                     }
                 }
-                String[] validCards = new String[cards.size()];
-                cards.toArray(validCards);
-                if(validCards.length == 0) {
+
+                if(cards.size() == 0) {
                     game.sendAction(new ClueShowCardAction(this));
                     return;
                 }else {
                     Random rand1 = new Random();
-                    int c = rand1.nextInt(validCards.length);
+                    int c = rand1.nextInt(cards.size());
                     ClueShowCardAction s = new ClueShowCardAction(this);
-                    s.setCardToShow(validCards[c]);
+                    s.setCardToShow(cards.get(c));
                     game.sendAction(s);
                     return;
                 }
@@ -222,18 +221,22 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                     if(currentRoom == Card.STUDY){
                         if(!checkBoxVals[15] && !myState.getUsedPassageway()[playerNum]){
                            game.sendAction(new ClueUsePassagewayAction(this));
+                            return;
                         }
                     }else if(currentRoom == Card.KITCHEN){
                         if(!checkBoxVals[20] && !myState.getUsedPassageway()[playerNum]){
                             game.sendAction(new ClueUsePassagewayAction(this));
+                            return;
                         }
                     }else if(currentRoom == Card.LOUNGE){
                         if(!checkBoxVals[17] && !myState.getUsedPassageway()[playerNum]){
                             game.sendAction(new ClueUsePassagewayAction(this));
+                            return;
                         }
                     }else if(currentRoom == Card.CONSERVATORY){
                         if(!checkBoxVals[13] && !myState.getUsedPassageway()[playerNum]){
                             game.sendAction(new ClueUsePassagewayAction(this));
+                            return;
                         }
                     }
 

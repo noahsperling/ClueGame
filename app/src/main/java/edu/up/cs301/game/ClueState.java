@@ -2,6 +2,7 @@ package edu.up.cs301.game;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import edu.up.cs301.game.infoMsg.GameState;
@@ -43,10 +44,10 @@ public class ClueState extends GameState implements Serializable{
     private boolean[] onDoorTile; //whether or not each player is on a door tile
     private boolean hasSuggested[]; //whether or not each player has suggested the most recent turn
     private int playerInSuggestion; //the player who was suggested to be the murdered most recently
+    private boolean[] pulledIn;
 
     // to satisfy Serializable interface - IDK if necessary
     private static final long serialVersionUID = 7737393762469851826L;
-    private boolean[] pulledIn;
 
 
     public ClueState(int initNumPlayers, String initPlayerNames[], int initTurnID) {
@@ -157,9 +158,7 @@ public class ClueState extends GameState implements Serializable{
             notes[i] = "";
             cardToShow[i] = "";
             playerNames[i] = initPlayerNames[i]+"";
-            for(int j = 0; j < 21; j++) {
-                checkboxes[i][j] = false;
-            }
+            Arrays.fill(checkboxes[i], false);
             pulledIn[i] = false;
         }
         //turnID is the same value as the playerID, which is the same as the index in the array
