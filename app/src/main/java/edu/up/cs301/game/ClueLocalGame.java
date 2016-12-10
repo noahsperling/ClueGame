@@ -470,22 +470,52 @@ public class ClueLocalGame extends LocalGame
                         state.setPlayerStillInGame(curPlayerID, false);
 
                         //Move the player back to their "home position"
-                        if (!state.getPlayerStillInGame(curPlayerID)) {
-                            if (curPlayerID == 0) {
-                                state.getBoard().setPlayerOnBoard(1, 17, x, y, curPlayerID);
-                            } else if (curPlayerID == 1) {
-                                state.getBoard().setPlayerOnBoard(8, 24, x, y, curPlayerID);
-                            } else if (curPlayerID == 2) {
-                                state.getBoard().setPlayerOnBoard(25, 15, x, y, curPlayerID);
-                            } else if (curPlayerID == 3) {
-                                state.getBoard().setPlayerOnBoard(25, 10, x, y, curPlayerID);
-                            } else if (curPlayerID == 4) {
-                                state.getBoard().setPlayerOnBoard(19, 1, x, y, curPlayerID);
-                            } else {
-                                state.getBoard().setPlayerOnBoard(6, 1, x, y, curPlayerID);
-                            }
+
+                        switch (curPlayerID)
+                        {
+                            case 0: state.getBoard().setPlayerOnBoard(1, 17, x, y, curPlayerID);
+                                    break;
+                            case 1: state.getBoard().setPlayerOnBoard(8, 24, x, y, curPlayerID);
+                                    break;
+                            case 2: state.getBoard().setPlayerOnBoard(25, 15, x, y, curPlayerID);
+                                    break;
+                            case 3: state.getBoard().setPlayerOnBoard(25, 10, x, y, curPlayerID);
+                                    break;
+                            case 4: state.getBoard().setPlayerOnBoard(19, 1, x, y, curPlayerID);
+                                    break;
+                            case 5: state.getBoard().setPlayerOnBoard(6, 1, x, y, curPlayerID);
                         }
+
                         return true;
+
+
+//                        if (!state.getPlayerStillInGame(curPlayerID))
+//                        {
+//                            if (curPlayerID == 0)
+//                            {
+//                                state.getBoard().setPlayerOnBoard(1, 17, x, y, curPlayerID);
+//                            }
+//                            else if (curPlayerID == 1)
+//                            {
+//                                state.getBoard().setPlayerOnBoard(8, 24, x, y, curPlayerID);
+//                            }
+//                            else if (curPlayerID == 2)
+//                            {
+//                                state.getBoard().setPlayerOnBoard(25, 15, x, y, curPlayerID);
+//                            }
+//                            else if (curPlayerID == 3)
+//                            {
+//                                state.getBoard().setPlayerOnBoard(25, 10, x, y, curPlayerID);
+//                            }
+//                            else if (curPlayerID == 4)
+//                            {
+//                                state.getBoard().setPlayerOnBoard(19, 1, x, y, curPlayerID);
+//                            }
+//                            else
+//                            {
+//                                state.getBoard().setPlayerOnBoard(6, 1, x, y, curPlayerID);
+//                            }
+//                        }
 
                     }
                     else //The player won the game
@@ -569,11 +599,12 @@ public class ClueLocalGame extends LocalGame
                                     {
                                         for (int j = 0; j < 26; j++)
                                         {
-                                            if (state.getBoard().getPlayerBoard()[j][i] == b.playerID) {
-
+                                            if (state.getBoard().getPlayerBoard()[j][i] == b.playerID)
+                                            {
                                                 moveToRoom = state.getBoard().getBoard()[j][i].getRoom().getName();
                                             }
-                                            if (state.getBoard().getPlayerBoard()[j][i] == state.getPlayerInSuggestion()) {
+                                            if (state.getBoard().getPlayerBoard()[j][i] == state.getPlayerInSuggestion())
+                                            {
                                                 currentX = i;
                                                 currentY = j;
                                             }
@@ -588,15 +619,29 @@ public class ClueLocalGame extends LocalGame
                                             //find first available tile in the room to place the player
                                             if (state.getBoard().getBoard()[j][i] != null && state.getBoard().getBoard()[j][i].getRoom() != null && state.getBoard().getBoard()[j][i].getRoom().getName().equals(moveToRoom) && state.getBoard().getPlayerBoard()[j][i] == - 1 && !state.getBoard().getBoard()[j][i].getIsDoor())
                                             {
+                                                //Pulls the player that was included in the suggestion into the room where the suggestion was made
                                                 state.getBoard().setPlayerOnBoard(j, i,currentY, currentX, state.getPlayerInSuggestion());
+
+                                                //Checks to make sure the player is actually playing the game.
                                                 if(state.getPlayerInSuggestion() < state.getNumPlayers())
                                                 {
-                                                    state.setCanSuggest(state.getPlayerInSuggestion(), true);
-                                                    state.setNewToRoom(state.getPlayerInSuggestion(), true);
-                                                    state.setUsedPassageway(state.getPlayerInSuggestion(), false);
-                                                    inCornerRoom(j, i, curBoard, state.getPlayerInSuggestion());
-                                                    state.setOnDoorTile(state.getPlayerInSuggestion(), false);
                                                     state.setPulledIn(state.getPlayerInSuggestion(), true);
+                                                    inCornerRoom(j, i, curBoard, state.getPlayerInSuggestion());
+                                                    state.setCanSuggest(state.getPlayerInSuggestion(), true);
+                                                    state.setUsedPassageway(state.getPlayerInSuggestion(), false);
+                                                    state.setOnDoorTile(state.getPlayerInSuggestion(), false);
+
+                                                    //This if statement checks to see if the player included themselves in the suggestion.
+                                                    //If they did, setting newToRoom to false will prevent them from making a suggestion again
+                                                    //in the same turn
+                                                    if (state.getPlayerInSuggestion() == state.getPlayerIDWhoSuggested())
+                                                    {
+                                                        state.setNewToRoom(state.getPlayerInSuggestion(), false);
+                                                    }
+                                                    else
+                                                    {
+                                                        state.setNewToRoom(state.getPlayerInSuggestion(), true);
+                                                    }
                                                 }
                                                 break loop1;
                                             }
@@ -606,17 +651,20 @@ public class ClueLocalGame extends LocalGame
                              }
 
                             //Send a card to the player
-                            if (b.playerID == state.getNumPlayers() - 1)
+                            if (b.playerID == state.getNumPlayers() - 1) //If the player who suggested is the last player
                             {
+                                //Send the card to the player who suggested.
                                 state.setCheckCardToSend(0, true);
                             }
-                            else
+                            else //If the player who suggested is not the last player
                             {
+                                //Send the card to the player who suggested.
                                 state.setCheckCardToSend(b.playerID + 1, true);
                             }
 
-                            if (state.getTurnId() == (state.getNumPlayers() - 1))
+                            if (state.getTurnId() == (state.getNumPlayers() - 1)) //If the player who showed the card is the last player
                             {
+                                //Make it so that the player who showed the card can't move
                                 state.setCanRoll(0, false);
                                 state.setCanSuggest(0, false);
                                 state.setTurnID(0);
@@ -624,8 +672,9 @@ public class ClueLocalGame extends LocalGame
                                 state.setDieValue(0);
                                 return true;
                             }
-                            else
+                            else //If the player who showed the card is not the last player
                             {
+                                //Make it so that the player who showed the card can't move
                                 state.setCanRoll(state.getTurnId() + 1, false);
                                 state.setCanSuggest(state.getTurnId()+1,false);
                                 state.setTurnID(state.getTurnId() + 1);
@@ -646,15 +695,16 @@ public class ClueLocalGame extends LocalGame
                     boolean inCorner[] = state.getInCornerRoom(); //Get all of the players that are in a corner room
                     boolean usedPass[] = state.getUsedPassageway(); //Get all of the players that have used a passageway in this turn
 
-                    if (inCorner[curPlayerID] && !usedPass[curPlayerID])
+                    if (inCorner[curPlayerID] && !usedPass[curPlayerID]) //If the player is in a corner room and hasn't used a passageway
                     {
                         if (curBoard[x][y].getRoom() == LOUNGE) //If they are in the lounge, move them to the conservatory
                         {
                             Log.i("Got to lounge if", " ");
-                            state.setCanRoll(curPlayerID, false); //The player can no longer roll
-                            state.setUsedPassageway(curPlayerID, true); //The player can not use the passageway again since they already used it
-                            state.setSpacesMoved(1);
+                            //state.setCanRoll(curPlayerID, false); //The player can no longer roll
+                            //state.setUsedPassageway(curPlayerID, true); //The player can not use the passageway again since they already used it
+                            //state.setSpacesMoved(1);
 
+                            setStateVariablesSuggestion(curPlayerID, false, true);
                             setStateVariablesMove(curPlayerID, 22, 1+curPlayerID, x, y, true, false, true, true, true);
                             return true;
                         }
@@ -666,10 +716,11 @@ public class ClueLocalGame extends LocalGame
                                 sum = 24;
                             }
 
-                            state.setCanRoll(curPlayerID, false); //The player can no longer roll
-                            state.setUsedPassageway(curPlayerID, true); //The player can not use the passageway again since they already used it
-                            state.setSpacesMoved(1);
+//                            state.setCanRoll(curPlayerID, false); //The player can no longer roll
+//                            state.setUsedPassageway(curPlayerID, true); //The player can not use the passageway again since they already used it
+//                            state.setSpacesMoved(1);
 
+                            setStateVariablesSuggestion(curPlayerID, false, true);
                             setStateVariablesMove(curPlayerID, 2, sum, x, y, true, false, true, true, true);
                             return true;
                         }
@@ -681,19 +732,21 @@ public class ClueLocalGame extends LocalGame
                                 sum = 24;
                             }
 
-                            state.setCanRoll(curPlayerID, false); //The player can no longer roll
-                            state.setUsedPassageway(curPlayerID, true); //The player can not use the passageway again since they already used it
-                            state.setSpacesMoved(1);
+//                            state.setCanRoll(curPlayerID, false); //The player can no longer roll
+//                            state.setUsedPassageway(curPlayerID, true); //The player can not use the passageway again since they already used it
+//                            state.setSpacesMoved(1);
 
+                            setStateVariablesSuggestion(curPlayerID, false, true);
                             setStateVariablesMove(curPlayerID, 22, sum, x, y, true, false, true, true, true);
                             return true;
                         }
                         else if (curBoard[x][y].getRoom() == KITCHEN) //If the player is in the kitchen move them into the study
                         {
-                            state.setCanRoll(curPlayerID, false); //The player can no longer roll
-                            state.setUsedPassageway(curPlayerID, true); //The player can not use the passageway again since they already used it
-                            state.setSpacesMoved(1);
+//                            state.setCanRoll(curPlayerID, false); //The player can no longer roll
+//                            state.setUsedPassageway(curPlayerID, true); //The player can not use the passageway again since they already used it
+//                            state.setSpacesMoved(1);
 
+                            setStateVariablesSuggestion(curPlayerID, false, true);
                             setStateVariablesMove(curPlayerID, 3, 1+curPlayerID, x, y, true, false, true, true, true);
 
                             return true;
@@ -741,11 +794,7 @@ public class ClueLocalGame extends LocalGame
                         {
                             state.setCheckCardToSend(b.playerID, false);
                             state.setCheckCardToSend(0, true);
-                            state.setCanRoll(0, false);
-                            state.setCanSuggest(0,false);
-                            state.setSpacesMoved(0);
-                            state.setDieValue(0);
-                            state.setTurnID(0);
+                            setStateVariablesShowCard(0, 0, false, false);
                             return true;
                         }
                         else if(b.playerID == state.getNumPlayers() - 1 && state.getPlayerIDWhoSuggested() == 0)
@@ -763,26 +812,15 @@ public class ClueLocalGame extends LocalGame
 
                             //If no card was shown, no player showed it, so changed "Showed By" to an empty string
                             state.setPlayerWhoShowedCard(-1); //print empty string
-
                             state.setNewToRoom(state.getPlayerIDWhoSuggested(), false); //Once they've ended their turn, they are no longer new to a room.
-                            state.setCanRoll(state.getPlayerIDWhoSuggested(), false); //They can no longer roll
-                            state.setCanSuggest(state.getPlayerIDWhoSuggested(), false); //They can only suggest once per turn
-                            state.setSpacesMoved(0); //Resets num of spaces moves
-                            state.setDieValue(0); //Sets the die value back to 0
-                            state.setTurnID(state.getPlayerIDWhoSuggested()); //Resets the turn ID back to the player that suggested
-
+                            setStateVariablesShowCard(state.getPlayerIDWhoSuggested(), state.getPlayerIDWhoSuggested(), false, false);
                             return true;
-
                         }
                         else if(state.getPlayerIDWhoSuggested() != b.playerID + 1)
                         {
                             state.setCheckCardToSend(b.playerID, false);
                             state.setCheckCardToSend(b.playerID + 1, true);
-                            state.setCanRoll(b.playerID + 1, false);
-                            state.setCanSuggest(b.playerID + 1,false);
-                            state.setSpacesMoved(0);
-                            state.setDieValue(0);
-                            state.setTurnID(b.playerID+1);
+                            setStateVariablesShowCard(b.playerID+1, b.playerID+1, false, false);
                             return true;
                         }
                         else if(b.playerID == state.getPlayerIDWhoSuggested()-1)
@@ -800,13 +838,8 @@ public class ClueLocalGame extends LocalGame
 
                             //If no card was shown, no player showed it, so changed "Showed By" to an empty string
                             state.setPlayerWhoShowedCard(-1); //print empty string
-
                             state.setNewToRoom(state.getPlayerIDWhoSuggested(), false); //Once they've ended their turn, they are no longer new to a room.
-                            state.setCanRoll(state.getPlayerIDWhoSuggested(), false); //They can no longer roll
-                            state.setCanSuggest(state.getPlayerIDWhoSuggested(), false); //They can only suggest once per turn
-                            state.setSpacesMoved(0); //Resets num of spaces moves
-                            state.setDieValue(0); //Sets the die value back to 0
-                            state.setTurnID(b.playerID+1); //Sets the turn id to the next player
+                            setStateVariablesShowCard(state.getPlayerIDWhoSuggested(), b.playerID+1, false, false);
                             return true;
                         }
                     }
@@ -823,12 +856,7 @@ public class ClueLocalGame extends LocalGame
                         //Set the "Card:" to the card that was shown on the player who suggested screen
                         state.setCardToShow(b.getCardToShow(), state.getPlayerIDWhoSuggested());
                         state.setNewToRoom(state.getPlayerIDWhoSuggested(), false); //Once they've ended their turn, they are no longer new to a room.
-                        state.setCanRoll(state.getPlayerIDWhoSuggested(), false); //The player who suggested can no longer roll
-                        state.setCanSuggest(state.getPlayerIDWhoSuggested(), false); //The player who suggested can no longer suggest
-                        state.setSpacesMoved(0); //The spaces moved gets set back to 0
-                        state.setDieValue(0); //The die value gets set back to 0
-                        state.setTurnID(state.getPlayerIDWhoSuggested());
-
+                        setStateVariablesShowCard(state.getPlayerIDWhoSuggested(), state.getPlayerIDWhoSuggested(), false, false);
                         return true;
                     }
                     return false;
@@ -1017,5 +1045,36 @@ public class ClueLocalGame extends LocalGame
         state.setCanSuggest(playerID, canSuggest);
         state.setInRoom(playerID, inRoom);
     }
+
+    /**
+     * This method sets some variables in the state when a player makes a suggestion
+     * @param playerID Whose turn it is
+     * @param canRoll If a player can roll
+     * @param usedPassageway If a player used a passageway
+     */
+    public void setStateVariablesSuggestion(int playerID, boolean canRoll, boolean usedPassageway)
+    {
+        state.setCanRoll(playerID, canRoll); //The player can no longer roll
+        state.setUsedPassageway(playerID, usedPassageway); //The player can not use the passageway again since they already used it
+        state.setSpacesMoved(1);
+    }
+
+    /**
+     * This method sets some variables in the state when a player shows a card during a suggestion
+     * @param playerID PlayerID whose canRoll variable will be set
+     * @param playerTurnID The player whose turn it will be
+     * @param canRoll If a player can roll
+     * @param canSuggest If a player can suggest
+     */
+    public void setStateVariablesShowCard(int playerID, int playerTurnID, boolean canRoll, boolean canSuggest)
+    {
+        state.setCanRoll(playerID, canRoll); //Sets the canRoll variable in the state for a certain player
+        state.setCanSuggest(playerID, canSuggest); //Sets the canSuggest variable in the state for a certain player
+        state.setSpacesMoved(0); //Sets the spaces moved back to 0
+        state.setDieValue(0); //Sets the die value back to 0
+        state.setTurnID(playerTurnID); //Sets the turnID
+    }
+
+
 
 }
