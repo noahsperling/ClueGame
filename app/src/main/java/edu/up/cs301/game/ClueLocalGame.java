@@ -487,36 +487,6 @@ public class ClueLocalGame extends LocalGame
                         }
 
                         return true;
-
-
-//                        if (!state.getPlayerStillInGame(curPlayerID))
-//                        {
-//                            if (curPlayerID == 0)
-//                            {
-//                                state.getBoard().setPlayerOnBoard(1, 17, x, y, curPlayerID);
-//                            }
-//                            else if (curPlayerID == 1)
-//                            {
-//                                state.getBoard().setPlayerOnBoard(8, 24, x, y, curPlayerID);
-//                            }
-//                            else if (curPlayerID == 2)
-//                            {
-//                                state.getBoard().setPlayerOnBoard(25, 15, x, y, curPlayerID);
-//                            }
-//                            else if (curPlayerID == 3)
-//                            {
-//                                state.getBoard().setPlayerOnBoard(25, 10, x, y, curPlayerID);
-//                            }
-//                            else if (curPlayerID == 4)
-//                            {
-//                                state.getBoard().setPlayerOnBoard(19, 1, x, y, curPlayerID);
-//                            }
-//                            else
-//                            {
-//                                state.getBoard().setPlayerOnBoard(6, 1, x, y, curPlayerID);
-//                            }
-//                        }
-
                     }
                     else //The player won the game
                     {
@@ -700,10 +670,6 @@ public class ClueLocalGame extends LocalGame
                         if (curBoard[x][y].getRoom() == LOUNGE) //If they are in the lounge, move them to the conservatory
                         {
                             Log.i("Got to lounge if", " ");
-                            //state.setCanRoll(curPlayerID, false); //The player can no longer roll
-                            //state.setUsedPassageway(curPlayerID, true); //The player can not use the passageway again since they already used it
-                            //state.setSpacesMoved(1);
-
                             setStateVariablesSuggestion(curPlayerID, false, true);
                             setStateVariablesMove(curPlayerID, 22, 1+curPlayerID, x, y, true, false, true, true, true);
                             return true;
@@ -715,10 +681,6 @@ public class ClueLocalGame extends LocalGame
                             {
                                 sum = 24;
                             }
-
-//                            state.setCanRoll(curPlayerID, false); //The player can no longer roll
-//                            state.setUsedPassageway(curPlayerID, true); //The player can not use the passageway again since they already used it
-//                            state.setSpacesMoved(1);
 
                             setStateVariablesSuggestion(curPlayerID, false, true);
                             setStateVariablesMove(curPlayerID, 2, sum, x, y, true, false, true, true, true);
@@ -732,19 +694,12 @@ public class ClueLocalGame extends LocalGame
                                 sum = 24;
                             }
 
-//                            state.setCanRoll(curPlayerID, false); //The player can no longer roll
-//                            state.setUsedPassageway(curPlayerID, true); //The player can not use the passageway again since they already used it
-//                            state.setSpacesMoved(1);
-
                             setStateVariablesSuggestion(curPlayerID, false, true);
                             setStateVariablesMove(curPlayerID, 22, sum, x, y, true, false, true, true, true);
                             return true;
                         }
                         else if (curBoard[x][y].getRoom() == KITCHEN) //If the player is in the kitchen move them into the study
                         {
-//                            state.setCanRoll(curPlayerID, false); //The player can no longer roll
-//                            state.setUsedPassageway(curPlayerID, true); //The player can not use the passageway again since they already used it
-//                            state.setSpacesMoved(1);
 
                             setStateVariablesSuggestion(curPlayerID, false, true);
                             setStateVariablesMove(curPlayerID, 3, 1+curPlayerID, x, y, true, false, true, true, true);
