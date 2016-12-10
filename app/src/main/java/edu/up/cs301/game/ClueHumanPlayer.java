@@ -312,13 +312,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
             if(!recentState.getPlayerStillInGame(playerNum)) {
                 //the player is out of the game, so disable all non-essential GUI things
                 disableActionButtons();
-                endTurnButton.setEnabled(false);
-                rollButton.setEnabled(false);
-                upButton.setEnabled(false);
-                downButton.setEnabled(false);
-                leftButton.setEnabled(false);
-                rightButton.setEnabled(false);
-                secretPassagewayButton.setEnabled(false);
                 //disable and uncheck
                 disableAndUncheckSuggestAndAccuse();
                 //continue disabling
@@ -375,12 +368,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
                     disableAndUncheckSuggestAndAccuse();
                     submitButton.setEnabled(true); //Only true
                     cancelButton.setEnabled(false);
-                    endTurnButton.setEnabled(false);
-                    secretPassagewayButton.setEnabled(false);
-                    upButton.setEnabled(false);
-                    downButton.setEnabled(false);
-                    leftButton.setEnabled(false);
-                    rightButton.setEnabled(false);
+                    disableActionButtons();
                     roomSpinner.setEnabled(true);
                 }
                 //If the player does not need to show a card, let them continue regular gameplay with
@@ -426,9 +414,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
                 submitButton.setEnabled(false);
                 endTurnButton.setEnabled(false);
                 game.sendAction(new ClueEndTurnAction(this));
-                roomSpinner.setEnabled(false);
-                weaponSpinner.setEnabled(false);
-                suspectSpinner.setEnabled(false);
+                disableSpinners();
                 return;
             }
             //If it is not their turn and they are in the game, disable all GUI features
@@ -437,16 +423,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
                 disableAndUncheckSuggestAndAccuse();
                 submitButton.setEnabled(false);
                 cancelButton.setEnabled(false);
-                endTurnButton.setEnabled(false);
-                upButton.setEnabled(false);
-                downButton.setEnabled(false);
-                leftButton.setEnabled(false);
-                rightButton.setEnabled(false);
-                rollButton.setEnabled(false);
-                secretPassagewayButton.setEnabled(false);
-                roomSpinner.setEnabled(false);
-                weaponSpinner.setEnabled(false);
-                suspectSpinner.setEnabled(false);
+                disableActionButtons();
+                disableSpinners();
             }
 
             //Log.i("New to room = " + recentState.getNewToRoom(playerNum), " ");
@@ -482,6 +460,12 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
             //Updates the remaining moves a player has
             numberOfMovesLeft.setText(recentState.getDieValue() - recentState.getSpacesMoved() + "");
         }
+    }
+
+    private void disableSpinners() {
+        roomSpinner.setEnabled(false);
+        weaponSpinner.setEnabled(false);
+        suspectSpinner.setEnabled(false);
     }
 
     private void disableActionButtons() {
