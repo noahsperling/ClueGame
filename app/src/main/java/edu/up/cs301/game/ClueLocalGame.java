@@ -885,7 +885,7 @@ public class ClueLocalGame extends LocalGame
     {
         int numPlayersLeft = 0;
 
-        //Get the number of players left in the game
+        //Count the number of players left in the game
         for(int i = 0; i < state.getNumPlayers(); i++)
         {
             if(state.getPlayerStillInGame(i))
@@ -1000,11 +1000,11 @@ public class ClueLocalGame extends LocalGame
     {
         state.getBoard().setPlayerOnBoard(newX, newY, curX, curY, playerID); //Set the new position of the player and set the old position to -1.
         state.setSpacesMoved(state.getSpacesMoved() + 1); //Increment spaces moved by one
-        state.setUsedPassageway(playerID, usedPassageway);
-        state.setOnDoorTile(playerID, onDoor);
+        state.setUsedPassageway(playerID, usedPassageway); //Sets whether they used a passageway or not
+        state.setOnDoorTile(playerID, onDoor); //Sets whether they are on a door tile or not
         state.setNewToRoom(playerID, newToRoom); //Set the new to room in array to true.
-        state.setCanSuggest(playerID, canSuggest);
-        state.setInRoom(playerID, inRoom);
+        state.setCanSuggest(playerID, canSuggest); //Sets whether they can suggest or not
+        state.setInRoom(playerID, inRoom); //Sets whether they are in a room or not
     }
 
     /**
@@ -1017,7 +1017,7 @@ public class ClueLocalGame extends LocalGame
     {
         state.setCanRoll(playerID, canRoll); //The player can no longer roll
         state.setUsedPassageway(playerID, usedPassageway); //The player can not use the passageway again since they already used it
-        state.setSpacesMoved(1);
+        state.setSpacesMoved(1); //Sets the spaces moved to 1 so they can still move(within a room) after a suggestion has been made
     }
 
     /**
