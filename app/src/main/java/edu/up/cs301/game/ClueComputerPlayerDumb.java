@@ -36,14 +36,11 @@ public class ClueComputerPlayerDumb extends ClueComputerPlayer
     private int numTrue; //num of cards checked
     private boolean handChecked = false; //Used to know if the hand was checked or not
     private String lastCard = ""; //Used to know the last card checked
+    private static final int LEFT = 1, UP = 2, RIGHT = 3, DOWN = 4, USEPASSAGEWAY = 5;
 
     public ClueComputerPlayerDumb(String name)
     {
         super(name);
-        for(int i = 0; i < 21; i++)
-        {
-            checkbox[i] = false;
-        }
         numTrue = 0;
     }
 
@@ -95,13 +92,13 @@ public class ClueComputerPlayerDumb extends ClueComputerPlayer
                         cardNames[i] = tempCards[i].getName();
                     }
 
-                    for (int i = 0; i < 3; i++)
+                    for (String str: temp)
                     {
                         for (int j = 0; j < cardNames.length; j++)
                         {
-                            if (cardNames[j].equals(temp[i]))
+                            if (cardNames[j].equals(str))
                             {
-                                cards.add(temp[i]); //Add cards that can be shown
+                                cards.add(str); //Add cards that can be shown
                             }
                         }
                     }
@@ -127,13 +124,12 @@ public class ClueComputerPlayerDumb extends ClueComputerPlayer
                     Log.i("Computer Player"+ playerNum, "My Turn!");
 
                     //Get the number of boxes checked
-                    int num = 0;
-                    for (int i = 0; i < 21; i++) {
-                        if (checkbox[i]) {
-                            num++;
+                    numTrue = 0;
+                    for(boolean b: checkbox){
+                        if(b){
+                            numTrue++;
                         }
                     }
-                    numTrue = num;
 
                     if (myState.getCanRoll(this.playerNum))
                     { //If the AI needs to roll then roll
@@ -145,6 +141,7 @@ public class ClueComputerPlayerDumb extends ClueComputerPlayer
                     { //If the AI can make a suggestion then randomly make a suggestion
                         Random rand = new Random();
                         ClueSuggestionAction csa = new ClueSuggestionAction(this);
+
                         FindPlayerBoard:
                         for (int i = 0; i < 26; i++)
                         {
@@ -173,30 +170,23 @@ public class ClueComputerPlayerDumb extends ClueComputerPlayer
                         Log.i("Computer Player " + playerNum, "Moving " + move);
                         sleep(300); //Wait so the Human player can see where the AI is moving
 
-                        if (move == 1)
-                        { //Move Left
-                            game.sendAction(new ClueMoveLeftAction((this)));
-                            return;
-                        }
-                        else if (move == 2)
-                        { //Move Up
-                            game.sendAction(new ClueMoveUpAction((this)));
-                            return;
-                        }
-                        else if (move == 3)
-                        { //Move Right
-                            game.sendAction(new ClueMoveRightAction((this)));
-                            return;
-                        }
-                        else if (move == 4)
-                        { //Move Down
-                            game.sendAction(new ClueMoveDownAction(this));
-                            return;
-                        }
-                        else if (move == 5)
-                        { //Use Passageway
-                            game.sendAction(new ClueUsePassagewayAction(this));
-                            return;
+                        switch(move)
+                        {
+                            case LEFT:
+                                game.sendAction(new ClueMoveLeftAction((this)));
+                                return;
+                            case UP:
+                                game.sendAction(new ClueMoveUpAction((this)));
+                                return;
+                            case RIGHT:
+                                game.sendAction(new ClueMoveRightAction((this)));
+                                return;
+                            case DOWN:
+                                game.sendAction(new ClueMoveDownAction(this));
+                                return;
+                            case USEPASSAGEWAY:
+                                game.sendAction(new ClueUsePassagewayAction(this));
+                                return;
                         }
 
                         return;

@@ -7,13 +7,8 @@ import edu.up.cs301.game.infoMsg.GameInfo;
  */
 public class ClueComputerPlayer extends GameComputerPlayer implements CluePlayer{
 
-    private boolean checkBoxBool[];
-
     public ClueComputerPlayer(String name){
         super(name);
-
-        //Set boolean array to false initially!  When they are checked they will be set to true.
-        checkBoxBool = new boolean[21];
     }
 
     public int getPlayerID() {
@@ -24,14 +19,11 @@ public class ClueComputerPlayer extends GameComputerPlayer implements CluePlayer
         playerNum = newPlayerID;
     }
 
-    protected void receiveInfo(GameInfo info) {}
+    protected void receiveInfo(GameInfo info){}
 
-    public boolean[] getCheckBoxArray() {
-        boolean temp[] = new boolean[21];
-        for(int i = 0; i < 21; i++) {
-            temp[i] = checkBoxBool[i];
-        }
-        return temp;
+    public boolean[] getCheckBoxArray()
+    {
+        return new boolean[21];
     }
 
 }

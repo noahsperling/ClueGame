@@ -2,31 +2,13 @@
 <items version="2" >
 
     <item
-        is-multidex="true"
-        jar="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGameRedownload/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="22.0.1"
-        sha1="646b2ed451a52aa047cac74e2632a3056f1172f6">
-        <dex dex="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGameRedownload/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_f5fa1357d12366e289036e8ac0e48db27566873b/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGameRedownload/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="22.0.1"
-        sha1="5931367443a2105bf32275298fe90a9cd0442f95">
-        <dex dex="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGameRedownload/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_d896ac50ecea20a3341efa01d22e93711a7ad738/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/Paige/Library/Android/sdk/extras/android/m2repository/com/android/support/support-v4/18.0.0/support-v4-18.0.0.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\Langley\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-v4\18.0.0\support-v4-18.0.0.jar"
+        jumboMode="false"
         optimize="true"
         revision="22.0.1"
         sha1="44ec51e9d395a47aab135e5e1b556c0007442156">
-        <dex dex="/Users/Paige/Documents/UP 2016 - 2017/Object Oriented Design/ClueGameRedownload/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-v4-18.0.0_8e0fca08f5eb1515bf356cf9abc9298b18290ff6/classes.dex" />
+        <dex dex="C:\Users\Langley\Documents\Sophomore\Fall 2016\CS 301\Lecture\New\ClueGame\app\build\intermediates\pre-dexed\debug\support-v4-18.0.0_db0e286207f6ceee715419fb76e1237dcd6ee891.jar" />
     </item>
 
 </items>

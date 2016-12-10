@@ -21,8 +21,9 @@ public class Hand implements Serializable {
         if(h != null) {
             cards = new ArrayList<Card>(h.getArrayListLength());
             Card tempCards[] = h.getCards();
-            for (int i = 0; i < h.getArrayListLength(); i++) {
-                cards.add(tempCards[i]);
+
+            for (Card card: tempCards) {
+                cards.add(card);
             }
         }
     }
