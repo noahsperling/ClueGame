@@ -722,8 +722,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                             game.sendAction(c);
                             Log.i("Computer Player" + playerNum + " Moved", "Up");
                             return;
-                        }
-                        if (MoveOffDoor(curX, curY, DOWN)) { //Move Down
+                        } else if (MoveOffDoor(curX, curY, DOWN)) { //Move Down
                             ClueMoveDownAction c = new ClueMoveDownAction(this);
                             prevMov2 = prevMov1;
                             prevMov1 = c;
@@ -731,8 +730,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                             game.sendAction(c);
                             Log.i("Computer Player" + playerNum + " Moved", "Down");
                             return;
-                        }
-                        if (MoveOffDoor(curX, curY, LEFT)) { //Move Left
+                        }else if (MoveOffDoor(curX, curY, LEFT)) { //Move Left
                             ClueMoveLeftAction c = new ClueMoveLeftAction(this);
                             prevMov2 = prevMov1;
                             prevMov1 = c;
@@ -740,8 +738,7 @@ public class ClueComputerPlayerSmart extends ClueComputerPlayer {
                             game.sendAction(c);
                             Log.i("Computer Player" + playerNum + " Moved", "Left");
                             return;
-                        }
-                        if (MoveOffDoor(curX, curY, RIGHT)) { //Move Right
+                        }else if (MoveOffDoor(curX, curY, RIGHT)) { //Move Right
                             ClueMoveRightAction c = new ClueMoveRightAction(this);
                             prevMov2 = prevMov1;
                             prevMov1 = c;
