@@ -458,7 +458,16 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
             cardView.updateCards(recentState.getCards(playerNum));
             cardView.invalidate();
             //Updates the remaining moves a player has
-            numberOfMovesLeft.setText(recentState.getDieValue() - recentState.getSpacesMoved() + "");
+            if(recentState.getInRoom()[playerNum]){
+                if(recentState.getDieValue() - recentState.getSpacesMoved() == 0){
+                    numberOfMovesLeft.setText(0+"");
+                }else{
+                    numberOfMovesLeft.setText(1+"");
+                }
+
+            }else {
+                numberOfMovesLeft.setText(recentState.getDieValue() - recentState.getSpacesMoved() + "");
+            }
         }
     }
 
