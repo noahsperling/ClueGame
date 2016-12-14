@@ -181,6 +181,7 @@ public class Board implements Serializable
             }
         }
         board[7][6].setRightWall(true);
+        board[11][4].setBottomWall(false);
         board[11][6].setRightWall(true);
         for(int j=7;j<12;j++)
         { //Left Wall

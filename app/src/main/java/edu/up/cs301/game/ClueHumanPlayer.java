@@ -437,7 +437,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
 
             //If a player was in a room, was new to the room and the show card radio wasn't enabled,
             //then set the suggest to true
-            if (room[playerNum] && recentState.getNewToRoom(playerNum) && !showCardR.isEnabled() && recentState.getTurnId() == playerNum) {
+            if (room[playerNum] && recentState.getNewToRoom(playerNum) && !showCardR.isEnabled() && recentState.getTurnId() == playerNum && !(recentState.getOnDoorTile())[playerNum]) {
                 //Log.i("Got to suggest if", " ");
                 suggestR.setEnabled(true);
                 suggestR.setChecked(false);
