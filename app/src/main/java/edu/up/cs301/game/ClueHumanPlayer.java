@@ -59,6 +59,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
     private TextView message2TextView; //message view for the who showed the card
     private TextView suggestionTextView; //message view for what cards were in the suggestion
     private TextView playerTextView; //message view to display which character you are
+    private TextView turnTextView; //message view to display whose turn it currently is
     //Edit text for notes
     private EditText notesGUI;
     //Check Boxes
@@ -272,6 +273,10 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
         playerTextView = (TextView)myActivity.findViewById(R.id.playerTextView);
         playerTextView.setText("You are a human\n player with a \nundetermined name.");
 
+        //Text view that displays whose turn it currently is right below the messages
+        turnTextView = (TextView)myActivity.findViewById(R.id.turnTextView);
+        turnTextView.setText("");
+
         //Editable text box below the end turn button
         notesGUI = (EditText)myActivity.findViewById(R.id.editText);
         notesGUI.setOnClickListener(this);
@@ -432,7 +437,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
 
             //If a player was in a room, was new to the room and the show card radio wasn't enabled,
             //then set the suggest to true
-            if (room[playerNum] && recentState.getNewToRoom(playerNum) && !showCardR.isEnabled() && recentState.getTurnId() == playerNum && !(recentState.getOnDoorTile())[playerNum]) {
+            if (room[playerNum] && recentState.getNewToRoom(playerNum) && !showCardR.isEnabled() && recentState.getTurnId() == playerNum) {
                 //Log.i("Got to suggest if", " ");
                 suggestR.setEnabled(true);
                 suggestR.setChecked(false);
@@ -450,6 +455,29 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
             message2TextView.setText("Shown By: " + setPlayerWhoShowedCardName(recentState.getPlayerWhoShowedCard()));
             //Text view that gets the suggestion and displays it
             suggestionTextView.setText(setSuggestionText(recentState.getPlayerIDWhoSuggested()));
+            //Text view that gets the current player's ID and displays it
+
+            if (recentState.getTurnId() == 0) {
+                turnTextView.setText("Turn: Miss Scarlet");
+            }
+            else if (recentState.getTurnId() == 1) {
+                turnTextView.setText("Turn: Col. Mustard");
+            }
+            else if (recentState.getTurnId() == 2) {
+                turnTextView.setText("Turn: Mrs. White");
+            }
+            else if (recentState.getTurnId() == 3) {
+                turnTextView.setText("Turn: Mr. Green");
+            }
+            else if (recentState.getTurnId() == 4) {
+                turnTextView.setText("Turn: Mrs. Peacock");
+            }
+            else if (recentState.getTurnId() == 5) {
+                turnTextView.setText("Turn: Prof. Plum");
+            }
+            else {
+                turnTextView.setText("Turn: ");
+            }
 
             //updates the board
             boardView.updateBoard(recentState.getBoard());
@@ -458,16 +486,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
             cardView.updateCards(recentState.getCards(playerNum));
             cardView.invalidate();
             //Updates the remaining moves a player has
-            if(recentState.getInRoom()[playerNum]){
-                if(recentState.getDieValue() - recentState.getSpacesMoved() == 0){
-                    numberOfMovesLeft.setText(0+"");
-                }else{
-                    numberOfMovesLeft.setText(1+"");
-                }
-
-            }else {
-                numberOfMovesLeft.setText(recentState.getDieValue() - recentState.getSpacesMoved() + "");
-            }
+            numberOfMovesLeft.setText(recentState.getDieValue() - recentState.getSpacesMoved() + "");
         }
     }
 
