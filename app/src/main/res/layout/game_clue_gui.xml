@@ -213,6 +213,13 @@
                             android:layout_weight="1" />
 
                         <TextView
+                            android:text="Turn: "
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/turnTextView"
+                            android:layout_weight="1" />
+
+                        <TextView
                             android:text="Messages:"
                             android:layout_width="match_parent"
                             android:id="@+id/messageTextView"
