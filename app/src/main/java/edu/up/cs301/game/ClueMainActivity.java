@@ -59,7 +59,7 @@ public class ClueMainActivity extends GameMainActivity {
         //Add default players with their player name and type
         defaultConfig.addPlayer("Human", 0);
         defaultConfig.addPlayer("Dumb Computer", 1);
-        defaultConfig.addPlayer("Smart Computer", 1);
+        defaultConfig.addPlayer("Smart Computer", 2);
 
         //Set the remote data with the remote player as a type 0 player
         defaultConfig.setRemoteData("Remote Player", "", 0);
