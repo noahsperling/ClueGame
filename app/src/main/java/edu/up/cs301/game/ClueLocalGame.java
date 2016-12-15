@@ -738,8 +738,10 @@ public class ClueLocalGame extends LocalGame
 
                         return endTurn(state);
                     }
-                    else if(players[curPlayerID] instanceof ClueComputerPlayerDumb)  //If it's a dumb computer player, make it so that they end their turn properly
-                    {
+                    else if(curBoard[x][y].getIsDoor()) {
+                        onDoorTile(moveAction);
+                        return  endTurn(state);
+                    }else if(players[curPlayerID] instanceof ClueComputerPlayerDumb){  //If it's a dumb computer player, make it so that they end their turn properly
                         state.setSpacesMoved(state.getSpacesMoved()-1); //Keep moving till no moves left
                         return false;
                     }
@@ -1036,6 +1038,41 @@ public class ClueLocalGame extends LocalGame
         state.setTurnID(playerTurnID); //Sets the turnID
     }
 
+    private void onDoorTile(ClueMoveAction b) {
+        int currentX = 1;
+        int currentY = 1;
+        String moveToRoom = " ";
 
+        //Find the room to place the player in and get the player who is in the suggestions position
+        theLoop:
+        for (int i = 0; i < 26; i++)
+        {
+            for (int j = 0; j < 26; j++)
+            {
+                if (state.getBoard().getPlayerBoard()[j][i] == b.playerID)
+                {
+                    currentX = i;
+                    currentY = j;
+                    moveToRoom = state.getBoard().getBoard()[j][i].getRoom().getName();
+                    break theLoop;
+                }
+            }
+        }
+
+
+        //Move the player
+        loop1:
+        for (int i = 0; i < 26; i++) {
+            for (int j = 0; j < 26; j++) {
+                //find first available tile in the room to place the player
+                if (state.getBoard().getBoard()[j][i] != null && state.getBoard().getBoard()[j][i].getRoom() != null && state.getBoard().getBoard()[j][i].getRoom().getName().equals(moveToRoom) && state.getBoard().getPlayerBoard()[j][i] == - 1 && !state.getBoard().getBoard()[j][i].getIsDoor())
+                {
+                    //Pulls the player that was included in the suggestion into the room where the suggestion was made
+                    state.getBoard().setPlayerOnBoard(j, i,currentY, currentX, b.playerID);
+                    break loop1;
+                }
+            }
+        }
+    }
 
 }
