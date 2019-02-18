@@ -69,9 +69,7 @@ public class ClueBoardView extends SurfaceView
         c.drawText(Card.HALL.getName(),adjustedX+(10f*Board.TILE_SIZE),adjustedY+(3*Board.TILE_SIZE),p);
         c.drawText(Card.LOUNGE.getName(),adjustedX+(17*Board.TILE_SIZE),adjustedY+(3*Board.TILE_SIZE),p);
         c.drawText(Card.LIBRARY.getName(),adjustedX+(2*Board.TILE_SIZE),adjustedY+(8*Board.TILE_SIZE),p);
-        String s = Card.BILLIARD_ROOM.getName();
         c.drawText(Card.BILLIARD_ROOM.getName(),adjustedX+(Board.TILE_SIZE),adjustedY+(14*Board.TILE_SIZE),p);
-
         c.drawText(Card.CONSERVATORY.getName(),adjustedX+(Board.TILE_SIZE/2),adjustedY+(21*Board.TILE_SIZE),p);
         c.drawText(Card.BALLROOM.getName(),adjustedX+(9*Board.TILE_SIZE),adjustedY+(20*Board.TILE_SIZE),p);
         c.drawText(Card.KITCHEN.getName(), (float) (adjustedX+(19*Board.TILE_SIZE)),adjustedY+(20.5f*Board.TILE_SIZE),p);
