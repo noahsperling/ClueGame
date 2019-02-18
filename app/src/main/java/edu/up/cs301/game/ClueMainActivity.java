@@ -53,6 +53,7 @@ public class ClueMainActivity extends GameMainActivity {
             }
         });
 
+
         // Default Game config is created, taking in the playerTypes  minimum (3) players, maximum (6) players, and port number
         GameConfig defaultConfig = new GameConfig(playerTypes, 3, 6, "Clue", PORT_NUMBER);
 
