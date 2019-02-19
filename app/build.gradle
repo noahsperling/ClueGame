@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 18
+    compileSdkVersion 26
     buildToolsVersion "22.0.1"
     defaultConfig {
         applicationId "edu.up.cs301.game"
         minSdkVersion 16
-        targetSdkVersion 21
+        targetSdkVersion 26
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_5
             targetCompatibility JavaVersion.VERSION_1_5
@@ -23,6 +23,6 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:18.0.0'
+    compile 'com.android.support:support-v4:26.0.0'
     testCompile 'junit:junit:4.+'
 }
