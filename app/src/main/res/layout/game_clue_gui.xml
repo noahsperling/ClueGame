@@ -3,41 +3,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:id="@+id/overallLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="1"
-        android:id="@+id/overallLayout">
+        android:orientation="horizontal"
+        android:weightSum="1">
 
         <LinearLayout
-            android:orientation="vertical"
+            android:id="@+id/turnActionLayout"
             android:layout_width="714dp"
             android:layout_height="match_parent"
-            android:weightSum="1"
-            android:id="@+id/turnActionLayout"
-            android:layout_weight="1.01">
+            android:layout_weight="1.01"
+            android:orientation="vertical"
+            android:weightSum="1">
 
             <LinearLayout
-                android:orientation="vertical"
+                android:id="@+id/boardLayout"
                 android:layout_width="match_parent"
                 android:layout_height="505dp"
-                android:id="@+id/boardLayout">
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:orientation="horizontal"
+                    android:id="@+id/displayView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/displayView">
+                    android:orientation="horizontal">
 
                     <LinearLayout
-                        android:orientation="horizontal"
+                        android:id="@+id/rollAndSpinnerView"
+                        android:layout_width="195dp"
                         android:layout_height="match_parent"
                         android:background="#d1d1d1"
-                        android:id="@+id/rollAndSpinnerView"
-                        android:layout_width="195dp">
+                        android:orientation="horizontal">
 
                         <GridLayout
                             android:layout_width="match_parent"
@@ -45,237 +45,238 @@
 
 
                             <Button
-                                android:text="ROLL"
-                                android:layout_width="match_parent"
                                 android:id="@+id/rollButton"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_row="0"
                                 android:layout_column="0"
-                                android:layout_marginTop="5dp" />
+                                android:layout_marginTop="5dp"
+                                android:text="ROLL" />
 
                             <Space
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:layout_weight="1"
                                 android:layout_row="1"
-                                android:layout_column="0" />
+                                android:layout_column="0"
+                                android:layout_weight="1" />
 
                             <RadioButton
-                                android:text="Suggest"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
                                 android:id="@+id/radioSuggestButton"
-                                android:layout_weight="1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_row="2"
-                                android:layout_column="0" />
+                                android:layout_column="0"
+                                android:layout_weight="1"
+                                android:text="Suggest" />
 
                             <RadioButton
-                                android:text="Accuse"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
                                 android:id="@+id/radioAccuseButton"
-                                android:layout_weight="1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_row="3"
-                                android:layout_column="0" />
+                                android:layout_column="0"
+                                android:layout_weight="1"
+                                android:text="Accuse" />
 
                             <RadioButton
-                                android:text="Show Card"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
                                 android:id="@+id/radioShowCardButton"
-                                android:layout_weight="1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_row="4"
-                                android:layout_column="0" />
+                                android:layout_column="0"
+                                android:layout_weight="1"
+                                android:text="Show Card" />
 
                             <Space
                                 android:layout_width="match_parent"
                                 android:layout_height="5dp"
-                                android:layout_weight="1"
                                 android:layout_row="5"
-                                android:layout_column="0" />
+                                android:layout_column="0"
+                                android:layout_weight="1" />
 
                             <TextView
-                                android:text="Room:"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
                                 android:id="@+id/roomSpinnerTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_row="6"
-                                android:layout_column="0" />
+                                android:layout_column="0"
+                                android:text="Room:" />
 
                             <Spinner
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
                                 android:id="@+id/roomSpinner"
-                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_row="7"
-                                android:layout_column="0" />
+                                android:layout_column="0"
+                                android:layout_weight="1" />
 
                             <Space
                                 android:layout_width="match_parent"
                                 android:layout_height="5dp"
-                                android:layout_weight="1"
                                 android:layout_row="8"
-                                android:layout_column="0" />
+                                android:layout_column="0"
+                                android:layout_weight="1" />
 
                             <TextView
-                                android:text="Weapon:"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
                                 android:id="@+id/weaponSpinnerTextView"
-                                android:layout_row="9"
-                                android:layout_column="0" />
-
-                            <Spinner
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/weaponSpinner"
-                                android:layout_weight="1"
-                                android:layout_row="10"
-                                android:layout_column="0" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="5dp"
-                                android:layout_weight="1"
-                                android:layout_row="11"
-                                android:layout_column="0" />
-
-                            <TextView
-                                android:text="Suspect:"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/suspectSpinnerTextView"
-                                android:layout_row="12"
-                                android:layout_column="0" />
+                                android:layout_row="9"
+                                android:layout_column="0"
+                                android:text="Weapon:" />
 
                             <Spinner
+                                android:id="@+id/weaponSpinner"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/suspectSpinner"
-                                android:layout_weight="1"
-                                android:layout_row="13"
-                                android:layout_column="0" />
+                                android:layout_row="10"
+                                android:layout_column="0"
+                                android:layout_weight="1" />
 
                             <Space
                                 android:layout_width="match_parent"
                                 android:layout_height="5dp"
-                                android:layout_weight="1"
+                                android:layout_row="11"
+                                android:layout_column="0"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:id="@+id/suspectSpinnerTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_row="12"
+                                android:layout_column="0"
+                                android:text="Suspect:" />
+
+                            <Spinner
+                                android:id="@+id/suspectSpinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_row="13"
+                                android:layout_column="0"
+                                android:layout_weight="1" />
+
+                            <Space
+                                android:layout_width="match_parent"
+                                android:layout_height="5dp"
                                 android:layout_row="14"
-                                android:layout_column="0" />
+                                android:layout_column="0"
+                                android:layout_weight="1" />
 
                             <Button
-                                android:text="CANCEL"
-                                android:layout_width="wrap_content"
                                 android:id="@+id/cancelButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
                                 android:layout_row="15"
                                 android:layout_column="0"
                                 android:layout_marginLeft="43dp"
-                                android:layout_height="40dp" />
+                                android:text="CANCEL" />
 
                             <Button
-                                android:text="SUBMIT"
-                                android:layout_width="wrap_content"
                                 android:id="@+id/submitButton"
+                                android:layout_width="wrap_content"
                                 android:layout_height="40dp"
                                 android:layout_row="16"
                                 android:layout_column="0"
-                                android:layout_marginLeft="45dp"/>
+                                android:layout_marginLeft="45dp"
+                                android:text="SUBMIT" />
 
 
                         </GridLayout>
                     </LinearLayout>
 
                     <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
+                        android:layout_width="700dp"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
                         <edu.up.cs301.game.ClueBoardView
-                            android:layout_height="match_parent"
                             android:id="@+id/boardView"
-                            android:layout_weight="0.01"
-                            android:layout_width="500dp" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.01" />
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:orientation="vertical"
+                        android:id="@+id/PlayerMessages"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#d1d1d1"
-                        android:layout_width="195dp">
+                        android:orientation="vertical">
 
                         <TextView
-                            android:text="Messages:"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:id="@+id/messageStaticTextView"
-                            android:textSize="17sp"
-                            android:layout_weight="1" />
+                            android:layout_width="195dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Messages:"
+                            android:textSize="17sp" />
 
                         <TextView
-                            android:text="Turn: "
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             android:id="@+id/turnTextView"
-                            android:layout_weight="1" />
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Turn: " />
 
                         <TextView
-                            android:text="Messages:"
-                            android:layout_width="match_parent"
                             android:id="@+id/messageTextView"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:layout_weight="1" />
-
-                        <TextView
+                            android:layout_weight="1"
                             android:text="Messages:"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/message2TextView"
-                            android:textSize="15sp"
-                            android:layout_weight="1" />
+                            android:textSize="16sp" />
 
                         <TextView
-                            android:text="Suggestion:"
+                            android:id="@+id/message2TextView"
                             android:layout_width="match_parent"
-                            android:id="@+id/suggestionTextView"
-                            android:layout_weight="1"
-                            android:textSize="15sp"
-                            android:layout_height="75dp" />
-
-                        <Button
-                            android:text="SECRET PASSAGEWAY"
-                            android:layout_width="match_parent"
-                            android:id="@+id/secretPassagewayButton"
-                            android:textSize="15sp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:layout_weight="1"
+                            android:text="Messages:"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/suggestionTextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="75dp"
+                            android:layout_weight="1"
+                            android:text="Suggestion:"
+                            android:textSize="15sp" />
 
                         <Button
-                            android:text="END TURN"
+                            android:id="@+id/secretPassagewayButton"
                             android:layout_width="match_parent"
-                            android:id="@+id/endTurnButton"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:text="SECRET PASSAGEWAY"
+                            android:textSize="15sp" />
+
+                        <Button
+                            android:id="@+id/endTurnButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_row="14"
                             android:layout_column="0"
-                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="END TURN"
                             android:textSize="14sp" />
 
                         <TextView
-                            android:text="Notes:"
+                            android:id="@+id/textView2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/textView2"
-                            android:layout_weight="1" />
+                            android:layout_weight="1"
+                            android:text="Notes:" />
 
                         <EditText
-                            android:layout_width="match_parent"
-                            android:inputType="textMultiLine"
-                            android:ems="2"
                             android:id="@+id/editText"
-                            android:gravity="top"
+                            android:layout_width="match_parent"
                             android:layout_height="250dp"
-                            android:layout_weight="3" />
+                            android:layout_weight="3"
+                            android:ems="2"
+                            android:gravity="top"
+                            android:inputType="textMultiLine" />
 
                     </LinearLayout>
 
@@ -284,443 +285,442 @@
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="horizontal"
+                android:id="@+id/playerInteractionView"
                 android:layout_width="match_parent"
                 android:layout_height="134dp"
-                android:id="@+id/playerInteractionView"
+                android:orientation="horizontal"
                 android:weightSum="1"
                 tools:layout_width="match_parent">
 
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_height="match_parent"
-                    android:weightSum="1"
+                    android:id="@+id/moveLayout"
                     android:layout_width="225dp"
-                    android:id="@+id/moveLayout">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1">
 
                     <GridLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:text="MOVES:"
+                            android:id="@+id/movesTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/movesTextView"
                             android:layout_row="0"
-                            android:layout_column="0" />
+                            android:layout_column="0"
+                            android:text="MOVES:" />
 
                         <TextView
-                            android:text=" # "
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:id="@+id/numberOfMovesTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_row="0"
-                            android:layout_column="1" />
+                            android:layout_column="1"
+                            android:text=" # " />
 
                         <Button
-                            android:text="LEFT"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:id="@+id/leftButton"
-                            android:layout_row="3"
-                            android:layout_column="0" />
-
-                        <Button
-                            android:text="DOWN"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_row="3"
+                            android:layout_column="0"
+                            android:text="LEFT" />
+
+                        <Button
                             android:id="@+id/downButton"
-                            android:layout_row="3"
-                            android:layout_column="1" />
-
-                        <Button
-                            android:text="RIGHT"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_row="3"
+                            android:layout_column="1"
+                            android:text="DOWN" />
+
+                        <Button
                             android:id="@+id/rightButton"
-                            android:layout_row="3"
-                            android:layout_column="2" />
-
-                        <Button
-                            android:text="UP"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_row="3"
+                            android:layout_column="2"
+                            android:text="RIGHT" />
+
+                        <Button
                             android:id="@+id/upButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_row="2"
-                            android:layout_column="1" />
+                            android:layout_column="1"
+                            android:text="UP" />
 
                     </GridLayout>
 
                 </LinearLayout>
 
                 <edu.up.cs301.game.ClueCardView
-                    android:orientation="vertical"
+                    android:id="@+id/playerHandView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingLeft="250dp"
-                    android:id="@+id/playerHandView">
-                </edu.up.cs301.game.ClueCardView>
+                    android:orientation="vertical"
+                    android:paddingLeft="250dp"></edu.up.cs301.game.ClueCardView>
 
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_height="match_parent"
             android:id="@+id/noteLayout"
-            android:layout_width="wrap_content">
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="636dp">
 
                 <TextView
-                    android:text="You Are:"
+                    android:id="@+id/playerTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/playerTextView"
                     android:layout_row="0"
-                    android:layout_column="0" />
+                    android:layout_column="0"
+                    android:text="You Are:" />
 
                 <TextView
-                    android:text="SUSPECTS"
+                    android:id="@+id/suspectsTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
-                    android:id="@+id/suspectsTextView"
                     android:layout_row="1"
-                    android:layout_column="0" />
+                    android:layout_column="0"
+                    android:text="SUSPECTS" />
 
                 <TextView
+                    android:id="@+id/mustardTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/mustardTextView"
                     android:layout_row="3"
                     android:layout_column="0"
                     android:text="Colonel Mustard" />
 
                 <TextView
-                    android:text="Professor Plum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/plumTextVIew"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_row="5"
-                    android:layout_column="0" />
+                    android:layout_column="0"
+                    android:text="Professor Plum" />
 
                 <TextView
-                    android:text="Mr. Green"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/mrGreenTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_row="2"
-                    android:layout_column="0" />
+                    android:layout_column="0"
+                    android:text="Mr. Green" />
 
                 <TextView
-                    android:text="Mrs. Peacock"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/mrsPeacockTextVIew"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_row="4"
-                    android:layout_column="0" />
+                    android:layout_column="0"
+                    android:text="Mrs. Peacock" />
 
                 <TextView
-                    android:text="Miss Scarlet"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/missScarletTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_row="6"
-                    android:layout_column="0" />
+                    android:layout_column="0"
+                    android:text="Miss Scarlet" />
 
                 <TextView
-                    android:text="Mrs. White"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
                     android:id="@+id/mrsWhiteTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
                     android:layout_row="7"
-                    android:layout_column="0" />
+                    android:layout_column="0"
+                    android:text="Mrs. White" />
 
                 <TextView
-                    android:text="WEAPONS"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
                     android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
                     android:layout_row="8"
-                    android:layout_column="0" />
+                    android:layout_column="0"
+                    android:text="WEAPONS" />
 
                 <TextView
-                    android:text="Knife"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/knifeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_row="10"
-                    android:layout_column="0" />
+                    android:layout_column="0"
+                    android:text="Knife" />
 
                 <TextView
-                    android:text="Candlestick"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/candlestickTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_row="9"
-                    android:layout_column="0" />
+                    android:layout_column="0"
+                    android:text="Candlestick" />
 
                 <TextView
-                    android:text="Revolver"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/revolverTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_row="12"
-                    android:layout_column="0" />
+                    android:layout_column="0"
+                    android:text="Revolver" />
 
                 <TextView
-                    android:text="Rope"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/ropeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_row="13"
-                    android:layout_column="0" />
+                    android:layout_column="0"
+                    android:text="Rope" />
 
                 <TextView
-                    android:text="Lead Pipe"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/leadPipeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_row="11"
-                    android:layout_column="0" />
+                    android:layout_column="0"
+                    android:text="Lead Pipe" />
 
                 <TextView
-                    android:text="Wrench"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
                     android:id="@+id/wrenchTextview"
-                    android:layout_row="14"
-                    android:layout_column="0" />
-
-                <TextView
-                    android:text="ROOMS"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
+                    android:layout_row="14"
+                    android:layout_column="0"
+                    android:text="Wrench" />
+
+                <TextView
                     android:id="@+id/roomsTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
                     android:layout_row="15"
-                    android:layout_column="0" />
+                    android:layout_column="0"
+                    android:text="ROOMS" />
 
                 <TextView
-                    android:text="Hall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/hallTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_row="20"
-                    android:layout_column="0" />
+                    android:layout_column="0"
+                    android:text="Hall" />
 
                 <TextView
-                    android:text="Lounge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/loungeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_row="23"
-                    android:layout_column="0" />
+                    android:layout_column="0"
+                    android:text="Lounge" />
 
                 <TextView
-                    android:text="Ballroom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/ballRoomTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_row="16"
-                    android:layout_column="0" />
+                    android:layout_column="0"
+                    android:text="Ballroom" />
 
                 <TextView
-                    android:text="Kitchen"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/kitchenTextView"
-                    android:layout_row="21"
-                    android:layout_column="0" />
-
-                <TextView
-                    android:text="Conservatory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/conservatoryTextView"
-                    android:layout_row="18"
-                    android:layout_column="0" />
+                    android:layout_row="21"
+                    android:layout_column="0"
+                    android:text="Kitchen" />
 
                 <TextView
-                    android:text="Study"
+                    android:id="@+id/conservatoryTextView"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="18"
+                    android:layout_column="0"
+                    android:text="Conservatory" />
+
+                <TextView
                     android:id="@+id/studyTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_row="24"
                     android:layout_column="0"
-                    android:layout_height="wrap_content" />
+                    android:text="Study" />
 
                 <TextView
-                    android:text="Billiard Room"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/billiardRoomTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_row="17"
-                    android:layout_column="0" />
+                    android:layout_column="0"
+                    android:text="Billiard Room" />
 
                 <TextView
-                    android:text="Dining Room"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/diningRoomTextView"
-                    android:layout_row="19"
-                    android:layout_column="0" />
-
-                <TextView
-                    android:text="Library"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_row="19"
+                    android:layout_column="0"
+                    android:text="Dining Room" />
+
+                <TextView
                     android:id="@+id/libraryTextView"
-                    android:layout_row="22"
-                    android:layout_column="0" />
-
-                <CheckBox
                     android:layout_width="wrap_content"
-                    android:id="@+id/profPlumCheckBox"
-                    android:layout_row="5"
-                    android:layout_column="1"
-                    android:layout_height="20dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_row="22"
+                    android:layout_column="0"
+                    android:text="Library" />
 
                 <CheckBox
+                    android:id="@+id/profPlumCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
+                    android:layout_row="5"
+                    android:layout_column="1" />
+
+                <CheckBox
                     android:id="@+id/mrGreenCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
                     android:layout_row="2"
                     android:layout_column="1" />
 
                 <CheckBox
+                    android:id="@+id/mrsPeacockCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:id="@+id/mrsPeacockCheckBox"
                     android:layout_row="4"
                     android:layout_column="1" />
 
                 <CheckBox
+                    android:id="@+id/missScarletCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:id="@+id/missScarletCheckBox"
                     android:layout_row="6"
                     android:layout_column="1" />
 
                 <CheckBox
+                    android:id="@+id/mrsWhiteCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:id="@+id/mrsWhiteCheckBox"
                     android:layout_row="7"
                     android:layout_column="1" />
 
                 <CheckBox
-                    android:layout_width="wrap_content"
                     android:id="@+id/knifeCheckBox"
-                    android:layout_row="10"
-                    android:layout_column="1"
-                    android:layout_height="20dp" />
-
-                <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
+                    android:layout_row="10"
+                    android:layout_column="1" />
+
+                <CheckBox
                     android:id="@+id/candlestickCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
                     android:layout_row="9"
                     android:layout_column="1" />
 
                 <CheckBox
+                    android:id="@+id/revolverCheckbox"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:id="@+id/revolverCheckbox"
                     android:layout_row="12"
                     android:layout_column="1" />
 
                 <CheckBox
+                    android:id="@+id/ropeCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:id="@+id/ropeCheckBox"
                     android:layout_row="13"
                     android:layout_column="1" />
 
                 <CheckBox
+                    android:id="@+id/leadPipeCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:id="@+id/leadPipeCheckBox"
                     android:layout_row="11"
                     android:layout_column="1" />
 
                 <CheckBox
+                    android:id="@+id/wrenchCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:id="@+id/wrenchCheckBox"
                     android:layout_row="14"
                     android:layout_column="1" />
 
                 <CheckBox
+                    android:id="@+id/hallCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:id="@+id/hallCheckBox"
                     android:layout_row="20"
                     android:layout_column="1" />
 
                 <CheckBox
+                    android:id="@+id/loungeCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:id="@+id/loungeCheckBox"
                     android:layout_row="23"
                     android:layout_column="1" />
 
                 <CheckBox
+                    android:id="@+id/ballRoomCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:id="@+id/ballRoomCheckBox"
                     android:layout_row="16"
                     android:layout_column="1" />
 
                 <CheckBox
+                    android:id="@+id/kitchenCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:id="@+id/kitchenCheckBox"
                     android:layout_row="21"
                     android:layout_column="1" />
 
                 <CheckBox
+                    android:id="@+id/conservatoryCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="19dp"
-                    android:id="@+id/conservatoryCheckBox"
                     android:layout_row="18"
                     android:layout_column="1" />
 
                 <CheckBox
+                    android:id="@+id/studyCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:id="@+id/studyCheckBox"
                     android:layout_row="24"
                     android:layout_column="1" />
 
                 <CheckBox
+                    android:id="@+id/billiardCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:id="@+id/billiardCheckBox"
                     android:layout_row="17"
                     android:layout_column="1" />
 
                 <CheckBox
+                    android:id="@+id/diningRoomCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:id="@+id/diningRoomCheckBox"
                     android:layout_row="19"
                     android:layout_column="1" />
 
                 <CheckBox
+                    android:id="@+id/libraryCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:id="@+id/libraryCheckBox"
                     android:layout_row="22"
                     android:layout_column="1" />
 
                 <CheckBox
-                    android:layout_width="wrap_content"
                     android:id="@+id/colMustardCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
                     android:layout_row="3"
-                    android:layout_column="1"
-                    android:layout_height="20dp" />
+                    android:layout_column="1" />
 
             </GridLayout>
 
