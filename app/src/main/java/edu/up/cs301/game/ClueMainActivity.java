@@ -35,19 +35,19 @@ public class ClueMainActivity extends GameMainActivity {
         Types of players declared: Human, dumb computer player and smart computer player
          */
         //Human player
-        playerTypes.add(new GamePlayerType("Human Player") {
+        playerTypes.add(new GamePlayerType(getString(R.string.Human_Player_Name)) {
             public GamePlayer createPlayer(String name) {
                 return new ClueHumanPlayer(name, R.layout.game_clue_gui);
             }
         });
         //Dumb Computer player
-        playerTypes.add(new GamePlayerType("Computer Player (dumb)") {
+        playerTypes.add(new GamePlayerType(getString(R.string.Computer_Dumb_Name)) {
             public GamePlayer createPlayer(String name) {
                 return new ClueComputerPlayerDumb(name);
             }
         });
         //Smart Computer Player
-        playerTypes.add(new GamePlayerType("Computer Player (smart)") {
+        playerTypes.add(new GamePlayerType(getString(R.string.Computer_Smart_Name)) {
             public GamePlayer createPlayer(String name) {
                 return new ClueComputerPlayerSmart(name);
             }
