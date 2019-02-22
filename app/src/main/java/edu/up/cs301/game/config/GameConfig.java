@@ -9,11 +9,13 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
 
 import edu.up.cs301.game.GameMainActivity;
 import edu.up.cs301.game.GamePlayer;
 import edu.up.cs301.game.ProxyPlayer;
+import edu.up.cs301.game.R;
 
 /**
  * GameConfig class
@@ -127,22 +129,22 @@ public class GameConfig {
 					  int maxPlayers, String gameName, int portNum) {
 		
 		// create an array to hold the available player types, including
-		// the "Network Player" that will be added
+		// the "WiFi Player" and the "Bluetooth Player" that will be added
 		int arrayLength = availTypes.size()+2;
 		GamePlayerType[] availArray = new GamePlayerType[arrayLength];
 		
 		// add the player types passed in to the constructor
 		availTypes.toArray(availArray);
 		
-		// Add the Internet Network player
-		availArray[arrayLength-2] = new GamePlayerType("Internet Player") {
+		// Add the Internet Network player to the available players list
+		availArray[arrayLength-2] = new GamePlayerType("WiFi Player"){
 			public GamePlayer createPlayer(String name) {
 				int portNum = getPortNum();
 				return new ProxyPlayer(portNum);
 			}
 		};
-		//Add the Bluetooth Network Player
-		availArray[arrayLength-1] = new GamePlayerType("Bluetooth Network Player") {
+		//Add the Bluetooth Network Player to the available players list
+		availArray[arrayLength-1] = new GamePlayerType("Bluetooth Player") {
 			@Override
 			public GamePlayer createPlayer(String name) {
 				//Returns NULL for now, will return a Bluetooth Network Player in the future
