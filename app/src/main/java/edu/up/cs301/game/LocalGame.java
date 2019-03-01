@@ -180,7 +180,9 @@ public abstract class LocalGame implements Game, Tickable {
 				int playerIdx = getPlayerIdx(mnis.getPlayer());
 				if (playerIdx >= 0 && playerNames[playerIdx] == null) {
 					playerNames[playerIdx] = mnis.getName(); // store player name
-					playerNameCount++;
+					synchronized (this){
+						playerNameCount++;
+					}
 				}
 
 				// If all players have told us their name, then move onto the next
@@ -209,7 +211,9 @@ public abstract class LocalGame implements Game, Tickable {
 				Log.i("LocalGame", "got 'ready' ("+playerNames[playerIdx]+")");
 				if (playerIdx >= 0 && !playersReady[playerIdx]) {
 					playersReady[playerIdx] = true;
-					playerReadyCount++;
+					synchronized (this) {
+						playerReadyCount++;
+					}
 				}
 
 				// if all players are ready, set the game stage to "during game", and
@@ -245,7 +249,9 @@ public abstract class LocalGame implements Game, Tickable {
 				int playerIdx = getPlayerIdx(action.getPlayer());
 				if (playerIdx >= 0 && !playersFinished[playerIdx]) {
 					playersFinished[playerIdx] = true;
-					playerFinishedCount++;
+					synchronized (this) {
+						playerFinishedCount++;
+					}
 				}
 			}
 		}
