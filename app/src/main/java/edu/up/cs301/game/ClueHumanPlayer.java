@@ -1,6 +1,7 @@
 package edu.up.cs301.game;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
