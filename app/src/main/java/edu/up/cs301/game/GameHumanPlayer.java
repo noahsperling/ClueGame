@@ -40,6 +40,7 @@ public abstract class GameHumanPlayer implements GamePlayer, Tickable {
 	protected String name; // my player's name
 	protected String[] allPlayerNames; // the names of all the player
 	private Handler myHandler; // my thread's handler
+	private Handler saveMe;
 	private GameMainActivity myActivity; // the current activity
 	private GameTimer myTimer = new GameTimer(this); // my player's timer
 	private boolean gameOver; // whether the game is over
@@ -61,6 +62,7 @@ public abstract class GameHumanPlayer implements GamePlayer, Tickable {
 
 		// get new handler for this thread
 		this.myHandler = new Handler();
+		this.saveMe = new Handler();
 	}
 
 	/**
@@ -206,7 +208,16 @@ public abstract class GameHumanPlayer implements GamePlayer, Tickable {
 
 		// post message to the handler
 		Log.d("sendInfo", "about to post");
-		myHandler.post(new MyRunnable(info));
+		myHandler.post(new MyRunnable(info, false));
+		Log.d("sendInfo", "done with post");
+	}
+
+	public void sendInfoInitial(GameInfo info) {
+		// wait until handler is there
+		while (saveMe == null) Thread.yield();
+		// post message to the handler
+		Log.d("sendInfo", "about to post");
+		saveMe.post(new MyRunnable(info, true));
 		Log.d("sendInfo", "done with post");
 	}
 
@@ -219,6 +230,8 @@ public abstract class GameHumanPlayer implements GamePlayer, Tickable {
 	public abstract void receiveInfo(GameInfo info);
 
 
+	public abstract void recieveInfoInitial(GameInfo info);
+
 	/**
 	 * Helper-class that runs the on the GUI's main thread when
 	 * there is a message to the player.
@@ -226,10 +239,12 @@ public abstract class GameHumanPlayer implements GamePlayer, Tickable {
 	private class MyRunnable implements Runnable {
 		// the message to send to the player
 		private GameInfo myInfo;
+		private Boolean isInitialState = false;
 
 		// constructor
-		public MyRunnable(GameInfo info) {
+		public MyRunnable(GameInfo info, boolean initial) {
 			myInfo = info;
+			isInitialState = initial;
 		}
 
 		// the run method, which is run in the main GUI thread
@@ -294,12 +309,22 @@ public abstract class GameHumanPlayer implements GamePlayer, Tickable {
 					timerTicked();
 				}
 				else {
-					receiveInfo(myInfo);
+						if(isInitialState){
+						recieveInfoInitial(myInfo);
+					}
+					else {
+						receiveInfo(myInfo);
+					}
 				}
 			}
 			else {
 				// pass the state on to the subclass
-				receiveInfo(myInfo);
+				if(isInitialState){
+					recieveInfoInitial(myInfo);
+				}
+				else {
+					receiveInfo(myInfo);
+				}
 			}
 		}
 	}

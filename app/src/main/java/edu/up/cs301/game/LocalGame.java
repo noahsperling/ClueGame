@@ -130,12 +130,32 @@ public abstract class LocalGame implements Game, Tickable {
 	protected abstract void sendUpdatedStateTo(GamePlayer p);
 
 	/**
+	 * Notify the players with the initial game state. This will send a GameInfo object to the player.
+	 *  If the game is not a perfect-information game
+	 *  this method should remove any information from the game that the player is not
+	 *  allowed to know.
+	 *
+	 * @param p
+	 * 			the player to notify
+	 */
+	protected abstract void sendUpdatedStateToInitial(GamePlayer p);
+
+	/**
 	 * Notify all players that the game's state has changed. Typically this simply
 	 * calls the 'notifyStateChanged' method for each player.
 	 */
 	protected final void sendAllUpdatedState() {
 		for (GamePlayer p : players) {
 			sendUpdatedStateTo(p);
+		}
+	}
+
+	/**
+	 * For sending the initial state to the players
+	 */
+	protected final void sendAllUpdatedStateInitial(){
+		for (GamePlayer p: players){
+			sendUpdatedStateToInitial(p);
 		}
 	}
 
@@ -222,7 +242,7 @@ public abstract class LocalGame implements Game, Tickable {
 					gameStage = GameStage.DURING_GAME;
 					Log.i("LocalGame", "broadcasting initial state");
 					// send each player the initial state of the game
-					sendAllUpdatedState();
+					sendAllUpdatedStateInitial();
 				}
 			}
 			else if (action instanceof TimerAction && gameStage == GameStage.DURING_GAME) {

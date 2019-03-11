@@ -880,6 +880,62 @@ public class ClueLocalGame extends LocalGame
 
     @Override
     /**
+     * This method will send an updated state to a specified player
+     * @param p GamePlayer the state is being sent to
+     */
+    public void sendUpdatedStateToInitial(GamePlayer p)
+    {
+        ClueState sendState = new ClueState(state);
+        if(p instanceof ClueHumanPlayer) //If the player is a human player
+        {
+            ClueHumanPlayer player = (ClueHumanPlayer)p;
+            int playerCount = sendState.getNumPlayers(); //get number of players
+            for(int i = 0; i < playerCount; i++)
+            {
+                if(i != player.getPlayerID()) //If the player the state is being sent to is not the current player
+                {
+                    sendState.setCards(i, null); //Set the cards in other players hands to null so the current player does not have access to them
+                }
+            }
+
+            ((ClueHumanPlayer) p).sendInfoInitial(sendState); //Send the state to the player
+        }
+        else if(p instanceof ClueComputerPlayerDumb)
+        {
+            ClueComputerPlayerDumb player = (ClueComputerPlayerDumb)p;
+            int playerCount = sendState.getNumPlayers(); //get number of players
+            for(int i = 0; i < playerCount; i++)
+            {
+                if(i != player.getPlayerID()) //If the player the state is being sent to is not the current player
+                {
+                    sendState.setCards(i, null); //Set the cards in other players hands to null so the current player does not have access to them
+                }
+            }
+
+            p.sendInfo(sendState); //Send the state to the player
+        }
+        else if(p instanceof ClueComputerPlayerSmart)
+        {
+            ClueComputerPlayerSmart player = (ClueComputerPlayerSmart)p;
+            int playerCount = sendState.getNumPlayers(); //get number of players
+            for(int i = 0; i < playerCount; i++)
+            {
+                if(i != player.getPlayerID()) //If the player the state is being sent to is not the current player
+                {
+                    sendState.setCards(i, null); //Set the cards in other players hands to null so the current player does not have access to them
+                }
+            }
+
+            p.sendInfo(sendState); //Send the state to the player
+        }
+    }
+
+
+
+
+
+    @Override
+    /**
      * This method will check if a player has won the game, either because they have made a
      * correct accusation or because they are the only player left in the game.
      */
