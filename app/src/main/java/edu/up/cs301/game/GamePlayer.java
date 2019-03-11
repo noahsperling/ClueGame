@@ -22,7 +22,9 @@ public interface GamePlayer {
 	
 	// sends a message to the player
 	public abstract void sendInfo(GameInfo info);
-	
+
+//	public abstract void sendInfoInitial(GameInfo info);
+
 	// start the player
 	public abstract void start();
 	
