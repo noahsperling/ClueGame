@@ -2,10 +2,9 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "22.0.1"
     defaultConfig {
         applicationId "edu.up.cs301.game"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 26
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_5
@@ -19,6 +18,10 @@ android {
         }
     }
     productFlavors {
+    }
+    compileOptions {
+        sourceCompatibility = '1.7'
+        targetCompatibility = '1.7'
     }
 }
 

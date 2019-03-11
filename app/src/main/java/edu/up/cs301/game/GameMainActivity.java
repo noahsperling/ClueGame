@@ -1,14 +1,37 @@
 package edu.up.cs301.game;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothGatt;
+import android.bluetooth.BluetoothGattCharacteristic;
+import android.bluetooth.BluetoothGattDescriptor;
+import android.bluetooth.BluetoothGattServer;
+import android.bluetooth.BluetoothGattServerCallback;
+import android.bluetooth.BluetoothManager;
+import android.bluetooth.BluetoothProfile;
+import android.bluetooth.le.AdvertiseCallback;
+import android.bluetooth.le.AdvertiseData;
+import android.bluetooth.le.AdvertiseSettings;
+import android.bluetooth.le.BluetoothLeAdvertiser;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.ParcelUuid;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -25,8 +48,13 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TabHost.TabSpec;
+import android.widget.Toast;
 import edu.up.cs301.game.config.GameConfig;
 import edu.up.cs301.game.config.GamePlayerType;
+import edu.up.cs301.game.util.BluetoothFragment;
+import edu.up.cs301.game.util.BluetoothLeService;
+import edu.up.cs301.game.util.DataTransferProfile;
+import edu.up.cs301.game.util.GattServer;
 import edu.up.cs301.game.util.IPCoder;
 import edu.up.cs301.game.util.MessageBox;
 
@@ -38,7 +66,8 @@ import edu.up.cs301.game.util.MessageBox;
  * 
  * @author Andrew M. Nuxoll
  * @author Steven R. Vegdahl
- * @date Version 2013
+ * @author Eric Imperio
+ * @date Version 2019
  */
 public abstract class GameMainActivity extends Activity implements
 View.OnClickListener {
@@ -79,6 +108,17 @@ View.OnClickListener {
 	// Each of these is initialized to point to various GUI controls
 	TableLayout playerTable = null;
 	ArrayList<TableRow> tableRows = new ArrayList<TableRow>();
+
+	//A Tag for logging
+	private static final String TAG = "GameMainActivity";
+
+	//For Remote Game Tab
+	//To Connect to the other Bluetooth
+	private TabHost tabHost;
+	private BluetoothFragment fragment;
+	protected GattServer gattServer;
+	protected BluetoothLeService bluetoothLeService;
+
 
 	/*
 	 * ====================================================================
@@ -126,6 +166,10 @@ View.OnClickListener {
 		return ProxyGame.create(portNum, hostName);
 	}
 
+	private BluetoothGame createBluetoothGame(GattServer gattServer, BluetoothLeService bluetoothLeService){
+		return BluetoothGame.create(gattServer,bluetoothLeService);
+	}
+
 	/*
 	 * ====================================================================
 	 * Public Methods
@@ -139,6 +183,33 @@ View.OnClickListener {
 	@Override
 	public final void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		//Checks if the device placed on has BLE support then
+		//BLE-related features can be selectively disabled.
+		if (!getPackageManager().hasSystemFeature(android.content.pm.PackageManager.FEATURE_BLUETOOTH_LE)) {
+			Log.i(TAG+":Start", "BLE Not Supported");
+			Toast.makeText(this, R.string.ble_not_supported, Toast.LENGTH_SHORT).show();
+			//finish();
+			//This application runs using a BLE connection
+			return;
+		}else {
+			//BLE features are supported
+			Log.i(TAG+":Start", "BLE Supported");
+		}
+
+		gattServer = new GattServer();
+		if(!gattServer.startGattServer(getApplicationContext())){ //Not sure if correct context
+			return;
+		}
+
+		//Making a Fragment for Bluetooth Device List
+		FragmentManager fragmentManager = getFragmentManager();
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		fragment = new BluetoothFragment();
+		fragmentTransaction.add(R.id.remoteTabLayout, fragment);
+		fragmentTransaction.commit();
+
+		bluetoothLeService = fragment.getBluetoothLeService();
 
 		// Initialize the layout
 		setContentView(R.layout.game_config_main);
@@ -301,8 +372,17 @@ View.OnClickListener {
 			}
 		}
 
+		Log.i(TAG, config.getIpCode().equals("")+"");
+		if(!config.isLocal() && config.getIpCode().equals("")){
+			game = createBluetoothGame(gattServer, bluetoothLeService);
+
+			if(game == null){
+				return "Could not find Bluetooth game";
+			}
+		}
+
 		// create the game if it's remote
-		if (!config.isLocal()) { // remote game
+		if (!config.isLocal() && !config.getIpCode().equals("")) { // remote game
 			game = createRemoteGame(config.getIpCode());
 			// verify we have a game
 			if (game == null) {
@@ -340,12 +420,12 @@ View.OnClickListener {
 	 */
 	protected void initTabs() {
 		// Setup the tabbed dialog on the layout and add the content of each tab
-		TabHost tabHost = (TabHost) findViewById(R.id.tabHost);
+		tabHost = (TabHost) findViewById(R.id.tabHost);
 		tabHost.setup();
 		TabSpec localTabSpec = tabHost.newTabSpec(localTabString());
 		localTabSpec.setContent(R.id.localGameTab);
 		localTabSpec.setIndicator(localTabString());
-		TabSpec remoteTabSpec = tabHost.newTabSpec(remoteTabString());
+		final TabSpec remoteTabSpec = tabHost.newTabSpec(remoteTabString());
 		remoteTabSpec.setContent(R.id.remoteGameTab);
 		remoteTabSpec.setIndicator(remoteTabString());
 		tabHost.addTab(localTabSpec);
@@ -353,6 +433,16 @@ View.OnClickListener {
 		
 		// make sure the current tab is the right one
 		tabHost.setCurrentTab(config.isLocal() ? 0 : 1);
+
+		tabHost.setOnTabChangedListener(new android.widget.TabHost.OnTabChangeListener(){
+
+			public void onTabChanged(String tabId) {
+				Log.i("Tab Changed", tabId);
+				if(remoteTabString().equals(tabId)) {
+					Log.i("Tab Switch", "remote");
+					fragment.scanLeDevice(true);
+				}
+			}});
 
 	}// initTabs
 
@@ -453,7 +543,8 @@ View.OnClickListener {
 		v.setOnClickListener(this);
 		v = findViewById(R.id.playGameButton);
 		v.setOnClickListener(this);
-
+		v = findViewById(R.id.bluetoothScanButton);
+		v.setOnClickListener(this);
 
 		String ipCode = IPCoder.encodeLocalIP();
 		String ipAddress = IPCoder.getLocalIpAddress();
@@ -475,8 +566,8 @@ View.OnClickListener {
 	 * NOTE: With the current layout it could either be a Button or ImageButton.
 	 */
 	public void onClick(View button) {
-		
-		Log.i("onClick", "just clicked");
+
+		Log.i(TAG, "just clicked " +button.toString());
 		
 		// if the GUI many not have been fully initialized, ignore
 		if (justStarted) {
@@ -504,7 +595,6 @@ View.OnClickListener {
 			}
 
 		}// else if (delete button)
-
 		//Save Config Button
 		else if (button.getId() == R.id.saveConfigButton) {
 			GameConfig configTemp = scrapeData();
@@ -515,7 +605,6 @@ View.OnClickListener {
 				MessageBox.popUpMessage(getString(R.string.Saved_Config_Error_Msg), this);
 			}
 		}
-
 		//Start Game Button
 		else if (button.getId() == R.id.playGameButton) {
 			String msg = startGame();
@@ -525,6 +614,14 @@ View.OnClickListener {
 			}
 
 		}
+		//Bluetooth Scan Button
+		else if(button.getId() == R.id.bluetoothScanButton){
+			/*mLeDeviceListAdapter.clear();
+			Log.i("Attempt to Scan","Attempt 1");*/
+			fragment.scanLeDevice(true);
+		}
+
+
 
 	}// onClick
 

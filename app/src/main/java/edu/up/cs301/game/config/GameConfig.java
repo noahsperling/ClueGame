@@ -12,10 +12,14 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
 
+import edu.up.cs301.game.BluetoothPlayer;
+import edu.up.cs301.game.Game;
 import edu.up.cs301.game.GameMainActivity;
 import edu.up.cs301.game.GamePlayer;
 import edu.up.cs301.game.ProxyPlayer;
 import edu.up.cs301.game.R;
+import edu.up.cs301.game.util.BluetoothLeService;
+import edu.up.cs301.game.util.GattServer;
 
 /**
  * GameConfig class
@@ -54,6 +58,8 @@ public class GameConfig {
 	 */
 	private GamePlayerType remoteSelType;
 
+	private GamePlayerType bluetoothSelType;
+
 	/**
 	 * if set to true, indicates the game will be run on the local computer
 	 * rather than connecting to a remote server
@@ -66,6 +72,8 @@ public class GameConfig {
 	 */
 	private String remoteName;
 
+	private String bluetoothName;
+
 	/**
 	 * if the player is connecting to a game running on a another device, this
 	 * string contains the IP address of that device
@@ -76,6 +84,10 @@ public class GameConfig {
 	 * the port number for connecting to another device over the network
 	 */
 	private int portNum;
+
+	private GattServer gattServer;
+
+	private BluetoothLeService bluetoothLeService;
 
 	/**
 	 * this specifies the minimum number of players required for a legal game.
@@ -126,7 +138,7 @@ public class GameConfig {
 	 * @param portNum
 	 */
 	public GameConfig(ArrayList<GamePlayerType> availTypes, int minPlayers,
-					  int maxPlayers, String gameName, int portNum) {
+					  int maxPlayers, String gameName, int portNum, GattServer gattServer, BluetoothLeService bluetoothLeService) {
 		
 		// create an array to hold the available player types, including
 		// the "WiFi Player" and the "Bluetooth Player" that will be added
@@ -145,15 +157,15 @@ public class GameConfig {
 		};
 		//Add the Bluetooth Network Player to the available players list
 		availArray[arrayLength-1] = new GamePlayerType("Bluetooth Player") {
-			@Override
 			public GamePlayer createPlayer(String name) {
-				//Returns NULL for now, will return a Bluetooth Network Player in the future
-				return null;
+				GattServer gattServer = getGattServer();
+				BluetoothLeService bluetoothLeService = getBluetoothLeService();
+				return new BluetoothPlayer(gattServer, bluetoothLeService);
 			}
 		};
 		
 		// perform the initialization of the object
-		initGameConfig(availArray, minPlayers, maxPlayers, gameName, portNum);
+		initGameConfig(availArray, minPlayers, maxPlayers, gameName, portNum, gattServer, bluetoothLeService);
 		
 	}// constructor
 
@@ -163,7 +175,7 @@ public class GameConfig {
 	 * 		the copy of the config
 	 */
 	public GameConfig copyWithoutPlayers() {
-		return new GameConfig(availTypes, minPlayers, maxPlayers, gameName, portNum);
+		return new GameConfig(availTypes, minPlayers, maxPlayers, gameName, portNum, gattServer, bluetoothLeService);
 	}// copyWithoutPlayers
 	
 	/**
@@ -183,14 +195,14 @@ public class GameConfig {
 	 * 		the port number used by this game for connecting over the network
 	 */
 	private GameConfig(GamePlayerType[] availTypes, int minPlayers,
-			int maxPlayers, String gameName, int portNum) {
+			int maxPlayers, String gameName, int portNum, GattServer gattServer, BluetoothLeService bluetoothLeService) {
 		
 		// perform the initialization of the object
-		initGameConfig(availTypes, minPlayers, maxPlayers, gameName, portNum);
+		initGameConfig(availTypes, minPlayers, maxPlayers, gameName, portNum, gattServer, bluetoothLeService);
 	}
 	
 	private void initGameConfig(GamePlayerType[] availTypes, int minPlayers,
-			int maxPlayers, String gameName, int portNum) {
+			int maxPlayers, String gameName, int portNum, GattServer gattServer, BluetoothLeService bluetoothLeService) {
 		
 		// initialize the instance variables from the parameters
 		this.availTypes = availTypes;
@@ -198,6 +210,8 @@ public class GameConfig {
 		this.maxPlayers = maxPlayers;
 		this.gameName = gameName;
 		this.portNum = portNum;
+		this.gattServer = gattServer;
+		this.bluetoothLeService = bluetoothLeService;
 
 		// default to a local game
 		this.isLocal = true;
@@ -207,6 +221,7 @@ public class GameConfig {
 		// - IP code: empty string
 		// - player type: the first one in the available-player list
 		setRemoteData("Guest", "", 0);
+		setBluetoothData("Bluetooth Guest", 1);
 
 		// by default, allow the user to modify the configuration
 		this.userModifiable = true;
@@ -229,7 +244,12 @@ public class GameConfig {
 		this.remoteName = playerName;
 		this.remoteSelType = availTypes[menuIndex];
 	}// setRemoteData
-	
+
+	public void setBluetoothData(String playerName, int menuIndex){
+		this.bluetoothName = playerName;
+		this.bluetoothSelType = availTypes[menuIndex];
+	}
+
 	/**
 	 * Saves this configuration data in a file so that it can be later reused. The
 	 * format used is a sequence of serialized objects:
@@ -268,6 +288,10 @@ public class GameConfig {
 			oos.writeObject(remoteName);
 			oos.writeObject(remoteSelType.getTypeName());
 			oos.writeObject(ipCode);
+
+			//write out player name, player type
+			oos.writeObject(bluetoothName);
+			oos.writeObject(bluetoothSelType.getTypeName());
 			
 			// write out the players' names
 			oos.writeObject(selNames);
@@ -315,12 +339,18 @@ public class GameConfig {
 			String nameTemp = ois.readObject().toString();
 			String typeNameTemp = ois.readObject().toString();
 			String ipTemp = ois.readObject().toString();
+			String bluetoothTemp = ois.readObject().toString();
+			String bluetoothTypeName = ois.readObject().toString();
 			
 			// map the player type name to the corresponding player type
 			GamePlayerType gpt = findPlayerType(typeNameTemp);
+			GamePlayerType bpt = findPlayerType(bluetoothTypeName);
 			if (gpt == null) {
 				// if could not map the name to a player type, there is an
 				// inconsistency; abort operation
+				return false;
+			}
+			if (bpt == null){
 				return false;
 			}
 			
@@ -366,6 +396,8 @@ public class GameConfig {
 			this.remoteName = nameTemp;
 			this.remoteSelType = gpt;
 			this.ipCode = ipTemp;
+			this.bluetoothName = bluetoothTemp;
+			this.bluetoothSelType = bpt;
 			this.selNames = selNamesTemp;
 			this.selTypes = selTypesTemp;
 			
@@ -444,6 +476,14 @@ public class GameConfig {
 	public int getPortNum() {
 		return portNum;
 	}// getPortNum
+
+	public GattServer getGattServer(){
+		return gattServer;
+	}
+
+	public BluetoothLeService getBluetoothLeService(){
+		return bluetoothLeService;
+	}
 
 	/**
 	 * addPlayer
