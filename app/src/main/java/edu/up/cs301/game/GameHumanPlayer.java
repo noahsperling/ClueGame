@@ -56,7 +56,6 @@ public abstract class GameHumanPlayer implements GamePlayer, Tickable {
 
 		this.name = name;
 
-
 		// mark game as not being over
 		this.gameOver = false;
 
