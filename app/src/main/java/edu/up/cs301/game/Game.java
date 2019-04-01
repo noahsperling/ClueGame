@@ -15,9 +15,6 @@ import edu.up.cs301.game.actionMsg.GameAction;
  */
 
 public interface Game {
-	//The game must know if it is in debug mode or not
-	boolean debug = false;
-
 	/**
 	 * starts the game
 	 * 

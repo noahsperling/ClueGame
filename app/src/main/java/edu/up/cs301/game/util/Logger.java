@@ -11,27 +11,17 @@ import android.widget.Toast;
  */
 public class Logger {
     //Switch for knowing if we are in debug mode or not. We assume by default we are not in debug mode
-    private boolean debug = false;
+    private static boolean debug = true;
+    //Toast only happens after the game starts
+    //TODO: Toast logging- all logging will toast only if the toasting is true
+    private static boolean toast = false;
     //Variables for the other types of logging available to students
     public static final int DEBUG = 0;
     public static final int WARN = 1;
     public static final int ERROR = 2;
     public static final int FAILURE = 3;
 
-    /**
-     * Constructor for the Logger.
-     * The logger must know whether or not the game is in debug mode in order to know to print log
-     * messages or not.
-     *
-     * @param debugMode
-     */
-    public Logger(boolean debugMode){
-        debug = debugMode;
-    }
-    //Default constructor just in case we are in a class that doesn't have the game
-    public Logger(){
 
-    }
     /**
      * This is for regular logging. All that needs to be passed in are the logging tag and the message
      * Example usage: log("In method of recieveMessage", "Got this far!");
@@ -39,8 +29,9 @@ public class Logger {
      * @param loggingTag
      * @param logMessage
      */
-    public void log(String loggingTag, String logMessage){
+    public static void log(String loggingTag, String logMessage){
         Log.i(loggingTag, logMessage);
+        //TODO: Put in the toast logging.
     }
 
     /**
@@ -56,22 +47,24 @@ public class Logger {
      * @param logMessage
      * @param logType
      */
-    public void log(String loggingTag, String logMessage, int logType){
+    public static void log(String loggingTag, String logMessage, int logType){
         switch (logType){
             //Debug logging
-            case 0:
-                Log.d(loggingTag, logMessage);
+            case DEBUG:
+                if(debug){
+                    Log.d(loggingTag, logMessage);
+                }
                 break;
             //Warning logging
-            case 1:
+            case WARN:
                 Log.w(loggingTag, logMessage);
                 break;
             //Error logging
-            case 2:
+            case ERROR:
                 Log.e(loggingTag, logMessage);
                 break;
             //Failure logging
-            case 3:
+            case FAILURE:
                 Log.wtf(loggingTag, logMessage);
                 break;
             //If something other than the three cases is passed in, use default logging
@@ -93,18 +86,11 @@ public class Logger {
      * @param loggingTag
      * @param logMessage
      */
-    public void debugLog(String loggingTag, String logMessage){
-        if (this.debug){
-            Log.i(loggingTag, logMessage);
+    public static void debugLog(String loggingTag, String logMessage){
+        if (debug){
+            Log.d(loggingTag, logMessage);
         }
 
         //If debug mode isn't selected, we won't do anything.
-    }
-
-    /**
-     * This is for logging with toast notifications. The messages will only appear if the toast mode
-     * checkbox is selected.
-     */
-    public void toast(){
     }
 }

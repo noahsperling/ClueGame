@@ -92,8 +92,7 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
     //Activity
     private Activity myActivity;
 
-    //Logger - for example
-    private Logger l = new Logger(game.debug);
+
 
     private int layoutID;
     private boolean notSent = false; //Suggestion boolean for the human player - either a suggestion was sent or not
@@ -294,9 +293,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
     public void receiveInfo(GameInfo info)
     {
         //Examples of logging
-        l.log("Test Logging", "Logging is awesome!");
-        l.log("Test Logging with Extra", "Logging is still awesome!", l.DEBUG);
-        l.debugLog("Debug Log!", "Just for testing!");
+        Logger.log("Test Logging", "Logging is awesome!");
+        Logger.log("Test Logging with Extra", "Logging is still awesome!", Logger.DEBUG);
+        Logger.debugLog("Debug Log!", "Just for testing!");
 
         //Assign and display the correct character for the human player if the name is not set already
         //This is displayed in the playerTextView
