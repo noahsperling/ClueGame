@@ -15,6 +15,8 @@ import java.awt.font.TextAttribute;
 //Used to Draw the Board and Players
 public class ClueBoardView extends SurfaceView
 {
+    //Tag for logging
+    private static final String TAG = "ClueBoardView";
     private Board board; //Board to draw
 
     public ClueBoardView(Context context, AttributeSet attributeSet)

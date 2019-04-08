@@ -10,7 +10,8 @@ import edu.up.cs301.game.GamePlayer;
  * @version July 2013
  */
 public class MyNameIsAction extends GameAction {
-	
+	//Tag for logging
+	private static final String TAG = "MyNameIsAction";
 	// to satisfy the Serializable interface
 	private static final long serialVersionUID = -4574617895412648866L;
 	

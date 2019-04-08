@@ -14,4 +14,6 @@ public enum Type implements Serializable {
 
     //Long used for network play
     private static final long serialVersionUID = 43586960432035435L;
+    //Tag for logging
+    private static final String TAG = "Type";
 }

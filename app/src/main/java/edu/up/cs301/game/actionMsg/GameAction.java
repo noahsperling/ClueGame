@@ -22,7 +22,8 @@ import edu.up.cs301.game.GamePlayer;
  * @version July 2013
  */
 public abstract class GameAction implements Serializable {
-	
+    //Tag for logging
+    private static final String TAG = "GameAction";
 	// to support the Serializable interface
 	private static final long serialVersionUID = 30672013L;
 

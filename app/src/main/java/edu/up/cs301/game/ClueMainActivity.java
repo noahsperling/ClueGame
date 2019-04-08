@@ -6,12 +6,15 @@ import java.util.ArrayList;
 
 import edu.up.cs301.game.config.GameConfig;
 import edu.up.cs301.game.config.GamePlayerType;
+import edu.up.cs301.game.util.Logger;
 
 /**
  * Created by Noah on 11/13/2016.
  */
 
 public class ClueMainActivity extends GameMainActivity {
+    //Tag for logging
+    private static final String TAG = "ClueMainActivity";
 
     public static final int PORT_NUMBER = 6732;
 

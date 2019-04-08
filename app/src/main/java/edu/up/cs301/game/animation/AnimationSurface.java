@@ -21,7 +21,8 @@ import android.view.View.OnTouchListener;
  * 
  */
 public class AnimationSurface extends SurfaceView implements OnTouchListener {
-
+	//Tag for logging
+	private static final String TAG = "AnimationSurface";
 	// instance variables
 	private Animator animator; // our animator
 	private AnimationThread animationThread = null; // thread to generate ticks

@@ -4,7 +4,7 @@ import edu.up.cs301.game.actionMsg.GameAction;
 import edu.up.cs301.game.infoMsg.BindGameInfo;
 import edu.up.cs301.game.infoMsg.GameInfo;
 import edu.up.cs301.game.util.NetworkObjectPasser;
-import android.util.Log;
+import edu.up.cs301.game.util.Logger;
 
 /**
  * A Player object that is used as a proxy for the real player that is on another
@@ -17,7 +17,9 @@ import android.util.Log;
  * @version July 2013
  */
 public class ProxyPlayer implements GamePlayer {
-    
+    //Tag for logging
+    private static final String TAG = "ProxyPlayer";
+
     // the game object
     private Game game;
     
@@ -37,7 +39,7 @@ public class ProxyPlayer implements GamePlayer {
      */
     public ProxyPlayer(int portNum) {
     	
-    	Log.i("ProxyPlayer", "creating Proxy Player");
+    	Logger.debugLog(TAG, "creating Proxy Player");
         
         // set instance variables to their initial values
         game = null; // the game

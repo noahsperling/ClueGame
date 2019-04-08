@@ -25,6 +25,8 @@ package edu.up.cs301.game.util;
  * @version July 2013
  */
 public class GameTimer {
+	//Tag for logging
+	private static final String TAG = "GameTimer";
 	// the game to send actions to
 	private Tickable target;
 
@@ -106,7 +108,8 @@ public class GameTimer {
 	 * MyTimer: A private inner-class that runs the timer-thread.
 	 */
 	private class MyTimer implements Runnable {
-
+		//Tag for logging
+		private static final String TAG = "MyTimer";
 		/**
 		 * The code that runs in the separate thread.
 		 */

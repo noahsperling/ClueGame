@@ -27,7 +27,9 @@ public abstract class NetworkObjectPasser {
 	/**
 	 * instance variables
 	 */
-	
+	//Instance variable for logging
+	private static final String TAG = "NetworkObjectPasser";
+
 	// a queue for collecting objects that "sent" to this object
 	// before the network connection is established
 	private Queue<Object> objQueue = new LinkedList<Object>();
@@ -114,8 +116,7 @@ public abstract class NetworkObjectPasser {
 		
 		// run-method, which runs in the separate thread
 		public void run() {
-			Log.i("NetworkObjectPasser", "starting run method at bottom");
-			
+			Logger.debugLog(TAG, "starting run method at bottom");
 			// the socket connection
 			Socket socket = null;
 			
@@ -123,8 +124,7 @@ public abstract class NetworkObjectPasser {
 			try {
 				if (ipAddress == null) {
 					// IP address is null, indicating that we are a server
-					Log.i("NetworkObjectPasser", "about to create server socket");
-					
+					Logger.debugLog(TAG, "about to create server socket");
 					// get (possibly creating) the server socket for this port
 					ServerSocket ss = ServerSocketMap.getServerSocket(port);
 					
@@ -132,19 +132,18 @@ public abstract class NetworkObjectPasser {
 					status = RunnerStatus.READY;
 					
 					// wait for a client to connect to us
-					Log.i("NetworkObjectPasser", "server attempt at port "+port);
+					Logger.debugLog(TAG, "server attempt at port " + port);
 					socket = ss.accept();
 					
 					// register that we are finished with the server socket
 					ServerSocketMap.release(port);
-					Log.i("NetworkObjectPasser", "server connect at port "+port);
-
+					Logger.debugLog(TAG, "server connect at port "+port);
 					// set our externally-visible status to be "ready"
 					ready = true;
 				}
 				else {
 					// create as client socket
-					Log.i("NetworkObjectPasser", "client attempt at port "+port);
+					Logger.debugLog(TAG, "client attempt at port "+port);
 
 					// set our internal status to be "ready"
 					status = RunnerStatus.READY;
@@ -154,12 +153,12 @@ public abstract class NetworkObjectPasser {
 					
 					// set out externally-visible status to be "ready"
 					ready = true;
-					Log.i("NetworkObjectPasser", "client connected at port "+port);
+					Logger.debugLog(TAG, "client connected at port "+port);
 				}
 			} catch (IOException e) {
 				// if we could not make the connection, set our status to "failed" and return
 				status = RunnerStatus.FAILED;
-				Log.d(e.getClass()+"", e.getMessage());
+				Logger.debugLog(e.getClass()+"", e.getMessage());
 				return;
 			}
 			
@@ -187,7 +186,7 @@ public abstract class NetworkObjectPasser {
 						out.writeObject(obj);
 						out.flush();
 					} catch (IOException e) {
-						Log.e("NetworkObjectPasser", "could not write object");
+						Logger.log(TAG, "could not write object", Logger.ERROR);
 					}
 				}
 			}
@@ -196,9 +195,9 @@ public abstract class NetworkObjectPasser {
 			// invoking the user's 'onReceiveObject' method on each object
 			for (;;) {
 				try {
-					Log.i("NetworkObjectPasser", "ready to read object");
+					Logger.debugLog(TAG, "ready to read object");
 					Object obj = in.readObject();
-					Log.i("NetworkObjectPasser", "object read ("+obj.getClass()+")");
+					Logger.debugLog(TAG, "object read ("+obj.getClass()+")");
 					onReceiveObject(obj);
 				}
 				catch (Exception x) {
@@ -248,7 +247,7 @@ public abstract class NetworkObjectPasser {
 						out.writeObject(obj);
 						success = true;
 					} catch (IOException e) {
-						Log.e("NetworkObjectPasser", "could not write object");
+						Logger.log(TAG, "could not write object", Logger.ERROR);
 					}
 				}
 				if (!success) {

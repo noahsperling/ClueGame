@@ -29,6 +29,7 @@ import static edu.up.cs301.game.Card.PROF_PLUM;
 import static edu.up.cs301.game.Card.STUDY;
 import static edu.up.cs301.game.Type.ROOM;
 import static edu.up.cs301.game.Type.WEAPON;
+import edu.up.cs301.game.util.Logger;
 
 /**
  * Created by Noah on 10/25/2016.
@@ -41,7 +42,8 @@ import static edu.up.cs301.game.Type.WEAPON;
 
 public class ClueLocalGame extends LocalGame
 {
-
+    //Tag for logging 
+    private static final String TAG = "ClueLocalGame";
     ClueMoveAction moveAction;
     ClueState state;
     private Random rand;
@@ -215,7 +217,7 @@ public class ClueLocalGame extends LocalGame
                                     {
                                         state.setOnDoorTile(curPlayerID, false);
                                     }
-                                    Log.i("New to room="+state.getNewToRoom(curPlayerID), " ");
+                                    Logger.log("New to room="+state.getNewToRoom(curPlayerID), " ");
                                     return true;
                                 }
                                 else //Otherwise they're moving to a hallway.
@@ -675,7 +677,7 @@ public class ClueLocalGame extends LocalGame
                     {
                         if (curBoard[x][y].getRoom() == LOUNGE) //If they are in the lounge, move them to the conservatory
                         {
-                            Log.i("Got to lounge if", " ");
+                            Logger.log("Got to lounge if", " ");
                             setStateVariablesSuggestion(curPlayerID, false, true);
                             setStateVariablesMove(curPlayerID, 22, 1+curPlayerID, x, y, true, false, true, true, true);
                             return true;
@@ -721,7 +723,7 @@ public class ClueLocalGame extends LocalGame
                         return false;
                     }
 
-                    Log.i("Player Still in Game" + state.getPlayerStillInGame(curPlayerID), " ");
+                    Logger.log("Player Still in Game" + state.getPlayerStillInGame(curPlayerID), " ");
                     //If the player has lost the game but other players are still playing, just
                     //continue the turn rotation
                     if (!state.getPlayerStillInGame(curPlayerID))
@@ -989,7 +991,7 @@ public class ClueLocalGame extends LocalGame
         }
         else //Otherwise a player has won by making a correct accusation
         {
-            Log.i("Game", "Over");
+            Logger.log("Game", "Over");
             String gameOverMessage = "Game Over";
 
             //Match the players index with what character they are so correct message is printed to screen
