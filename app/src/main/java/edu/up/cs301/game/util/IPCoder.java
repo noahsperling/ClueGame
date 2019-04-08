@@ -19,7 +19,8 @@ import edu.up.cs301.game.R;
  *
  */
 public class IPCoder {
-	
+	//Tag for logging
+	private static final String TAG = "IPCoder";
 	/**
 	 * gets the IP address of the current device
 	 * 
@@ -43,7 +44,8 @@ public class IPCoder {
 				}
 			}
 		} catch (SocketException ex) {
-			Log.e("IPCoder"/*this.toString()*/, ex.toString());
+			//Log.e("IPCoder"/*this.toString()*/, ex.toString());
+			Logger.log("IPCoder"/*this.toString()*/, ""+ex.toString(), Logger.ERROR);
 		}
 		return "Unable to determine IP address";
 	}

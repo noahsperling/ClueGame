@@ -9,6 +9,7 @@ import edu.up.cs301.game.infoMsg.GameOverInfo;
 import edu.up.cs301.game.infoMsg.StartGameInfo;
 import edu.up.cs301.game.infoMsg.TimerInfo;
 import edu.up.cs301.game.util.GameTimer;
+import edu.up.cs301.game.util.Logger;
 import edu.up.cs301.game.util.MessageBox;
 import edu.up.cs301.game.util.Tickable;
 
@@ -32,6 +33,8 @@ import android.view.View;
  *
  */
 public abstract class GameHumanPlayer implements GamePlayer, Tickable {
+	//Tag for logging 
+	private static final String TAG = "GameHumanPlayer";
 	/**
 	 * instance variables
 	 */
@@ -259,7 +262,7 @@ public abstract class GameHumanPlayer implements GamePlayer, Tickable {
 				// game has not been bound: the only thing we're looking for is
 				// BindGameInfo object; ignore everything else
 				if (myInfo instanceof BindGameInfo) {
-					Log.i("GameHumanPlayer", "binding game");
+					Logger.debugLog(TAG, "binding game");
 					BindGameInfo bgs = (BindGameInfo)myInfo;
 					game = bgs.getGame(); // set the game
 					playerNum = bgs.getPlayerNum(); // set our player id
@@ -272,7 +275,7 @@ public abstract class GameHumanPlayer implements GamePlayer, Tickable {
 				// here, the only thing we're looking for is a StartGameInfo object;
 				// ignore everything else
 				if (myInfo instanceof StartGameInfo) {
-					Log.i("GameHumanPlayer", "notification to start game");
+					Logger.debugLog(TAG, "notification to start game");
 
 					// update our player-name array
 					allPlayerNames = ((StartGameInfo)myInfo).getPlayerNames();

@@ -13,6 +13,8 @@ import edu.up.cs301.game.GamePlayer;
  */
 public class ClueMoveRightAction extends ClueMoveAction implements Serializable
 {
+    //Tag for logging
+    private static final String TAG = "ClueMoveRightAction";
     //Long for network play
     private static final long serialVersionUID = 306432453772021L;
 

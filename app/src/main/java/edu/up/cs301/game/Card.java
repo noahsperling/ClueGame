@@ -38,6 +38,8 @@ public enum Card implements Serializable
     private int color; //Color to draw the Card when visible in ClueBoardView
     private int playerID;
     private static final long serialVersionUID = 45093509329032850L; //Long for network play
+    //Tag for logging
+    private static final String TAG = "Card";
 
     Card(String name, Type cardType, int color, int playerID)
     {

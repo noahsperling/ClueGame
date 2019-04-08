@@ -28,6 +28,7 @@ import android.widget.TabHost.TabSpec;
 import edu.up.cs301.game.config.GameConfig;
 import edu.up.cs301.game.config.GamePlayerType;
 import edu.up.cs301.game.util.IPCoder;
+import edu.up.cs301.game.util.Logger;
 import edu.up.cs301.game.util.MessageBox;
 
 /**
@@ -48,7 +49,8 @@ View.OnClickListener {
 	 * Instance Variables
 	 * --------------------------------------------------------------------
 	 */
-
+	//Tag for logging
+	private static final String TAG = "GameMainActvity";
 	// A reference to the object representing the game itself. This is the
 	// object that knows the rules of the game. This variable is initialized in
 	// launchGame.
@@ -476,7 +478,7 @@ View.OnClickListener {
 	 */
 	public void onClick(View button) {
 		
-		Log.i("onClick", "just clicked");
+		Logger.debugLog("onClick", "just clicked");
 		
 		// if the GUI many not have been fully initialized, ignore
 		if (justStarted) {
