@@ -31,6 +31,8 @@ import edu.up.cs301.game.util.Logger;
  */
 
 public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View.OnClickListener{
+    //Tag for logging
+    private static final String TAG = "ClueHumanPlayer";
     //State
     private ClueState recentState;
     //Booleans
@@ -443,20 +445,14 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
                 disableActionButtons();
                 disableSpinners();
             }
-
-            //Log.i("New to room = " + recentState.getNewToRoom(playerNum), " ");
-            //Log.i("Room = " + room[playerNum], " ");
-
             //If a player was in a room, was new to the room and the show card radio wasn't enabled,
             //then set the suggest to true
             if (room[playerNum] && recentState.getNewToRoom(playerNum) && !showCardR.isEnabled() && recentState.getTurnId() == playerNum && !(recentState.getOnDoorTile())[playerNum]) {
-                //Log.i("Got to suggest if", " ");
                 suggestR.setEnabled(true);
                 suggestR.setChecked(false);
             }
             //If they are not, then the player cannot suggest
             else {
-                //Log.i("Got to suggest else", " " + this.getPlayerID());
                 suggestR.setEnabled(false);
                 suggestR.setChecked(false);
             }
@@ -668,13 +664,11 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
             //If a player was in a room, was new to the room and the show card radio wasn't enabled,
             //then set the suggest to true
             if (room[playerNum] && recentState.getNewToRoom(playerNum) && !showCardR.isEnabled() && recentState.getTurnId() == playerNum && !(recentState.getOnDoorTile())[playerNum]) {
-                //Log.i("Got to suggest if", " ");
                 suggestR.setEnabled(true);
                 suggestR.setChecked(false);
             }
             //If they are not, then the player cannot suggest
             else {
-                //Log.i("Got to suggest else", " " + this.getPlayerID());
                 suggestR.setEnabled(false);
                 suggestR.setChecked(false);
             }
@@ -909,10 +903,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
 
             //If they are on a door tile, do not let them submit a suggestion
             //This will prevent a player from ending their turn on a door tile and blocking the entrance of the room
-            //Log.i("On door: " + recentState.getOnDoorTile()[playerNum], " ");
             if(recentState.getOnDoorTile()[playerNum])
             {
-                //Log.i("On door: " + recentState.getOnDoorTile()[playerNum], " ");
                 submitButton.setEnabled(false);
             }
             else
@@ -964,7 +956,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
                 suggest.room = roomSelect;
                 suggest.weapon = weaponSelect;
                 suggest.suspect = suspectSelect;
-                //Log.i("suggest action sent", " ");
                 game.sendAction(suggest);
 
                 //Enable only the show card
@@ -992,7 +983,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
                 accuse.weapon = weaponSelect;
                 accuse.suspect = suspectSelect;
                 accuseR.setEnabled(false);
-                //Log.i("accuse action sent", " ");
                 game.sendAction(accuse);
             }
             //If the show card is checked
@@ -1025,7 +1015,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
         //Disable all the GUI buttons and send the endTurn action to the game
         else if (view == endTurnButton) {
             ClueEndTurnAction endTurn = new ClueEndTurnAction(this);
-            //Log.i("You clicked End Turn", "YAY");
             disableActionButtons();
             suggestR.setEnabled(false);
             accuseR.setEnabled(false);

@@ -16,6 +16,9 @@ import java.io.Serializable;
  */
 public class Board implements Serializable
 {
+    //Tag for logging
+    private static final String TAG = "Board";
+
     private Tile[][] board = new Tile[27][27]; //Holds the position of every Tile
     private int[][] playerBoard = new int[27][27]; //Holds the position of every player by playerID,  -1 if there is no player at that Tile
     //This used to be  39, changing it for testing purposes

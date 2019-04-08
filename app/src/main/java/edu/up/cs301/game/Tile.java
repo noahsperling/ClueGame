@@ -1,6 +1,7 @@
 package edu.up.cs301.game;
 
 import java.io.Serializable;
+import edu.up.cs301.game.util.Logger;
 
 /**
  * Created by Eric Imperio on 11/8/2016.
@@ -9,6 +10,8 @@ import java.io.Serializable;
 *Implements Serializable for network play*/
 public class Tile implements Serializable
 {
+    //Tag for logging
+    private static final String TAG = "Tile";
     //Long used for network play
     private static final long serialVersionUID = 354323253259789895L;
     private int tileType; //0 = hallway, 1 = room

@@ -10,7 +10,8 @@ import edu.up.cs301.game.GamePlayer;
  * @version July 2013
  */
 public class ReadyAction extends GameAction {
-	
+	//Tag for logging
+	private static final String TAG = "ReadyAction";
 	// to satisfy the Serializable interface
 	private static final long serialVersionUID = -5286032209480788772L;
 

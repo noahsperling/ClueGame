@@ -12,11 +12,11 @@ import edu.up.cs301.game.infoMsg.NotYourTurnInfo;
 import edu.up.cs301.game.infoMsg.StartGameInfo;
 import edu.up.cs301.game.util.GameTimer;
 import edu.up.cs301.game.util.Tickable;
+import edu.up.cs301.game.util.Logger;
 
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 
 /**
  * A class that knows how to play the game. The data in this class represent the
@@ -32,7 +32,9 @@ import android.util.Log;
  * @version July 2013
  */
 public abstract class LocalGame implements Game, Tickable {
-
+	//Tag for logging 
+	private static final String TAG = "LocalGame";
+	
 	// the stage that the game is in
 	private GameStage gameStage = GameStage.BEFORE_GAME;
 
@@ -194,7 +196,7 @@ public abstract class LocalGame implements Game, Tickable {
 			if (action instanceof MyNameIsAction &&
 					gameStage == GameStage.WAITING_FOR_NAMES) {
 				MyNameIsAction mnis = (MyNameIsAction) action;
-				Log.i("LocalGame", "received 'myNameIs' ("+mnis.getName()+")");
+				Logger.debug(TAG, "received 'myNameIs' ("+mnis.getName()+")");
 
 				// mark that player as having given us its name
 				int playerIdx = getPlayerIdx(mnis.getPlayer());
@@ -209,7 +211,7 @@ public abstract class LocalGame implements Game, Tickable {
 				// game stage, and send a message to each player that the game is
 				// about to start
 				if (playerNameCount >= playerNames.length) {
-					Log.i("LocalGame", "broadcasting player names");
+					Logger.debug(TAG, "broadcasting player names");
 					gameStage = GameStage.WAITING_FOR_READY;
 					playersReady = new boolean[players.length]; // array to keep track of players responding
 					for (GamePlayer p : players) {
@@ -228,7 +230,7 @@ public abstract class LocalGame implements Game, Tickable {
 
 				// mark the given player as being ready
 				int playerIdx = getPlayerIdx(ra.getPlayer());
-				Log.i("LocalGame", "got 'ready' ("+playerNames[playerIdx]+")");
+				Logger.debug(TAG, "got 'ready' ("+playerNames[playerIdx]+")");
 				if (playerIdx >= 0 && !playersReady[playerIdx]) {
 					playersReady[playerIdx] = true;
 					synchronized (this) {
@@ -240,7 +242,7 @@ public abstract class LocalGame implements Game, Tickable {
 				// send each player the initial state
 				if (playerReadyCount >= playerNames.length) {
 					gameStage = GameStage.DURING_GAME;
-					Log.i("LocalGame", "broadcasting initial state");
+					Logger.debug(TAG, "broadcasting initial state");
 					// send each player the initial state of the game
 					sendAllUpdatedStateInitial();
 				}

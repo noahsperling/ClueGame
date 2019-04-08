@@ -16,6 +16,7 @@ import edu.up.cs301.game.actionMsg.ClueShowCardAction;
 import edu.up.cs301.game.actionMsg.ClueSuggestionAction;
 import edu.up.cs301.game.actionMsg.ClueUsePassagewayAction;
 import edu.up.cs301.game.infoMsg.GameInfo;
+import edu.up.cs301.game.util.Logger;
 
 /**
  * Created by Langley on 11/17/2016.
@@ -28,7 +29,8 @@ import edu.up.cs301.game.infoMsg.GameInfo;
  */
 public class ClueComputerPlayerDumb extends ClueComputerPlayer
 {
-
+    //Tag for logging
+    private static final String TAG = "ClueComputerPlayerDumb";
     private boolean[] checkbox = new boolean[21]; //Used to know what cards have been seen, true= seen(checked), false = never seen(unchecked)
     Card[] suspects = {Card.COL_MUSTARD, Card.PROF_PLUM, Card.MR_GREEN, Card.MRS_PEACOCK, Card.MISS_SCARLET, Card.MRS_WHITE}; //array of all the suspects
     Card[] weapons = {Card.KNIFE, Card.CANDLESTICK, Card.REVOLVER, Card.ROPE, Card.LEAD_PIPE, Card.WRENCH}; //array of all the weapons
@@ -75,7 +77,7 @@ public class ClueComputerPlayerDumb extends ClueComputerPlayer
 
                 if (!myState.getCardToShow(playerNum).equals(lastCard))
                 { //If the lastCard shown was not checked
-                    Log.i("Computer Player " + playerNum, "Looking at Card: "+ myState.getCardToShow(playerNum));
+                    Logger.log(TAG, " " + playerNum"Looking at Card: " + myState.getCardToShow(playerNum));
                     String card = myState.getCardToShow(playerNum); //get the card shown to the AI
                     lastCard = card; //set last card to the card being checked
                     checkbox(card);
@@ -116,14 +118,14 @@ public class ClueComputerPlayerDumb extends ClueComputerPlayer
                         int c = rand1.nextInt(cards.size()); //randomly pick a card
                         ClueShowCardAction s = new ClueShowCardAction(this);
                         s.setCardToShow(cards.get(c)); //Set the string to the card picked
-                        Log.i("Computer Player " + playerNum, "Showing Card: " +cards.get(c));
+                        Logger.log(TAG,  " " + playerNum + "Showing Card: " +cards.get(c));
                         game.sendAction(s);
                         return;
                     }
                 }
                 else if (myState.getTurnId() == playerNum && myState.getPlayerStillInGame(playerNum))
                 { //If its the AI's turn and they are still in the game
-                    Log.i("Computer Player"+ playerNum, "My Turn!");
+                    Logger.log(TAG,  " " + playerNum + "My Turn!");
 
                     //Get the number of boxes checked
                     numTrue = 0;
@@ -135,7 +137,7 @@ public class ClueComputerPlayerDumb extends ClueComputerPlayer
 
                     if (myState.getCanRoll(this.playerNum))
                     { //If the AI needs to roll then roll
-                        Log.i("Computer Player" + playerNum, "Rolling");
+                        Logger.log(TAG,  " " + playerNum + "Rolling");
                         numMoves = 0;
                         game.sendAction(new ClueRollAction(this));
                         return;
@@ -161,7 +163,7 @@ public class ClueComputerPlayerDumb extends ClueComputerPlayer
                         //Randomly suggestion the Suspect and Weapon
                         csa.suspect = suspects[rand.nextInt(6)].getName();
                         csa.weapon = weapons[rand.nextInt(6)].getName();
-                        Log.i("Computer Player " + playerNum, "Suggesting: "+ csa.room+". "+csa.suspect+". "+csa.weapon);
+                        Logger.log(TAG,  " " + playerNum + "Suggesting: "+ csa.room+". "+csa.suspect+". "+csa.weapon);
                         game.sendAction(csa);
                         return;
 
@@ -170,7 +172,7 @@ public class ClueComputerPlayerDumb extends ClueComputerPlayer
                     { //There are spaces left to move then move randomly
                         Random rand = new Random();
                         int move = rand.nextInt(5) + 1; //Pick move: 1-5, left = 1, up = 2, right = 3, down = 4, use passageway = 5
-                        Log.i("Computer Player " + playerNum, "Moving " + move);
+                        Logger.log(TAG,  " " + playerNum + "Moving " + move);
                         sleep(300); //Wait so the Human player can see where the AI is moving
 
                         switch(move)
@@ -201,7 +203,7 @@ public class ClueComputerPlayerDumb extends ClueComputerPlayer
                     }
                     else if (numTrue == 18)
                     { //If only 3 boxes are unchecked then accuse
-                        Log.i("Computer Player " + playerNum, "Accusing");
+                        Logger.log(TAG,  " " + playerNum + "Accusing");
 
                         int suspect = 0; //person index
                         int weapon = 0; //weapon index
@@ -236,7 +238,7 @@ public class ClueComputerPlayerDumb extends ClueComputerPlayer
                     }
                     else
                     { //Ends the AI's turn
-                        Log.i("Computer Player " + playerNum, "End Turn");
+                        Logger.log(TAG,  " " + playerNum + "End Turn");
                         game.sendAction(new ClueEndTurnAction(this));
                         return;
                     }

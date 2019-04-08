@@ -26,4 +26,6 @@ public class ClueComputerPlayer extends GameComputerPlayer implements CluePlayer
         return new boolean[21];
     }
 
+    //Tag for logging
+    private static final String TAG = "ClueComputerPlayer";
 }

@@ -11,6 +11,8 @@ import java.io.Serializable;
  *Implements Serializable for network play*/
 public class Point implements Serializable
 {
+    //Tag for logging
+    private static final String TAG = "Point";
 
     public int x,y;
     //Long for network play

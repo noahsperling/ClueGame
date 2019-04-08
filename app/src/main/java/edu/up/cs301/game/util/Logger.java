@@ -10,6 +10,8 @@ import android.widget.Toast;
  * Author: Nicole Kister
  */
 public class Logger {
+    //Tag for logging
+    private static final String TAG = "Logger";
     //Switch for knowing if we are in debug mode or not. We assume by default we are not in debug mode
     private static boolean debug = true;
     //Toast only happens after the game starts
@@ -30,7 +32,12 @@ public class Logger {
      * @param logMessage
      */
     public static void log(String loggingTag, String logMessage){
-        Log.i(loggingTag, logMessage);
+        if(loggingTag.length() > 23){
+            Log.wtf("LOGGING ERROR:", "Logging Tag cannot exceed 23 characters");
+        }
+        else {
+            Log.i(loggingTag, logMessage);
+        }
         //TODO: Put in the toast logging.
     }
 
@@ -93,7 +100,9 @@ public class Logger {
 
         //If debug mode isn't selected, we won't do anything.
     }
-    
+
+    //Getters and setters
+    //TEST
     public static boolean getDebugValue(){
         return debug;
     }
