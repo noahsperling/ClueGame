@@ -92,7 +92,7 @@ public class Logger {
                 break;
         }
         //Toast logging
-        if(toast) {
+        if(toast && (debug || !debug && logType != DEBUG)) {
             Toast.makeText(context, logMessage, LENGTH).show();
         }
     }
