@@ -496,7 +496,7 @@ View.OnClickListener {
 	 */
 	public void onClick(View button) {
 		
-		Log.i(TAG, "Clicked "+button);
+		Logger.log(TAG, "Clicked "+button);
 		
 		// if the GUI many not have been fully initialized, ignore
 		if (justStarted) {
