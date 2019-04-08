@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -28,6 +29,7 @@ import android.widget.TabHost.TabSpec;
 import edu.up.cs301.game.config.GameConfig;
 import edu.up.cs301.game.config.GamePlayerType;
 import edu.up.cs301.game.util.IPCoder;
+import edu.up.cs301.game.util.Logger;
 import edu.up.cs301.game.util.MessageBox;
 
 /**
@@ -42,7 +44,8 @@ import edu.up.cs301.game.util.MessageBox;
  */
 public abstract class GameMainActivity extends Activity implements
 View.OnClickListener {
-
+	//Tag for Logging
+	private static final String TAG = "GameMainActivity";
 	/*
 	 * ====================================================================
 	 * Instance Variables
@@ -171,6 +174,17 @@ View.OnClickListener {
 				// we have an error message
 				MessageBox.popUpMessage(msg, this);
 			}
+		}
+
+		if (((CheckBox) findViewById(R.id.on_screenDebugging)).isChecked()) {
+			Logger.setToastValue(true);
+		} else {
+			Logger.setToastValue(false);
+		}
+		if (((CheckBox) findViewById(R.id.consoleDebugging)).isChecked()){
+			Logger.setDebugValue(true);
+		}else{
+			Logger.setDebugValue(false);
 		}
 
 	}// onCreate
@@ -453,6 +467,10 @@ View.OnClickListener {
 		v.setOnClickListener(this);
 		v = findViewById(R.id.playGameButton);
 		v.setOnClickListener(this);
+		v = findViewById(R.id.on_screenDebugging);
+		v.setOnClickListener(this);
+		v = findViewById(R.id.consoleDebugging);
+		v.setOnClickListener(this);
 
 
 		String ipCode = IPCoder.encodeLocalIP();
@@ -476,7 +494,7 @@ View.OnClickListener {
 	 */
 	public void onClick(View button) {
 		
-		Log.i("onClick", "just clicked");
+		Log.i(TAG, "Clicked "+button);
 		
 		// if the GUI many not have been fully initialized, ignore
 		if (justStarted) {
@@ -524,6 +542,24 @@ View.OnClickListener {
 				MessageBox.popUpMessage(msg, this);
 			}
 
+		}
+
+		//On-screen debugging checkbox
+		else if(button.getId() == R.id.on_screenDebugging){
+			if(((CheckBox)button).isChecked()){
+				Logger.setToastValue(true);
+			}else{
+				Logger.setToastValue(false);
+			}
+		}
+
+		//Console debugging checkbox
+		else if(button.getId() == R.id.consoleDebugging){
+			if(((CheckBox)button).isChecked()){
+				Logger.setDebugValue(true);
+			}else{
+				Logger.setDebugValue(false);
+			}
 		}
 
 	}// onClick
