@@ -143,6 +143,9 @@ View.OnClickListener {
 	public final void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		//Set Context for Toast Logging
+		Logger.setContext(getApplicationContext());
+
 		// Initialize the layout
 		setContentView(R.layout.game_config_main);
 
@@ -183,10 +186,9 @@ View.OnClickListener {
 		}
 		if (((CheckBox) findViewById(R.id.consoleDebugging)).isChecked()){
 			Logger.setDebugValue(true);
-		}else{
+		}else {
 			Logger.setDebugValue(false);
 		}
-
 	}// onCreate
 
 	/**
