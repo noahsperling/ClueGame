@@ -93,7 +93,9 @@ public class Logger {
 
         //If debug mode isn't selected, we won't do anything.
     }
-    
+
+    //Getters and setters
+    //TEST
     public static boolean getDebugValue(){
         return debug;
     }
