@@ -93,4 +93,20 @@ public class Logger {
 
         //If debug mode isn't selected, we won't do anything.
     }
+    
+    public static boolean getDebugValue(){
+        return debug;
+    }
+    
+    public static boolean getToastValue(){
+        return toast;   
+    }
+    
+    public static void setDebugValue(boolean newDebug){
+        debug = newDebug;
+    }
+    
+    public static void setToastValue(boolean newToast){
+        toast = newToast;   
+    }
 }
