@@ -23,6 +23,7 @@ import edu.up.cs301.game.actionMsg.ClueShowCardAction;
 import edu.up.cs301.game.actionMsg.ClueSuggestionAction;
 import edu.up.cs301.game.actionMsg.ClueUsePassagewayAction;
 import edu.up.cs301.game.infoMsg.GameInfo;
+import edu.up.cs301.game.util.Logger;
 
 
 /**
@@ -91,6 +92,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
     //Activity
     private Activity myActivity;
 
+
+
     private int layoutID;
     private boolean notSent = false; //Suggestion boolean for the human player - either a suggestion was sent or not
 
@@ -118,6 +121,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
     }
 
     public void setAsGui(GameMainActivity g) {
+
+
+
         myActivity = g;
         g.setContentView(layoutID);
         //Declaration for the board view
@@ -286,6 +292,11 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
     @Override
     public void receiveInfo(GameInfo info)
     {
+        //Examples of logging
+        Logger.log("Test Logging", "Logging is awesome!");
+        Logger.log("Test Logging with Extra", "Logging is still awesome!", Logger.DEBUG);
+        Logger.debugLog("Debug Log!", "Just for testing!");
+
         //Assign and display the correct character for the human player if the name is not set already
         //This is displayed in the playerTextView
         if(info instanceof ClueState) {
