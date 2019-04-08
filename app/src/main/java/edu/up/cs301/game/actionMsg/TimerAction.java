@@ -10,7 +10,8 @@ import edu.up.cs301.game.util.GameTimer;
  * @version July 2013
  */
 public class TimerAction extends GameAction {
-	
+	//Tag for logging
+	private static final String TAG = "TimerAction";
 	// to satisfy the Serializable interface
 	private static final long serialVersionUID = -8093996755313861636L;
 	

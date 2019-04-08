@@ -7,12 +7,16 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.SurfaceView;
 
+import java.awt.font.TextAttribute;
+
 /**
  * Created by Paige on 11/13/16.
  */
 //Used to Draw the Board and Players
 public class ClueBoardView extends SurfaceView
 {
+    //Tag for logging
+    private static final String TAG = "ClueBoardView";
     private Board board; //Board to draw
 
     public ClueBoardView(Context context, AttributeSet attributeSet)
@@ -45,8 +49,9 @@ public class ClueBoardView extends SurfaceView
     {
         Paint p = new Paint();
         p.setColor(Color.WHITE);
-        p.setTextSize(30); //any text draw will be size 30, Used to draw the Room names
-        int adjustedX = ((c.getWidth()-(27*Board.TILE_SIZE))/2)+Board.TILE_SIZE; //Centers board, adjustedX is the spot of the first column
+        //p.setColor(Color.BLUE)
+;        p.setTextSize(30); //any text draw will be size 30, Used to draw the Room names
+        int adjustedX = ((c.getWidth()-(25*Board.TILE_SIZE))/2)+Board.TILE_SIZE; //Centers board, adjustedX is the spot of the first column
         int adjustedY = Board.TILE_SIZE; //Sets location of first Row
 
         for (int i = 0; i<27; i++)
@@ -61,15 +66,16 @@ public class ClueBoardView extends SurfaceView
         }
 
         //draws the Room text
-        c.drawText(Card.STUDY.getName(),adjustedX+(2.5f*Board.TILE_SIZE),adjustedY+(1.5f*Board.TILE_SIZE),p);
-        c.drawText(Card.HALL.getName(),adjustedX+(11.5f*Board.TILE_SIZE),adjustedY+(3*Board.TILE_SIZE),p);
-        c.drawText(Card.LOUNGE.getName(),adjustedX+(20*Board.TILE_SIZE),adjustedY+(3*Board.TILE_SIZE),p);
+        //The x values have been adjusted to reflect the new GUI size and shape
+        c.drawText(Card.STUDY.getName(),adjustedX+(2f*Board.TILE_SIZE),adjustedY+(1.5f*Board.TILE_SIZE),p);
+        c.drawText(Card.HALL.getName(),adjustedX+(10f*Board.TILE_SIZE),adjustedY+(3*Board.TILE_SIZE),p);
+        c.drawText(Card.LOUNGE.getName(),adjustedX+(17*Board.TILE_SIZE),adjustedY+(3*Board.TILE_SIZE),p);
         c.drawText(Card.LIBRARY.getName(),adjustedX+(2*Board.TILE_SIZE),adjustedY+(8*Board.TILE_SIZE),p);
         c.drawText(Card.BILLIARD_ROOM.getName(),adjustedX+(Board.TILE_SIZE),adjustedY+(14*Board.TILE_SIZE),p);
         c.drawText(Card.CONSERVATORY.getName(),adjustedX+(Board.TILE_SIZE/2),adjustedY+(21*Board.TILE_SIZE),p);
-        c.drawText(Card.BALLROOM.getName(),adjustedX+(11*Board.TILE_SIZE),adjustedY+(20*Board.TILE_SIZE),p);
-        c.drawText(Card.KITCHEN.getName(), (float) (adjustedX+(19.5*Board.TILE_SIZE)),adjustedY+(20.5f*Board.TILE_SIZE),p);
-        c.drawText(Card.DINING_ROOM.getName(),adjustedX+(18*Board.TILE_SIZE),adjustedY+(12*Board.TILE_SIZE),p);
+        c.drawText(Card.BALLROOM.getName(),adjustedX+(9*Board.TILE_SIZE),adjustedY+(20*Board.TILE_SIZE),p);
+        c.drawText(Card.KITCHEN.getName(), (float) (adjustedX+(19*Board.TILE_SIZE)),adjustedY+(20.5f*Board.TILE_SIZE),p);
+        c.drawText(Card.DINING_ROOM.getName(),adjustedX+(17*Board.TILE_SIZE),adjustedY+(12*Board.TILE_SIZE),p);
         //draws "Clue" in the middle of the Board
         c.drawText("Clue",(c.getWidth()/2)-Board.TILE_SIZE*2,(c.getHeight()/2)-10,p);
 
@@ -88,6 +94,8 @@ public class ClueBoardView extends SurfaceView
     {
         Paint p = new Paint();
         p.setColor(Color.argb(0,0,0,0));
+        //NK: The value multiplied by Board.TILE_SIZE used to be 27. Changing it to see what happens.
+
         int adjustedX = tile.getLocation().x+((c.getWidth()-(27*Board.TILE_SIZE))/2); //Adjusts X from tile.getLocation().x to draw x with respect to the center board
         int adjustedY = tile.getLocation().y-(Board.TILE_SIZE/2); //Adjusts Y from tile.getLocation().x to draw x with respect to the center board
 

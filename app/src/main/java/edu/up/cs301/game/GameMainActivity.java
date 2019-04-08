@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -16,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -27,6 +29,7 @@ import android.widget.TabHost.TabSpec;
 import edu.up.cs301.game.config.GameConfig;
 import edu.up.cs301.game.config.GamePlayerType;
 import edu.up.cs301.game.util.IPCoder;
+import edu.up.cs301.game.util.Logger;
 import edu.up.cs301.game.util.MessageBox;
 
 /**
@@ -41,7 +44,8 @@ import edu.up.cs301.game.util.MessageBox;
  */
 public abstract class GameMainActivity extends Activity implements
 View.OnClickListener {
-
+	//Tag for Logging
+	private static final String TAG = "GameMainActivity";
 	/*
 	 * ====================================================================
 	 * Instance Variables
@@ -139,6 +143,9 @@ View.OnClickListener {
 	public final void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		//Set Context for Toast Logging
+		Logger.setContext(getApplicationContext());
+
 		// Initialize the layout
 		setContentView(R.layout.game_config_main);
 
@@ -147,7 +154,7 @@ View.OnClickListener {
 		
 		// if there is a saved configuration, modify the default configuration accordingly
 		if (!this.config.restoreSavedConfig(saveFileName(), this)) {
-			MessageBox.popUpMessage("Error in attempting to read game configuration file.",
+			MessageBox.popUpMessage(Resources.getSystem().getString(R.string.Config_Error_Msg),
 					this);
 		}
 		
@@ -172,6 +179,16 @@ View.OnClickListener {
 			}
 		}
 
+		if (((CheckBox) findViewById(R.id.on_screenDebugging)).isChecked()) {
+			Logger.setToastValue(true);
+		} else {
+			Logger.setToastValue(false);
+		}
+		if (((CheckBox) findViewById(R.id.consoleDebugging)).isChecked()){
+			Logger.setDebugValue(true);
+		}else {
+			Logger.setDebugValue(false);
+		}
 	}// onCreate
 
 	/**
@@ -265,7 +282,7 @@ View.OnClickListener {
 			game = createLocalGame();
 			// verify we have a game
 			if (game == null) {
-				return "Game creation failed.";
+				return Resources.getSystem().getString(R.string.Game_Creation_Error_Msg);
 			}
 		}
 
@@ -286,7 +303,7 @@ View.OnClickListener {
 			// check that the player name is legal
 			if (name.length() <= 0 && gpt != availTypes[availTypes.length-1]) {
 				// disallow an empty player name, unless it's a dummy (proxy) player
-				return "Local player name cannot be empty.";
+				return getString(R.string.Local_Player_Name_Error_Msg);
 			}
 
 			// if the player requires a GUI, count and mark it; otherwise, if a player
@@ -305,13 +322,13 @@ View.OnClickListener {
 			game = createRemoteGame(config.getIpCode());
 			// verify we have a game
 			if (game == null) {
-				return "Could not find game server on network.";
+				return getString(R.string.Game_Server_Error_Msg);
 			}
 		}
 
 		// if there is more than one player that requires a GUI, abort
 		if (requiresGuiCount >= 2) {
-			return "Cannot have more than one GUI player on a single device.";
+			return getString(R.string.Mult_GUI_Tabl_Error_Msg);
 		}
 
 		// if there is a player that supports a GUI, link it to the activity,
@@ -452,6 +469,10 @@ View.OnClickListener {
 		v.setOnClickListener(this);
 		v = findViewById(R.id.playGameButton);
 		v.setOnClickListener(this);
+		v = findViewById(R.id.on_screenDebugging);
+		v.setOnClickListener(this);
+		v = findViewById(R.id.consoleDebugging);
+		v.setOnClickListener(this);
 
 
 		String ipCode = IPCoder.encodeLocalIP();
@@ -475,7 +496,7 @@ View.OnClickListener {
 	 */
 	public void onClick(View button) {
 		
-		Log.i("onClick", "just clicked");
+		Logger.log(TAG, "Clicked "+button);
 		
 		// if the GUI many not have been fully initialized, ignore
 		if (justStarted) {
@@ -508,10 +529,10 @@ View.OnClickListener {
 		else if (button.getId() == R.id.saveConfigButton) {
 			GameConfig configTemp = scrapeData();
 			if (configTemp.saveConfig(saveFileName(), this)) {
-				MessageBox.popUpMessage("Game configuration saved.", this);
+				MessageBox.popUpMessage(getString(R.string.Saved_Config_Msg), this);
 			}
 			else {
-				MessageBox.popUpMessage("Unable to save game configuration.", this);
+				MessageBox.popUpMessage(getString(R.string.Saved_Config_Error_Msg), this);
 			}
 		}
 
@@ -523,6 +544,24 @@ View.OnClickListener {
 				MessageBox.popUpMessage(msg, this);
 			}
 
+		}
+
+		//On-screen debugging checkbox
+		else if(button.getId() == R.id.on_screenDebugging){
+			if(((CheckBox)button).isChecked()){
+				Logger.setToastValue(true);
+			}else{
+				Logger.setToastValue(false);
+			}
+		}
+
+		//Console debugging checkbox
+		else if(button.getId() == R.id.consoleDebugging){
+			if(((CheckBox)button).isChecked()){
+				Logger.setDebugValue(true);
+			}else{
+				Logger.setDebugValue(false);
+			}
 		}
 
 	}// onClick
@@ -544,8 +583,7 @@ View.OnClickListener {
 	private void removePlayer(TableRow row) {
 		// first, make sure that we won't exceed the min number of players
 		if (this.tableRows.size() <= config.getMinPlayers()) {
-			MessageBox.popUpMessage("Sorry, removing a player would drop below the minimum allowed.",
-					this);
+			MessageBox.popUpMessage(getString(R.string.Min_Player_Error_Msg),this);
 			return;
 		}
 
@@ -566,8 +604,7 @@ View.OnClickListener {
 	private TableRow addPlayer() {
 		// first, make sure that we won't exceed the max number of players
 		if (this.tableRows.size() >= config.getMaxPlayers()) {
-			MessageBox.popUpMessage("Sorry, adding another player would exceed the maximum allowed.",
-					this);
+			MessageBox.popUpMessage(getString(R.string.Max_Player_Error_Msg),	this);
 			return null;
 		}
 
@@ -675,11 +712,11 @@ View.OnClickListener {
 			// We have seen the back-key pressed, and the game is not over;
 			// confirm with user that whether they want to quit
 			String quitQuestion =
-					getResources().getString(R.string.dialog_quit_question);
+					getString(R.string.dialog_quit_question);
 			String posLabel =
-					getResources().getString(R.string.dialog_quit_label);
+					getString(R.string.dialog_quit_label);
 			String negLabel =
-					getResources().getString(R.string.dialog_continue_label);
+					getString(R.string.dialog_continue_label);
 			MessageBox.popUpChoice(quitQuestion, posLabel, negLabel,
 					new OnClickListener(){
 				public void onClick(DialogInterface di, int val) {

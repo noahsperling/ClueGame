@@ -13,6 +13,8 @@ import edu.up.cs301.game.GamePlayer;
  */
 public class ClueUsePassagewayAction extends ClueMoveAction implements Serializable
 {
+    //Tag for logging
+    private static final String TAG = "ClueUsePassagewayAction";
     //Long for network play
     private static final long serialVersionUID = 3067245345636026L;
 

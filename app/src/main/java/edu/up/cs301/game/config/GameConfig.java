@@ -9,11 +9,14 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
 
 import edu.up.cs301.game.GameMainActivity;
 import edu.up.cs301.game.GamePlayer;
 import edu.up.cs301.game.ProxyPlayer;
+import edu.up.cs301.game.util.Logger;
+import edu.up.cs301.game.R;
 
 /**
  * GameConfig class
@@ -31,7 +34,8 @@ import edu.up.cs301.game.ProxyPlayer;
  * @see GameMainActivity
  */
 public class GameConfig {
-
+	//Tag for logging
+	private static final String TAG = "GameConfig";
 	/** a list of all valid player types that the user chooses */
 	private GamePlayerType[] availTypes;
 
@@ -127,18 +131,26 @@ public class GameConfig {
 					  int maxPlayers, String gameName, int portNum) {
 		
 		// create an array to hold the available player types, including
-		// the "Network Player" that will be added
-		int arrayLength = availTypes.size()+1;
+		// the "WiFi Player" and the "Bluetooth Player" that will be added
+		int arrayLength = availTypes.size()+2;
 		GamePlayerType[] availArray = new GamePlayerType[arrayLength];
 		
 		// add the player types passed in to the constructor
 		availTypes.toArray(availArray);
 		
-		// add the network player
-		availArray[arrayLength-1] = new GamePlayerType("Network Player") {
+		// Add the Internet Network player to the available players list
+		availArray[arrayLength-2] = new GamePlayerType("WiFi Player"){
 			public GamePlayer createPlayer(String name) {
 				int portNum = getPortNum();
 				return new ProxyPlayer(portNum);
+			}
+		};
+		//Add the Bluetooth Network Player to the available players list
+		availArray[arrayLength-1] = new GamePlayerType("Bluetooth Player") {
+			@Override
+			public GamePlayer createPlayer(String name) {
+				//Returns NULL for now, will return a Bluetooth Network Player in the future
+				return null;
 			}
 		};
 		
@@ -271,7 +283,7 @@ public class GameConfig {
 			oos.close();
 		} catch (IOException e) {
 			// return false if there was a problem
-			Log.i("MainActivity", "File writing problem.");
+			Logger.debugLog("MainActivity", "File writing problem");
 			return false;
 		}
 		
@@ -374,13 +386,14 @@ public class GameConfig {
 		}
 		catch (IOException e) {
 			// abort if I/O exception
-			Log.i("MainActivity", "File reading problem.");
+			//.i("MainActivity", "File reading problem.");
+			Logger.debugLog("MainActivity", "File reading problem.");
 			return false;
 		}
 		catch (ClassNotFoundException cnfx) {
 			// abort of there if one of the serialized objects somehow was (or contained)
 			// an object in a class that we do not know about.
-			Log.i("MainActivity", "Object/class reading problem.");
+			Logger.debugLog("MainActivity", "Object/class reading problem");
 			return false;
 		}
 		finally {

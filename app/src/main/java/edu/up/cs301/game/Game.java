@@ -15,7 +15,6 @@ import edu.up.cs301.game.actionMsg.GameAction;
  */
 
 public interface Game {
-	
 	/**
 	 * starts the game
 	 * 

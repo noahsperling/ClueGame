@@ -14,7 +14,8 @@ import android.view.SurfaceView;
  */
 
 public class ClueCardView extends SurfaceView {
-
+    //Tag for logging
+    private static final String TAG = "ClueCardView";
     private Hand hand = new Hand();
     //Creates a drawable for each card image
     private Drawable cardBallroomImage;

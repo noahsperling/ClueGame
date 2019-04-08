@@ -16,9 +16,13 @@ import java.io.Serializable;
  */
 public class Board implements Serializable
 {
+    //Tag for logging
+    private static final String TAG = "Board";
+
     private Tile[][] board = new Tile[27][27]; //Holds the position of every Tile
     private int[][] playerBoard = new int[27][27]; //Holds the position of every player by playerID,  -1 if there is no player at that Tile
-    public static int TILE_SIZE = 39; //Pixel size of each Tile
+    //This used to be  39, changing it for testing purposes
+    public static int TILE_SIZE = 30; //Pixel size of each Tile
     private static final long serialVersionUID = 43290595034145095L; //Long for network play
 
     /*Note:new Tile is passed:

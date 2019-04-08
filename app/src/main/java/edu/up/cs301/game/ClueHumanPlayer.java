@@ -1,6 +1,7 @@
 package edu.up.cs301.game;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,6 +23,7 @@ import edu.up.cs301.game.actionMsg.ClueShowCardAction;
 import edu.up.cs301.game.actionMsg.ClueSuggestionAction;
 import edu.up.cs301.game.actionMsg.ClueUsePassagewayAction;
 import edu.up.cs301.game.infoMsg.GameInfo;
+import edu.up.cs301.game.util.Logger;
 
 
 /**
@@ -29,6 +31,8 @@ import edu.up.cs301.game.infoMsg.GameInfo;
  */
 
 public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View.OnClickListener{
+    //Tag for logging
+    private static final String TAG = "ClueHumanPlayer";
     //State
     private ClueState recentState;
     //Booleans
@@ -90,6 +94,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
     //Activity
     private Activity myActivity;
 
+
+
     private int layoutID;
     private boolean notSent = false; //Suggestion boolean for the human player - either a suggestion was sent or not
 
@@ -117,6 +123,9 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
     }
 
     public void setAsGui(GameMainActivity g) {
+
+
+
         myActivity = g;
         g.setContentView(layoutID);
         //Declaration for the board view
@@ -285,6 +294,226 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
     @Override
     public void receiveInfo(GameInfo info)
     {
+        //Examples of logging
+        Logger.log("Test Logging", "Logging is awesome!");
+        Logger.log("Test Logging with Extra", "Logging is still awesome!", Logger.DEBUG);
+        Logger.debugLog("Debug Log!", "Just for testing!");
+
+        //Assign and display the correct character for the human player if the name is not set already
+        //This is displayed in the playerTextView
+        if(info instanceof ClueState) {
+            recentState = new ClueState((ClueState)info);
+            if(!nameSet) {
+                switch (playerNum) {
+                    case 0:
+                        playerTextView.setText("You are Miss\n Scarlet.\n");
+                        break;
+                    case 1:
+                        playerTextView.setText("You are Colonel\n Mustard.\n");
+                        break;
+                    case 2:
+                        playerTextView.setText("You are Mrs.\n White.\n");
+                        break;
+                    case 3:
+                        playerTextView.setText("You are Mr.\n Green.\n");
+                        break;
+                    case 4:
+                        playerTextView.setText("You are Mrs.\n Peacock.\n");
+                        break;
+                    case 5:
+                        playerTextView.setText("You are \nProfessor Plum.\n");
+                        break;
+                }
+                nameSet = true;
+            }
+
+            //Check to see if the player is NOT in the game
+            if(!recentState.getPlayerStillInGame(playerNum)) {
+                //the player is out of the game, so disable all non-essential GUI things
+                disableActionButtons();
+                //disable and uncheck
+                disableAndUncheckSuggestAndAccuse();
+                //continue disabling
+                disableCheckboxes();
+                recentState.setCardToShow("\n You Lost!", playerNum); //display You Lost! on the messageTextView
+                setSolutionSpinners(recentState.getSolution()); //set the spinners to the solution so the player can see what they should have accused
+            }
+
+            //If statement that handles the GUI when a player needs to show a card after a suggestion is made
+            //Set notSent variable to true and then disable all the radio buttons except the showCard and set the appropriate spinners
+            //that include cards in the player hand that match the cards in the suggestion
+            if(recentState.getCheckCardToSend()[playerNum]) {
+                notSent = true;
+                disableAndUncheckSuggestAndAccuse();
+                showCardR.setEnabled(true);
+                showCardR.setChecked(true);
+                roomSpinner.setEnabled(true);
+                weaponSpinner.setEnabled(false);
+                suspectSpinner.setEnabled(false);
+
+                setSendCardSpinners();
+            }
+            //If it is not a player's turn to show a card, enable the regular GUI radio buttons to continue play
+            // and disable the showCard radio button, and set the spinners to default with all the possibilities
+            else if(!recentState.getCheckCardToSend()[playerNum] && recentState.getPlayerStillInGame(playerNum)) {
+                suggestR.setEnabled(true);
+                accuseR.setEnabled(true);
+                showCardR.setChecked(false);
+                showCardR.setEnabled(false);
+                setSpinners();
+            }
+            //If they are not in the game anymore and it is not their turn to show a card, disable everything
+            //and set the spinners to default with all the possibilities
+            else if(!recentState.getCheckCardToSend()[playerNum] && !recentState.getPlayerStillInGame(playerNum)) {
+                disableAndUncheckSuggestAndAccuse();
+                showCardR.setChecked(false);
+                showCardR.setEnabled(false);
+                setSpinners();
+            }
+
+            //Boolean arrays from the recent state
+            boolean corner[] = recentState.getInCornerRoom();
+            boolean usedPassage[] = recentState.getUsedPassageway();
+            boolean room[] = recentState.getInRoom();
+
+            //Initial set up for human player's turn
+            //Make sure it is the player's turn and they are still in the game
+            if(recentState.getTurnId() == playerNum && recentState.getPlayerStillInGame(playerNum))
+            {
+                //If the player needs to show a card, allow them only to choose the card and submit it
+                //Only allow them to submit the card they want to show
+                if (showCardR.isEnabled())
+                {
+                    disableAndUncheckSuggestAndAccuse();
+                    submitButton.setEnabled(true); //Only true
+                    cancelButton.setEnabled(false);
+                    disableActionButtons();
+                    roomSpinner.setEnabled(true);
+                }
+                //If the player does not need to show a card, let them continue regular gameplay with
+                //the appropriate buttons enabled
+                else {
+                    accuseR.setEnabled(true);
+                    accuseR.setChecked(false); //only false
+                    submitButton.setEnabled(true);
+                    cancelButton.setEnabled(true);
+                    endTurnButton.setEnabled(true);
+                    upButton.setEnabled(true);
+                    downButton.setEnabled(true);
+                    leftButton.setEnabled(true);
+                    rightButton.setEnabled(true);
+
+                    if(recentState.getCanRoll(playerNum)) {
+                        rollButton.setEnabled(true);
+                    }else {
+                        rollButton.setEnabled(false);
+                    }
+                }
+
+                //If the player is in a corner room and has not used the secret passageway, enable the button
+                //If the player has already used the secret passageway, disable the button
+                if (corner[playerNum] && !usedPassage[playerNum] && recentState.getPlayerHasSuggested(playerNum) == false)
+                {
+                    secretPassagewayButton.setEnabled(true);
+                }
+                else {
+                    secretPassagewayButton.setEnabled(false);
+                }
+                //If the player needs to show a card, disable the secret passageway button
+                if(recentState.getCheckCardToSend()[playerNum]) {
+                    secretPassagewayButton.setEnabled(false);
+                }
+            }
+            //If it is the player's turn, but they are not in the game, just end their turn (basically skip them)
+            else if(recentState.getTurnId() == playerNum && !recentState.getPlayerStillInGame(playerNum) && !notSent){
+                disableAndUncheckSuggestAndAccuse();
+                weaponSpinner.setEnabled(false);
+                suspectSpinner.setEnabled(false);
+                cancelButton.setEnabled(false);
+                submitButton.setEnabled(false);
+                endTurnButton.setEnabled(false);
+                game.sendAction(new ClueEndTurnAction(this));
+                disableSpinners();
+                return;
+            }
+            //If it is not their turn and they are in the game, disable all GUI features
+            else if(recentState.getTurnId() != playerNum && recentState.getPlayerStillInGame(playerNum))
+            {
+                disableAndUncheckSuggestAndAccuse();
+                submitButton.setEnabled(false);
+                cancelButton.setEnabled(false);
+                disableActionButtons();
+                disableSpinners();
+            }
+            //If a player was in a room, was new to the room and the show card radio wasn't enabled,
+            //then set the suggest to true
+            if (room[playerNum] && recentState.getNewToRoom(playerNum) && !showCardR.isEnabled() && recentState.getTurnId() == playerNum && !(recentState.getOnDoorTile())[playerNum]) {
+                suggestR.setEnabled(true);
+                suggestR.setChecked(false);
+            }
+            //If they are not, then the player cannot suggest
+            else {
+                suggestR.setEnabled(false);
+                suggestR.setChecked(false);
+            }
+
+            //Text view that gets the card that was shown and displays it
+            messageTextView.setText("Card: " + recentState.getCardToShow(playerNum));
+            //Text view that gets the player who showed the card and displays it
+            message2TextView.setText("Shown By: " + setPlayerWhoShowedCardName(recentState.getPlayerWhoShowedCard()));
+            //Text view that gets the suggestion and displays it
+            suggestionTextView.setText(setSuggestionText(recentState.getPlayerIDWhoSuggested()));
+            //Text view that gets the current player's ID and displays it
+
+            if (recentState.getTurnId() == 0) {
+                turnTextView.setText("Turn: Miss Scarlet");
+            }
+            else if (recentState.getTurnId() == 1) {
+                turnTextView.setText("Turn: Col. Mustard");
+            }
+            else if (recentState.getTurnId() == 2) {
+                turnTextView.setText("Turn: Mrs. White");
+            }
+            else if (recentState.getTurnId() == 3) {
+                turnTextView.setText("Turn: Mr. Green");
+            }
+            else if (recentState.getTurnId() == 4) {
+                turnTextView.setText("Turn: Mrs. Peacock");
+            }
+            else if (recentState.getTurnId() == 5) {
+                turnTextView.setText("Turn: Prof. Plum");
+            }
+            else {
+                turnTextView.setText("Turn: ");
+            }
+
+            //updates the board
+            boardView.updateBoard(recentState.getBoard());
+            boardView.invalidate();
+            //Updates the cards
+            cardView.updateCards(recentState.getCards(playerNum));
+            cardView.invalidate();
+            //Updates the remaining moves a player has.
+            if (recentState.getInRoom()[playerNum]) {
+                //if there are no moves left, set it equal to zero
+                if (recentState.getDieValue() - recentState.getSpacesMoved() == 0 ) {
+                    numberOfMovesLeft.setText(0 + "");
+                }
+                //set it equal to 1 when they enter a room so they can continue to move around
+                else {
+                    numberOfMovesLeft.setText(1 + "");
+                }
+            }
+            //set equal to the number of moves left
+            else {
+                numberOfMovesLeft.setText(recentState.getDieValue() - recentState.getSpacesMoved() + "");
+            }
+        }
+    }
+
+    @Override
+    public void recieveInfoInitial(GameInfo info)
+    {
         //Assign and display the correct character for the human player if the name is not set already
         //This is displayed in the playerTextView
         if(info instanceof ClueState) {
@@ -432,19 +661,14 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
                 disableSpinners();
             }
 
-            //Log.i("New to room = " + recentState.getNewToRoom(playerNum), " ");
-            //Log.i("Room = " + room[playerNum], " ");
-
             //If a player was in a room, was new to the room and the show card radio wasn't enabled,
             //then set the suggest to true
             if (room[playerNum] && recentState.getNewToRoom(playerNum) && !showCardR.isEnabled() && recentState.getTurnId() == playerNum && !(recentState.getOnDoorTile())[playerNum]) {
-                //Log.i("Got to suggest if", " ");
                 suggestR.setEnabled(true);
                 suggestR.setChecked(false);
             }
             //If they are not, then the player cannot suggest
             else {
-                //Log.i("Got to suggest else", " " + this.getPlayerID());
                 suggestR.setEnabled(false);
                 suggestR.setChecked(false);
             }
@@ -485,6 +709,81 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
             //Updates the cards
             cardView.updateCards(recentState.getCards(playerNum));
             cardView.invalidate();
+            //Sets the checkboxes to be checked if we have this card in our hand at startup
+
+            Hand h = recentState.getCards(playerNum);
+            Card[] crd = h.getCards();
+            for(int i = 0; i <crd.length;i++){
+                int id = crd[i].getPlayerID();
+                switch(id){
+                    case 0:
+                        this.hallCheck.callOnClick();
+                        break;
+                    case 1:
+                        this.billiardRoomCheck.callOnClick();
+                        break;
+                    case 2:
+                        this.ballroomCheck.callOnClick();
+                        break;
+                    case 3:
+                        this.diningRoomCheck.callOnClick();
+                        break;
+                    case 4:
+                        this.studyCheck.callOnClick();
+                        break;
+                    case 5:
+                        this.conservatoryCheck.callOnClick();
+                        break;
+                    case 6:
+                        this.libraryCheck.callOnClick();
+                        break;
+                    case 7:
+                        this.loungeCheck.callOnClick();
+                        break;
+                    case 8:
+                        this.kitchenCheck.callOnClick();
+                        break;
+                    case 9:
+                        this.ropeCheck.callOnClick();
+                        break;
+                    case 10:
+                        this.knifeCheck.callOnClick();
+                        break;
+                    case 11:
+                        this.wrenchCheck.callOnClick();
+                        break;
+                    case 12:
+                        this.leadPipeCheck.callOnClick();
+                        break;
+                    case 13:
+                        this.candlestickCheck.callOnClick();
+                        break;
+                    case 14:
+                        this.revolverCheck.callOnClick();
+                        break;
+                    case 15:
+                        this.mrGreenCheck.callOnClick();
+                        break;
+                    case 16:
+                        this.mrsPeacockCheck.callOnClick();
+                        break;
+                    case 17:
+                        this.mrsWhiteCheck.callOnClick();
+                        break;
+                    case 18:
+                        this.colonelMustardCheck.callOnClick();
+                        break;
+                    case 19:
+                        this.missScarletCheck.callOnClick();
+                        break;
+                    case 20:
+                        this.professorPlumCheck.callOnClick();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
             //Updates the remaining moves a player has.
             if (recentState.getInRoom()[playerNum]) {
                 //if there are no moves left, set it equal to zero
@@ -604,10 +903,8 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
 
             //If they are on a door tile, do not let them submit a suggestion
             //This will prevent a player from ending their turn on a door tile and blocking the entrance of the room
-            //Log.i("On door: " + recentState.getOnDoorTile()[playerNum], " ");
             if(recentState.getOnDoorTile()[playerNum])
             {
-                //Log.i("On door: " + recentState.getOnDoorTile()[playerNum], " ");
                 submitButton.setEnabled(false);
             }
             else
@@ -659,7 +956,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
                 suggest.room = roomSelect;
                 suggest.weapon = weaponSelect;
                 suggest.suspect = suspectSelect;
-                //Log.i("suggest action sent", " ");
                 game.sendAction(suggest);
 
                 //Enable only the show card
@@ -687,7 +983,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
                 accuse.weapon = weaponSelect;
                 accuse.suspect = suspectSelect;
                 accuseR.setEnabled(false);
-                //Log.i("accuse action sent", " ");
                 game.sendAction(accuse);
             }
             //If the show card is checked
@@ -720,7 +1015,6 @@ public class ClueHumanPlayer extends GameHumanPlayer implements CluePlayer, View
         //Disable all the GUI buttons and send the endTurn action to the game
         else if (view == endTurnButton) {
             ClueEndTurnAction endTurn = new ClueEndTurnAction(this);
-            //Log.i("You clicked End Turn", "YAY");
             disableActionButtons();
             suggestR.setEnabled(false);
             accuseR.setEnabled(false);

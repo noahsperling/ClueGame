@@ -12,7 +12,8 @@ import edu.up.cs301.game.infoMsg.GameState;
  */
 
 public class ClueState extends GameState implements Serializable{
-
+    //Tag for logging
+    private static final String TAG = "ClueState";
     //instance variables
     private int turnID; //the ID of the player whose turn it is
     private int numPlayers; //the number of players in the game

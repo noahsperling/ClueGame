@@ -6,12 +6,15 @@ import java.util.ArrayList;
 
 import edu.up.cs301.game.config.GameConfig;
 import edu.up.cs301.game.config.GamePlayerType;
+import edu.up.cs301.game.util.Logger;
 
 /**
  * Created by Noah on 11/13/2016.
  */
 
 public class ClueMainActivity extends GameMainActivity {
+    //Tag for logging
+    private static final String TAG = "ClueMainActivity";
 
     public static final int PORT_NUMBER = 6732;
 
@@ -35,23 +38,24 @@ public class ClueMainActivity extends GameMainActivity {
         Types of players declared: Human, dumb computer player and smart computer player
          */
         //Human player
-        playerTypes.add(new GamePlayerType("Human Player") {
+        playerTypes.add(new GamePlayerType(getString(R.string.Human_Player_Name)) {
             public GamePlayer createPlayer(String name) {
                 return new ClueHumanPlayer(name, R.layout.game_clue_gui);
             }
         });
         //Dumb Computer player
-        playerTypes.add(new GamePlayerType("Computer Player (dumb)") {
+        playerTypes.add(new GamePlayerType(getString(R.string.Computer_Dumb_Name)) {
             public GamePlayer createPlayer(String name) {
                 return new ClueComputerPlayerDumb(name);
             }
         });
         //Smart Computer Player
-        playerTypes.add(new GamePlayerType("Computer Player (smart)") {
+        playerTypes.add(new GamePlayerType(getString(R.string.Computer_Smart_Name)) {
             public GamePlayer createPlayer(String name) {
                 return new ClueComputerPlayerSmart(name);
             }
         });
+
 
         // Default Game config is created, taking in the playerTypes  minimum (3) players, maximum (6) players, and port number
         GameConfig defaultConfig = new GameConfig(playerTypes, 3, 6, "Clue", PORT_NUMBER);

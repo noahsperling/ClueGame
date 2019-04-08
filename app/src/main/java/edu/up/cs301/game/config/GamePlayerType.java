@@ -15,7 +15,8 @@ import edu.up.cs301.game.GamePlayer;
  */
 
 public abstract class GamePlayerType implements Cloneable /*, Serializable*/ {
-
+	//Tag for logging
+	private static final String TAG = "GamePlayerType";
 //	/** satisfy the Serializable interface */
 //	private static final long serialVersionUID = 01072013L;
 

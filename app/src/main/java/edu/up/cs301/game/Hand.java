@@ -8,6 +8,8 @@ import java.util.ArrayList;
  */
 
 public class Hand implements Serializable {
+    //Tag for logging
+    private static final String TAG = "Hand";
     private ArrayList<Card> cards;
     private static final long serialVersionUID = 274627421961754662L;
 

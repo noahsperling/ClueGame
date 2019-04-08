@@ -29,6 +29,7 @@ import static edu.up.cs301.game.Card.PROF_PLUM;
 import static edu.up.cs301.game.Card.STUDY;
 import static edu.up.cs301.game.Type.ROOM;
 import static edu.up.cs301.game.Type.WEAPON;
+import edu.up.cs301.game.util.Logger;
 
 /**
  * Created by Noah on 10/25/2016.
@@ -41,7 +42,8 @@ import static edu.up.cs301.game.Type.WEAPON;
 
 public class ClueLocalGame extends LocalGame
 {
-
+    //Tag for logging 
+    private static final String TAG = "ClueLocalGame";
     ClueMoveAction moveAction;
     ClueState state;
     private Random rand;
@@ -215,7 +217,7 @@ public class ClueLocalGame extends LocalGame
                                     {
                                         state.setOnDoorTile(curPlayerID, false);
                                     }
-                                    Log.i("New to room="+state.getNewToRoom(curPlayerID), " ");
+                                    Logger.log("New to room="+state.getNewToRoom(curPlayerID), " ");
                                     return true;
                                 }
                                 else //Otherwise they're moving to a hallway.
@@ -675,7 +677,7 @@ public class ClueLocalGame extends LocalGame
                     {
                         if (curBoard[x][y].getRoom() == LOUNGE) //If they are in the lounge, move them to the conservatory
                         {
-                            Log.i("Got to lounge if", " ");
+                            Logger.log("Got to lounge if", " ");
                             setStateVariablesSuggestion(curPlayerID, false, true);
                             setStateVariablesMove(curPlayerID, 22, 1+curPlayerID, x, y, true, false, true, true, true);
                             return true;
@@ -721,7 +723,7 @@ public class ClueLocalGame extends LocalGame
                         return false;
                     }
 
-                    Log.i("Player Still in Game" + state.getPlayerStillInGame(curPlayerID), " ");
+                    Logger.log("Player Still in Game" + state.getPlayerStillInGame(curPlayerID), " ");
                     //If the player has lost the game but other players are still playing, just
                     //continue the turn rotation
                     if (!state.getPlayerStillInGame(curPlayerID))
@@ -880,6 +882,62 @@ public class ClueLocalGame extends LocalGame
 
     @Override
     /**
+     * This method will send an updated state to a specified player
+     * @param p GamePlayer the state is being sent to
+     */
+    public void sendUpdatedStateToInitial(GamePlayer p)
+    {
+        ClueState sendState = new ClueState(state);
+        if(p instanceof ClueHumanPlayer) //If the player is a human player
+        {
+            ClueHumanPlayer player = (ClueHumanPlayer)p;
+            int playerCount = sendState.getNumPlayers(); //get number of players
+            for(int i = 0; i < playerCount; i++)
+            {
+                if(i != player.getPlayerID()) //If the player the state is being sent to is not the current player
+                {
+                    sendState.setCards(i, null); //Set the cards in other players hands to null so the current player does not have access to them
+                }
+            }
+
+            ((ClueHumanPlayer) p).sendInfoInitial(sendState); //Send the state to the player
+        }
+        else if(p instanceof ClueComputerPlayerDumb)
+        {
+            ClueComputerPlayerDumb player = (ClueComputerPlayerDumb)p;
+            int playerCount = sendState.getNumPlayers(); //get number of players
+            for(int i = 0; i < playerCount; i++)
+            {
+                if(i != player.getPlayerID()) //If the player the state is being sent to is not the current player
+                {
+                    sendState.setCards(i, null); //Set the cards in other players hands to null so the current player does not have access to them
+                }
+            }
+
+            p.sendInfo(sendState); //Send the state to the player
+        }
+        else if(p instanceof ClueComputerPlayerSmart)
+        {
+            ClueComputerPlayerSmart player = (ClueComputerPlayerSmart)p;
+            int playerCount = sendState.getNumPlayers(); //get number of players
+            for(int i = 0; i < playerCount; i++)
+            {
+                if(i != player.getPlayerID()) //If the player the state is being sent to is not the current player
+                {
+                    sendState.setCards(i, null); //Set the cards in other players hands to null so the current player does not have access to them
+                }
+            }
+
+            p.sendInfo(sendState); //Send the state to the player
+        }
+    }
+
+
+
+
+
+    @Override
+    /**
      * This method will check if a player has won the game, either because they have made a
      * correct accusation or because they are the only player left in the game.
      */
@@ -933,7 +991,7 @@ public class ClueLocalGame extends LocalGame
         }
         else //Otherwise a player has won by making a correct accusation
         {
-            Log.i("Game", "Over");
+            Logger.log("Game", "Over");
             String gameOverMessage = "Game Over";
 
             //Match the players index with what character they are so correct message is printed to screen

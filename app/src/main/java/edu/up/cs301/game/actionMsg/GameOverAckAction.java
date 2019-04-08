@@ -9,7 +9,8 @@ import edu.up.cs301.game.GamePlayer;
  * @version July 2013
  */
 public class GameOverAckAction extends GameAction {
-
+	//Tag for logging
+	private static final String TAG = "GameOverAckAction";
 	// to satisfy the Serializable interface
 	private static final long serialVersionUID = 4096230060363451102L;
 

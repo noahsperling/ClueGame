@@ -1,5 +1,9 @@
 <resources>
+    <!--This is the theme the App uses as its default. You can change the style here if you choose.
+    NOTE: You must have Android SDK Version 14+ to use these themes.-->
+    <style name="AppTheme" parent="android:Theme.Holo.Light" />
 
-    <style name="AppTheme" parent="android:Theme.Light" />
-
+    <!-- The theme below is identical to the above theme, but has a dark grey/black theme. If you
+    wish to use it, simply comment out the above theme and uncomment this one.-->
+    <!--<style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar" />-->
 </resources>

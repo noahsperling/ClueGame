@@ -5,7 +5,10 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 
+import android.content.res.Resources;
 import android.util.Log;
+
+import edu.up.cs301.game.R;
 
 /**
  * Helper-class to encode and decode IP addresses to/from a format that is
@@ -16,7 +19,8 @@ import android.util.Log;
  *
  */
 public class IPCoder {
-	
+	//Tag for logging
+	private static final String TAG = "IPCoder";
 	/**
 	 * gets the IP address of the current device
 	 * 
@@ -40,9 +44,10 @@ public class IPCoder {
 				}
 			}
 		} catch (SocketException ex) {
-			Log.e("IPCoder"/*this.toString()*/, ex.toString());
+			//Log.e("IPCoder"/*this.toString()*/, ex.toString());
+			Logger.log("IPCoder"/*this.toString()*/, ""+ex.toString(), Logger.ERROR);
 		}
-		return "Unable to determine UP address.";
+		return "Unable to determine IP address";
 	}
 	
 	/**
